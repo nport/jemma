@@ -205,5 +205,9 @@ public class Utils {
 		}
 		return copy;
 	}
+	
+	public static <T> T clone(T o) {
+		return o;
+	}
 
 }

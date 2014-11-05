@@ -18,6 +18,7 @@ package org.energy_home.jemma.javagal.layers.object;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.energy_home.jemma.javagal.layers.business.Utils;
 import org.energy_home.jemma.javagal.layers.data.implementations.IDataLayerImplementation.DataFreescale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,9 +50,9 @@ public class Mgmt_LQI_rsp {
 			_NeighborTableListCount = (short) (data[4] & 0xFF);
 			if (_NeighborTableListCount > 0) {
 				NeighborTableList = new ArrayList<NeighborTableLis_Record>();
-				byte[] _newData = org.energy_home.jemma.javagal.layers.business.Utils.copyOfRange(data, 5, data.length);
+				byte[] _newData = Utils.copyOfRange(data, 5, data.length);
 				for (int i = 0; i < _NeighborTableListCount; i++) {
-					byte[] _newData_i = org.energy_home.jemma.javagal.layers.business.Utils.copyOfRange(_newData, (22 * i), 22 * (i + 1));
+					byte[] _newData_i = Utils.copyOfRange(_newData, (22 * i), 22 * (i + 1));
 					NeighborTableList.add(new NeighborTableLis_Record(_newData_i));
 				}
 			} else {

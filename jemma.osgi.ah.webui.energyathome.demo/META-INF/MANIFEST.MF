@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-Category: Automation@Home
 Bundle-ManifestVersion: 2
 Bundle-Name: Energy@Home Web Application Demo
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-SymbolicName: jemma.osgi.ah.webui.energyathome.demo
 Bundle-Vendor: Telecom Italia
 Bundle-Version: 1.0.44
@@ -11,11 +11,11 @@ Import-Package: javax.security.auth.login,javax.servlet;version="[2.5,3)
  ",javax.servlet.http;version="[2.5,3)",org.apache.commons.logging;versi
  on="[1.1,2)",org.energy_home.jemma.ah.hac;version="[3.0,4)",org.energy_
  home.jemma.hac.adapter.http;version="[2.0,3)",org.jabsorb;version="1.3.
- 1",org.json,org.osgi.framework;version="1.3.0",org.osgi.service.compone
- nt;version="[1.1,2)",org.osgi.service.event;version="[1.2,2)",org.osgi.
- service.http;version="[1.2,2)",org.osgi.service.useradmin;version="1.1.
- 0",org.osgi.util.tracker;version="[1.4,2)",org.slf4j;version="[1.7.7,2)
- "
+ 1",org.json,org.osgi.framework;version="[1.5,2.0)",org.osgi.service.com
+ ponent;version="[1.1,2.0)",org.osgi.service.event;version="[1.2,2.0)",o
+ rg.osgi.service.http;version="[1.2,2.0)",org.osgi.service.useradmin;ver
+ sion="[1.1,2.0)",org.osgi.util.tracker;version="[1.4,2.0]",org.slf4j;ve
+ rsion="[1.6,2)"
 Include-Resource: OSGI-INF/energyathome.xml=OSGI-INF/energyathome.xml,OS
  GI-INF/metatype/metatype.xml=OSGI-INF/metatype/metatype.xml,webapp/ehde
  mo/conf/confParamNoServer.html=src/main/resources/webapp/ehdemo/conf/co
@@ -1633,8 +1633,8 @@ Private-Package: webapp.ehdemo.js.jquery,org.energy_home.jemma.ah.webui.
  bapp.ehdemo.reportDemo.Resources.Images.Devices,webapp.ehdemo.js.jqgaug
  e,webapp.ehdemo.reportDemo.js.libs,webapp.ehdemo.reportDemo.js.mylibs,w
  ebapp.ehdemo.reportDemo,webapp.ehdemo.conf.js,webapp.ehdemo.js.jqspeedo
- meter.images,webapp.ehdemo.Resources.Images,webapp.ehdemo.js.dispositiv
- i,webapp.ehdemo.js.jqspeedometer,webapp.ehdemo.reportDemo.css.e@h-theme
+ meter.images,webapp.ehdemo.js.jqspeedometer,webapp.ehdemo.Resources.Ima
+ ges,webapp.ehdemo.js.dispositivi,webapp.ehdemo.reportDemo.css.e@h-theme
  ,webapp.ehdemo.reportDemo.css.e@h-theme.images,webapp.ehdemo.reportDemo
  .css
 Require-Bundle: jemma.osgi.ah.webui.base;bundle-version="2.0.2"

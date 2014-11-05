@@ -25,14 +25,11 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang3.SerializationUtils;
 import org.energy_home.jemma.javagal.layers.PropertiesManager;
 import org.energy_home.jemma.javagal.layers.business.implementations.ApsMessageManager;
+import org.energy_home.jemma.javagal.layers.business.implementations.CreateExecutors;
 import org.energy_home.jemma.javagal.layers.business.implementations.Discovery_Freshness_ForcePing;
 import org.energy_home.jemma.javagal.layers.business.implementations.GatewayEventManager;
 import org.energy_home.jemma.javagal.layers.business.implementations.MessageManager;
@@ -168,7 +165,6 @@ public class GalController {
 			DataLayer = new DataFreescale(this);
 			DataLayer.initialize();
 			try {
-
 				DataLayer.getIKeyInstance().initialize();
 			} catch (Exception e) {
 				DataLayer.getIKeyInstance().disconnect();
@@ -343,19 +339,8 @@ public class GalController {
 		manageMapPanId = new ManageMapPanId(this);
 		_lockerStartDevice = new ParserLocker();
 		_discoveryManager = new Discovery_Freshness_ForcePing(this);
-		executor = Executors.newFixedThreadPool(getPropertiesManager().getNumberOfThreadForAnyPool(), new ThreadFactory() {
-
-			@Override
-			public Thread newThread(Runnable r) {
-
-				return new Thread(r, "THPool-GalController");
-			}
-		});
-
-		if (executor instanceof ThreadPoolExecutor) {
-			((ThreadPoolExecutor) executor).setKeepAliveTime(getPropertiesManager().getKeepAliveThread(), TimeUnit.MINUTES);
-			((ThreadPoolExecutor) executor).allowCoreThreadTimeOut(true);
-		}
+		
+		executor = CreateExecutors.createThreadPoolExecutor("THPool-GalController", _properties.getNumberOfThreadForAnyPool(), _properties.getKeepAliveThread() * 60);
 		initializeGAL();
 	}
 
@@ -513,7 +498,7 @@ public class GalController {
 		} else {
 			short result = DataLayer.configureEndPointSync(timeout, desc);
 			lastEndPoint = desc;
-			return SerializationUtils.clone(result);
+			return Utils.clone(result);
 		}
 	}
 
@@ -544,7 +529,7 @@ public class GalController {
 				}
 			}
 		}
-		return SerializationUtils.clone(result);
+		return Utils.clone(result);
 	}
 
 	/**
@@ -566,7 +551,7 @@ public class GalController {
 					list.getNodeServices().add(o.get_nodeServices());
 			}
 		}
-		return SerializationUtils.clone(list);
+		return Utils.clone(list);
 	}
 
 	/**
@@ -602,7 +587,7 @@ public class GalController {
 				if (x.is_discoveryCompleted())
 					_list.getWSNNode().add(x.get_node());
 			}
-			return SerializationUtils.clone(_list);
+			return Utils.clone(_list);
 		}
 	}
 
@@ -625,7 +610,7 @@ public class GalController {
 			}
 		}
 		_list.setNumberOfAlias(counter);
-		return SerializationUtils.clone(_list);
+		return Utils.clone(_list);
 	}
 
 	/**
@@ -677,8 +662,7 @@ public class GalController {
 
 				_lqi.getLQINode().add(_lqinode);
 			}
-			return SerializationUtils.clone(_lqi);
-
+			return Utils.clone(_lqi);
 		} else
 			throw new Exception("Address not found!");
 
@@ -732,7 +716,7 @@ public class GalController {
 				}
 			}
 		}
-		return SerializationUtils.clone(_lqi);
+		return Utils.clone(_lqi);
 	}
 
 	/**
@@ -827,7 +811,7 @@ public class GalController {
 				x = getFromNetworkCache(x);
 				if (x != null)
 					x.setNodeDescriptor(nodeDescriptor);
-				return SerializationUtils.clone(nodeDescriptor);
+				return Utils.clone(nodeDescriptor);
 			} else
 				throw new GatewayException("Gal is not in running state!");
 		}
@@ -978,7 +962,7 @@ public class GalController {
 				}
 				throw new GatewayException(message);
 			}
-			return SerializationUtils.clone(_status);
+			return Utils.clone(_status);
 
 		}
 
@@ -1071,7 +1055,7 @@ public class GalController {
 			_s.setMessage("Reset Done");
 			initializeGAL();
 			get_gatewayEventManager().notifyResetResult(_s);
-			return SerializationUtils.clone(_s);
+			return Utils.clone(_s);
 		}
 
 	}
@@ -1146,7 +1130,7 @@ public class GalController {
 				String message = "Trying to stop Gateway Device in " + getGatewayStatus() + " state.";
 				throw new GatewayException(message);
 			}
-			return SerializationUtils.clone(_status);
+			return Utils.clone(_status);
 
 		}
 	}
@@ -1382,7 +1366,7 @@ public class GalController {
 					x.set_nodeServices(_newNodeService);
 				}
 
-				return SerializationUtils.clone(_newNodeService);
+				return Utils.clone(_newNodeService);
 			} else
 				throw new GatewayException("Gal is not in running state!");
 		}
@@ -1409,7 +1393,7 @@ public class GalController {
 			if (ce.getProxyIdentifier() == requestIdentifier)
 				toReturn.getCallbackIdentifier().add(ce.getCallbackIdentifier());
 		}
-		return SerializationUtils.clone(toReturn);
+		return Utils.clone(toReturn);
 	}
 
 	/**
@@ -1624,7 +1608,7 @@ public class GalController {
 						}
 					}
 					
-					return SerializationUtils.clone(_s);
+					return Utils.clone(_s);
 				} else
 					throw new GatewayException("Is not possible Leave the GAL!");
 			} else
@@ -1765,7 +1749,7 @@ public class GalController {
 				try {
 					_s = DataLayer.permitJoinSync(timeout, addrOfInterest, duration, (byte) 0x00);
 					get_gatewayEventManager().notifypermitJoinResult(_s);
-					return SerializationUtils.clone(_s);
+					return Utils.clone(_s);
 				} catch (IOException e) {
 					Status _s1 = new Status();
 					_s1.setCode((short) GatewayConstants.GENERAL_ERROR);
@@ -1849,7 +1833,7 @@ public class GalController {
 
 				Status _s = DataLayer.permitJoinAllSync(timeout, _add, duration, (byte) 0x00);
 				get_gatewayEventManager().notifypermitJoinResult(_s);
-				return SerializationUtils.clone(_s);
+				return Utils.clone(_s);
 			} else
 				throw new GatewayException("Gal is not in running state!");
 		}
@@ -1986,7 +1970,7 @@ public class GalController {
 		org.osgi.framework.Version version = FrameworkUtil.getBundle(GalController.class).getVersion();
 		v.setManufacturerVersion(version.getMajor() + "." + version.getMinor() + "." + version.getMicro());
 		v.getRPCProtocol().add(RPCProtocol.REST);
-		return SerializationUtils.clone(v);
+		return Utils.clone(v);
 	}
 
 	/**
@@ -2221,7 +2205,7 @@ public class GalController {
 	 */
 	public Status clearEndpoint(short endpoint) throws IOException, Exception, GatewayException {
 		Status _s = DataLayer.clearEndpointSync(getPropertiesManager().getCommandTimeoutMS(), endpoint);
-		return SerializationUtils.clone(_s);
+		return Utils.clone(_s);
 	}
 
 	/**
@@ -2313,7 +2297,7 @@ public class GalController {
 				ServiceDescriptor _toRes;
 				_toRes = DataLayer.getServiceDescriptor(timeout, addrOfInterest, endpoint);
 				_toRes.setAddress(addrOfInterest);
-				return SerializationUtils.clone(_toRes);
+				return Utils.clone(_toRes);
 			} else
 				throw new GatewayException("Gal is not in running state!");
 
@@ -2384,7 +2368,7 @@ public class GalController {
 			if (getGatewayStatus() == GatewayStatus.GW_RUNNING) {
 				BindingList _toRes;
 				_toRes = DataLayer.getNodeBindings(timeout, aoi, index);
-				return SerializationUtils.clone(_toRes);
+				return Utils.clone(_toRes);
 			} else
 				throw new GatewayException("Gal is not in running state!");
 
@@ -2448,7 +2432,7 @@ public class GalController {
 		} else {
 			if (getGatewayStatus() == GatewayStatus.GW_RUNNING)
 
-				return SerializationUtils.clone(DataLayer.addBinding(timeout, binding, aoi));
+				return Utils.clone(DataLayer.addBinding(timeout, binding, aoi));
 			else
 				throw new GatewayException("Gal is not in running state!");
 		}
@@ -2510,7 +2494,7 @@ public class GalController {
 		} else {
 			if (getGatewayStatus() == GatewayStatus.GW_RUNNING)
 
-				return SerializationUtils.clone(DataLayer.removeBinding(timeout, binding, aoi));
+				return Utils.clone(DataLayer.removeBinding(timeout, binding, aoi));
 			else
 				throw new GatewayException("Gal is not in running state!");
 		}
@@ -2570,7 +2554,7 @@ public class GalController {
 		} else {
 			if (getGatewayStatus() == GatewayStatus.GW_RUNNING) {
 				Status _st = DataLayer.frequencyAgilitySync(timeout, scanChannel, scanDuration);
-				return SerializationUtils.clone(_st);
+				return Utils.clone(_st);
 			} else
 				throw new GatewayException("Gal is not in running state!");
 		}

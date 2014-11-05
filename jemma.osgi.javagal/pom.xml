@@ -51,15 +51,14 @@
 						<Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Bundle-Vendor>Telecom Italia</Bundle-Vendor>
-						<Bundle-RequiredExecutionEnvironment>JavaSE-1.6</Bundle-RequiredExecutionEnvironment>
+						<Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>
 						<Bundle-Activator>org.energy_home.jemma.javagal.layers.presentation.Activator</Bundle-Activator>
 						<Import-Package>
-							gnu.io;version="1.0.0";resolution:=optional,
-							org.apache.commons.lang3;version="3.3.2",
+							gnu.io;resolution:=optional,
 							jssc;resolution:=optional,
-							org.slf4j;version="[1.7.7,2)",
-							org.osgi.framework,
-							org.osgi.util.tracker;version="1.4.2",*
+							org.slf4j;version="[1.6,2)",
+							org.osgi.framework; version="[1.5,2.0)",
+							org.osgi.util.tracker;version="[1.4,2.0]",*
 						</Import-Package>
 						<Export-Package>org.energy_home.jemma.zgd;version="1.4.1",
 							org.energy_home.jemma.zgd.jaxb;version="1.0.4"

@@ -62,6 +62,9 @@ public class SerialPortConnectorJssc implements IConnector {
 	 *             if an error occurs.
 	 */
 	public SerialPortConnectorJssc(String _portName, int _boudRate, IDataLayer _DataLayer) throws Exception {
+		// The Skelmir JVM seems to require this to rise an Exception in case the 
+		// jSSC lib is missing
+		SerialPort.class.getName();
 		DataLayer = _DataLayer;
 		commport = _portName;
 		boudrate = _boudRate;
@@ -145,7 +148,6 @@ public class SerialPortConnectorJssc implements IConnector {
 	/**
 	 * @inheritDoc
 	 */
-	@Override
 	public boolean isConnected() {
 		return connected;
 	}
@@ -154,7 +156,6 @@ public class SerialPortConnectorJssc implements IConnector {
 	 * @throws SerialPortException
 	 * @inheritDoc
 	 */
-	@Override
 	public void disconnect() throws SerialPortException {
 		setConnected(false);
 		serialReader = null;

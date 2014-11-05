@@ -9,8 +9,8 @@ Bundle-SymbolicName: jemma.osgi.ah.upnp.energyathome
 Bundle-Vendor: Telecom Italia
 Bundle-Version: 1.0.1
 Created-By: Apache Maven Bundle Plugin
-Import-Package: org.osgi.framework;version="[1.5,2)",org.osgi.service.de
- vice;version="[1.1,2)",org.osgi.service.upnp;version="[1.1,2)"
+Import-Package: org.osgi.framework;version="[1.5,2.0)",org.osgi.service.
+ device;version="[1.1,2.0)",org.osgi.service.upnp;version="[1.1,2.0)"
 Include-Resource: OSGI-INF/hac_upnp.xml=OSGI-INF/hac_upnp.xml,image/icon
  .gif=src/main/resources/image/icon.gif
 Private-Package: image,org.energy_home.jemma.ah.upnp.energyathome

@@ -16,13 +16,10 @@
 package org.energy_home.jemma.javagal.layers.business.implementations;
 
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang3.SerializationUtils;
+import org.energy_home.jemma.javagal.layers.PropertiesManager;
 import org.energy_home.jemma.javagal.layers.business.GalController;
+import org.energy_home.jemma.javagal.layers.business.Utils;
 import org.energy_home.jemma.javagal.layers.object.CallbackEntry;
 import org.energy_home.jemma.zgd.APSMessageListener;
 import org.energy_home.jemma.zgd.MessageListener;
@@ -67,22 +64,8 @@ public class ApsMessageManager {
 	 */
 	public ApsMessageManager(GalController _gal) {
 		gal = _gal;
-
-		executor = Executors.newFixedThreadPool(getGal().getPropertiesManager().getNumberOfThreadForAnyPool(), new ThreadFactory() {
-
-			@Override
-			public Thread newThread(Runnable r) {
-
-				return new Thread(r, "THPool-APSMessageIndication");
-			}
-		});
-
-		if (executor instanceof ThreadPoolExecutor) {
-			((ThreadPoolExecutor) executor).setKeepAliveTime(getGal().getPropertiesManager().getKeepAliveThread(), TimeUnit.MINUTES);
-			((ThreadPoolExecutor) executor).allowCoreThreadTimeOut(true);
-
-		}
-
+		PropertiesManager pm = gal.getPropertiesManager();
+		executor = CreateExecutors.createThreadPoolExecutor("THPool-processMessages", pm.getNumberOfThreadForAnyPool(), pm.getKeepAliveThread() * 60);
 	}
 
 	/**
@@ -283,7 +266,7 @@ public class ApsMessageManager {
 						if (napml != null) {
 							APSMessageEvent cmessage = null;
 							synchronized (message) {
-								cmessage = SerializationUtils.clone(message);
+								cmessage = Utils.clone(message);
 							}
 							if (getGal().getPropertiesManager().getDebugEnabled()) {
 								LOG.info("READY to CallBack NotifyApsMessage:" + ((cmessage.getDestinationAddress().getNetworkAddress() != null) ? String.format("%04X", cmessage.getDestinationAddress().getNetworkAddress()) : ""));

@@ -35,30 +35,25 @@ public class HttpBinder implements EventHandler, HttpServletBinder {
 	public HttpBinder() {
 	}
 
-	@Override
 	public void bind(HttpImplementor implementor) {
 		this.implementor = implementor;
 	}
 
-	@Override
 	public Object invokeMethod(Object targetObject, String methodName, ArrayList paramValues) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public Object getImplementor() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public void handleEvent(Event arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public Object getObjectByPid(String pid) {
 		// TODO Auto-generated method stub
 		return null;

@@ -46,7 +46,7 @@
 						<Bundle-ManifestVersion>2</Bundle-ManifestVersion>
 						<Bundle-Name>${project.name}</Bundle-Name>
 						<Bundle-Version>${project.version}</Bundle-Version>
-						<Import-Package>org.osgi.service.http,*
+						<Import-Package>org.osgi.service.http;version="[1.2,2.0)",*
 						</Import-Package>
 						<Export-Package>!*
 						</Export-Package>

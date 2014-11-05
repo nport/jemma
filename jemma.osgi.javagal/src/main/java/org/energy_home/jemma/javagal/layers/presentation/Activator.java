@@ -46,7 +46,6 @@ public class Activator implements BundleActivator {
 
 	private GatewayFactoryServiceFactory gatewayFactoryServiceFactory;
 
-	@Override
 	public void start(BundleContext context) throws Exception {
 		LOG.info("Starting Gal:Osgi...");
 		bc = context;
@@ -54,6 +53,10 @@ public class Activator implements BundleActivator {
 			String _path = "config.properties";
 
 			LOG.info("FILE Conf: " + _path);
+			
+			System.setProperty(GatewayProperties.ZGD_DONGLE_TYPE_PROP_NAME, "freescale");
+			System.setProperty(GatewayProperties.ZGD_DONGLE_URI_PROP_NAME, "ttyUSB0");
+			System.setProperty(GatewayProperties.ZGD_DONGLE_SPEED_PROP_NAME, "115200");
 
 			PropertiesManager PropertiesManager = new PropertiesManager(bc.getBundle().getResource(_path));
 
@@ -89,10 +92,8 @@ public class Activator implements BundleActivator {
 		}
 	}
 
-	@Override
 	public void stop(BundleContext bundleContext) throws Exception {
 		if (_fac != null){
-
 			_fac.destroyGal();
 		}
 		if (gatewayInterfaceServiceFactory != null) {
@@ -118,8 +119,6 @@ public class Activator implements BundleActivator {
 	 */
 	public class GatewayInterfaceServiceFactory implements ServiceFactory {
 		GatewayInterface gatewayInterface = null;
-
-		@Override
 		public Object getService(Bundle bundle, ServiceRegistration reg) {
 			try {
 				gatewayInterface = _fac.createGatewayInterfaceObject();
@@ -131,7 +130,6 @@ public class Activator implements BundleActivator {
 			}
 		}
 
-		@Override
 		public void ungetService(Bundle bundle, ServiceRegistration reg, Object service) {
 			try {
 				((GalExtenderProxy) gatewayInterface).deleteProxy();
@@ -151,8 +149,6 @@ public class Activator implements BundleActivator {
 	 * object.
 	 */
 	public class GatewayFactoryServiceFactory implements ServiceFactory {
-
-		@Override
 		public Object getService(Bundle bundle, ServiceRegistration reg) {
 			try {
 				return _fac;
@@ -161,10 +157,8 @@ public class Activator implements BundleActivator {
 				return null;
 			}
 		}
-
-		@Override
+		
 		public void ungetService(Bundle bundle, ServiceRegistration reg, Object service) {
-
 		}
 	}
 

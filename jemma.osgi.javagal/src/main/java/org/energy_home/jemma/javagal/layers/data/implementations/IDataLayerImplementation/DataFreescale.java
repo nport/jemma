@@ -23,14 +23,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.energy_home.jemma.javagal.layers.PropertiesManager;
 import org.energy_home.jemma.javagal.layers.business.GalController;
 import org.energy_home.jemma.javagal.layers.business.Utils;
+import org.energy_home.jemma.javagal.layers.business.implementations.CreateExecutors;
 import org.energy_home.jemma.javagal.layers.data.implementations.SerialPortConnectorJssc;
 import org.energy_home.jemma.javagal.layers.data.implementations.SerialPortConnectorRxTx;
 import org.energy_home.jemma.javagal.layers.data.implementations.Utils.DataManipulation;
@@ -121,11 +119,14 @@ public class DataFreescale implements IDataLayer {
 		gal = _gal;
 		listLocker = Collections.synchronizedList(new LinkedList<ParserLocker>());
 		dataFromSerialComm = new ArrayBlockingQueue<ByteArrayObject>(SIZE_ARRAY);
+		
+		PropertiesManager pm = gal.getPropertiesManager();
+		
 		// we don't know in advance which comm library is installed into the
 		// system.
 		boolean foundSerialLib = false;
 		try {
-			dongleRs232 = new SerialPortConnectorJssc(getGal().getPropertiesManager().getzgdDongleUri(), getGal().getPropertiesManager().getzgdDongleSpeed(), this);
+			dongleRs232 = new SerialPortConnectorJssc(pm.getzgdDongleUri(), pm.getzgdDongleSpeed(), this);
 			foundSerialLib = true;
 		} catch (NoClassDefFoundError e) {
 			LOG.warn("jSSC not found");
@@ -134,34 +135,24 @@ public class DataFreescale implements IDataLayer {
 		if (!foundSerialLib) {
 
 			try { // then with jSSC
-				dongleRs232 = new SerialPortConnectorRxTx(getGal().getPropertiesManager().getzgdDongleUri(), getGal().getPropertiesManager().getzgdDongleSpeed(), this);
+				dongleRs232 = new SerialPortConnectorRxTx(pm.getzgdDongleUri(), pm.getzgdDongleSpeed(), this);
 				foundSerialLib = true;
 			} catch (NoClassDefFoundError e) {
 				LOG.warn("RxTx not found");
 			}
-
 		}
 
 		if (!foundSerialLib) {
 			throw new Exception("Error not found Rxtx or Jssc serial connector library");
 		}
-		INTERNAL_TIMEOUT = getGal().getPropertiesManager().getCommandTimeoutMS();
-		executor = Executors.newFixedThreadPool(getGal().getPropertiesManager().getNumberOfThreadForAnyPool(), new ThreadFactory() {
-			@Override
-			public Thread newThread(Runnable r) {
-
-				return new Thread(r, "THPool-processMessages");
-			}
-		});
-		if (executor instanceof ThreadPoolExecutor) {
-			((ThreadPoolExecutor) executor).setKeepAliveTime(getGal().getPropertiesManager().getKeepAliveThread(), TimeUnit.MINUTES);
-			((ThreadPoolExecutor) executor).allowCoreThreadTimeOut(true);
-		}
+		
+		INTERNAL_TIMEOUT = pm.getCommandTimeoutMS();
+		executor = CreateExecutors.createThreadPoolExecutor("THPool-processMessages", pm.getNumberOfThreadForAnyPool(), pm.getKeepAliveThread() * 60);
 	}
 
 	public void initialize() {
 		Thread thrAnalizer = new Thread() {
-			@Override
+			
 			public void run() {
 				while (!getDestroy()) {
 					try {
@@ -2339,7 +2330,7 @@ public class DataFreescale implements IDataLayer {
 							getGal().getNetworkcache().add(o);
 
 							Runnable thr = new MyRunnable(o) {
-								@Override
+								
 								public void run() {
 									WrapperWSNNode _newWrapperNode = (WrapperWSNNode) this.getParameter();
 									if ((_newWrapperNode = getGal().getFromNetworkCache(_newWrapperNode)) != null) {
@@ -2488,7 +2479,7 @@ public class DataFreescale implements IDataLayer {
 		return x;
 	}
 
-	@Override
+	
 	public Status APSME_SETSync(long timeout, short _AttID, String _value) throws GatewayException, Exception {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		_res.addByte((byte) _AttID);/* _AttId */
@@ -2531,7 +2522,7 @@ public class DataFreescale implements IDataLayer {
 
 	}
 
-	@Override
+	
 	public String APSME_GETSync(long timeout, short _AttID) throws Exception {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		_res.addByte((byte) _AttID);/* iId */
@@ -2580,7 +2571,6 @@ public class DataFreescale implements IDataLayer {
 
 	}
 
-	@Override
 	public String NMLE_GetSync(long timeout, short _AttID, short iEntry) throws Exception {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		_res.addByte((byte) _AttID);/* iId */
@@ -2629,7 +2619,6 @@ public class DataFreescale implements IDataLayer {
 
 	}
 
-	@Override
 	public Status stopNetworkSync(long timeout) throws Exception, GatewayException {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		_res.addByte((byte) 0x01);/*
@@ -2685,7 +2674,6 @@ public class DataFreescale implements IDataLayer {
 
 	}
 
-	@Override
 	public Status sendApsSync(long timeout, APSMessage message) throws Exception {
 		if (getGal().getPropertiesManager().getDebugEnabled()) {
 			LOG.info("Data_FreeScale.send_aps");
@@ -2755,7 +2743,7 @@ public class DataFreescale implements IDataLayer {
 		}
 	}
 
-	@Override
+	
 	public short configureEndPointSync(long timeout, SimpleDescriptor desc) throws IOException, Exception, GatewayException {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		_res.addByte(desc.getEndPoint().byteValue());/* End Point */
@@ -2942,7 +2930,6 @@ public class DataFreescale implements IDataLayer {
 		return _res;
 	}
 
-	@Override
 	public Status SetModeSelectSync(long timeout) throws IOException, Exception, GatewayException {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		_res.addByte((byte) 0x01);/* UART Tx Blocking */
@@ -2988,7 +2975,6 @@ public class DataFreescale implements IDataLayer {
 		return status;
 	}
 
-	@Override
 	public Status startGatewayDeviceSync(long timeout, StartupAttributeInfo sai) throws IOException, Exception, GatewayException {
 		Status _statWriteSas = WriteSasSync(timeout, sai);
 		if (_statWriteSas.getCode() == 0) {
@@ -3201,7 +3187,6 @@ public class DataFreescale implements IDataLayer {
 		}
 	}
 
-	@Override
 	public Status permitJoinSync(long timeout, Address addrOfInterest, short duration, byte TCSignificance) throws IOException, Exception, GatewayException {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		_res.addBytesShort(Short.reverseBytes(addrOfInterest.getNetworkAddress().shortValue()), 2);/*
@@ -3244,7 +3229,6 @@ public class DataFreescale implements IDataLayer {
 		return status;
 	}
 
-	@Override
 	public Status permitJoinAllSync(long timeout, Address addrOfInterest, short duration, byte TCSignificance) throws IOException, Exception {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		_res.addBytesShort(Short.reverseBytes(addrOfInterest.getNetworkAddress().shortValue()), 2);/*
@@ -3270,7 +3254,7 @@ public class DataFreescale implements IDataLayer {
 		return status;
 	}
 
-	@Override
+	
 	public short getChannelSync(long timeout) throws IOException, Exception, GatewayException {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		_res = Set_SequenceStart_And_FSC(_res, FreescaleConstants.ZTCGetChannelRequest);// StartSequence
@@ -3309,7 +3293,7 @@ public class DataFreescale implements IDataLayer {
 		}
 	}
 
-	@Override
+	
 	public BigInteger readExtAddressGal(long timeout) throws GatewayException, Exception {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		_res = Set_SequenceStart_And_FSC(_res, FreescaleConstants.ZTCReadExtAddrRequest);// StartSequence
@@ -3394,7 +3378,7 @@ public class DataFreescale implements IDataLayer {
 		}
 	}
 
-	@Override
+	
 	public NodeDescriptor getNodeDescriptorSync(long timeout, Address addrOfInterest) throws IOException, Exception, GatewayException {
 
 		ByteArrayObject _res = new ByteArrayObject(false);
@@ -3450,7 +3434,7 @@ public class DataFreescale implements IDataLayer {
 		}
 	}
 
-	@Override
+	
 	public List<Short> startServiceDiscoverySync(long timeout, Address aoi) throws Exception {
 		if (getGal().getPropertiesManager().getDebugEnabled())
 			LOG.info("startServiceDiscoverySync Timeout:" + timeout);
@@ -3505,7 +3489,7 @@ public class DataFreescale implements IDataLayer {
 
 	}
 
-	@Override
+	
 	public Status leaveSync(long timeout, Address addrOfInterest, int mask) throws Exception {
 		ByteArrayObject _res = new ByteArrayObject(false);
 
@@ -3552,7 +3536,7 @@ public class DataFreescale implements IDataLayer {
 		return status;
 	}
 
-	@Override
+	
 	public Status clearEndpointSync(long timeout, short endpoint) throws IOException, Exception, GatewayException {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		_res.addByte((byte) endpoint);/* EndPoint */
@@ -3591,7 +3575,7 @@ public class DataFreescale implements IDataLayer {
 		}
 	}
 
-	@Override
+	
 	public NodeServices getLocalServices(long timeout) throws IOException, Exception, GatewayException {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		_res = Set_SequenceStart_And_FSC(_res, FreescaleConstants.APSGetEndPointIdListRequest);/*
@@ -3643,7 +3627,7 @@ public class DataFreescale implements IDataLayer {
 	 * org.energy_home.jemma.javagetGal().layers.data.interfaces.IDataLayer#
 	 * getServiceDescriptor(long, it.telecomitalia.zgd.jaxb.Address, short)
 	 */
-	@Override
+	
 	public ServiceDescriptor getServiceDescriptor(long timeout, Address addrOfInterest, short endpoint) throws IOException, Exception, GatewayException {
 		ByteArrayObject _res = new ByteArrayObject(false);
 
@@ -3692,7 +3676,7 @@ public class DataFreescale implements IDataLayer {
 		}
 	}
 
-	@Override
+	
 	public void clearBuffer() {
 		try {
 			getDataFromSerialComm().put(new ByteArrayObject(true));
@@ -3703,7 +3687,7 @@ public class DataFreescale implements IDataLayer {
 
 	}
 
-	@Override
+	
 	public void cpuReset() throws Exception {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		_res = Set_SequenceStart_And_FSC(_res, FreescaleConstants.ZTCCPUResetRequest);/*
@@ -3718,7 +3702,7 @@ public class DataFreescale implements IDataLayer {
 
 	}
 
-	@Override
+	
 	public BindingList getNodeBindings(long timeout, Address addrOfInterest, short index) throws IOException, Exception, GatewayException {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		_res.addBytesShort(Short.reverseBytes(addrOfInterest.getNetworkAddress().shortValue()), 2);/* ShortNetworkAddress */
@@ -3760,7 +3744,6 @@ public class DataFreescale implements IDataLayer {
 		}
 	}
 
-	@Override
 	public Status addBinding(long timeout, Binding binding, Address aoi) throws IOException, Exception, GatewayException {
 		byte[] _reversed;
 
@@ -3846,7 +3829,7 @@ public class DataFreescale implements IDataLayer {
 		}
 	}
 
-	@Override
+	
 	public Status removeBinding(long timeout, Binding binding, Address aoi) throws IOException, Exception, GatewayException {
 		byte[] _reversed;
 
@@ -3934,7 +3917,7 @@ public class DataFreescale implements IDataLayer {
 		}
 	}
 
-	@Override
+	
 	public Status frequencyAgilitySync(long timeout, short scanChannel, short scanDuration) throws IOException, Exception, GatewayException {
 		ByteArrayObject _bodyCommand = new ByteArrayObject(false);
 		_bodyCommand.addByte((byte) 0xFD);
@@ -3958,17 +3941,17 @@ public class DataFreescale implements IDataLayer {
 		return _st;
 	}
 
-	@Override
+	
 	public IConnector getIKeyInstance() {
 		return dongleRs232;
 	}
 
-	@Override
+	
 	public PropertiesManager getPropertiesManager() {
 		return getGal().getPropertiesManager();
 	}
 
-	@Override
+	
 	public void notifyFrame(final ByteArrayObject frame) {
 		if (getGal().getPropertiesManager().getserialDataDebugEnabled())
 			LOG.info("<<< Received data:" + frame.ToHexString());
@@ -3979,7 +3962,7 @@ public class DataFreescale implements IDataLayer {
 		}
 	}
 
-	@Override
+	
 	public Status ClearDeviceKeyPairSet(long timeout, Address addrOfInterest) throws IOException, Exception, GatewayException {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		byte[] ieeeAddress = DataManipulation.toByteVect(addrOfInterest.getIeeeAddress(), 8);
@@ -4022,7 +4005,7 @@ public class DataFreescale implements IDataLayer {
 
 	}
 
-	@Override
+	
 	public Status ClearNeighborTableEntry(long timeout, Address addrOfInterest) throws IOException, Exception, GatewayException {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		_res.addByte((byte) 0xFF);
@@ -4067,7 +4050,7 @@ public class DataFreescale implements IDataLayer {
 		}
 	}
 
-	@Override
+	
 	public Status NMLE_SETSync(long timeout, short _AttID, String _value) throws Exception {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		_res.addByte((byte) _AttID);/* _AttId */
@@ -4111,7 +4094,7 @@ public class DataFreescale implements IDataLayer {
 		}
 	}
 
-	@Override
+	
 	public Mgmt_LQI_rsp Mgmt_Lqi_Request(long timeout, Address addrOfInterest, short startIndex) throws IOException, Exception, GatewayException {
 		ByteArrayObject _res = new ByteArrayObject(false);
 		_res.addBytesShort(Short.reverseBytes(addrOfInterest.getNetworkAddress().shortValue()), 2);
@@ -4148,7 +4131,7 @@ public class DataFreescale implements IDataLayer {
 		}
 	}
 
-	@Override
+	
 	public Status sendInterPANMessaSync(long timeout, InterPANMessage message) throws Exception {
 		if (getGal().getPropertiesManager().getDebugEnabled()) {
 			LOG.info("Data_FreeScale.send_InterPAN");
@@ -4193,7 +4176,7 @@ public class DataFreescale implements IDataLayer {
 		}
 	}
 
-	@Override
+	
 	public void destroy() {
 		synchronized (destroy) {
 			destroy = true;
@@ -4201,14 +4184,14 @@ public class DataFreescale implements IDataLayer {
 		clearBuffer();
 	}
 
-	@Override
+	
 	public boolean getDestroy() {
 		synchronized (destroy) {
 			return destroy;
 		}
 	}
 
-	@Override
+	
 	public String MacGetPIBAttributeSync(long timeout, short _AttID) throws Exception {
 
 		ByteArrayObject _res = new ByteArrayObject(false);

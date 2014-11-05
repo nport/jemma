@@ -309,19 +309,14 @@ public class ZigBeeManagerImpl implements TimerListener, APSMessageListener, Gat
 	private ExecutorService executor = null;
 
 	public ZigBeeManagerImpl() {
-
 		executor = Executors.newFixedThreadPool(15, new ThreadFactory() {
-
-			@Override
 			public Thread newThread(Runnable r) {
-
 				return new Thread(r, "THPool-NetworkManager");
 			}
 		});
 
 		if (executor instanceof ThreadPoolExecutor) {
-			((ThreadPoolExecutor) executor).setKeepAliveTime(3, TimeUnit.MINUTES);
-			((ThreadPoolExecutor) executor).allowCoreThreadTimeOut(true);
+			((ThreadPoolExecutor) executor).setKeepAliveTime(3 * 60, TimeUnit.SECONDS);
 		}
 	}
 

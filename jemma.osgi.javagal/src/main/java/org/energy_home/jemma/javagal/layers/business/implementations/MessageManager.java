@@ -16,17 +16,11 @@
 package org.energy_home.jemma.javagal.layers.business.implementations;
 
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.apache.commons.lang3.SerializationUtils;
+import org.energy_home.jemma.javagal.layers.PropertiesManager;
 import org.energy_home.jemma.javagal.layers.business.GalController;
+import org.energy_home.jemma.javagal.layers.business.Utils;
 import org.energy_home.jemma.javagal.layers.object.CallbackEntry;
-import org.energy_home.jemma.javagal.layers.presentation.Activator;
 import org.energy_home.jemma.zgd.MessageListener;
 import org.energy_home.jemma.zgd.jaxb.APSMessageEvent;
 import org.energy_home.jemma.zgd.jaxb.Address;
@@ -36,6 +30,8 @@ import org.energy_home.jemma.zgd.jaxb.Filter.AddressSpecification;
 import org.energy_home.jemma.zgd.jaxb.Filter.MessageSpecification;
 import org.energy_home.jemma.zgd.jaxb.InterPANMessageEvent;
 import org.energy_home.jemma.zgd.jaxb.Level;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Manages received APS messages. When an APS indication is received it is
@@ -63,19 +59,9 @@ public class MessageManager {
 	 */
 	public MessageManager(GalController _gal) {
 		gal = _gal;
-		executor = Executors.newFixedThreadPool(getGal().getPropertiesManager().getNumberOfThreadForAnyPool(), new ThreadFactory() {
-
-			@Override
-			public Thread newThread(Runnable r) {
-
-				return new Thread(r, "THPool-MessageManager");
-			}
-		});
-		if (executor instanceof ThreadPoolExecutor) {
-			((ThreadPoolExecutor) executor).setKeepAliveTime(getGal().getPropertiesManager().getKeepAliveThread(), TimeUnit.MINUTES);
-			((ThreadPoolExecutor) executor).allowCoreThreadTimeOut(true);
-
-		}
+		
+		PropertiesManager pm = gal.getPropertiesManager();
+		executor = CreateExecutors.createThreadPoolExecutor("THPool-MessageManager", pm.getNumberOfThreadForAnyPool(), pm.getKeepAliveThread() * 60);
 	}
 
 	private GalController getGal() {
@@ -279,7 +265,7 @@ public class MessageManager {
 						if (napml != null) {
 							APSMessageEvent cmessage = null;
 							synchronized (message) {
-								cmessage = SerializationUtils.clone(message);
+								cmessage = Utils.clone(message);
 							}
 							if (getGal().getPropertiesManager().getDebugEnabled()) {
 								LOG.info("READY to CallBack NotifyApsMessage:" + ((cmessage.getDestinationAddress().getNetworkAddress() != null) ? String.format("%04X",cmessage.getDestinationAddress().getNetworkAddress()):"") );
@@ -430,7 +416,7 @@ public class MessageManager {
 					if (napml != null) {
 						InterPANMessageEvent cmessage = null;
 						synchronized (message) {
-							cmessage = SerializationUtils.clone(message);
+							cmessage = Utils.clone(message);
 						}
 						napml.notifyInterPANMessage(cmessage);
 					}

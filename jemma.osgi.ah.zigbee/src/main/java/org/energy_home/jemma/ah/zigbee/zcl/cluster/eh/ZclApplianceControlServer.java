@@ -292,7 +292,6 @@ public class ZclApplianceControlServer extends ZclServiceCluster implements Appl
 		return v;
 	}
 
-	@Override
 	public short getSpin(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException {
 		if (context != null) {
 			Short objectResult = null;

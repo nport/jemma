@@ -44,16 +44,6 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.MimeHeaders;
-import javax.xml.soap.SOAPBody;
-import javax.xml.soap.SOAPConnection;
-import javax.xml.soap.SOAPConnectionFactory;
-import javax.xml.soap.SOAPElement;
-import javax.xml.soap.SOAPEnvelope;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.SOAPPart;
-
 import org.eclipse.core.runtime.jobs.Job;
 import org.energy_home.jemma.ah.cluster.ah.ConfigClient;
 import org.energy_home.jemma.ah.cluster.ah.ConfigServer;
@@ -3272,7 +3262,7 @@ public class GreenathomeAppliance extends Appliance implements HttpImplementor, 
 
 	// END DEMO MILANO
 
-	public List getDailyPVForecast() {
+/*	public List getDailyPVForecast() {
 		// controllo se l'istanza \E8 ancora in esecuzione, altrimenti ne faccio
 		// partire una nuova
 		// faccio partire l'acquisizione dati per avere i dati aggiornati alla
@@ -3301,13 +3291,13 @@ public class GreenathomeAppliance extends Appliance implements HttpImplementor, 
 				// valori reali
 			return new ArrayList<Double>(Arrays.asList(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.349, 0.349, 0.447, 0.761, 0.761, 0.911, 0.688, 0.688, 0.607, 0.327, 0.052, 0.0, 0.0, 0.0, 0.0));
 		}
-	}
+	}*/
 
 	public String getDailyPVForecastDebug() {
 		return forecast_debug;
 	}
 
-	private void getPVForecast() {
+/*	private void getPVForecast() {
 		try {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 			Calendar cal = new GregorianCalendar();
@@ -3336,9 +3326,9 @@ public class GreenathomeAppliance extends Appliance implements HttpImplementor, 
 		} catch (Exception e) {
 			forecast_debug += "---EXCEPT: " + e.getMessage();
 		}
-	}
+	}*/
 
-	private static SOAPMessage createSOAPRequest(String date) throws Exception {
+/*	private static SOAPMessage createSOAPRequest(String date) throws Exception {
 		MessageFactory messageFactory = MessageFactory.newInstance();
 		SOAPMessage soapMessage = messageFactory.createMessage();
 		SOAPPart soapPart = soapMessage.getSOAPPart();
@@ -3386,7 +3376,7 @@ public class GreenathomeAppliance extends Appliance implements HttpImplementor, 
 			forecast_debug += "---not found values";
 			return null;
 		}
-	}
+	}*/
 
 	/*
 	 * Ottengo la data di domani in orario in cui \E8 arrivato il nuovo forecast
@@ -3556,5 +3546,10 @@ public class GreenathomeAppliance extends Appliance implements HttpImplementor, 
 
 		return true;
 
+	}
+
+	public List getDailyPVForecast() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

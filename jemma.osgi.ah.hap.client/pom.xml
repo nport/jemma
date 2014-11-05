@@ -64,15 +64,15 @@
 							 javax.servlet.http,
 							 javax.servlet.resources,
 							 org.apache.commons.codec.binary,
-							 org.slf4j;version="[1.7.7,2)",
+							 org.slf4j;version="[1.6,2)",
 							 org.apache.http;version="4.1.0",
 							 org.apache.http.util;version="4.1.0",
 							 org.apache.http.entity;version="4.1.0",
 							 org.apache.http.client;version="4.1.0",
-							 org.eclipse.osgi.framework.console;version="1.0.0",
-							 org.osgi.framework,
-							 org.osgi.service.component,
-							 org.osgi.service.http,*
+							 org.eclipse.osgi.framework.console;version="[1.0,2.0)",
+							 org.osgi.framework;version="[1.5,2.0)",
+							 org.osgi.service.component;version="[1.1,2.0)",
+							 org.osgi.service.http;version="[1.2,2.0)",*
 						</Import-Package>
 						<Export-Package>org.energy_home.jemma.ah.hap.client;version="1.4.0",
 							org.energy_home.jemma.ah.hap.client.lib;version="1.4.0",

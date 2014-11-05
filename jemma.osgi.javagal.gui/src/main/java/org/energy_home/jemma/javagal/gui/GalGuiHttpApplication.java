@@ -162,7 +162,6 @@ public class GalGuiHttpApplication extends DefaultWebApplication implements Http
 		return u;
 	}
 
-	@Override
 	public boolean handleSecurity(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		if (request.getRequestURI().contains("favicon.ico"))
 			return true;
@@ -265,7 +264,6 @@ public class GalGuiHttpApplication extends DefaultWebApplication implements Http
 		return true;
 	}
 
-	@Override
 	public Object getObjectByPid(String pid) {
 		// TODO Auto-generated method stub
 		return null;

@@ -49,9 +49,9 @@
 							 org.energy_home.jemma.ah.hac;version="[3.0.0,3.1.0)",
 							 javax.servlet,
 							 javax.servlet.http,
-							 org.slf4j;version="[1.7.7,2)",
+							 org.slf4j;version="[1.6,2)",
 							 org.apache.felix.webconsole,
-							 org.osgi.framework,*
+							 org.osgi.framework;version="[1.5,2.0)",*
 						</Import-Package>
 						<Export-Package>!*</Export-Package>
 						<Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>

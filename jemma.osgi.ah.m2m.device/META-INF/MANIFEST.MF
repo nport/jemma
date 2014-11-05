@@ -4,7 +4,7 @@ Bundle-Activator: org.energy_home.jemma.osgi.ah.m2m.device.M2MDeviceActi
 Bundle-Category: Automation@Home
 Bundle-ManifestVersion: 2
 Bundle-Name: M2M Device
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-SymbolicName: jemma.osgi.ah.m2m.device;singleton:=true
 Bundle-Vendor: Telecom Italia
 Bundle-Version: 1.2.15
@@ -30,8 +30,8 @@ Import-Package: javax.xml.bind,javax.xml.bind.annotation,javax.xml.bind.
  rgy_home.jemma.utils.datetime;version="1.0.1",org.energy_home.jemma.uti
  ls.encrypt;version="[1.0.0,1.1.0)",org.energy_home.jemma.utils.rest;ver
  sion="[1.0.0,1.1.0)",org.energy_home.jemma.utils.xml.jaxb;version="[1.0
- .0,1.1.0)",org.osgi.framework;version="[1.5,2)",org.slf4j;version="[1.7
- .7,2)"
+ .0,1.1.0)",org.osgi.framework;version="[1.5,2.0)",org.slf4j;version="[1
+ .6,2)"
 Include-Resource: .m2m_connection_schema_xjc_flag=src/main/resources/.m2
  m_connection_schema_xjc_flag,.m2m_schema_xjc_flag=src/main/resources/.m
  2m_schema_xjc_flag,schemas/ah.xsd=src/main/resources/schemas/ah.xsd,sch

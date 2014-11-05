@@ -8,7 +8,7 @@ Bundle-SymbolicName: jemma.osgi.ah.webui.base
 Bundle-Vendor: Telecom Italia
 Bundle-Version: 2.0.12
 Created-By: Apache Maven Bundle Plugin
-Import-Package: org.osgi.service.http;version="[1.2,2)"
+Import-Package: org.osgi.service.http;version="[1.2,2.0)"
 Include-Resource: OSGI-INF/webuibaselibs.xml=OSGI-INF/webuibaselibs.xml,
  web/js/flot/API.txt=src/main/resources/web/js/flot/API.txt,web/js/flot/
  examples/ajax.html=src/main/resources/web/js/flot/examples/ajax.html,we

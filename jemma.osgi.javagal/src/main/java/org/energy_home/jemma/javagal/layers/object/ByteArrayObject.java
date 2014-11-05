@@ -160,8 +160,17 @@ public class ByteArrayObject {
 	 * @return the byte array.
 	 */
 	public byte[] getArrayRealSize() {
-		return Arrays.copyOfRange(getArray(), 0, getCount(true));
+		int from = 0;
+		int to = getCount(true);
 
+		byte[] a = getArray();
+
+		if (to < 0)
+			throw new IllegalArgumentException(from + " > " + to);
+
+		byte[] copy = new byte[to];
+		System.arraycopy(a, 0, copy, 0, Math.min(a.length - 0, to));
+		return copy;
 	}
 
 	/**
@@ -174,7 +183,6 @@ public class ByteArrayObject {
 	public byte[] getArray() {
 		return array;
 	}
-
 	
 
 	/**

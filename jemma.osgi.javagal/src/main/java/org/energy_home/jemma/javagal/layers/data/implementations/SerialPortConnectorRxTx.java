@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.TooManyListenersException;
 
 import org.energy_home.jemma.javagal.layers.data.implementations.IDataLayerImplementation.DataFreescale;
@@ -70,6 +71,9 @@ public class SerialPortConnectorRxTx implements IConnector {
 	 *             if an error occurs.
 	 */
 	public SerialPortConnectorRxTx(String _portName, int _boudRate, IDataLayer _DataLayer) throws Exception {
+		// The Skelmir JVM seems to require this to rise an Exception in case the 
+		// RxTx lib is missing
+		SerialPort.class.getName();
 		DataLayer = _DataLayer;
 		commport = _portName;
 		boudrate = _boudRate;
@@ -88,7 +92,8 @@ public class SerialPortConnectorRxTx implements IConnector {
 	private boolean connect(String portName, int speed) throws Exception {
 
 		try {
-			System.setProperty("gnu.io.rxtx.SerialPorts", portName);
+			//Enumeration portIdentifiers = CommPortIdentifier.getPortIdentifiers();			
+			//System.setProperty("gnu.io.rxtx.SerialPorts", portName);
 			portIdentifier = null;
 			portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
 			if (portIdentifier.isCurrentlyOwned()) {
@@ -96,7 +101,7 @@ public class SerialPortConnectorRxTx implements IConnector {
 				disconnect();
 				return false;
 			} else {
-				serialPort = (SerialPort) portIdentifier.open(this.getClass().getName(), 2000);
+				serialPort = (SerialPort) portIdentifier.open(portName, 2000);
 				if (serialPort instanceof SerialPort) {
 					serialPort.setSerialPortParams(speed, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
 					serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
@@ -129,8 +134,20 @@ public class SerialPortConnectorRxTx implements IConnector {
 			}
 
 		} catch (NoSuchPortException e) {
+			System.out.println("aaaaa");
+			Enumeration portIdentifiers = CommPortIdentifier.getPortIdentifiers();	
+			LOG.error("Port " + portName + " not found.");
+			if (portIdentifiers != null) {
+				System.out.println("ddd");
+				while(portIdentifiers.hasMoreElements()) {
+					System.out.println("ccc");
+					CommPortIdentifier id = (CommPortIdentifier) portIdentifiers.nextElement();
+					System.out.println("vvvv");
+					LOG.debug("Found port " + id.getName());
+				}
+			}
 			disconnect();
-			LOG.error("the connection could not be made: NoSuchPortException " + portName);
+
 			return false;
 		} catch (PortInUseException e) {
 			disconnect();
@@ -178,7 +195,6 @@ public class SerialPortConnectorRxTx implements IConnector {
 	/**
 	 * @inheritDoc
 	 */
-	@Override
 	public boolean isConnected() {
 		return connected;
 	}
@@ -186,7 +202,6 @@ public class SerialPortConnectorRxTx implements IConnector {
 	/**
 	 * @inheritDoc
 	 */
-	@Override
 	public void disconnect() throws IOException {
 		System.setProperty("gnu.io.rxtx.SerialPorts", "");
 		setConnected(false);
@@ -263,7 +278,7 @@ public class SerialPortConnectorRxTx implements IConnector {
 		if (DataLayer.getPropertiesManager().getDebugEnabled())
 			LOG.info("Starting inizialize procedure for: PortName=" + commport + " -- Speed=" + boudrate + " -- DefaultTimeout:" + DataLayer.getPropertiesManager().getCommandTimeoutMS());
 		if (!connect(commport, boudrate)) {
-			throw new Exception("Unable to connect to serial port!");
+			throw new Exception("Unable to connect to serial port " + commport);
 		}
 
 		setIgnoreMessage(true);

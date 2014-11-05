@@ -3,7 +3,7 @@ Bundle-Activator: org.energy_home.jemma.osgi.utils.Activator
 Bundle-Category: Automation@Home
 Bundle-ManifestVersion: 2
 Bundle-Name: Osgi Utils
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-SymbolicName: jemma.osgi.utils
 Bundle-Vendor: Telecom Italia
 Bundle-Version: 1.0.6
@@ -14,9 +14,9 @@ Export-Package: org.energy_home.jemma.osgi.utils.equinox.console;uses:="
  ="1.0.1",org.energy_home.jemma.utils.encrypt;uses:="javax.crypto.spec,j
  avax.crypto";version="1.0.0",org.energy_home.jemma.utils.rest;uses:="or
  g.apache.http.protocol,org.apache.http.conn.scheme,org.apache.http.para
- ms,org.apache.http.conn.ssl,org.apache.http.client,org.apache.http.conn
- ,org.apache.http.impl.client,org.apache.http.impl.auth,org.apache.http.
- client.methods,org.apache.http.impl.conn.tsccm,org.apache.http.util,org
+ ms,org.apache.http.conn.ssl,org.apache.http.client,org.apache.http.impl
+ .client,org.apache.http.conn,org.apache.http.impl.auth,org.apache.http.
+ client.methods,org.apache.http.util,org.apache.http.impl.conn.tsccm,org
  .apache.http.auth,org.apache.http";version="1.0.0",org.energy_home.jemm
  a.utils.thread;version="1.0.0",org.energy_home.jemma.utils.xml.jaxb;use
  s:="javax.xml.bind,javax.xml.namespace,com.sun.xml.internal.bind.marsha
@@ -41,7 +41,7 @@ Import-Package: com.sun.xml.internal.bind.marshaller;resolution:=optiona
  pse.osgi.framework.console;version="1.0.0",org.energy_home.jemma.utils.
  datetime;resolution:=optional;version="[1.0,2)",org.energy_home.jemma.u
  tils.thread;resolution:=optional;version="[1.0,2)",org.osgi.framework;v
- ersion="1.3.0",org.slf4j;version="[1.7.7,2)"
+ ersion="[1.5,2.0)",org.slf4j;version="[1.6,2)"
 Private-Package: org.energy_home.jemma.osgi.utils,org.energy_home.jemma.
  internal.utils.thread,org.energy_home.jemma.internal.utils.datetime
 Require-Bundle: org.apache.httpcomponents.httpclient;bundle-version="4.1

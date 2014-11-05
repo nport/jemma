@@ -1650,20 +1650,6 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 	// return false;
 	// }
 
-	protected Configuration createFactoryConfiguration(String factoryPid) {
-		FactoryConfigurationImpl configuration = new FactoryConfigurationImpl(factoryPid);
-		this.factorypids2configuration.put(factoryPid, configuration);
-		return configuration;
-	}
-
-	protected Configuration getConfiguration(String pid) {
-		Configuration configuration = (Configuration) this.pid2configurations.get(pid);
-		if (configuration == null) {
-			// configuration = new ConfigurationImpl(pid);
-		}
-		return configuration;
-	}
-
 	protected Vector getFactories() {
 		synchronized (lockHacService) {
 			return this.applianceFactories;
