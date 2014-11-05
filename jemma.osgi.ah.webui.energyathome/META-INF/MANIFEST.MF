@@ -14,8 +14,8 @@ Import-Package: javax.security.auth.login,javax.servlet;version="[2.5,3)
  1",org.json,org.osgi.framework;version="[1.5,2.0)",org.osgi.service.com
  ponent;version="[1.1,2.0)",org.osgi.service.event;version="[1.2,2.0)",o
  rg.osgi.service.http;version="[1.2,2.0)",org.osgi.service.useradmin;ver
- sion="1.1.0",org.osgi.util.tracker;version="[1.4,2.0]",org.slf4j;versio
- n="[1.6,2)"
+ sion="[1.1,2.0)",org.osgi.util.tracker;version="[1.4,2.0]",org.slf4j;ve
+ rsion="[1.6,2)"
 Include-Resource: OSGI-INF/energyathome.xml=OSGI-INF/energyathome.xml,OS
  GI-INF/metatype/metatype.xml=OSGI-INF/metatype/metatype.xml,webapp/ehde
  mo/conf/css/Configurazione.css=src/main/resources/webapp/ehdemo/conf/cs

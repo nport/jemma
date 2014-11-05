@@ -111,9 +111,7 @@
 		<module>jemma.osgi.ah.upnp.energyathome</module>
 		<module>jemma.osgi.ah.io</module>
 		<module>jemma.osgi.javagal</module>
-		<module>jemma.osgi.javagal.rest</module>
 		<module>jemma.osgi.javagal.gui</module>
-		<module>jemma.osgi.javagal.json</module>
 		<module>jemma.osgi.ah.felix.console.web</module>
 		<module>jemma.osgi.ah.energyathome</module>
 		<module>jemma.osgi.ah.greenathome</module>
@@ -192,8 +190,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-				    <source>1.6</source>
-				    <target>1.6</target>
+				    <source>1.5</source>
+				    <target>1.5</target>
 					<encoding>UTF-8</encoding>
 					<compilerArgument>-proc:none</compilerArgument>
 				</configuration>
