@@ -54,10 +54,6 @@ public class Activator implements BundleActivator {
 
 			LOG.info("FILE Conf: " + _path);
 			
-			System.setProperty(GatewayProperties.ZGD_DONGLE_TYPE_PROP_NAME, "freescale");
-			System.setProperty(GatewayProperties.ZGD_DONGLE_URI_PROP_NAME, "ttyUSB0");
-			System.setProperty(GatewayProperties.ZGD_DONGLE_SPEED_PROP_NAME, "115200");
-
 			PropertiesManager PropertiesManager = new PropertiesManager(bc.getBundle().getResource(_path));
 
 			if (context.getProperty(GatewayProperties.ZGD_DONGLE_URI_PROP_NAME) != null)
@@ -69,9 +65,7 @@ public class Activator implements BundleActivator {
 			if (context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_LOG) != null)
 				PropertiesManager.props.setProperty("debugEnabled", context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_LOG));
 			if (context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_SERIAL_LOG) != null)
-				PropertiesManager.props.setProperty("serialDataDebugEnabled", context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_SERIAL_LOG));
-
-			
+				PropertiesManager.props.setProperty("serialDataDebugEnabled", context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_SERIAL_LOG));	
 			
 			if (_fac == null)
 				_fac = new GalExtenderProxyFactory(PropertiesManager);
