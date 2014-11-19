@@ -70,6 +70,8 @@ import org.energy_home.jemma.m2m.ContentInstancesBatchRequest;
 import org.energy_home.jemma.m2m.ContentInstancesBatchResponse;
 import org.energy_home.jemma.m2m.M2MConstants;
 import org.energy_home.jemma.m2m.M2MXmlConverter;
+import org.energy_home.jemma.m2m.M2MXmlConverterFactory;
+import org.energy_home.jemma.m2m.M2MXmlConverterJaxb;
 import org.energy_home.jemma.m2m.M2MXmlObject;
 import org.energy_home.jemma.m2m.Scl;
 import org.energy_home.jemma.m2m.SclItems;
@@ -657,7 +659,7 @@ public class M2MLocalService extends HttpServlet implements IApplicationService,
 
 	public void start() {
 		LOG.debug("start");
-		xmlConverter = M2MXmlConverter.getCoreConverter();
+		xmlConverter = M2MXmlConverterFactory.getCoreConverter();
 		restClient = RestClient.get();
 		executorService.scheduleTask(new Runnable() {
 			public void run() {

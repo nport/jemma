@@ -13,7 +13,7 @@
  * GNU Lesser General Public License (LGPL) for more details.
  *
  */
-package org.energy_home.jemma.utils.xml.jaxb;
+package org.energy_home.jemma.internal.ah.m2m.utils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

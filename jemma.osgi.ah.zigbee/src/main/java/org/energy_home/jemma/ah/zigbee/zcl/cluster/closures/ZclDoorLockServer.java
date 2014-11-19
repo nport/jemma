@@ -181,7 +181,7 @@ public class ZclDoorLockServer
     }
 
     protected IZclAttributeDescriptor getAttributeDescriptor(int attrId) {
-        return ((IZclAttributeDescriptor) attributesMapById.get(attrId));
+        return ((IZclAttributeDescriptor) attributesMapById.get(new Integer(attrId)));
     }
 
     protected Collection getAttributeDescriptors() {

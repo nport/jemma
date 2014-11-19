@@ -13,16 +13,15 @@
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU Lesser General Public License (LGPL) for more details.
-
-
+    
 -->
 <scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="ZigBee Refining Driver Console">
 	<implementation class="org.energy_home.jemma.ah.internal.zigbee.ZigBeeCommandProvider" />
  <service>
     <provide interface="org.eclipse.osgi.framework.console.CommandProvider"/>
  </service>
- <reference bind="setNetworkManager" cardinality="0..1" interface="org.energy_home.jemma.ah.hac.lib.ext.INetworkManager" name="INetworkManager" policy="dynamic" unbind="unsetNetworkManager"/>
  <property name="osgi.command.scope" type="String" value="zb"/>
+ <reference bind="setNetworkManager" cardinality="1..1" interface="org.energy_home.jemma.ah.hac.lib.ext.INetworkManager" name="INetworkManager" policy="dynamic" unbind="unsetNetworkManager"/>
 </scr:component>
 
 

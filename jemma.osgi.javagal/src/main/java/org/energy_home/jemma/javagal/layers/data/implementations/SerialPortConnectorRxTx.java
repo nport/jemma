@@ -15,16 +15,20 @@
  */
 package org.energy_home.jemma.javagal.layers.data.implementations;
 
-import gnu.io.*;
+import gnu.io.CommPortIdentifier;
+import gnu.io.NoSuchPortException;
+import gnu.io.PortInUseException;
+import gnu.io.SerialPort;
+import gnu.io.SerialPortEvent;
+import gnu.io.SerialPortEventListener;
+import gnu.io.UnsupportedCommOperationException;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.TooManyListenersException;
 
-import org.energy_home.jemma.javagal.layers.data.implementations.IDataLayerImplementation.DataFreescale;
 import org.energy_home.jemma.javagal.layers.data.interfaces.IConnector;
 import org.energy_home.jemma.javagal.layers.data.interfaces.IDataLayer;
 import org.energy_home.jemma.javagal.layers.object.ByteArrayObject;
@@ -48,7 +52,7 @@ public class SerialPortConnectorRxTx implements IConnector {
 	private SerialPort serialPort;
 	private static final Logger LOG = LoggerFactory.getLogger(SerialPortConnectorRxTx.class);
 
-	CommPortIdentifier portIdentifier;
+	CommPortIdentifier portId;
 	InputStream in = null;
 	OutputStream ou = null;
 
@@ -73,7 +77,7 @@ public class SerialPortConnectorRxTx implements IConnector {
 	public SerialPortConnectorRxTx(String _portName, int _boudRate, IDataLayer _DataLayer) throws Exception {
 		// The Skelmir JVM seems to require this to rise an Exception in case the 
 		// RxTx lib is missing
-		SerialPort.class.getName();
+		//SerialPort.class.getName();
 		DataLayer = _DataLayer;
 		commport = _portName;
 		boudrate = _boudRate;
@@ -94,8 +98,27 @@ public class SerialPortConnectorRxTx implements IConnector {
 		try {
 			//Enumeration portIdentifiers = CommPortIdentifier.getPortIdentifiers();			
 			//System.setProperty("gnu.io.rxtx.SerialPorts", portName);
-			portIdentifier = null;
-			portIdentifier = CommPortIdentifier.getPortIdentifier(portName);
+			
+			Enumeration portList = CommPortIdentifier.getPortIdentifiers();
+			CommPortIdentifier portIdentifier = null;
+			boolean found = false;
+			while (portList.hasMoreElements()) {
+				portIdentifier = (CommPortIdentifier) portList.nextElement();
+				if (portIdentifier.getPortType() == CommPortIdentifier.PORT_SERIAL) {
+					if (portIdentifier.getName().equals(portName)) {
+						found = true;
+						break;
+					}
+				}
+			}
+
+			if (!found) {
+				throw new RuntimeException("Could not find port: " + portName);
+			}
+			else {
+				System.out.println(portName + " found!");
+			}
+			
 			if (portIdentifier.isCurrentlyOwned()) {
 				LOG.error("Error: Port is currently in use:" + portName + " by: " + portIdentifier.getCurrentOwner());
 				disconnect();
@@ -220,7 +243,7 @@ public class SerialPortConnectorRxTx implements IConnector {
 			serialPort.close();
 			serialPort = null;
 
-			portIdentifier = null;
+			portId = null;
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {

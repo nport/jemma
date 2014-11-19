@@ -101,10 +101,10 @@ public class ZclEndPointFactory {
 	
 	public static void addServiceClusters(ZclEndPoint endPoint, int profileId, int deviceId, final int[] clientClusterIds, final int[] serverClusterIds) throws ApplianceException {
 		ZclServiceCluster cluster = null;	
-		Integer clusterId = null;
+		int clusterId;
 		for (int i = 0; i < serverClusterIds.length; i++) {
-			clusterId = new Integer(serverClusterIds[i]);
-			cluster = ZclServiceClusterFactory.getCluster(IServiceCluster.SERVER_SIDE, new Integer(profileId), clusterId);
+			clusterId = serverClusterIds[i];
+			cluster = ZclServiceClusterFactory.getCluster(IServiceCluster.SERVER_SIDE, profileId, clusterId);
 			if (cluster != null) {
 				endPoint.addServiceCluster(cluster);
 			} else {
@@ -112,8 +112,8 @@ public class ZclEndPointFactory {
 			}
 		}
 		for (int i = 0; i < clientClusterIds.length; i++) {
-			clusterId = new Integer(clientClusterIds[i]);
-			cluster = ZclServiceClusterFactory.getCluster(IServiceCluster.CLIENT_SIDE, new Integer(profileId), clusterId);
+			clusterId = clientClusterIds[i];
+			cluster = ZclServiceClusterFactory.getCluster(IServiceCluster.CLIENT_SIDE, profileId, clusterId);
 			if (cluster != null) {
 				endPoint.addServiceCluster(cluster);
 			} else {

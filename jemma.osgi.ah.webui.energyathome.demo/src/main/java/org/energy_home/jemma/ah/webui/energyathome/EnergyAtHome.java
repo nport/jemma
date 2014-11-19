@@ -142,7 +142,6 @@ public class EnergyAtHome extends WebApplication implements HttpImplementor, Htt
 		Servlet jsonRPC = new JsonRPC(ahHttpAdapter, "");
 
 		this.registerResource("/", "webapp/ehdemo");
-		this.registerResource("/gh", "webapp/gh");
 		this.registerResource("/post-json", customJsonServlet);
 		this.registerResource("/json-rpc", jsonRPC);
  		this.registerResource("/JSON-RPC", new JSONRPCServlet(){

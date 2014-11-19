@@ -15,20 +15,13 @@
  */
 package org.energy_home.jemma.ah.internal.greenathome;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.URL;
-import java.net.URLConnection;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -44,7 +37,6 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import org.eclipse.core.runtime.jobs.Job;
 import org.energy_home.jemma.ah.cluster.ah.ConfigClient;
 import org.energy_home.jemma.ah.cluster.ah.ConfigServer;
 import org.energy_home.jemma.ah.cluster.zigbee.closures.DoorLockClient;
@@ -57,8 +49,6 @@ import org.energy_home.jemma.ah.cluster.zigbee.eh.ApplianceControlClient;
 import org.energy_home.jemma.ah.cluster.zigbee.eh.ApplianceControlServer;
 import org.energy_home.jemma.ah.cluster.zigbee.eh.SignalStateResponse;
 import org.energy_home.jemma.ah.cluster.zigbee.general.BasicClient;
-import org.energy_home.jemma.ah.cluster.zigbee.general.IdentifyClient;
-import org.energy_home.jemma.ah.cluster.zigbee.general.IdentifyServer;
 import org.energy_home.jemma.ah.cluster.zigbee.general.LevelControlClient;
 import org.energy_home.jemma.ah.cluster.zigbee.general.LevelControlServer;
 import org.energy_home.jemma.ah.cluster.zigbee.general.OnOffClient;
@@ -108,7 +98,6 @@ import org.energy_home.jemma.ah.hac.lib.EndPoint;
 import org.energy_home.jemma.ah.hac.lib.ext.ApplianceConfiguration;
 import org.energy_home.jemma.ah.hac.lib.ext.IConnectionAdminService;
 import org.energy_home.jemma.ah.hac.lib.ext.IHacService;
-import org.energy_home.jemma.ah.hac.lib.ext.PeerServiceClusterProxy;
 import org.energy_home.jemma.ah.hap.client.AHContainerAddress;
 import org.energy_home.jemma.ah.hap.client.AHContainers;
 import org.energy_home.jemma.ah.hap.client.IM2MHapService;
@@ -120,13 +109,9 @@ import org.energy_home.jemma.hac.adapter.http.HttpImplementor;
 import org.energy_home.jemma.m2m.ContentInstance;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleReference;
 import org.osgi.service.http.HttpService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 //TODO: check merge, a lot's of changes in this class from 3.3.0
 
@@ -211,7 +196,7 @@ public class GreenathomeAppliance extends Appliance implements HttpImplementor, 
 
 	private static ApplianceDescriptor descriptor;
 
-	protected Job readInfosJob;
+	//protected Job readInfosJob;
 
 	private IHacService hacService;
 

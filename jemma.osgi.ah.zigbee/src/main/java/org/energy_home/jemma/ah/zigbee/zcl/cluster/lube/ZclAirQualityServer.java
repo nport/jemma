@@ -23,7 +23,6 @@ public class ZclAirQualityServer
     extends ZclServiceCluster
     implements AirQualityServer, ZigBeeDeviceListener
 {
-
     public final static short CLUSTER_ID = 3071;
     static Map attributesMapByName = null;
     static Map attributesMapById = null;
@@ -84,7 +83,7 @@ public class ZclAirQualityServer
     }
 
     protected IZclAttributeDescriptor getAttributeDescriptor(int attrId) {
-        return ((IZclAttributeDescriptor) attributesMapById.get(attrId));
+        return ((IZclAttributeDescriptor) attributesMapById.get(new Integer(attrId)));
     }
 
     protected Collection getAttributeDescriptors() {

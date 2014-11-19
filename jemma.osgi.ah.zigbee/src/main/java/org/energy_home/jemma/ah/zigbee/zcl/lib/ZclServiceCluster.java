@@ -121,7 +121,7 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 		if (attributesMapById == null) {
 			attributesMapById = new HashMap();
 			for (int i = 0; i < attributeDescriptors.length; i++) {
-				attributesMapById.put(attributeDescriptors[i].zclGetId(), attributeDescriptors[i]);
+				attributesMapById.put(new Integer(attributeDescriptors[i].zclGetId()), attributeDescriptors[i]);
 			}
 		}
 		return attributesMapById;
@@ -900,7 +900,7 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 
 						int id = peerAttributeDescriptors[i].zclGetId();
 						if (id >= startAttributeIdentifier) {
-							l.add(id);
+							l.add(new Integer(id));
 							peerAttributeDescriptorsByIdMap.put(new Integer(id), peerAttributeDescriptors[i]);
 						}
 					}
@@ -933,7 +933,7 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 					if (attributeCount <= maxAttributeIdentifiers) {
 						// Is the attribute supported?
 						ZclAttributeDescriptor attributeDescriptor = (ZclAttributeDescriptor) peerAttributeDescriptorsByIdMap
-								.get(attrId);
+								.get(new Integer(attrId));
 						if (attributeDescriptor != null) {
 							try {
 								ZclDataTypeUI16.zclSerialize(zclResponseFrame, attributeDescriptor.zclGetId());

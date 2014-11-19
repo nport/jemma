@@ -135,7 +135,7 @@ public class M2MNetworkSclManager {
 	void startup() throws M2MServiceException {
 		M2MDeviceConfigObject deviceConfig = (M2MDeviceConfigObject) deviceManager.getConfiguration();
 		setDeviceConfig(deviceConfig);
-		jaxbConverterFactory = HttpEntityXmlConverter.getCoreConverter();
+		jaxbConverterFactory = HttpEntityXmlConverterFactory.getCoreConverter();
 
 		// Currently a fixed address is used for network scl base id (see
 		// constructor)

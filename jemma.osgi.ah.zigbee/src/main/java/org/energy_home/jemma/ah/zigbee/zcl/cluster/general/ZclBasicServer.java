@@ -74,7 +74,7 @@ public class ZclBasicServer extends ZclServiceCluster implements BasicServer, Zi
 	}
 
 	protected IZclAttributeDescriptor getAttributeDescriptor(int id) {
-		return (IZclAttributeDescriptor) attributesMapById.get(id);
+		return (IZclAttributeDescriptor) attributesMapById.get(new Integer(id));
 	}
 
 	protected Collection getAttributeDescriptors() {

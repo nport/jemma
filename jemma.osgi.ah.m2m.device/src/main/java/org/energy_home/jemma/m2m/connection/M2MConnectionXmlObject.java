@@ -19,12 +19,12 @@ package org.energy_home.jemma.m2m.connection;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.energy_home.jemma.m2m.M2MXmlConverter;
-import org.energy_home.jemma.utils.xml.jaxb.XmlConverter;
+import org.energy_home.jemma.internal.ah.m2m.utils.XmlConverter;
+import org.energy_home.jemma.m2m.M2MXmlConverterJaxb;
 
 public class M2MConnectionXmlObject implements Cloneable {
 
-	private static XmlConverter converterFactory = M2MXmlConverter.getConnectionConverter();
+	private static XmlConverter converterFactory = M2MXmlConverterJaxb.getConnectionConverter();
 
 	public static byte[] getByteArray(Object o) {
 		return converterFactory.getByteArray(o);

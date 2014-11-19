@@ -111,7 +111,7 @@ public class ZclIASZoneServer extends ZclServiceCluster implements ZigBeeDeviceL
 	}
 
 	protected IZclAttributeDescriptor getAttributeDescriptor(int attrId) {
-		return ((IZclAttributeDescriptor) attributesMapById.get(attrId));
+		return ((IZclAttributeDescriptor) attributesMapById.get(new Integer(attrId)));
 	}
 
 	protected Collection getAttributeDescriptors() {

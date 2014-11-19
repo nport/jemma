@@ -59,7 +59,7 @@ public class ZclIdentifyServer extends ZclServiceCluster implements IdentifyServ
 	}
 
 	protected IZclAttributeDescriptor getAttributeDescriptor(int id) {
-		return (IZclAttributeDescriptor) attributesMapById.get(id);
+		return (IZclAttributeDescriptor) attributesMapById.get(new Integer(id));
 	}
 
 	protected Collection getAttributeDescriptors() {

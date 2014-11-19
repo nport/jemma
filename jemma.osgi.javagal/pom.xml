@@ -54,7 +54,7 @@
 						<Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>
 						<Bundle-Activator>org.energy_home.jemma.javagal.layers.presentation.Activator</Bundle-Activator>
 						<Import-Package>
-							gnu.io;resolution:=optional,
+							gnu.io;version="0.0.0",
 							jssc;resolution:=optional,
 							org.slf4j;version="[1.6,2)",
 							org.osgi.framework; version="[1.5,2.0)",

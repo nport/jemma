@@ -19,7 +19,6 @@ import java.util.Vector;
 
 import javax.servlet.Servlet;
 
-import org.energy_home.jemma.zgd.GatewayInterface;
 import org.osgi.service.http.HttpContext;
 import org.osgi.service.http.HttpService;
 

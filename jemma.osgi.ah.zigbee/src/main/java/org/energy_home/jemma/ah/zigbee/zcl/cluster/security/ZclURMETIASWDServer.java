@@ -19,7 +19,6 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.energy_home.jemma.ah.cluster.zigbee.security.IASZoneClient;
-import org.energy_home.jemma.ah.cluster.zigbee.security.IASZoneServer;
 import org.energy_home.jemma.ah.cluster.zigbee.security.ZoneEnrollResponse;
 import org.energy_home.jemma.ah.hac.ApplianceException;
 import org.energy_home.jemma.ah.hac.IEndPointRequestContext;
@@ -105,7 +104,7 @@ public class ZclURMETIASWDServer extends ZclServiceCluster implements ZigBeeDevi
 	}
 
 	protected IZclAttributeDescriptor getAttributeDescriptor(int attrId) {
-		return ((IZclAttributeDescriptor) attributesMapById.get(attrId));
+		return ((IZclAttributeDescriptor) attributesMapById.get(new Integer(attrId)));
 	}
 
 	protected Collection getAttributeDescriptors() {

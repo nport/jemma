@@ -18,11 +18,9 @@ package org.energy_home.jemma.m2m;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.energy_home.jemma.utils.xml.jaxb.XmlConverter;
-
 public class M2MXmlObject implements Cloneable {
 
-	private static XmlConverter converterFactory = M2MXmlConverter.getCoreConverter();
+	private static M2MXmlConverter converterFactory = M2MXmlConverterFactory.getCoreConverter();
 
 	public static byte[] getByteArray(Object o) {
 		return converterFactory.getByteArray(o);

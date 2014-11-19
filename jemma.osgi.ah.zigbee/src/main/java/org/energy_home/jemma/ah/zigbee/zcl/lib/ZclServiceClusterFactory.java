@@ -184,13 +184,9 @@ public class ZclServiceClusterFactory {
 		// Wulian Clusters
 		wulianClientClusterMap.put(new Integer(ZclIRTransmitterClient.CLUSTER_ID & 0xffff), ZclIRTransmitterClient.class);
 		wulianServerClusterMap.put(new Integer(ZclIRTransmitterServer.CLUSTER_ID & 0xffff), ZclIRTransmitterServer.class);
-	
-	
-		
-
 	}
 
-	public static ZclServiceCluster getCluster(int clusterSide, Integer profileId, Integer clusterId) {
+	public static ZclServiceCluster getCluster(int clusterSide, int profileId, int clusterId) {
 		HashMap serverClusterMap = commonServerClusterMap;
 		HashMap clientClusterMap = commonClientClusterMap;
 		HashMap backupServerClusterMap = null;
@@ -201,24 +197,26 @@ public class ZclServiceClusterFactory {
 			backupServerClusterMap = commonServerClusterMap;
 			backupClientClusterMap = commonClientClusterMap;
 		}
+		
+		Integer cId = new Integer(clusterId);
 
 		try {
 			Class clazz = null;
 			switch (clusterSide) {
 			case IServiceCluster.CLIENT_SIDE:
-				if ((clazz = (Class) clientClusterMap.get(clusterId)) != null) {
+				if ((clazz = (Class) clientClusterMap.get(cId)) != null) {
 					return (ZclServiceCluster) clazz.newInstance();
-				} else if (backupClientClusterMap != null && (clazz = (Class) backupClientClusterMap.get(clusterId)) != null) {
+				} else if (backupClientClusterMap != null && (clazz = (Class) backupClientClusterMap.get(cId)) != null) {
 					return (ZclServiceCluster) clazz.newInstance();
-				} else if ((clazz = (Class) wulianClientClusterMap.get(clusterId)) != null) {
+				} else if ((clazz = (Class) wulianClientClusterMap.get(cId)) != null) {
 					return (ZclServiceCluster) clazz.newInstance();
 				}
 			case IServiceCluster.SERVER_SIDE:
-				if ((clazz = (Class) serverClusterMap.get(clusterId)) != null) {
+				if ((clazz = (Class) serverClusterMap.get(cId)) != null) {
 					return (ZclServiceCluster) clazz.newInstance();
-				} else if ((backupClientClusterMap != null && (clazz = (Class) backupServerClusterMap.get(clusterId)) != null)) {
+				} else if ((backupClientClusterMap != null && (clazz = (Class) backupServerClusterMap.get(cId)) != null)) {
 					return (ZclServiceCluster) clazz.newInstance();
-				} else if ((clazz = (Class) wulianServerClusterMap.get(clusterId)) != null) {
+				} else if ((clazz = (Class) wulianServerClusterMap.get(cId)) != null) {
 					return (ZclServiceCluster) clazz.newInstance();
 				}
 			}

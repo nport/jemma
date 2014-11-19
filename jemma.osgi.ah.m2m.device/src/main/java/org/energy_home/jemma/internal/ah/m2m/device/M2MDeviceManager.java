@@ -404,7 +404,7 @@ public class M2MDeviceManager implements M2MDeviceConfigurator {
 					LOG.debug("M2M Device already started");
 					return;
 				}
-				jaxbConverterFactory = HttpEntityXmlConverter.getConnectionConverter();
+				jaxbConverterFactory = HttpEntityXmlConverterFactory.getConnectionConverter();
 				try {
 					
 					restClient = RestClient.get();
