@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    This file is part of JEMMA - http://jemma.energy-home.org
+    (C) Copyright 2013 Telecom Italia (http://www.telecomitalia.it)
+
+    JEMMA is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License (LGPL) version 3
+    or later as published by the Free Software Foundation, which accompanies
+    this distribution and is available at http://www.gnu.org/licenses/lgpl.html
+
+    JEMMA is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License (LGPL) for more details.
+
+
+-->
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="start" deactivate="stop" enabled="true" immediate="false" name="Hap Service">
+   <implementation class="org.energy_home.jemma.internal.ah.hap.client.HapServiceComponent"/>
+   <service>
+      <provide interface="org.energy_home.jemma.ah.hap.client.IM2MHapService"/>
+   </service>
+   <reference bind="setM2MDevice" cardinality="1..1" interface="org.energy_home.jemma.ah.m2m.device.M2MDevice" name="M2MDevice" policy="dynamic" unbind="unsetM2MDevice"/>
+   <reference bind="setDateTimeService" cardinality="1..1" interface="org.energy_home.jemma.utils.datetime.DateTimeService" name="DateTimeService" policy="dynamic" unbind="unsetDateTimeService"/>
+   <reference bind="setM2MXmlConverter" cardinality="1..1" interface="org.energy_home.jemma.ah.m2m.device.M2MXmlConverter" name="M2MConverters" policy="dynamic" unbind="unsetM2MXmlConverter"/>
+</scr:component>

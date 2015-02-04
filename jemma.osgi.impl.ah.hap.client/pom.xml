@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file is part of JEMMA - http://jemma.energy-home.org (C) Copyright 
+	2013 Telecom Italia (http://www.telecomitalia.it) JEMMA is free software: 
+	you can redistribute it and/or modify it under the terms of the GNU Lesser 
+	General Public License (LGPL) version 3 or later as published by the Free 
+	Software Foundation, which accompanies this distribution and is available 
+	at http://www.gnu.org/licenses/lgpl.html JEMMA is distributed in the hope 
+	that it will be useful, but WITHOUT ANY WARRANTY; without even the implied 
+	warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
+	GNU Lesser General Public License (LGPL) for more details. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.energy-home</groupId>
+	<artifactId>jemma.osgi.impl.ah.hap.client</artifactId>
+	<packaging>bundle</packaging>
+	<version>1.2.15</version>
+	<name>Hap Client Implementation</name>
+
+	<properties>
+		<main.dir>${project.parent.basedir}</main.dir>
+	</properties>
+
+	<parent>
+		<groupId>org.energy-home</groupId>
+		<artifactId>jemma</artifactId>
+		<version>0.2</version>
+	</parent>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<configuration>
+					<instructions>
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-Version>${project.version}</Bundle-Version>
+						<Require-Bundle>
+							jemma.osgi.ah.hac.lib,
+							jemma.osgi.ah.m2m.device
+						</Require-Bundle>
+						<Import-Package>*</Import-Package>
+						<Bundle-Category>Automation@Home</Bundle-Category>
+						<Bundle-RequiredExecutionEnvironment>
+							J2SE-1.5
+						</Bundle-RequiredExecutionEnvironment>
+						<Service-Component>OSGI-INF/*.xml</Service-Component>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.energy-home</groupId>
+			<artifactId>jemma.osgi.ah.hac.lib</artifactId>
+			<version>${org.energy-home.jemma.osgi.ah.hac.lib.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.energy-home</groupId>
+			<artifactId>jemma.osgi.ah.hap.client</artifactId>
+			<version>${org.energy-home.jemma.osgi.ah.hap.client.version}</version>
+		</dependency>		
+		<dependency>
+			<groupId>org.energy-home</groupId>
+			<artifactId>jemma.osgi.ah.m2m.device</artifactId>
+			<version>${org.energy-home.jemma.osgi.ah.m2m.device.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.energy-home</groupId>
+			<artifactId>jemma.osgi.utils</artifactId>
+			<version>${org.energy-home.jemma.osgi.utils.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet</artifactId>
+			<version>${javax.servlet.version}</version>
+		</dependency>
+	</dependencies>
+</project>

@@ -12,9 +12,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License (LGPL) for more details.
  *
- * @author 
- *         "Ing. Marco Nieddu <a href="mailto:marco.nieddu@consoft.it">marco.nieddu@consoft.it</a> or <a href="marco.niedducv@gmail.com">marco.niedducv@gmail.com</a> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
- 
- * 
  */
-package org.energy_home.jemma.internal.zgd;
+package org.energy_home.jemma.internal.ah.hap.client;
+
+public class Utils {
+	public static final boolean isNullOrEmpty(String s) {
+		return (s == null || (s.length() == 0));
+	}
+}

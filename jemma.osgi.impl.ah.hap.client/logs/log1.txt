@@ -1,0 +1,518 @@
+
+osgi> DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.eclipse.osgi.framework.console.CommandProvider}={service.ranking=2147483647, service.id=31}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.apache.felix.scr.ScrService}={service.id=32}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 ComponentStorage.parseXMLDeclaration(): loading bundleentry://4.fwk21513455/OSGI-INF/component.xml
+DEBUG 34 WorkThread.run()
+DEBUG 34 WorkThread.run(): object to process [QueuedJob] WorkPerformer: org.eclipse.equinox.internal.ds.SCRManager@113230c; actionType 1
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.eclipse.equinox.internal.util.threadpool.ThreadPoolManager, org.eclipse.equinox.internal.util.threadpool.ThreadPoolFactory}={service.id=33}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.eclipse.equinox.internal.util.timer.Timer}={service.id=34}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.enableComponents(): [Component[
+	name = org.eclipse.equinox.event
+	activate = activate
+	deactivate = deactivate
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = org.eclipse.equinox.internal.event.EventComponent
+	state = Unsatisfied
+	properties = 
+	serviceFactory = false
+	serviceInterface = [org.osgi.service.event.EventAdmin]
+	references = null
+	located in bundle = org.eclipse.equinox.event_1.2.100.v20110502 [4]
+]]
+DEBUG 34 Resolver.map(): Creating SCP for component org.eclipse.equinox.event
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Unsatisfied
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}]]
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.osgi.service.event.EventAdmin}={component.name=org.eclipse.equinox.event, component.id=0, service.id=35}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Registered
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}]]
+DEBUG 34 InstanceProcess.registerService(): org.eclipse.equinox.event registered as *service*
+DEBUG 34 WorkThread.run()
+DEBUG 34 ComponentStorage.parseXMLDeclaration(): loading bundleentry://8.fwk21513455/OSGI-INF/application_proxy.xml
+DEBUG 34 WorkThread.run(): object to process [QueuedJob] WorkPerformer: org.eclipse.equinox.internal.ds.SCRManager@113230c; actionType 1
+DEBUG 34 Resolver.enableComponents(): [Component[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	activate = start
+	deactivate = stop
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = true
+	implementation = org.energy_home.jemma.ah.hac.lib.internal.AppliancesProxy
+	state = Unsatisfied
+	properties = 
+	serviceFactory = false
+	serviceInterface = [org.energy_home.jemma.ah.hac.IAppliancesBasicProxy, org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy, org.energy_home.jemma.ah.hac.IConfigurationInfoService]
+	references = {
+		Reference[name = IHacService, interface = org.energy_home.jemma.ah.hac.lib.ext.IHacService, policy = dynamic, cardinality = 0..1, target = null, bind = setHacService, unbind = unsetHacService]
+		Reference[name = IApplianceFactory, interface = org.energy_home.jemma.ah.hac.IApplianceFactory, policy = dynamic, cardinality = 0..n, target = null, bind = addApplianceFactory, unbind = removeApplianceFactory]
+		Reference[name = EventAdmin, interface = org.osgi.service.event.EventAdmin, policy = dynamic, cardinality = 0..1, target = null, bind = setEventAdmin, unbind = unsetEventAdmin]
+		Reference[name = IApplicationService, interface = org.energy_home.jemma.ah.hac.IApplicationService, policy = dynamic, cardinality = 0..n, target = null, bind = addApplicationService, unbind = removeApplicationService]
+		Reference[name = IAttributeValuesListener, interface = org.energy_home.jemma.ah.hac.IAttributeValuesListener, policy = dynamic, cardinality = 0..n, target = null, bind = addAttributeValuesListener, unbind = removeAttributeValuesListener]
+	}
+	located in bundle = jemma.osgi.ah.hac.lib_3.1.4 [8]
+]]
+DEBUG 34 Resolver.map(): Creating SCP for component org.energy_home.jemma.osgi.ah.application.proxy
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Registered
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Unsatisfied
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 InstanceProcess.buildComponents(): building immediate component org.energy_home.jemma.osgi.ah.application.proxy
+DEBUG 34 InstanceProcess.buildComponent(): building component org.energy_home.jemma.osgi.ah.application.proxy
+DEBUG 34 ServiceComponentProp.bindReference(): component org.energy_home.jemma.osgi.ah.application.proxy -> Reference[name = IHacService, interface = org.energy_home.jemma.ah.hac.lib.ext.IHacService, policy = dynamic, cardinality = 0..1, target = null, bind = setHacService, unbind = unsetHacService]
+DEBUG 34 ServiceComponentProp.bindReference(): The service is not yet registered, but it is already instantiated
+DEBUG 34 ServiceComponentProp.bindReference(): component org.energy_home.jemma.osgi.ah.application.proxy -> Reference[name = IApplianceFactory, interface = org.energy_home.jemma.ah.hac.IApplianceFactory, policy = dynamic, cardinality = 0..n, target = null, bind = addApplianceFactory, unbind = removeApplianceFactory]
+DEBUG 34 ServiceComponentProp.bindReference(): The service is not yet registered, but it is already instantiated
+DEBUG 34 ServiceComponentProp.bindReference(): component org.energy_home.jemma.osgi.ah.application.proxy -> Reference[name = EventAdmin, interface = org.osgi.service.event.EventAdmin, policy = dynamic, cardinality = 0..1, target = null, bind = setEventAdmin, unbind = unsetEventAdmin]
+DEBUG 34 InstanceProcess.buildComponent(): building component org.eclipse.equinox.event
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): name: org.eclipse.equinox.event
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): using bundle: jemma.osgi.ah.hac.lib
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): instance: org.eclipse.equinox.internal.ds.impl.ComponentInstanceImpl@119860e
+DEBUG 34 ServiceComponent.getMethod(): activate
+DEBUG 34 InstanceProcess.buildComponent(): building component org.eclipse.equinox.event
+DEBUG 34 ServiceReg.getService(): service 'org.eclipse.equinox.event' is used 1 time(s), object = org.eclipse.equinox.internal.event.EventComponent@17a1ad3
+DEBUG 34 ServiceReg.getService(): service 'org.eclipse.equinox.event' is used 2 time(s), object = org.eclipse.equinox.internal.event.EventComponent@17a1ad3
+DEBUG 34 ServiceComponentProp.bindReference(): component org.energy_home.jemma.osgi.ah.application.proxy -> Reference[name = IApplicationService, interface = org.energy_home.jemma.ah.hac.IApplicationService, policy = dynamic, cardinality = 0..n, target = null, bind = addApplicationService, unbind = removeApplicationService]
+DEBUG 34 ServiceComponentProp.bindReference(): The service is not yet registered, but it is already instantiated
+DEBUG 34 ServiceComponentProp.bindReference(): component org.energy_home.jemma.osgi.ah.application.proxy -> Reference[name = IAttributeValuesListener, interface = org.energy_home.jemma.ah.hac.IAttributeValuesListener, policy = dynamic, cardinality = 0..n, target = null, bind = addAttributeValuesListener, unbind = removeAttributeValuesListener]
+DEBUG 34 ServiceComponentProp.bindReference(): The service is not yet registered, but it is already instantiated
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): name: org.energy_home.jemma.osgi.ah.application.proxy
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): using bundle: null
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): instance: org.eclipse.equinox.internal.ds.impl.ComponentInstanceImpl@99504b
+DEBUG 34 ServiceComponent.getMethod(): start
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.energy_home.jemma.ah.hac.IAppliancesBasicProxy, org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy, org.energy_home.jemma.ah.hac.IConfigurationInfoService}={component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, service.id=36}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 InstanceProcess.registerService(): org.energy_home.jemma.osgi.ah.application.proxy registered as *service*
+DEBUG 34 WorkThread.run()
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.eclipse.osgi.service.urlconversion.URLConverter}={protocol=platform, service.id=37}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.eclipse.core.runtime.IAdapterManager}={service.id=38}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.osgi.service.url.URLStreamHandlerService}={url.handler.protocol=[platform], service.id=39}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.eclipse.core.runtime.jobs.IJobManager}={service.id=40}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.eclipse.core.runtime.preferences.IPreferencesService}={service.id=41}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.osgi.service.prefs.PreferencesService}={service.id=42}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.osgi.service.useradmin.UserAdmin}={service.description=OSGi User Admin service - IBM Implementation, service.pid=org.eclipse.equinox.internal.useradmin.Activator, service.vendor=IBM, service.id=43}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.osgi.service.useradmin.UserAdminListener}={service.id=44}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 ServiceReg.getService(): service 'org.eclipse.equinox.event' is used 3 time(s), object = org.eclipse.equinox.internal.event.EventComponent@17a1ad3
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.energy_home.jemma.utils.thread.ExecutorService}={service.id=45}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.energy_home.jemma.utils.datetime.DateTimeService}={service.id=46}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.apache.felix.bundlerepository.RepositoryAdmin}={service.id=47}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.osgi.service.url.URLStreamHandlerService}={url.handler.protocol=obr, service.id=48}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+initialStartLevel 2
+defaultStartLevel set to 2
+DEBUG 34 ServiceReg.getService(): service 'org.eclipse.equinox.event' is used 4 time(s), object = org.eclipse.equinox.internal.event.EventComponent@17a1ad3
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.osgi.service.cm.ConfigurationListener}={service.id=49}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.osgi.service.cm.ConfigurationAdmin}={service.id=50}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+583 INFO Logging to org.slf4j.impl.SimpleLogger(org.mortbay.log) via org.mortbay.log.Slf4jLog
+674 INFO jetty-6.1.x
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.osgi.service.http.HttpService, org.eclipse.equinox.http.servlet.ExtendedHttpService}={service.description=Equinox Jetty-based Http Service, service.vendor=Eclipse.org, http.port=8080, service.id=51}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+766 INFO Started SelectChannelConnector@0.0.0.0:8080
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.osgi.service.cm.ManagedServiceFactory}={service.pid=org.eclipse.equinox.http.jetty.config, service.id=52}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.eclipse.osgi.framework.console.CommandProvider}={osgi.command.scope=hap, service.id=53}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 ComponentStorage.parseXMLDeclaration(): loading bundleentry://60.fwk21513455/OSGI-INF/hapclient.xml
+DEBUG 34 ComponentStorage.parseXMLDeclaration(): loading bundleentry://60.fwk21513455/OSGI-INF/m2mlocal.xml
+DEBUG 34 WorkThread.run(): object to process [QueuedJob] WorkPerformer: org.eclipse.equinox.internal.ds.SCRManager@113230c; actionType 1
+DEBUG 34 Resolver.enableComponents(): [Component[
+	name = Hap Service
+	activate = start
+	deactivate = stop
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = org.energy_home.jemma.internal.ah.hap.client.HapServiceComponent
+	state = Unsatisfied
+	properties = 
+	serviceFactory = true
+	serviceInterface = [org.energy_home.jemma.ah.hap.client.IM2MHapService]
+	references = {
+		Reference[name = M2MDevice, interface = org.energy_home.jemma.ah.m2m.device.M2MDevice, policy = dynamic, cardinality = 1..1, target = null, bind = setM2MDevice, unbind = unsetM2MDevice]
+		Reference[name = DateTimeService, interface = org.energy_home.jemma.utils.datetime.DateTimeService, policy = dynamic, cardinality = 1..1, target = null, bind = setDateTimeService, unbind = unsetDateTimeService]
+		Reference[name = M2MConverters, interface = org.energy_home.jemma.ah.m2m.device.M2MXmlConverter, policy = dynamic, cardinality = 1..1, target = null, bind = setM2MXmlConverter, unbind = unsetM2MXmlConverter]
+	}
+	located in bundle = jemma.osgi.impl.hap.client_1.0.0.qualifier [60]
+], Component[
+	name = M2M Local Service
+	activate = start
+	deactivate = stop
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = false
+	implementation = org.energy_home.jemma.internal.shapi.M2MLocalService
+	state = Unsatisfied
+	properties = {ah.application.name=ah.hap.client}
+	serviceFactory = false
+	serviceInterface = [org.energy_home.jemma.ah.hac.IApplicationService, org.energy_home.jemma.ah.hap.client.IM2MLocalService]
+	references = {
+		Reference[name = HttpService, interface = org.osgi.service.http.HttpService, policy = static, cardinality = 1..1, target = null, bind = setHttpService, unbind = unsetHttpService]
+		Reference[name = M2MNetworkScl, interface = org.energy_home.jemma.ah.m2m.device.M2MNetworkScl, policy = dynamic, cardinality = 0..1, target = null, bind = setM2MNetworkScl, unbind = unsetM2MNetworkScl]
+		Reference[name = IAppliancesProxy, interface = org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy, policy = static, cardinality = 1..1, target = null, bind = setAppliancesProxy, unbind = unsetAppliancesProxy]
+		Reference[name = IM2MHapService, interface = org.energy_home.jemma.ah.hap.client.IM2MHapService, policy = static, cardinality = 1..1, target = null, bind = setM2MHapService, unbind = unsetM2MHapService]
+		Reference[name = INetworkManager, interface = org.energy_home.jemma.ah.hac.lib.ext.INetworkManager, policy = dynamic, cardinality = 0..n, target = null, bind = addNetworkManager, unbind = removeNetworkManager]
+		Reference[name = ExecutorService, interface = org.energy_home.jemma.utils.thread.ExecutorService, policy = static, cardinality = 1..1, target = null, bind = setExecutorService, unbind = unsetExecutorService]
+		Reference[name = IM2MLocalListener, interface = org.energy_home.jemma.ah.hap.client.IM2MLocalListener, policy = dynamic, cardinality = 0..n, target = null, bind = addM2MLocalListener, unbind = removeM2MLocalListener]
+		Reference[name = M2MConverters, interface = org.energy_home.jemma.ah.m2m.device.M2MXmlConverter, policy = static, cardinality = 1..1, target = null, bind = setM2MXmlConverter, unbind = unsetM2MXmlConverter]
+	}
+	located in bundle = jemma.osgi.impl.hap.client_1.0.0.qualifier [60]
+]]
+DEBUG 34 Resolver.map(): Creating SCP for component Hap Service
+DEBUG 34 Resolver.map(): Creating SCP for component M2M Local Service
+DEBUG 34 Setting delay activate SCP: M2M Local Service
+DEBUG 34 Resolver.resolveEligible(): reference 'IM2MHapService' of component 'M2M Local Service' is not resolved
+DEBUG 34 Resolver.resolveEligible(): reference 'M2MDevice' of component 'Hap Service' is not resolved
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 WorkThread.run()
+DEBUG 34 ComponentStorage.parseXMLDeclaration(): loading bundleentry://65.fwk21513455/OSGI-INF/hap_client_test.xml
+DEBUG 34 WorkThread.run(): object to process [QueuedJob] WorkPerformer: org.eclipse.equinox.internal.ds.SCRManager@113230c; actionType 1
+DEBUG 34 Resolver.enableComponents(): [Component[
+	name = jemma.osgi.ah.hap.client.test
+	activate = start
+	deactivate = stop
+	modified = 
+	configuration-policy = optional
+	factory = null
+	autoenable = true
+	immediate = true
+	implementation = jemma.osgi.internal.ah.hap.client.test.Component
+	state = Unsatisfied
+	properties = 
+	serviceFactory = false
+	serviceInterface = null
+	references = {
+		Reference[name = M2MXmlConverter, interface = org.energy_home.jemma.ah.m2m.device.M2MXmlConverter, policy = dynamic, cardinality = 1..1, target = null, bind = bindConverter, unbind = unbindConverter]
+		Reference[name = IM2MHapService, interface = org.energy_home.jemma.ah.hap.client.IM2MHapService, policy = dynamic, cardinality = 1..1, target = null, bind = bindIM2MHapService, unbind = unbindIM2MHapService]
+	}
+	located in bundle = jemma.osgi.ah.hap.client.test_1.0.0.qualifier [65]
+]]
+DEBUG 34 Resolver.map(): Creating SCP for component jemma.osgi.ah.hap.client.test
+DEBUG 34 Setting delay activate SCP: M2M Local Service
+DEBUG 34 Resolver.resolveEligible(): reference 'M2MXmlConverter' of component 'jemma.osgi.ah.hap.client.test' is not resolved
+DEBUG 34 Resolver.resolveEligible(): reference 'IM2MHapService' of component 'M2M Local Service' is not resolved
+DEBUG 34 Resolver.resolveEligible(): reference 'M2MDevice' of component 'Hap Service' is not resolved
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 WorkThread.run()
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.energy_home.jemma.ah.m2m.device.M2MDevice, org.energy_home.jemma.ah.m2m.device.M2MDeviceConfigurator}={service.id=54}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): reference 'M2MXmlConverter' of component 'jemma.osgi.ah.hap.client.test' is not resolved
+DEBUG 34 Resolver.resolveEligible(): reference 'IM2MHapService' of component 'M2M Local Service' is not resolved
+DEBUG 34 Resolver.resolveEligible(): reference 'M2MConverters' of component 'Hap Service' is not resolved
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.eclipse.osgi.framework.console.CommandProvider}={osgi.command.scope=m2m, service.id=55}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): reference 'M2MXmlConverter' of component 'jemma.osgi.ah.hap.client.test' is not resolved
+DEBUG 34 Resolver.resolveEligible(): reference 'IM2MHapService' of component 'M2M Local Service' is not resolved
+DEBUG 34 Resolver.resolveEligible(): reference 'M2MConverters' of component 'Hap Service' is not resolved
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}]]
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.energy_home.jemma.ah.m2m.device.M2MXmlConverter}={service.id=56}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): reference 'IM2MHapService' of component 'jemma.osgi.ah.hap.client.test' is not resolved
+DEBUG 34 Resolver.resolveEligible(): reference 'IM2MHapService' of component 'M2M Local Service' is not resolved
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}], ServiceComponentProp[
+	name = Hap Service
+	state = Unsatisfied
+	properties = {component.name=Hap Service, component.id=2, objectClass=String[org.energy_home.jemma.ah.hap.client.IM2MHapService]}]]
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.energy_home.jemma.ah.hap.client.IM2MHapService}={component.name=Hap Service, component.id=2, service.id=57}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}], ServiceComponentProp[
+	name = Hap Service
+	state = Registered
+	properties = {component.name=Hap Service, component.id=2, objectClass=String[org.energy_home.jemma.ah.hap.client.IM2MHapService]}], ServiceComponentProp[
+	name = M2M Local Service
+	state = Unsatisfied
+	properties = {objectClass=String[org.energy_home.jemma.ah.hac.IApplicationService,org.energy_home.jemma.ah.hap.client.IM2MLocalService], ah.application.name=ah.hap.client, component.name=M2M Local Service, component.id=3}], ServiceComponentProp[
+	name = jemma.osgi.ah.hap.client.test
+	state = Unsatisfied
+	properties = {component.name=jemma.osgi.ah.hap.client.test, component.id=4}]]
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.energy_home.jemma.ah.hac.IApplicationService, org.energy_home.jemma.ah.hap.client.IM2MLocalService}={ah.application.name=ah.hap.client, component.name=M2M Local Service, component.id=3, service.id=58}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}], ServiceComponentProp[
+	name = Hap Service
+	state = Registered
+	properties = {component.name=Hap Service, component.id=2, objectClass=String[org.energy_home.jemma.ah.hap.client.IM2MHapService]}], ServiceComponentProp[
+	name = M2M Local Service
+	state = Registered
+	properties = {objectClass=String[org.energy_home.jemma.ah.hac.IApplicationService,org.energy_home.jemma.ah.hap.client.IM2MLocalService], ah.application.name=ah.hap.client, component.name=M2M Local Service, component.id=3}], ServiceComponentProp[
+	name = jemma.osgi.ah.hap.client.test
+	state = Activating
+	properties = {component.name=jemma.osgi.ah.hap.client.test, component.id=4}]]
+DEBUG 34 Resolver.selectDynamicBind(): selected = [org.eclipse.equinox.internal.ds.Reference@c89b0a]
+DEBUG 34 ServiceComponentProp.bindReference(): component org.energy_home.jemma.osgi.ah.application.proxy -> Reference[name = IApplicationService, interface = org.energy_home.jemma.ah.hac.IApplicationService, policy = dynamic, cardinality = 0..n, target = null, bind = addApplicationService, unbind = removeApplicationService]
+DEBUG 34 InstanceProcess.buildComponent(): building component M2M Local Service
+DEBUG 34 ServiceComponentProp.bindReference(): component M2M Local Service -> Reference[name = HttpService, interface = org.osgi.service.http.HttpService, policy = static, cardinality = 1..1, target = null, bind = setHttpService, unbind = unsetHttpService]
+DEBUG 34 ServiceComponentProp.bindReference(): component M2M Local Service -> Reference[name = M2MNetworkScl, interface = org.energy_home.jemma.ah.m2m.device.M2MNetworkScl, policy = dynamic, cardinality = 0..1, target = null, bind = setM2MNetworkScl, unbind = unsetM2MNetworkScl]
+DEBUG 34 ServiceComponentProp.bindReference(): The service is not yet registered, but it is already instantiated
+DEBUG 34 ServiceComponentProp.bindReference(): component M2M Local Service -> Reference[name = IAppliancesProxy, interface = org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy, policy = static, cardinality = 1..1, target = null, bind = setAppliancesProxy, unbind = unsetAppliancesProxy]
+DEBUG 34 InstanceProcess.buildComponent(): building component org.energy_home.jemma.osgi.ah.application.proxy
+DEBUG 34 ServiceReg.getService(): service 'org.energy_home.jemma.osgi.ah.application.proxy' is used 1 time(s), object = ah.app.proxy
+DEBUG 34 ServiceComponentProp.bindReference(): component M2M Local Service -> Reference[name = IM2MHapService, interface = org.energy_home.jemma.ah.hap.client.IM2MHapService, policy = static, cardinality = 1..1, target = null, bind = setM2MHapService, unbind = unsetM2MHapService]
+DEBUG 34 FactoryReg.getService(): created new service for component Hap Service
+DEBUG 34 InstanceProcess.buildComponent(): building component Hap Service
+DEBUG 34 ServiceComponentProp.bindReference(): component Hap Service -> Reference[name = M2MDevice, interface = org.energy_home.jemma.ah.m2m.device.M2MDevice, policy = dynamic, cardinality = 1..1, target = null, bind = setM2MDevice, unbind = unsetM2MDevice]
+15611 INFO added listener 'org.energy_home.jemma.internal.ah.hap.client.HapServiceManager' to M2MDevice
+DEBUG 34 ServiceComponentProp.bindReference(): component Hap Service -> Reference[name = DateTimeService, interface = org.energy_home.jemma.utils.datetime.DateTimeService, policy = dynamic, cardinality = 1..1, target = null, bind = setDateTimeService, unbind = unsetDateTimeService]
+DEBUG 34 ServiceComponentProp.bindReference(): component Hap Service -> Reference[name = M2MConverters, interface = org.energy_home.jemma.ah.m2m.device.M2MXmlConverter, policy = dynamic, cardinality = 1..1, target = null, bind = setM2MXmlConverter, unbind = unsetM2MXmlConverter]
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): name: Hap Service
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): using bundle: jemma.osgi.impl.hap.client
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): instance: org.eclipse.equinox.internal.ds.impl.ComponentInstanceImpl@33b0
+DEBUG 34 ServiceComponent.getMethod(): start
+sono qui A1
+sono qui A2
+DEBUG 34 ServiceComponentProp.bindReference(): component M2M Local Service -> Reference[name = INetworkManager, interface = org.energy_home.jemma.ah.hac.lib.ext.INetworkManager, policy = dynamic, cardinality = 0..n, target = null, bind = addNetworkManager, unbind = removeNetworkManager]
+18741 INFO Calling constructor...
+18742 INFO Adding user jemma.osgi.impl.hap.client
+18742 INFO ExecutorManager starting...
+DEBUG 34 ServiceComponentProp.bindReference(): The service is not yet registered, but it is already instantiated
+DEBUG 34 ServiceComponentProp.bindReference(): component M2M Local Service -> Reference[name = ExecutorService, interface = org.energy_home.jemma.utils.thread.ExecutorService, policy = static, cardinality = 1..1, target = null, bind = setExecutorService, unbind = unsetExecutorService]
+DEBUG 34 ServiceComponentProp.bindReference(): component M2M Local Service -> Reference[name = IM2MLocalListener, interface = org.energy_home.jemma.ah.hap.client.IM2MLocalListener, policy = dynamic, cardinality = 0..n, target = null, bind = addM2MLocalListener, unbind = removeM2MLocalListener]
+DEBUG 34 ServiceComponentProp.bindReference(): The service is not yet registered, but it is already instantiated
+DEBUG 34 ServiceComponentProp.bindReference(): component M2M Local Service -> Reference[name = M2MConverters, interface = org.energy_home.jemma.ah.m2m.device.M2MXmlConverter, policy = static, cardinality = 1..1, target = null, bind = setM2MXmlConverter, unbind = unsetM2MXmlConverter]
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): name: M2M Local Service
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): using bundle: jemma.osgi.ah.hac.lib
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): instance: org.eclipse.equinox.internal.ds.impl.ComponentInstanceImpl@e95cbf
+DEBUG 34 ServiceComponent.getMethod(): start
+DEBUG 34 ServiceReg.getService(): service 'M2M Local Service' is used 1 time(s), object = org.energy_home.jemma.internal.shapi.M2MLocalService@188b5b2
+DEBUG 34 InstanceProcess.registerService(): M2M Local Service registered as *service*
+DEBUG 34 InstanceProcess.buildComponents(): building immediate component jemma.osgi.ah.hap.client.test
+DEBUG 34 InstanceProcess.buildComponent(): building component jemma.osgi.ah.hap.client.test
+DEBUG 34 ServiceComponentProp.bindReference(): component jemma.osgi.ah.hap.client.test -> Reference[name = M2MXmlConverter, interface = org.energy_home.jemma.ah.m2m.device.M2MXmlConverter, policy = dynamic, cardinality = 1..1, target = null, bind = bindConverter, unbind = unbindConverter]
+DEBUG 34 ServiceComponentProp.bindReference(): component jemma.osgi.ah.hap.client.test -> Reference[name = IM2MHapService, interface = org.energy_home.jemma.ah.hap.client.IM2MHapService, policy = dynamic, cardinality = 1..1, target = null, bind = bindIM2MHapService, unbind = unbindIM2MHapService]
+DEBUG 34 FactoryReg.getService(): created new service for component Hap Service
+DEBUG 34 InstanceProcess.buildComponent(): building component Hap Service
+DEBUG 34 ServiceComponentProp.bindReference(): component Hap Service -> Reference[name = M2MDevice, interface = org.energy_home.jemma.ah.m2m.device.M2MDevice, policy = dynamic, cardinality = 1..1, target = null, bind = setM2MDevice, unbind = unsetM2MDevice]
+DEBUG 34 ServiceComponentProp.bindReference(): component Hap Service -> Reference[name = DateTimeService, interface = org.energy_home.jemma.utils.datetime.DateTimeService, policy = dynamic, cardinality = 1..1, target = null, bind = setDateTimeService, unbind = unsetDateTimeService]
+DEBUG 34 ServiceComponentProp.bindReference(): component Hap Service -> Reference[name = M2MConverters, interface = org.energy_home.jemma.ah.m2m.device.M2MXmlConverter, policy = dynamic, cardinality = 1..1, target = null, bind = setM2MXmlConverter, unbind = unsetM2MXmlConverter]
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): name: Hap Service
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): using bundle: jemma.osgi.ah.hap.client.test
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): instance: org.eclipse.equinox.internal.ds.impl.ComponentInstanceImpl@ca4ab3
+sono qui A1
+sono qui A2
+21931 INFO added listener 'org.energy_home.jemma.internal.ah.hap.client.HapServiceManager' to M2MDevice
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): name: jemma.osgi.ah.hap.client.test
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): using bundle: null
+DEBUG 34 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ServiceComponentProp.activate(): instance: org.eclipse.equinox.internal.ds.impl.ComponentInstanceImpl@1f109c7
+DEBUG 34 ServiceComponent.getMethod(): start
+DEBUG 34 InstanceProcess.registerService(): Hap Service registered as *factory*
+22861 INFO added listener 'org.energy_home.jemma.internal.osgi.ah.m2m.device.M2MDeviceActivator' to M2MDevice
+DEBUG 34 Resolver.getEligible(): processing service event org.osgi.framework.ServiceEvent[source={org.energy_home.jemma.ah.m2m.device.M2MNetworkScl}={service.id=59}]
+DEBUG 34 Service event type: REGISTERED
+DEBUG 34 Resolver.resolveEligible(): resolved components = [ServiceComponentProp[
+	name = org.eclipse.equinox.event
+	state = Active
+	properties = {component.name=org.eclipse.equinox.event, component.id=0, objectClass=String[org.osgi.service.event.EventAdmin]}], ServiceComponentProp[
+	name = org.energy_home.jemma.osgi.ah.application.proxy
+	state = Active
+	properties = {component.name=org.energy_home.jemma.osgi.ah.application.proxy, component.id=1, objectClass=String[org.energy_home.jemma.ah.hac.IAppliancesBasicProxy,org.energy_home.jemma.ah.hac.lib.ext.IAppliancesProxy,org.energy_home.jemma.ah.hac.IConfigurationInfoService]}], ServiceComponentProp[
+	name = Hap Service
+	state = Active
+	properties = {component.name=Hap Service, component.id=2, objectClass=String[org.energy_home.jemma.ah.hap.client.IM2MHapService]}], ServiceComponentProp[
+	name = M2M Local Service
+	state = Active
+	properties = {objectClass=String[org.energy_home.jemma.ah.hac.IApplicationService,org.energy_home.jemma.ah.hap.client.IM2MLocalService], ah.application.name=ah.hap.client, component.name=M2M Local Service, component.id=3}], ServiceComponentProp[
+	name = jemma.osgi.ah.hap.client.test
+	state = Active
+	properties = {component.name=jemma.osgi.ah.hap.client.test, component.id=4}]]
+DEBUG 34 Resolver.selectDynamicBind(): selected = [org.eclipse.equinox.internal.ds.Reference@13a38ac]
+DEBUG 34 ServiceComponentProp.bindReference(): component M2M Local Service -> Reference[name = M2MNetworkScl, interface = org.energy_home.jemma.ah.m2m.device.M2MNetworkScl, policy = dynamic, cardinality = 0..1, target = null, bind = setM2MNetworkScl, unbind = unsetM2MNetworkScl]
