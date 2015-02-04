@@ -17,22 +17,22 @@ package org.energy_home.jemma.javagal.rest.util;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.energy_home.jemma.javagal.rest.Activator;
 import org.energy_home.jemma.javagal.rest.PropertiesManager;
 import org.energy_home.jemma.javagal.rest.RestApsMessageListener;
-import org.energy_home.jemma.javagal.rest.RestMessageListener;
 import org.energy_home.jemma.javagal.rest.RestClientManagerAndListener;
 import org.energy_home.jemma.javagal.rest.RestManager;
-import org.energy_home.jemma.zgd.GalExtenderProxy;
+import org.energy_home.jemma.javagal.rest.RestMessageListener;
 import org.energy_home.jemma.zgd.GatewayInterface;
+import org.energy_home.jemma.zgd.IGalExtender;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Resource's class for a Rest client.
  * 
- * @author "Ing. Marco Nieddu <marco.nieddu@consoft.it> or <marco.niedducv@gmail.com> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
- *
+ * @author 
+ *         "Ing. Marco Nieddu <marco.nieddu@consoft.it> or <marco.niedducv@gmail.com> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
+ * 
  */
 public class ClientResources {
 	private RestManager restManager;
@@ -50,8 +50,7 @@ public class ClientResources {
 	 * @param _restManager
 	 *            the rest manager.
 	 */
-	public ClientResources(PropertiesManager _propertiesManager,
-			GatewayInterface _gatewayInterface, ClientKey _clientKey,
+	public ClientResources(PropertiesManager _propertiesManager, GatewayInterface _gatewayInterface, ClientKey _clientKey,
 			RestManager _restManager) {
 		this.gatewayInterface = _gatewayInterface;
 		this.propertiesManager = _propertiesManager;
@@ -59,10 +58,10 @@ public class ClientResources {
 		this.clientKey = _clientKey;
 	}
 
-	private static final Logger LOG = LoggerFactory.getLogger( ClientResources.class );
+	private static final Logger LOG = LoggerFactory.getLogger(ClientResources.class);
 	private ConcurrentHashMap<Long, RestMessageListener> messageCallbacksEventListeners = new ConcurrentHashMap<Long, RestMessageListener>();
 	private ConcurrentHashMap<Long, RestApsMessageListener> messageApscallbacksEventListeners = new ConcurrentHashMap<Long, RestApsMessageListener>();
-	
+
 	private RestClientManagerAndListener clientEventListener = null;
 	private PropertiesManager propertiesManager = null;
 	private int counterException;
@@ -76,12 +75,12 @@ public class ClientResources {
 
 	public synchronized void addToCounterException() {
 		counterException = counterException + 1;
-		if (counterException > restManager.getPropertiesManager()
-				.getnumberOfConnectionFail()) {
-			if (propertiesManager.getDebugEnabled())
+		if (counterException > restManager.getPropertiesManager().getnumberOfConnectionFail()) {
+			if (propertiesManager.getDebugEnabled()) {
 				LOG.debug("Deleting Client...");
+			}
 			try {
-				((GalExtenderProxy) gatewayInterface).deleteProxy();
+				((IGalExtender) gatewayInterface).deleteProxy();
 				restManager.removeClientObjectKey(clientKey);
 
 			} catch (Exception e) {
@@ -98,15 +97,16 @@ public class ClientResources {
 	 */
 	public void setGatewayEventListener() {
 		if (clientEventListener == null) {
-			clientEventListener = new RestClientManagerAndListener(
-					propertiesManager, this);
+			clientEventListener = new RestClientManagerAndListener(propertiesManager, this);
 
 			gatewayInterface.setGatewayEventListener(clientEventListener);
-			if (propertiesManager.getDebugEnabled())
+			if (propertiesManager.getDebugEnabled()) {
 				LOG.debug("Gateway Event listener registered!");
+			}
 
-			if (propertiesManager.getDebugEnabled())
+			if (propertiesManager.getDebugEnabled()) {
 				LOG.debug("Gateway Event listener registered!");
+			}
 		}
 	}
 
@@ -137,21 +137,17 @@ public class ClientResources {
 	 * @param callbacksEventListeners
 	 *            the map of callbacks event listeners to set.
 	 */
-	public void setmessageCallbacksEventListeners(
-			ConcurrentHashMap<Long, RestMessageListener> callbacksEventListeners) {
+	public void setmessageCallbacksEventListeners(ConcurrentHashMap<Long, RestMessageListener> callbacksEventListeners) {
 		this.messageCallbacksEventListeners = callbacksEventListeners;
 	}
-	
-	
-	
+
 	/**
 	 * Sets the map of callbacks event listeners.
 	 * 
 	 * @param callbacksEventListeners
 	 *            the map of callbacks event listeners to set.
 	 */
-	public void setMessageApsCallbacksEventListeners(
-			ConcurrentHashMap<Long, RestApsMessageListener> callbacksEventListeners) {
+	public void setMessageApsCallbacksEventListeners(ConcurrentHashMap<Long, RestApsMessageListener> callbacksEventListeners) {
 		this.messageApscallbacksEventListeners = callbacksEventListeners;
 	}
 
@@ -170,8 +166,7 @@ public class ClientResources {
 	 * @param clientEventListener
 	 *            the client event listener to set.
 	 */
-	public synchronized void setClientEventListener(
-			RestClientManagerAndListener clientEventListener) {
+	public synchronized void setClientEventListener(RestClientManagerAndListener clientEventListener) {
 		this.clientEventListener = clientEventListener;
 	}
 
@@ -183,8 +178,7 @@ public class ClientResources {
 	public synchronized ConcurrentHashMap<Long, RestApsMessageListener> getApsCallbacksEventListeners() {
 		return messageApscallbacksEventListeners;
 	}
-	
-	
+
 	/**
 	 * Gets the map of callbacks event listeners.
 	 * 

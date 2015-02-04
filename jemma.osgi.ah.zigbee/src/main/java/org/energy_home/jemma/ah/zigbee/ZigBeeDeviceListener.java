@@ -16,10 +16,11 @@
 package org.energy_home.jemma.ah.zigbee;
 
 public interface ZigBeeDeviceListener {
-	
+
 	static final int ANNOUNCEMENT = 1;
 	static final int LEAVE = 2;
-	
+
 	public boolean notifyZclFrame(short clusterId, IZclFrame zclFrame) throws Exception;
+
 	public void notifyEvent(int event);
 }

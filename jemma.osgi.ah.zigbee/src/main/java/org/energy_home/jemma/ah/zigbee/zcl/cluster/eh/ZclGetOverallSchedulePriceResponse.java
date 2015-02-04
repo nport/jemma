@@ -23,33 +23,26 @@ import org.energy_home.jemma.ah.zigbee.zcl.lib.types.ZclDataTypeUI8;
 
 public class ZclGetOverallSchedulePriceResponse {
 
+	public static GetOverallSchedulePriceResponse zclParse(IZclFrame zclFrame) throws ZclValidationException {
+		GetOverallSchedulePriceResponse r = new GetOverallSchedulePriceResponse();
+		r.Currency = ZclDataTypeUI32.zclParse(zclFrame);
+		r.Price = ZclDataTypeUI32.zclParse(zclFrame);
+		r.PriceTrailingDigit = ZclDataTypeUI8.zclParse(zclFrame);
+		return r;
+	}
 
-    public static GetOverallSchedulePriceResponse zclParse(IZclFrame zclFrame)
-        throws ZclValidationException
-    {
-        GetOverallSchedulePriceResponse r = new GetOverallSchedulePriceResponse();
-        r.Currency = ZclDataTypeUI32 .zclParse(zclFrame);
-        r.Price = ZclDataTypeUI32 .zclParse(zclFrame);
-        r.PriceTrailingDigit = ZclDataTypeUI8 .zclParse(zclFrame);
-        return r;
-    }
+	public static void zclSerialize(IZclFrame zclFrame, GetOverallSchedulePriceResponse r) throws ZclValidationException {
+		ZclDataTypeUI32.zclSerialize(zclFrame, r.Currency);
+		ZclDataTypeUI32.zclSerialize(zclFrame, r.Price);
+		ZclDataTypeUI8.zclSerialize(zclFrame, r.PriceTrailingDigit);
+	}
 
-    public static void zclSerialize(IZclFrame zclFrame, GetOverallSchedulePriceResponse r)
-        throws ZclValidationException
-    {
-        ZclDataTypeUI32 .zclSerialize(zclFrame, r.Currency);
-        ZclDataTypeUI32 .zclSerialize(zclFrame, r.Price);
-        ZclDataTypeUI8 .zclSerialize(zclFrame, r.PriceTrailingDigit);
-    }
-
-    public static int zclSize(GetOverallSchedulePriceResponse r)
-        throws ZclValidationException
-    {
-        int size = 0;
-        size += ZclDataTypeUI32 .zclSize(r.Currency);
-        size += ZclDataTypeUI32 .zclSize(r.Price);
-        size += ZclDataTypeUI8 .zclSize(r.PriceTrailingDigit);
-        return size;
-    }
+	public static int zclSize(GetOverallSchedulePriceResponse r) throws ZclValidationException {
+		int size = 0;
+		size += ZclDataTypeUI32.zclSize(r.Currency);
+		size += ZclDataTypeUI32.zclSize(r.Price);
+		size += ZclDataTypeUI8.zclSize(r.PriceTrailingDigit);
+		return size;
+	}
 
 }

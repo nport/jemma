@@ -19,13 +19,13 @@ import org.energy_home.jemma.utils.datetime.DateTimeService;
 import org.energy_home.jemma.utils.datetime.DateUtils;
 
 public class DateTimeObject implements DateTimeService {
-	
+
 	private boolean isDateTimeOk;
-	
+
 	public DateTimeObject() {
 		isDateTimeOk = DateUtils.isDateTimeOk();
-	}	
-	
+	}
+
 	public boolean isDateTimeOk() {
 		return isDateTimeOk;
 	}

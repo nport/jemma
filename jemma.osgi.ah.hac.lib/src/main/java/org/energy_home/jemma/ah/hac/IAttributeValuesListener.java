@@ -15,8 +15,7 @@
  */
 package org.energy_home.jemma.ah.hac;
 
-
 public interface IAttributeValuesListener {
-	public abstract void notifyAttributeValue(String appliancePid, Integer endPointId, String clusterName,
-			String attributeName, IAttributeValue attributeValue);
+	public abstract void notifyAttributeValue(String appliancePid, Integer endPointId, String clusterName, String attributeName,
+			IAttributeValue attributeValue);
 }

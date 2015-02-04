@@ -31,7 +31,7 @@ public class PowerProfile {
 	public PowerProfile() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder("{");
 		sb.append("PowerProfileID=").append(PowerProfileID);
@@ -39,6 +39,6 @@ public class PowerProfile {
 		sb.append(", PowerProfileRemoteControl=").append(PowerProfileRemoteControl);
 		sb.append(", PowerProfileState=").append(PowerProfileState);
 		sb.append("}");
-		return sb.toString();		
+		return sb.toString();
 	}
 }

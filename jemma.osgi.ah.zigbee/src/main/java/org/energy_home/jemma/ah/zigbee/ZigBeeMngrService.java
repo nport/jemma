@@ -17,5 +17,6 @@ package org.energy_home.jemma.ah.zigbee;
 
 public interface ZigBeeMngrService {
 	void permitJoin(short duration) throws Exception;
+
 	void removeDevice(String devicePid) throws Exception;
 }

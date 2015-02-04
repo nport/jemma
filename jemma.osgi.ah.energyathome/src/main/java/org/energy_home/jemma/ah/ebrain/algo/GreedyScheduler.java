@@ -64,80 +64,84 @@ import org.energy_home.jemma.ah.ebrain.old.PowerProfilePhaseExtended;
  */
 
 public class GreedyScheduler {
-	// should contain today and tomorrow. Better yet: it's always a window from now to XX hours in the future
+	// should contain today and tomorrow. Better yet: it's always a window from
+	// now to XX hours in the future
 	int[] currentAvailablePower;
-	
-	
+
 	public int isFeaisibleTime(PowerProfilePhaseExtended phase, int time) {
 		for (int t = time + phase.getTransferredPhase().ExpectedDuration; t >= time; --t) {
-			if (currentAvailablePower[t] < phase.getRequiredPower()) return t;
+			if (currentAvailablePower[t] < phase.getRequiredPower())
+				return t;
 		}
 		return -1;
 	}
-	
+
 	public int findFeasibleTimeForward(PowerProfilePhaseExtended phase, int erliestStart, int latestStart) {
 		for (int start = erliestStart; start < latestStart;) {
-			/*int duration = phase.ExpectedDuration;
-			while (duration-- >= 0) {
-				if (currentAvailablePower[start + duration] < phase.getRequiredPower()) {
-					start += duration +1; // move forward to the next failing slot
-					break;
-				}
-			}
-			if (duration == 0) return start; // here means all power requirements are met
-			*/
+			/*
+			 * int duration = phase.ExpectedDuration; while (duration-- >= 0) {
+			 * if (currentAvailablePower[start + duration] <
+			 * phase.getRequiredPower()) { start += duration +1; // move forward
+			 * to the next failing slot break; } } if (duration == 0) return
+			 * start; // here means all power requirements are met
+			 */
 			int end = start + phase.getTransferredPhase().ExpectedDuration;
 			while (end-- >= start) {
 				if (currentAvailablePower[end] < phase.getRequiredPower()) {
-					start = end+1; // move forward to the next failing slot
+					start = end + 1; // move forward to the next failing slot
 					break;
 				}
 			}
-			if (end == start) return start; // here means all power requirements are met
+			if (end == start)
+				return start; // here means all power requirements are met
 		}
 		// here means no feasible start time was found in the time window
 		return -1;
 	}
-	
-
 
 	public int[] findFeasibleTimeForward(PowerProfilePhaseExtended[] phases, int erliestStart, int latestStart) {
-		//PowerProfileTransferredPhase[] _phases = phases.powerProfileTransferredPhases;
-		int [] scheduledStartTimes = new int[phases.length];
+		// PowerProfileTransferredPhase[] _phases =
+		// phases.powerProfileTransferredPhases;
+		int[] scheduledStartTimes = new int[phases.length];
 		int nextStart = erliestStart;
-		
+
 		while (nextStart < latestStart) {
 			int nextEnd = latestStart;
-    		
-			loop: { 
-			for (int i = 0; i < phases.length; ++i) {
-    			int next = findFeasibleTimeForward(phases[i], nextStart, nextEnd);
-    			if (next == -1) {
-    				// infeasible, so try try all over again.
-    				nextStart = scheduledStartTimes[0] +1;
-    				break loop;
-    			}
-    			scheduledStartTimes[i] = next;
-    			
-    			// check if selected start time respects max-delay of all preceding phases
-    			for (int j = i; j > 0; --j) {
-        			int constrainedMinStart = scheduledStartTimes[j] - phases[j-1].getTransferredPhase().ExpectedDuration - phases[j].getTransferredPhase().MaxActivationDelay;
-        			if (constrainedMinStart <= scheduledStartTimes[j-1]) break; // we're OK!
-    				// try shift forward phase i-1 in the new time window
-        			next = findFeasibleTimeForward(phases[j-1], constrainedMinStart, scheduledStartTimes[j] - phases[j-1].getTransferredPhase().ExpectedDuration);
-        			if (next == -1) {
-        				nextStart = scheduledStartTimes[0] +1;
-        				break loop;
-        			}
-    				scheduledStartTimes[j-1] = next;
-    			}
-    			nextStart = scheduledStartTimes[i] + phases[i].getTransferredPhase().ExpectedDuration +1;
-    			nextEnd = nextStart + phases[i+1].getTransferredPhase().MaxActivationDelay;// + REASONABLE_TIME_LAG;
-    		}
-			// success!
-			return scheduledStartTimes;
+
+			loop: {
+				for (int i = 0; i < phases.length; ++i) {
+					int next = findFeasibleTimeForward(phases[i], nextStart, nextEnd);
+					if (next == -1) {
+						// infeasible, so try try all over again.
+						nextStart = scheduledStartTimes[0] + 1;
+						break loop;
+					}
+					scheduledStartTimes[i] = next;
+
+					// check if selected start time respects max-delay of all
+					// preceding phases
+					for (int j = i; j > 0; --j) {
+						int constrainedMinStart = scheduledStartTimes[j] - phases[j - 1].getTransferredPhase().ExpectedDuration
+								- phases[j].getTransferredPhase().MaxActivationDelay;
+						if (constrainedMinStart <= scheduledStartTimes[j - 1])
+							break; // we're OK!
+						// try shift forward phase i-1 in the new time window
+						next = findFeasibleTimeForward(phases[j - 1], constrainedMinStart,
+								scheduledStartTimes[j] - phases[j - 1].getTransferredPhase().ExpectedDuration);
+						if (next == -1) {
+							nextStart = scheduledStartTimes[0] + 1;
+							break loop;
+						}
+						scheduledStartTimes[j - 1] = next;
+					}
+					nextStart = scheduledStartTimes[i] + phases[i].getTransferredPhase().ExpectedDuration + 1;
+					nextEnd = nextStart + phases[i + 1].getTransferredPhase().MaxActivationDelay;// +
+																									// REASONABLE_TIME_LAG;
+				}
+				// success!
+				return scheduledStartTimes;
+			}
 		}
-	}
 		return scheduledStartTimes;
 	}
 }

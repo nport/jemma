@@ -15,7 +15,6 @@
  */
 package org.energy_home.jemma.internal.ah.eh.esp;
 
-
 import org.energy_home.jemma.ah.cluster.zigbee.metering.SimpleMeteringServer;
 import org.energy_home.jemma.ah.ebrain.EnergyBrainCore;
 import org.energy_home.jemma.ah.ebrain.IMeteringProxy;
@@ -26,9 +25,9 @@ import org.energy_home.jemma.ah.hac.UnsupportedClusterAttributeException;
 import org.energy_home.jemma.ah.hac.lib.ServiceCluster;
 
 public class SimpleMeteringServerObject extends ServiceCluster implements SimpleMeteringServer {
-	
+
 	private EnergyBrainCore energyBrain;
-	
+
 	public SimpleMeteringServerObject(EnergyBrainCore energyBrain) throws ApplianceException {
 		super();
 		this.energyBrain = energyBrain;
@@ -45,8 +44,8 @@ public class SimpleMeteringServerObject extends ServiceCluster implements Simple
 	public int getIstantaneousDemand(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException {
 		String smartInfoId = energyBrain.getSmartInfoExchangeId();
 		if (smartInfoId != null)
-			return (int)(energyBrain.getIstantaneousDemandPower(smartInfoId));
-		else 
+			return (int) (energyBrain.getIstantaneousDemandPower(smartInfoId));
+		else
 			return (int) IMeteringProxy.INVALID_INSTANTANEOUS_POWER_VALUE;
 	}
 

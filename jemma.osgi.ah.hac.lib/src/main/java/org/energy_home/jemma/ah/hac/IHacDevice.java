@@ -33,7 +33,7 @@ public interface IHacDevice extends Device {
 	 *         device
 	 */
 	public String getPid();
-	
+
 	/**
 	 * Force Removal of the Device
 	 */

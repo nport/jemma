@@ -26,7 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ManagedApplianceServiceTracker extends ServiceTracker {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ManagedApplianceServiceTracker.class);
 
 	private HacService hacService;
@@ -38,16 +38,15 @@ public class ManagedApplianceServiceTracker extends ServiceTracker {
 
 	public Object addingService(ServiceReference sr) {
 		IManagedAppliance appliance = (IManagedAppliance) context.getService(sr);
-		
+
 		Map props = new ReadOnlyDictionary(sr);
-		
-		
+
 		try {
 			this.hacService.setManagedAppliance(appliance, props);
 		} catch (ApplianceException e) {
 			LOG.warn(e.getMessage(), e);
 		}
-		
+
 		return appliance;
 	}
 

@@ -22,7 +22,7 @@ public class NotFoundException extends ServiceClusterException {
 	public NotFoundException() {
 		super("NotFoundException");
 	}
-	
+
 	public NotFoundException(String errorDescription) {
 		super(errorDescription);
 	}

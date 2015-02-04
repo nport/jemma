@@ -36,6 +36,7 @@ import org.energy_home.jemma.ah.hac.ReadOnlyAttributeException;
 import org.energy_home.jemma.ah.hac.ServiceClusterException;
 import org.energy_home.jemma.ah.hac.UnsupportedClusterAttributeException;
 import org.energy_home.jemma.ah.hac.UnsupportedClusterOperationException;
+import org.energy_home.jemma.ah.hac.UnsupportedGeneralCommandException;
 import org.energy_home.jemma.ah.hac.lib.AttributeValue;
 import org.energy_home.jemma.ah.hac.lib.EndPoint;
 import org.energy_home.jemma.ah.hac.lib.ServiceCluster;
@@ -68,8 +69,18 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 
 	protected ZigBeeDevice device;
 
-	protected int sequence = 30; // Zcl Frame sequence number
-	private static final Logger LOG = LoggerFactory.getLogger( ZclServiceCluster.class );
+	private int seqNumber = 30; // Zcl Frame sequence number
+
+	private int getSequenceNumber() {
+		if (seqNumber + 1 < 254)
+			seqNumber++;
+		else
+			seqNumber = 0;
+		return seqNumber;
+
+	}
+
+	private static final Logger LOG = LoggerFactory.getLogger(ZclServiceCluster.class);
 
 	private boolean checkDirection = false;
 
@@ -108,7 +119,7 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 	protected Collection getAttributeDescriptors() {
 		return null;
 	}
-	
+
 	protected IZclAttributeDescriptor[] getPeerAttributeDescriptors() {
 		return null;
 	}
@@ -163,9 +174,8 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 	}
 
 	protected IZclFrame readAttributes(short clusterId, int[] attrIds) {
-		int sequence = 0;
 		IZclFrame zclFrame = new ZclFrame((byte) 0x00, attrIds.length * 2);
-		zclFrame.setSequence(sequence);
+		zclFrame.setSequence(getSequenceNumber());
 
 		zclFrame.appendUInt8(ZCL.ZclReadAttrs);
 
@@ -229,7 +239,7 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 		else
 			zclFrame.setDirection(IZclFrame.CLIENT_TO_SERVER_DIRECTION);
 
-		zclFrame.setSequence(sequence++);
+		zclFrame.setSequence(getSequenceNumber());
 		zclFrame.setCommandId(commandId);
 		return zclFrame;
 	}
@@ -295,6 +305,9 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 				sync = false;
 			}
 
+			LOG.debug("Sending Configure reporting: " + zclFrame.toString() + " -- TO:" + device.getIeeeAddress() + " -- Cluster: "
+					+ clusterId + " -- Attribute: " + attrName);
+
 			if (sync) {
 				IZclFrame zclResponseFrame = deviceInvoke((short) clusterId, zclFrame);
 				if (zclResponseFrame == null)
@@ -306,7 +319,20 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 					if (status != ZCL.SUCCESS)
 						this.raiseServiceClusterException(status);
 				} else if (zclResponseFrame.getCommandId() == ZCL.ZclDefaultRsp) {
-					short status = ZclDataTypeUI8.zclParse(zclResponseFrame);
+					short commandId = 0;
+					try {
+						commandId = ZclDataTypeUI8.zclParse(zclResponseFrame);
+					} catch (ZclValidationException e1) {
+						this.raiseServiceClusterException(ZCL.MALFORMED_COMMAND);
+					}
+
+					short status = 0;
+					try {
+						status = ZclDataTypeUI8.zclParse(zclResponseFrame);
+					} catch (ZclValidationException e) {
+						this.raiseServiceClusterException(ZCL.MALFORMED_COMMAND);
+					}
+
 					if (status != ZCL.SUCCESS) {
 						this.raiseServiceClusterException(status);
 					}
@@ -379,6 +405,9 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 
 		case ZCL.MALFORMED_COMMAND:
 			throw new MalformedMessageException();
+
+		case ZCL.UNSUP_GENERAL_COMMAND:
+			throw new UnsupportedGeneralCommandException();
 
 		default:
 		}
@@ -551,7 +580,8 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 
 		// FIXME: what if we receive an other side response command?
 
-		// Added to manage automatic announcement in case a subscription is already active
+		// Added to manage automatic announcement in case a subscription is
+		// already active
 		IEndPoint ep = this.getEndPoint();
 		if (ep != null && ep.isAvailable())
 			((ZclAppliance) this.getEndPoint().getAppliance()).notifyEvent(ZigBeeDeviceListener.ANNOUNCEMENT);
@@ -579,13 +609,26 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 			sps = configureReportings(getClusterId(), new String[] { attributeName }, new ISubscriptionParameters[] { parameters },
 					endPointRequestContext);
 			result = sps[0];
+		} catch (UnsupportedClusterOperationException e0) {
+			LOG.warn("Error while subscribing attribute " + attributeName + " for driver appliance "
+					+ this.getEndPoint().getAppliance().getPid() + ". Unreportable Attribute!", e0);
+			sps = new ISubscriptionParameters[] { null };
+		} catch (UnsupportedClusterAttributeException e1) {
+			LOG.warn("Error while subscribing attribute " + attributeName + " for driver appliance "
+					+ this.getEndPoint().getAppliance().getPid() + ". Unsupported Attribute!", e1);
+			sps = new ISubscriptionParameters[] { null };
+		} catch (UnsupportedGeneralCommandException e2) {
+			LOG.warn("Error while subscribing attribute " + attributeName + " for driver appliance "
+					+ this.getEndPoint().getAppliance().getPid() + ". Unsupported General Command!", e2);
+			sps = new ISubscriptionParameters[] { null };
 		} catch (Exception e) {
 			LOG.warn("Error while subscribing attribute " + attributeName + " for driver appliance "
-					+ this.getEndPoint().getAppliance().getPid() + ". Maybe this is a sleeping end device!",e);
+					+ this.getEndPoint().getAppliance().getPid() + ". Maybe this is a sleeping end device!", e);
 			sps = new ISubscriptionParameters[] { parameters };
 		}
+
 		updateAllSubscriptionMap(attributeName, sps[0], endPointRequestContext);
-		// A null value is returned if configure reportings command fails 
+		// A null value is returned if configure reportings command fails
 		return result;
 	}
 
@@ -680,7 +723,7 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 					ZclDataTypeUI16.zclSerialize(zclResponseFrame, attrIds[i]);
 				} catch (Exception e1) {
 					// FIXME: what I have to do here?
-					LOG.error("Exception iterating through attributeIDSNumbers",e1);
+					LOG.error("Exception iterating through attributeIDSNumbers", e1);
 					return;
 				}
 
@@ -917,7 +960,7 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 					ZclDataTypeUI8.zclSerialize(zclResponseFrame, (short) 1);
 				}
 			} catch (ZclValidationException e) {
-				LOG.error("Unable to marshall the discovery attr response",e);
+				LOG.error("Unable to marshall the discovery attr response", e);
 				throw new ZclException(ZCL.FAILURE);
 			}
 
@@ -934,13 +977,14 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 						// Is the attribute supported?
 						ZclAttributeDescriptor attributeDescriptor = (ZclAttributeDescriptor) peerAttributeDescriptorsByIdMap
 								.get(new Integer(attrId));
+
 						if (attributeDescriptor != null) {
 							try {
 								ZclDataTypeUI16.zclSerialize(zclResponseFrame, attributeDescriptor.zclGetId());
 								ZclDataTypeUI8
 										.zclSerialize(zclResponseFrame, attributeDescriptor.zclGetDataType().zclGetDataType());
 							} catch (ZclValidationException e) {
-								LOG.error("Unable to marshall the discovery attr response",e);
+								LOG.error("Unable to marshall the discovery attr response", e);
 								throw new ZclException(ZCL.FAILURE);
 							}
 						}
@@ -999,7 +1043,7 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 			throw new ApplianceException("Not attached");
 		}
 
-		zclFrame.setSequence(sequence++);
+		zclFrame.setSequence(getSequenceNumber());
 		zclFrame.setCommandId(ZCL.ZclWriteAttrs);
 
 		if (sync) {
@@ -1055,7 +1099,7 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 		if (device == null)
 			throw new ApplianceException("Not attached");
 
-		zclFrame.setSequence(sequence++);
+		zclFrame.setSequence(getSequenceNumber());
 
 		if ((context != null) && (!context.isConfirmationRequired())) {
 			zclFrame.disableDefaultResponse(true);
@@ -1102,7 +1146,7 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 		if (device == null)
 			throw new ApplianceException("Not attached");
 
-		zclFrame.setSequence(sequence++);
+		zclFrame.setSequence(getSequenceNumber());
 
 		if ((context != null) && (!context.isConfirmationRequired())) {
 			zclFrame.disableDefaultResponse(true);
@@ -1216,8 +1260,10 @@ public class ZclServiceCluster extends ServiceCluster implements IZclServiceClus
 
 	protected Object getValidCachedAttributeObject(int attributeId, long maxAge) {
 		AttributeValue attributeValue = (AttributeValue) this.cachedAttributeValues.get(new Integer(attributeId));
-		if (attributeValue != null && attributeValue.getTimestamp() + maxAge >= System.currentTimeMillis())
+		if (attributeValue != null && attributeValue.getTimestamp() + maxAge >= System.currentTimeMillis()) {
+
 			return attributeValue.getValue();
+		}
 		return null;
 	}
 

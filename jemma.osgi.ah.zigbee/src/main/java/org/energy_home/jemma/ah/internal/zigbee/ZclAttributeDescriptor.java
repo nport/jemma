@@ -27,13 +27,14 @@ public class ZclAttributeDescriptor implements IZclAttributeDescriptor {
 	private boolean isReportable = false;
 	private int accessType;
 	private int size;
-	
-	public ZclAttributeDescriptor(int attrId, String name, ZclAbstractDataType zclAbstractDataType, Class javaClass, boolean isReportable, int accessType) {
+
+	public ZclAttributeDescriptor(int attrId, String name, ZclAbstractDataType zclAbstractDataType, Class javaClass,
+			boolean isReportable, int accessType) {
 		this.attrId = attrId;
 		this.name = name;
 		this.zclAbstractDataType = zclAbstractDataType;
 		this.javaClass = javaClass;
-		this.isReportable  = isReportable;
+		this.isReportable = isReportable;
 		this.accessType = accessType;
 		this.size = 0;
 	}
@@ -53,6 +54,7 @@ public class ZclAttributeDescriptor implements IZclAttributeDescriptor {
 	public int zclGetId() {
 		return attrId;
 	}
+
 	public boolean isWritable() {
 		return ((accessType == IZclAttributeDescriptor.ACCESS_RW) || (accessType == IZclAttributeDescriptor.ACCESS_RO));
 	}

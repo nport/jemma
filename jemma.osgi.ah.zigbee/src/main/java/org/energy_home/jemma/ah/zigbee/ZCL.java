@@ -45,7 +45,6 @@ public interface ZCL {
 	public static final int ZclReadAttrsStructured = 0x0e;
 	public static final int ZclWriteAttrsStructured = 0x0f;
 	public static final int ZclWriteAttrsStructuredRsp = 0x10;
-	
 
 	public static final short SUCCESS = 0x00;
 	public static final short FAILURE = 0x01;

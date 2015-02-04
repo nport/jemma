@@ -53,7 +53,7 @@ public class HacDriverLocator implements DriverLocator {
 	private ConfigurationAdmin configAdmin;
 
 	private Object properties;
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(HacDriverLocator.class);
 
 	public void activate(BundleContext bc) {
@@ -145,7 +145,13 @@ public class HacDriverLocator implements DriverLocator {
 
 		Vector driverIds = new Vector();
 
-		String deviceCategory = (String) props.get("DEVICE_CATEGORY");
+		String deviceCategory = null;
+		Object d = props.get("DEVICE_CATEGORY");
+		if (d instanceof String[]) {
+			return null;
+		} else {
+			deviceCategory = (String) d;
+		}
 		String deviceSerial = (String) props.get("DEVICE_SERIAL");
 
 		if ((deviceCategory != null) && (deviceSerial != null)) {
@@ -153,161 +159,101 @@ public class HacDriverLocator implements DriverLocator {
 			driverIds.add(driverId);
 		}
 
-//!!!!!!Multieps: sembra che vengano comunque restituiti tutti i driver registrati (viene ancora usato device_serial per match su driver gia allocato?)		
-		
+		// !!!!!!Multieps: sembra che vengano comunque restituiti tutti i driver
+		// registrati (viene ancora usato device_serial per
+		// match su driver gia allocato?)
+
 		// select a set of DRIVER_IDs that may match the requested driver
 		// the following code should be technology independent
-/*
-		Integer profile_id = null;
-		Integer device_id = null;
-		Integer manufacturer_code = null;
-		String[] nodeEndPoints = null;
-
-		try {
-			profile_id = (Integer) props.get("zigbee.device.profile.id");
-			device_id = (Integer) props.get("zigbee.device.device.id");
-			manufacturer_code = (Integer) props.get("zigbee.device.manufacturer.id");
-			nodeEndPoints = (String[]) props.get("zigbee.device.eps");
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-
-		driverIds.add("it.telecomitalia.ah.zigbee.generic");
-
-		if ((nodeEndPoints != null) && (nodeEndPoints.length == 1) && (profile_id != null) && (device_id != null) && (manufacturer_code != null)) {
-			int p_id = profile_id.intValue();
-			int d_id = device_id.intValue();
-			int m_code = manufacturer_code.intValue();
-
-			if ((p_id == 0xC044) && (d_id == 0x0501)) {
-				driverIds.add(new String("org.4noks.smartplug"));
-			} else if (p_id == 0x0104) {
-				switch (d_id) {
-
-				case 0x0000:
-					driverIds.add(new String("fr.cleode.ah.zigbee.switch"));
-					break;
-
-				case 0x0008:
-					driverIds.add(new String("it.telecomitalia.ah.zigbee.rangeextender"));
-					break;
-
-				case 0x0009:
-					driverIds.add(new String("org.zigbee.ha.mainspwoutlet"));
-					break;
-
-				case 0x0101:
-					driverIds.add(new String("org.zigbee.ha.wcs10a"));
-					break;
-
-				case 0x0107:
-					driverIds.add(new String("fr.cleode.ah.zigbee.zmove"));
-					break;
-
-				case 0x0301:
-					if (m_code == 0x1071) {
-						driverIds.add(new String("it.telecomitalia.zigbee.4noks.thermostat"));
-					} else {
-						driverIds.add(new String("it.telecomitalia.zigbee.thermostat"));
-					}
-					break;
-
-				case 0x0302:
-					driverIds.add(new String("fr.cleode.ah.zigbee.temperaturesensor"));
-					break;
-
-				case 0x0402:
-					driverIds.add(new String("fr.cleode.ah.zigbee.zdoor"));
-					break;
-
-				case 0x0501:
-				case 0x0053:
-					driverIds.add(new String("it.telecomitalia.ah.zigbee.metering"));
-					break;
-
-				case 0x0504:
-				case 0x0051:
-					driverIds.add(new String("it.telecomitalia.zigbee.smartplug"));
-					break;
-
-				case 0x0A04:
-				case 0x0A00:
-				case 0x0052:
-					switch (m_code) {
-					case 0x10C8:
-						// Electrolux Whitegood
-						driverIds.add(new String("it.electrolux.ah.app.whitegood"));
-						break;
-					case 0x10CD:
-						// Indesit Whitegood
-						driverIds.add(new String("com.indesit.ah.app.whitegood"));
-						break;
-
-					default:
-						// Defaults to Indesit Whitegood
-						driverIds.add(new String("com.indesit.ah.app.whitegood"));
-						break;
-					}
-					break;
-
-				default:
-					driverIds.add(new String("org.zigbee.ha"));
-					break;
-				}
-			} else if (p_id == 0xC23C) {
-				// Old Energy@Home profile
-				switch (d_id) {
-				case 0x0008:
-					// this is a router device
-					driverIds.add(new String("org.ti.router"));
-					break;
-				case 0x0501:
-					// Energy@Home Metering Device
-					driverIds.add(new String("it.telecomitalia.ah.zigbee.metering"));
-					break;
-
-				case 0x0A04:
-				case 0x0A00:
-					switch (m_code) {
-					case 0x10C8:
-					case 0x10CD:
-						// Electrolux Whitegood
-						driverIds.add(new String("it.electrolux.ah.app.whitegood"));
-						break;
-
-					default:
-						// Indesit Whitegood
-						driverIds.add(new String("com.indesit.ah.app.whitegood"));
-						break;
-					}
-					break;
-
-				default:
-					break;
-				}
-			} else if (p_id == 0xA1E0) {
-				if (d_id == 0x0001) {
-					driverIds.add(new String("it.telecomitalia.ah.zigbee.testharness"));
-				}
-			} else if (p_id == 0x0107) {
-				// Telecom ZigBee Profile
-				switch (d_id) {
-				case 0x0101: // ZIN device
-					driverIds.add(new String("it.telecomitalia.ah.zigbee.zin"));
-					break;
-
-				default:
-					break;
-				}
-			} else {
-				// default driver for a ZCL appliance
-				driverIds.add(new String("it.telecomitalia.ah.driver.zcl"));
-			}
-		} else if (deviceCategory.equals("Plugwise")) {
-			// default driver for the device
-			driverIds.add(new String("org.telecomitalia.plugwise.circle"));
-		}
-*/
+		/*
+		 * Integer profile_id = null; Integer device_id = null; Integer
+		 * manufacturer_code = null; String[] nodeEndPoints = null;
+		 * 
+		 * try { profile_id = (Integer) props.get("zigbee.device.profile.id");
+		 * device_id = (Integer) props.get("zigbee.device.device.id");
+		 * manufacturer_code = (Integer)
+		 * props.get("zigbee.device.manufacturer.id"); nodeEndPoints =
+		 * (String[]) props.get("zigbee.device.eps"); } catch (Exception e) {
+		 * System.out.println(e.getMessage()); }
+		 * 
+		 * driverIds.add("it.telecomitalia.ah.zigbee.generic");
+		 * 
+		 * if ((nodeEndPoints != null) && (nodeEndPoints.length == 1) &&
+		 * (profile_id != null) && (device_id != null) && (manufacturer_code !=
+		 * null)) { int p_id = profile_id.intValue(); int d_id =
+		 * device_id.intValue(); int m_code = manufacturer_code.intValue();
+		 * 
+		 * if ((p_id == 0xC044) && (d_id == 0x0501)) { driverIds.add(new
+		 * String("org.4noks.smartplug")); } else if (p_id == 0x0104) { switch
+		 * (d_id) {
+		 * 
+		 * case 0x0000: driverIds.add(new String("fr.cleode.ah.zigbee.switch"));
+		 * break;
+		 * 
+		 * case 0x0008: driverIds.add(new
+		 * String("it.telecomitalia.ah.zigbee.rangeextender")); break;
+		 * 
+		 * case 0x0009: driverIds.add(new
+		 * String("org.zigbee.ha.mainspwoutlet")); break;
+		 * 
+		 * case 0x0101: driverIds.add(new String("org.zigbee.ha.wcs10a"));
+		 * break;
+		 * 
+		 * case 0x0107: driverIds.add(new String("fr.cleode.ah.zigbee.zmove"));
+		 * break;
+		 * 
+		 * case 0x0301: if (m_code == 0x1071) { driverIds.add(new
+		 * String("it.telecomitalia.zigbee.4noks.thermostat")); } else {
+		 * driverIds.add(new String("it.telecomitalia.zigbee.thermostat")); }
+		 * break;
+		 * 
+		 * case 0x0302: driverIds.add(new
+		 * String("fr.cleode.ah.zigbee.temperaturesensor")); break;
+		 * 
+		 * case 0x0402: driverIds.add(new String("fr.cleode.ah.zigbee.zdoor"));
+		 * break;
+		 * 
+		 * case 0x0501: case 0x0053: driverIds.add(new
+		 * String("it.telecomitalia.ah.zigbee.metering")); break;
+		 * 
+		 * case 0x0504: case 0x0051: driverIds.add(new
+		 * String("it.telecomitalia.zigbee.smartplug")); break;
+		 * 
+		 * case 0x0A04: case 0x0A00: case 0x0052: switch (m_code) { case 0x10C8:
+		 * // Electrolux Whitegood driverIds.add(new
+		 * String("it.electrolux.ah.app.whitegood")); break; case 0x10CD: //
+		 * Indesit Whitegood driverIds.add(new
+		 * String("com.indesit.ah.app.whitegood")); break;
+		 * 
+		 * default: // Defaults to Indesit Whitegood driverIds.add(new
+		 * String("com.indesit.ah.app.whitegood")); break; } break;
+		 * 
+		 * default: driverIds.add(new String("org.zigbee.ha")); break; } } else
+		 * if (p_id == 0xC23C) { // Old Energy@Home profile switch (d_id) { case
+		 * 0x0008: // this is a router device driverIds.add(new
+		 * String("org.ti.router")); break; case 0x0501: // Energy@Home Metering
+		 * Device driverIds.add(new
+		 * String("it.telecomitalia.ah.zigbee.metering")); break;
+		 * 
+		 * case 0x0A04: case 0x0A00: switch (m_code) { case 0x10C8: case 0x10CD:
+		 * // Electrolux Whitegood driverIds.add(new
+		 * String("it.electrolux.ah.app.whitegood")); break;
+		 * 
+		 * default: // Indesit Whitegood driverIds.add(new
+		 * String("com.indesit.ah.app.whitegood")); break; } break;
+		 * 
+		 * default: break; } } else if (p_id == 0xA1E0) { if (d_id == 0x0001) {
+		 * driverIds.add(new String("it.telecomitalia.ah.zigbee.testharness"));
+		 * } } else if (p_id == 0x0107) { // Telecom ZigBee Profile switch
+		 * (d_id) { case 0x0101: // ZIN device driverIds.add(new
+		 * String("it.telecomitalia.ah.zigbee.zin")); break;
+		 * 
+		 * default: break; } } else { // default driver for a ZCL appliance
+		 * driverIds.add(new String("it.telecomitalia.ah.driver.zcl")); } } else
+		 * if (deviceCategory.equals("Plugwise")) { // default driver for the
+		 * device driverIds.add(new
+		 * String("org.telecomitalia.plugwise.circle")); }
+		 */
 		if (driverIds.size() > 0) {
 			String[] drivers = new String[driverIds.size()];
 			for (int i = 0; i < driverIds.size(); i++) {

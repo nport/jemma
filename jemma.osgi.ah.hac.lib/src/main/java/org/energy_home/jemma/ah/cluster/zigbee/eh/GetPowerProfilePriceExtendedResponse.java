@@ -31,7 +31,7 @@ public class GetPowerProfilePriceExtendedResponse {
 		this.Price = Price;
 		this.PriceTrailingDigit = PriceTrailingDigit;
 	}
-	
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder("{");
 		sb.append("PowerProfileID=").append(PowerProfileID);
@@ -39,7 +39,7 @@ public class GetPowerProfilePriceExtendedResponse {
 		sb.append(", Price=").append(Price);
 		sb.append(", PriceTrailingDigit=").append(PriceTrailingDigit);
 		sb.append("}");
-		return sb.toString();		
+		return sb.toString();
 	}
 
 }

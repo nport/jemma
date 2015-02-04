@@ -17,16 +17,15 @@ package org.energy_home.jemma.ah.hac;
 
 import java.util.List;
 
-
 public interface IAppliancesBasicProxy {
-	public static final String PROXY_APPLIANCE_PID = "ah.app.proxy";	
-	
+	public static final String PROXY_APPLIANCE_PID = "ah.app.proxy";
+
 	public abstract IEndPointRequestContext getRequestContext(boolean isConfirmationRequired);
-	
+
 	public abstract List getAppliances();
-	
+
 	public abstract List getAppliancePids();
-	
+
 	public abstract IAppliance getAppliance(String appliancePid);
-	
+
 }

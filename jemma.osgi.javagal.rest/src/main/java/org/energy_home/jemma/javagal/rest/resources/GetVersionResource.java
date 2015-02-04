@@ -15,23 +15,22 @@
  */
 package org.energy_home.jemma.javagal.rest.resources;
 
-import org.energy_home.jemma.zgd.GatewayConstants;
-import org.energy_home.jemma.zgd.GatewayInterface;
-import org.energy_home.jemma.zgd.jaxb.Info;
-import org.energy_home.jemma.zgd.jaxb.Status;
-import org.energy_home.jemma.zgd.jaxb.Version;
-import org.energy_home.jemma.zgd.jaxb.Info.Detail;
-
 import org.energy_home.jemma.javagal.rest.GalManagerRestApplication;
 import org.energy_home.jemma.javagal.rest.RestManager;
 import org.energy_home.jemma.javagal.rest.util.Util;
+import org.energy_home.jemma.zgd.GatewayConstants;
+import org.energy_home.jemma.zgd.GatewayInterface;
+import org.energy_home.jemma.zgd.jaxb.Info;
+import org.energy_home.jemma.zgd.jaxb.Info.Detail;
+import org.energy_home.jemma.zgd.jaxb.Status;
+import org.energy_home.jemma.zgd.jaxb.Version;
 import org.restlet.data.MediaType;
 import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
 
 /**
  * Resource file used to manage the API GET:getVersion
- *
+ * 
  * @author 
  *         "Ing. Marco Nieddu <marco.nieddu@consoft.it> or <marco.niedducv@gmail.com> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
  * 
@@ -44,8 +43,7 @@ public class GetVersionResource extends ServerResource {
 	public void represent() {
 
 		try {
-			proxyGalInterface = getRestManager().getClientObjectKey(-1,
-					getClientInfo().getAddress()).getGatewayInterface();
+			proxyGalInterface = getRestManager().getClientObjectKey(-1, getClientInfo().getAddress()).getGatewayInterface();
 			Version version = proxyGalInterface.getVersion();
 
 			Detail _det = new Detail();

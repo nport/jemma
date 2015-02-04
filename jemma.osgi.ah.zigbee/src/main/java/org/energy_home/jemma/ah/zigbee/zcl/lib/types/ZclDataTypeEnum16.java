@@ -22,16 +22,16 @@ public class ZclDataTypeEnum16 extends ZclAbstractDataType {
 	public static final int ZCL_DATA_TYPE = ZclTypes.ZclEnum16Type;
 	static final int BYTE_ARRAY_LENGTH = 2;
 	static final boolean IS_ANALOG = false;
-	
+
 	public static short zclParse(IZclFrame zclFrame) throws ZclValidationException {
 		return zclFrame.parseUInt8();
 	}
-	
-	public static void zclSerialize(IZclFrame zclFrame, int enum16)  throws ZclValidationException {
+
+	public static void zclSerialize(IZclFrame zclFrame, int enum16) throws ZclValidationException {
 		zclFrame.appendUInt8(enum16);
 	}
-	
-	public static int zclSize (int enum16)  throws ZclValidationException {
+
+	public static int zclSize(int enum16) throws ZclValidationException {
 		return BYTE_ARRAY_LENGTH;
 	}
 
@@ -42,7 +42,7 @@ public class ZclDataTypeEnum16 extends ZclAbstractDataType {
 	public int zclObjectSize(Object value) throws ZclValidationException {
 		return BYTE_ARRAY_LENGTH;
 	}
-	
+
 	public Object zclParseToObject(IZclFrame zclFrame) throws ZclValidationException {
 		return new Short(ZclDataTypeEnum16.zclParse(zclFrame));
 	}

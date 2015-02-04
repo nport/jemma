@@ -70,7 +70,8 @@ public class CedacIO implements EventHandler {
 	private int previousState;
 
 	public void start(BundleContext bc) {
-		String[] topics = new String[] { "ah/provision/BEGIN", "org/osgi/framework/ServiceEvent/*", "org/osgi/framework/BundleEvent/*", "ah/START_IDENTIFY", "ah/eh/overload/*" };
+		String[] topics = new String[] { "ah/provision/BEGIN", "org/osgi/framework/ServiceEvent/*",
+				"org/osgi/framework/BundleEvent/*", "ah/START_IDENTIFY", "ah/eh/overload/*" };
 
 		Dictionary props = new Hashtable();
 		props.put(EventConstants.EVENT_TOPIC, topics);
@@ -92,7 +93,7 @@ public class CedacIO implements EventHandler {
 		Bundle[] bundles = bc.getBundles();
 		for (int i = 0; i < bundles.length; i++) {
 			String symbolicName = bundles[i].getSymbolicName();
-			//TODO IVAN da MARCO
+			// TODO IVAN da MARCO
 			if (symbolicName != null) {
 				if (symbolicName.equals("org.energy_home.jemma.osgi.ah.webui.energyathome")) {
 					synchronized (this) {

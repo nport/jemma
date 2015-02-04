@@ -37,7 +37,7 @@ public class PowerProfileTransferredPhase {
 	public PowerProfileTransferredPhase() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder("{");
 		sb.append("EnergyPhaseId=").append(EnergyPhaseID);
@@ -47,6 +47,6 @@ public class PowerProfileTransferredPhase {
 		sb.append(", Energy=").append(Energy);
 		sb.append(", MaxActivationDelay=").append(MaxActivationDelay);
 		sb.append("}");
-		return sb.toString();		
+		return sb.toString();
 	}
 }

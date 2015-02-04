@@ -262,7 +262,7 @@ public class ZclPartitionServerImpl extends ZclPartitionClient implements Runnab
 		try {
 			res = device.post((short) getClusterId(), zclFrame);
 		} catch (Exception e) {
-			LOG.error("Exception on execMultipleNACK",e);
+			LOG.error("Exception on execMultipleNACK", e);
 		}
 		if (!res) {
 			throw new ApplianceException(POST_FAILED_MESSAGE);
@@ -333,7 +333,7 @@ public class ZclPartitionServerImpl extends ZclPartitionClient implements Runnab
 		return false;
 	}
 
-	private static final Logger LOG = LoggerFactory.getLogger( ZclPartitionServer.class );
+	private static final Logger LOG = LoggerFactory.getLogger(ZclPartitionServer.class);
 
 	private Object lock = new Object();
 	private Map peerAttributeDescriptorsMap;
@@ -341,7 +341,7 @@ public class ZclPartitionServerImpl extends ZclPartitionClient implements Runnab
 	protected IZclFrame parseTransferPartitionedFrame(PartitionServer o, IZclFrame zclFrame) throws ApplianceException,
 			ServiceClusterException, ZclException {
 		synchronized (lock) {
-			State rcvrState = this.getState((byte)zclFrame.getSequenceNumber());
+			State rcvrState = this.getState((byte) zclFrame.getSequenceNumber());
 
 			if (rcvrState == null) {
 				throw new ZclException("Unexpected PartitionedFrame received", ZCL.FAILURE);
@@ -480,8 +480,9 @@ public class ZclPartitionServerImpl extends ZclPartitionClient implements Runnab
 	private State createState(int clusterId, IZclFrame zclFrame) {
 		long hash = calculateTxRxHash(clusterId, zclFrame);
 		Long h = new Long(hash);
-		// FIXME: probably rcvState must be initialized with the current value of the server attributes
-		
+		// FIXME: probably rcvState must be initialized with the current value
+		// of the server attributes
+
 		State state = new State(clusterId, zclFrame.getSequenceNumber());
 		this.states.put(h, state);
 		state.sequenceNumber = zclFrame.getSequenceNumber() & 0xFF;
@@ -530,7 +531,9 @@ public class ZclPartitionServerImpl extends ZclPartitionClient implements Runnab
 			try {
 				attrId = ZclDataTypeUI16.zclParse(zclFrame);
 			} catch (Throwable e) {
-				LOG.debug("No more attributes",e); //FIXME this seems not critical - why catching this with an exception ?
+				LOG.debug("No more attributes", e); // FIXME this seems not
+													// critical - why catching
+													// this with an exception ?
 				break;
 			}
 

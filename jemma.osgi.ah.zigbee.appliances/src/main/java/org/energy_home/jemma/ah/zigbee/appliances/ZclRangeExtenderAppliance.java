@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 public class ZclRangeExtenderAppliance extends ZclAppliance {
 	private ZclEndPoint endPoint = null;
 
-	private static final Logger LOG = LoggerFactory.getLogger( ZclRangeExtenderAppliance.class );
+	private static final Logger LOG = LoggerFactory.getLogger(ZclRangeExtenderAppliance.class);
 
 	/*
 	 * try { IAppliance[] appliances =
@@ -36,7 +36,8 @@ public class ZclRangeExtenderAppliance extends ZclAppliance {
 
 	public ZclRangeExtenderAppliance(String pid, Dictionary config) throws ApplianceException {
 		super(pid, config);
-		//endPoint = this.zclAddEndPoint(IEndPointTypes.ZIGBEE_METERING_DEVICE);
+		// endPoint =
+		// this.zclAddEndPoint(IEndPointTypes.ZIGBEE_METERING_DEVICE);
 	}
 
 	protected void attached() {

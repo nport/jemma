@@ -1,16 +1,14 @@
-
 package org.energy_home.jemma.ah.cluster.zigbee.closures;
-
 
 public class ClearPINCodeResponse {
 
-    public short Status;
+	public short Status;
 
-    public ClearPINCodeResponse() {
-    }
+	public ClearPINCodeResponse() {
+	}
 
-    public ClearPINCodeResponse(short Status) {
-        this.Status = Status;
-    }
+	public ClearPINCodeResponse(short Status) {
+		this.Status = Status;
+	}
 
 }

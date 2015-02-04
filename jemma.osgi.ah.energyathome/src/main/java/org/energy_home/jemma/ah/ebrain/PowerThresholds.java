@@ -20,21 +20,22 @@ public class PowerThresholds {
 	private float contractualThreshold; // Watts/Hour
 	private float firstThreshold; // Watts/Hour
 	private float secondThreshold; // Watts/Hour
-	
+
 	public PowerThresholds(float contractualThreshold) {
 		setContractualThreshold(contractualThreshold);
 	}
 
 	public void setContractualThreshold(float contractualThreshold) {
 		this.contractualThreshold = contractualThreshold;
-		this.nextToContractualThreshold = contractualThreshold*0.75f;
-		this.firstThreshold = contractualThreshold*1.1f;
-		this.secondThreshold = contractualThreshold*1.37f;
+		this.nextToContractualThreshold = contractualThreshold * 0.75f;
+		this.firstThreshold = contractualThreshold * 1.1f;
+		this.secondThreshold = contractualThreshold * 1.37f;
 	}
-	
+
 	public float getContractualThreshold() {
 		return contractualThreshold;
 	}
+
 	public float getFirstThreshold() {
 		return firstThreshold;
 	}

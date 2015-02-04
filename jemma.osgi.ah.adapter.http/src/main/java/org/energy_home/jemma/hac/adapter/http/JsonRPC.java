@@ -95,7 +95,7 @@ public class JsonRPC extends HttpServlet {
 				if (log) {
 					System.out.println("[JSonRpc] EXCEPTION: su methodName = " + methodName + ' ' + e.getMessage());
 				}
-				
+
 				fillResponse(response, e);
 				response.put("result", JSONObject.NULL);
 				resp.getOutputStream().print(response.toString());

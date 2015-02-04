@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 public class ZigbeeMeteringAppliance extends ZclAppliance {
 	private ZclEndPoint endPoint = null;
 
-	private static final Logger LOG = LoggerFactory.getLogger( ZigbeeMeteringAppliance.class );
+	private static final Logger LOG = LoggerFactory.getLogger(ZigbeeMeteringAppliance.class);
 
 	public ZigbeeMeteringAppliance(String pid, Dictionary config) throws ApplianceException {
 		super(pid, config);

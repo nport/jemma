@@ -34,8 +34,8 @@ public interface IApplianceDescriptor {
 	/**
 	 * Returns the device type associated to an appliance class
 	 * 
-	 * @return The physical device type if this descriptor refers to a {@code
-	 *         driver appliance}, {@code null} otherwise
+	 * @return The physical device type if this descriptor refers to a
+	 *         {@code driver appliance}, {@code null} otherwise
 	 */
 	public String getDeviceType();
 

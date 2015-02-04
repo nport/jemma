@@ -45,8 +45,9 @@ public class ZigBeeCommandProvider implements CommandProvider {
 	}
 
 	public void _permitjoin(CommandInterpreter ci) {
-		if (!this.checkZbMngrService(ci))
+		if (!this.checkZbMngrService(ci)) {
 			return;
+		}
 
 		String durationStr = ci.nextArgument();
 
@@ -65,8 +66,9 @@ public class ZigBeeCommandProvider implements CommandProvider {
 
 	public void _config(CommandInterpreter ci) {
 		synchronized (this) {
-			if (!this.checkZbMngrService(ci))
+			if (!this.checkZbMngrService(ci)) {
 				return;
+			}
 
 			try {
 				Dictionary config = ((ZigBeeManagerImpl) this.zbMngr).getConfiguration();
@@ -79,8 +81,9 @@ public class ZigBeeCommandProvider implements CommandProvider {
 
 	public void _disablenvm(CommandInterpreter ci) {
 		synchronized (this) {
-			if (!this.checkZbMngrService(ci))
+			if (!this.checkZbMngrService(ci)) {
 				return;
+			}
 
 			try {
 				((ZigBeeManagerImpl) this.zbMngr).disableNVM();
@@ -92,9 +95,10 @@ public class ZigBeeCommandProvider implements CommandProvider {
 
 	public void _enablenvm(CommandInterpreter ci) {
 		synchronized (this) {
-			if (!this.checkZbMngrService(ci))
+			if (!this.checkZbMngrService(ci)) {
 				return;
-			
+			}
+
 			try {
 				((ZigBeeManagerImpl) this.zbMngr).enableNVM();
 			} catch (Exception e) {
@@ -105,8 +109,9 @@ public class ZigBeeCommandProvider implements CommandProvider {
 
 	public void _getusenvm(CommandInterpreter ci) {
 		synchronized (this) {
-			if (!this.checkZbMngrService(ci))
+			if (!this.checkZbMngrService(ci)) {
 				return;
+			}
 
 			try {
 				ci.println("usenvm is currently " + ((ZigBeeManagerImpl) this.zbMngr).getNVMStatus());
@@ -118,8 +123,9 @@ public class ZigBeeCommandProvider implements CommandProvider {
 
 	public void _lsdevs(CommandInterpreter ci) {
 		synchronized (this) {
-			if (!this.checkZbMngrService(ci))
+			if (!this.checkZbMngrService(ci)) {
 				return;
+			}
 
 			try {
 				Collection nodes = ((ZigBeeManagerImpl) this.zbMngr).getNodes();
@@ -135,12 +141,33 @@ public class ZigBeeCommandProvider implements CommandProvider {
 			}
 		}
 	}
-	
-	
+
+	public void _hue(CommandInterpreter ci) {
+		synchronized (this) {
+			if (!this.checkZbMngrService(ci)) {
+				return;
+			}
+
+			String huePanIdS = ci.nextArgument();
+			String galPanIdS = ci.nextArgument();
+
+			int huePanId;
+			int galPanId;
+
+			huePanId = Integer.parseInt(huePanIdS);
+			galPanId = Integer.parseInt(galPanIdS);
+
+			huePanId = 0xF5EC;
+			galPanId = 0xD30B;
+			((ZigBeeManagerImpl) this.zbMngr).getHue(huePanId, galPanId);
+		}
+	}
+
 	public void _bind_remove(CommandInterpreter ci) {
 		synchronized (this) {
-			if (!this.checkZbMngrService(ci))
+			if (!this.checkZbMngrService(ci)) {
 				return;
+			}
 
 			String nodeIeeeAddress;
 			short nodeEp;
@@ -166,8 +193,9 @@ public class ZigBeeCommandProvider implements CommandProvider {
 
 	public void _bind_add(CommandInterpreter ci) {
 		synchronized (this) {
-			if (!this.checkZbMngrService(ci))
+			if (!this.checkZbMngrService(ci)) {
 				return;
+			}
 
 			String nodeIeeeAddress;
 			short nodeEp;
@@ -201,8 +229,9 @@ public class ZigBeeCommandProvider implements CommandProvider {
 
 	public void _status(CommandInterpreter ci) {
 		synchronized (this) {
-			if (!this.checkZbMngrService(ci))
+			if (!this.checkZbMngrService(ci)) {
 				return;
+			}
 
 			try {
 				boolean isGalRunning = ((ZigBeeManagerImpl) this.zbMngr).isGalRunning();
@@ -213,10 +242,11 @@ public class ZigBeeCommandProvider implements CommandProvider {
 			}
 		}
 	}
-	
+
 	public void _bind(CommandInterpreter ci) {
-		if (!checkZbMngrService(ci))
+		if (!checkZbMngrService(ci)) {
 			return;
+		}
 
 		String command = ci.nextArgument();
 		Method method = null;
@@ -248,13 +278,14 @@ public class ZigBeeCommandProvider implements CommandProvider {
 		help += "\tzb lsdevs - list currently discovered devices\n";
 		help += "\tzb bind add <node IEEE addr> <ep> <clusterId>  - add a bind from the local node with the remote device cluster\n";
 		help += "\tzb bind remove <node IEEE addr> [<ep> <clusterId>]  - remove binds the local node with the remote device cluster\n";
-		//help += "\tzb bind list - list binds\n";
+		// help += "\tzb bind list - list binds\n";
 		return help;
 	}
 
 	public void _zb(CommandInterpreter ci) {
-		if (!checkZbMngrService(ci))
+		if (!checkZbMngrService(ci)) {
 			return;
+		}
 
 		String command = ci.nextArgument();
 		Method method = null;

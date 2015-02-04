@@ -30,24 +30,24 @@ import org.slf4j.LoggerFactory;
 
 public class Activator implements BundleActivator, ServiceFactory {
 
-	private static final Logger LOG = LoggerFactory.getLogger( Activator.class );
-	
+	private static final Logger LOG = LoggerFactory.getLogger(Activator.class);
+
 	private BundleContext bc;
 	private ExecutorObject executorObject;
 	private DateTimeObject dateTimeObject;
 	private ServiceRegistration executorRegistration;
 	private ServiceRegistration dateTimeRegistration;
-	
+
 	public void start(BundleContext bundleContext) throws Exception {
 		this.bc = bundleContext;
 		dateTimeObject = new DateTimeObject();
 		executorRegistration = bc.registerService(ExecutorService.class.getName(), this, null);
 		dateTimeRegistration = bc.registerService(DateTimeService.class.getName(), dateTimeObject, null);
-		// A periodic date time check is scheduled if initial dateTime is invalid 
-		if (!dateTimeObject.isDateTimeOk()) { 
+		// A periodic date time check is scheduled if initial dateTime is invalid
+		if (!dateTimeObject.isDateTimeOk()) {
 			LOG.warn("Osgi utils activator started with date time check ko");
 			executorObject = new ExecutorObject(bc.getBundle().getSymbolicName());
-			executorObject.scheduleTask(new Runnable() {			
+			executorObject.scheduleTask(new Runnable() {
 				public void run() {
 					if (DateUtils.isDateTimeOk()) {
 						if (dateTimeRegistration != null)
@@ -63,7 +63,7 @@ public class Activator implements BundleActivator, ServiceFactory {
 			}, DateUtils.MILLISEC_IN_ONE_MINUTE, DateUtils.MILLISEC_IN_ONE_MINUTE);
 		}
 	}
-	
+
 	public void stop(BundleContext arg0) throws Exception {
 		try {
 			if (executorRegistration != null)

@@ -22,19 +22,19 @@ public class ZclDataTypeUI48 extends ZclAbstractDataType {
 	public static final int ZCL_DATA_TYPE = ZclTypes.ZclUInt48Type;
 	private static final int BYTE_ARRAY_LENGTH = 6;
 	static final boolean IS_ANALOG = true;
-	
+
 	public static long zclParse(IZclFrame zclFrame) throws ZclValidationException {
 		return zclFrame.parseUInt48();
 	}
-	
-	public static int zclSize (long value)  throws ZclValidationException {
+
+	public static int zclSize(long value) throws ZclValidationException {
 		return BYTE_ARRAY_LENGTH;
 	}
-	
-	public static void zclSerialize(IZclFrame zclFrame, long value)  throws ZclValidationException {
+
+	public static void zclSerialize(IZclFrame zclFrame, long value) throws ZclValidationException {
 		zclFrame.appendUInt48(value);
 	}
-	
+
 	public boolean isAnalog() {
 		return IS_ANALOG;
 	}

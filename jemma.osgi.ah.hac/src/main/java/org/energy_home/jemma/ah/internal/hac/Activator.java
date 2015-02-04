@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Activator implements BundleActivator {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Activator.class);
 
 	public void start(BundleContext bc) throws Exception {
@@ -36,18 +36,17 @@ public class Activator implements BundleActivator {
 	public void stop(BundleContext arg0) throws Exception {
 
 	}
-	
+
 	boolean getProperty(String name, boolean defaultValue) {
 		String value = System.getProperty("org.energy_home.jemma.ah.updatepatch");
-		
+
 		if (value != null) {
 			if (value.equals("true")) {
 				return true;
-			}
-			else if (value.equals("false")) {
+			} else if (value.equals("false")) {
 				return false;
 			}
 		}
-		return defaultValue;	
+		return defaultValue;
 	}
 }

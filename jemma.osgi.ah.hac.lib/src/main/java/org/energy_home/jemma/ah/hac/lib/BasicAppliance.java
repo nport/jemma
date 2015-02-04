@@ -47,9 +47,10 @@ public class BasicAppliance implements IAppliance {
 	String pid;
 	HashMap endPoints;
 	ConfigServerCluster basicServerCluster;
-	IApplianceManager hacApplianceManager;	
-	
-	protected Dictionary configuration;	
+	IApplianceManager hacApplianceManager;
+
+	protected Dictionary configuration;
+
 	public BasicAppliance(String pid, Dictionary config) throws ApplianceException {
 		this.pid = pid;
 		this.isAvailable = false;
@@ -58,20 +59,20 @@ public class BasicAppliance implements IAppliance {
 		this.endPoints = new LinkedHashMap();
 		this.configuration = config;
 	}
-	
+
 	// ****** IAppliance ******/
-	
+
 	public boolean isSingleton() {
 		return factory == null;
 	}
-	
+
 	public final String getPid() {
 		return this.pid;
 	}
 
 	/**
 	 * This method needs to be re-implemented by appliances that doesn't have an
-	 * associated appliance factory ({@code singleton logical appliances})
+	 * associated appliance factory ( {@code singleton logical appliances})
 	 */
 	public IApplianceDescriptor getDescriptor() {
 		return factory.getDescriptor();
@@ -79,24 +80,24 @@ public class BasicAppliance implements IAppliance {
 
 	public Dictionary getConfiguration() {
 		Hashtable result = new Hashtable(configuration.size());
-		for(Enumeration e = configuration.keys(); e.hasMoreElements();) {
+		for (Enumeration e = configuration.keys(); e.hasMoreElements();) {
 			String key = (String) e.nextElement();
 			if (!key.startsWith(APPLIANCE_CUSTOM_PROPERTIES_PREXIF))
 				result.put(key, configuration.get(key));
 		}
-		return result;	
+		return result;
 	}
-	
+
 	public Dictionary getCustomConfiguration() {
 		Hashtable result = new Hashtable(configuration.size());
-		for(Enumeration e = configuration.keys(); e.hasMoreElements();) {
+		for (Enumeration e = configuration.keys(); e.hasMoreElements();) {
 			String key = (String) e.nextElement();
 			if (key.startsWith(APPLIANCE_CUSTOM_PROPERTIES_PREXIF))
 				result.put(key, configuration.get(key));
 		}
-		return result;	
+		return result;
 	}
-	
+
 	public final boolean isDriver() {
 		return this.isDriver;
 	}
@@ -108,7 +109,7 @@ public class BasicAppliance implements IAppliance {
 	public final boolean isAvailable() {
 		return this.isValid && this.isAvailable;
 	}
-	
+
 	public final IEndPoint[] getEndPoints() {
 		if (endPoints.size() > 0) {
 			IEndPoint[] endPointArray = new IEndPoint[endPoints.size()];
@@ -116,7 +117,7 @@ public class BasicAppliance implements IAppliance {
 		} else
 			return null;
 	}
-	
+
 	public final int[] getEndPointIds() {
 		int[] endPointIds = new int[endPoints.size()];
 		IEndPoint endPoint = null;
@@ -127,7 +128,7 @@ public class BasicAppliance implements IAppliance {
 		}
 		return endPointIds;
 	}
-	
+
 	public final String[] getEndPointTypes() {
 		String[] endPointTypes = new String[endPoints.size()];
 		IEndPoint endPoint = null;

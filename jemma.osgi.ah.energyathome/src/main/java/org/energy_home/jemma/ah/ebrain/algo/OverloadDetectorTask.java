@@ -15,7 +15,6 @@
  */
 package org.energy_home.jemma.ah.ebrain.algo;
 
-
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,21 +26,21 @@ import org.slf4j.LoggerFactory;
 
 public class OverloadDetectorTask extends TimerTask {
 	public static final int DETECTION_INTERVAL = 5 * 1000; // 10 seconds
-	public static final int SAME_EVENT_NOTIFICATION_DELAY = 20 * 1000; // 60 seconds
-	
+	public static final int SAME_EVENT_NOTIFICATION_DELAY = 20 * 1000; // 60
+																		// seconds
+
 	public static final byte OVERLOAD_OVER_EVENT = 1;
 	public static final byte OVERLOAD_UNDER_EVENT = 2;
 	public static final byte SAFE_THRESHOLD_EVENT = 3;
-	
 
-    public static final float POWER_USAGE_WEIGHT = 1;
-    public static final float ELAPSED_TIME_SWITCH_WEIGHT = .1f;
-    public static final float SUSPENSION_PRIORITY_WEIGHT = 10000;
-    public static final float REACTIVATION_PRIORITY_WEIGHT = SUSPENSION_PRIORITY_WEIGHT / 100;
+	public static final float POWER_USAGE_WEIGHT = 1;
+	public static final float ELAPSED_TIME_SWITCH_WEIGHT = .1f;
+	public static final float SUSPENSION_PRIORITY_WEIGHT = 10000;
+	public static final float REACTIVATION_PRIORITY_WEIGHT = SUSPENSION_PRIORITY_WEIGHT / 100;
 	public static final int ELAPSED_TIME_WINDOW = 60 * 1000;
-	
-	private static final Logger LOG = LoggerFactory.getLogger( OverloadDetectorTask.class );
-	
+
+	private static final Logger LOG = LoggerFactory.getLogger(OverloadDetectorTask.class);
+
 	private Timer timer = new Timer(true);
 	private OverloadDetectorListener listener;
 	private List<SmartAppliance> appliances = new CopyOnWriteArrayList<SmartAppliance>();
@@ -50,49 +49,49 @@ public class OverloadDetectorTask extends TimerTask {
 	private float totalPowerUsage = 0;
 	private byte lastNotifiedEvent = 0;
 	private float upperPowerThreshold, lowerPowerThreshold;
-	
+
 	public OverloadDetectorTask(OverloadDetectorListener l) {
 		listener = l;
 		setUpperPowerThreshold(3300.0f);
 		timer.scheduleAtFixedRate(this, DETECTION_INTERVAL / 10, DETECTION_INTERVAL);
 	}
-	
+
 	public void addAppliance(SmartAppliance a) {
 		appliances.add(a);
 	}
-	
+
 	void removeAppliance(SmartAppliance a) {
 		appliances.remove(a);
 	}
-	
+
 	void setTotalPowerUsage(float p) {
 		totalPowerUsage = p;
 	}
-	
+
 	void setUpperPowerThreshold(float up) {
 		upperPowerThreshold = up;
 		lowerPowerThreshold = up * .75f;
 	}
-	
+
 	public void close() {
 		timer.cancel();
 	}
-	
-	
-	
+
 	public void run() {
 		try {
 			float power = computeTotalPowerUsage();
 			LOG.debug("TotalPowerUsage: " + power);
 			currentTime = System.currentTimeMillis();
 
-			// check suspendable appliance and report the 1st appliance to switch based on priority
-			if (power > upperPowerThreshold) { 
+			// check suspendable appliance and report the 1st appliance to
+			// switch based on priority
+			if (power > upperPowerThreshold) {
 				LOG.debug("upperPowerThreshold exceeded by: " + (power - upperPowerThreshold));
 				if (canNotifyEvent(OVERLOAD_OVER_EVENT)) {
 					checkOverload();
 				}
-			// check resumable appliance and report the 1st appliance to switch based on priority
+				// check resumable appliance and report the 1st appliance to
+				// switch based on priority
 			} else if (power < lowerPowerThreshold) {
 				LOG.debug("lowerPowerThreshold exceeded by: " + (lowerPowerThreshold - power));
 				if (canNotifyEvent(OVERLOAD_UNDER_EVENT)) {
@@ -111,11 +110,11 @@ public class OverloadDetectorTask extends TimerTask {
 		}
 
 	}
-	
+
 	private boolean canNotifyEvent(byte event) {
 		return lastNotifiedEvent != event || currentTime - lastNotifiedTimeTime > SAME_EVENT_NOTIFICATION_DELAY;
 	}
-	
+
 	private void checkUnderload() {
 		SmartAppliance candidate = null;
 		float weighedCandidate = 0;
@@ -123,7 +122,7 @@ public class OverloadDetectorTask extends TimerTask {
 			if (a.getState() == SmartAppliance.STATE_SUSPENDED) {
 				float weighedPriority = weighedActivationPriority(a);
 				LOG.debug("weighed Activation Priority " + a.getApplianceId() + " = " + weighedPriority);
-				
+
 				if (weighedPriority > weighedCandidate) {
 					weighedCandidate = weighedPriority;
 					candidate = a;
@@ -138,8 +137,7 @@ public class OverloadDetectorTask extends TimerTask {
 			listener.notifyUnderload(candidate);
 		}
 	}
-	
-	
+
 	private void checkOverload() {
 		SmartAppliance candidate = null;
 		float weighedCandidate = 0;
@@ -147,7 +145,7 @@ public class OverloadDetectorTask extends TimerTask {
 			if (a.getState() == SmartAppliance.STATE_ACTIVE) {
 				float weighedPriority = weighedSustensionPriority(a);
 				LOG.debug("weighed Suspension Priority " + a.getApplianceId() + " = " + weighedPriority);
-				
+
 				if (weighedPriority > weighedCandidate) {
 					weighedCandidate = weighedPriority;
 					candidate = a;
@@ -162,7 +160,7 @@ public class OverloadDetectorTask extends TimerTask {
 			listener.notifyOverload(candidate);
 		}
 	}
-	
+
 	private float weighedSustensionPriority(SmartAppliance a) {
 		// weighed function = w1*time + w2*power + w3*priority
 		float weighedPower = POWER_USAGE_WEIGHT * a.getIstantaneousPower();
@@ -171,22 +169,25 @@ public class OverloadDetectorTask extends TimerTask {
 		LOG.debug(String.format("weighed suspension: Pow[%.2f] Time[%.2f] Pry[%.2f]", weighedPower, weighedTime, weighedPriority));
 		return weighedPower + weighedTime + weighedPriority;
 	}
-	
+
 	private float weighedActivationPriority(SmartAppliance a) {
 		// weighed function = w1*time + w2*power + w3*priority
-		float weighedPower = POWER_USAGE_WEIGHT * (upperPowerThreshold - a.getIstantaneousPower()); // a lower consumption is preferred
+		float weighedPower = POWER_USAGE_WEIGHT * (upperPowerThreshold - a.getIstantaneousPower()); // a
+																									// lower
+																									// consumption
+																									// is
+																									// preferred
 		float weighedTime = ELAPSED_TIME_SWITCH_WEIGHT * Math.min(currentTime - a.getLastStateChange(), ELAPSED_TIME_WINDOW);
 		float weighedPriority = REACTIVATION_PRIORITY_WEIGHT * a.getPriority();
 		LOG.debug(String.format("weighed reactivation: Pow[%.2f] Time[%.2f] Pry[%.2f]", weighedPower, weighedTime, weighedPriority));
-		return weighedPower + weighedTime + weighedPriority;		
+		return weighedPower + weighedTime + weighedPriority;
 	}
-	
-	
 
 	public float computeTotalPowerUsage() {
 		float p = totalPowerUsage;
 		if (p == 0) {
-			for (int i = appliances.size(); --i >= 0; p += appliances.get(i).getIstantaneousPower());
+			for (int i = appliances.size(); --i >= 0; p += appliances.get(i).getIstantaneousPower())
+				;
 		}
 		return p;
 	}

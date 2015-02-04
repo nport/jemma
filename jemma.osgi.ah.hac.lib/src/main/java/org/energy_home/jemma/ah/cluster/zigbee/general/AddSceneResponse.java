@@ -16,20 +16,19 @@
 
 package org.energy_home.jemma.ah.cluster.zigbee.general;
 
-
 public class AddSceneResponse {
 
-    public short Status;
-    public int GroupID;
-    public short SceneID;
+	public short Status;
+	public int GroupID;
+	public short SceneID;
 
-    public AddSceneResponse() {
-    }
+	public AddSceneResponse() {
+	}
 
-    public AddSceneResponse(short Status, int GroupID, short SceneID) {
-        this.Status = Status;
-        this.GroupID = GroupID;
-        this.SceneID = SceneID;
-    }
+	public AddSceneResponse(short Status, int GroupID, short SceneID) {
+		this.Status = Status;
+		this.GroupID = GroupID;
+		this.SceneID = SceneID;
+	}
 
 }

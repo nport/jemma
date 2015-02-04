@@ -59,7 +59,8 @@ public interface TimeServer {
 	public long getLastSetTime(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
 	public long getValidUntilTime(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
-	
-	public void setValidUntilTime(long ValidUntilTime, IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
+
+	public void setValidUntilTime(long ValidUntilTime, IEndPointRequestContext context) throws ApplianceException,
+			ServiceClusterException;
 
 }

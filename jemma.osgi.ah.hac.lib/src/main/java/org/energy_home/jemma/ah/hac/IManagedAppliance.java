@@ -15,22 +15,23 @@
  */
 package org.energy_home.jemma.ah.hac;
 
-
 /**
- * This is an internal interface that is used by the A@H framework; an OSGi service 
- * that exposes this interface needs to be registered for each configured appliances
+ * This is an internal interface that is used by the A@H framework; an OSGi
+ * service that exposes this interface needs to be registered for each
+ * configured appliances
  * 
  * @see IAppliance
  * 
  */
-public interface IManagedAppliance extends IAppliance {	
+public interface IManagedAppliance extends IAppliance {
 
 	/**
-	 * Returns the interface used by the framework to manage this appliance A@H framework
+	 * Returns the interface used by the framework to manage this appliance A@H
+	 * framework
 	 * 
 	 * @return The {@link IApplianceManager} interface used to communicate with
 	 *         the A@H framework
 	 */
 	public IApplianceManager getApplianceManager();
-	
+
 }

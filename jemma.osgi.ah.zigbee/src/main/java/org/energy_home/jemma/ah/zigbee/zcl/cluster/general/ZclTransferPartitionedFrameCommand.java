@@ -35,7 +35,7 @@ public class ZclTransferPartitionedFrameCommand {
 		return r;
 	}
 
-	public static void zclSerialize(IZclFrame zclFrame, TransferPartitionedFrameCommand r) throws ZclValidationException {		
+	public static void zclSerialize(IZclFrame zclFrame, TransferPartitionedFrameCommand r) throws ZclValidationException {
 		ZclDataTypeUI8.zclSerialize(zclFrame, r.FragmentationOptions);
 		if (r.PartitionIndicator > 0xFF)
 			ZclDataTypeUI16.zclSerialize(zclFrame, r.PartitionIndicator);
@@ -43,7 +43,7 @@ public class ZclTransferPartitionedFrameCommand {
 			ZclDataTypeUI8.zclSerialize(zclFrame, (short) r.PartitionIndicator);
 		ZclDataTypeOctets.zclSerialize(zclFrame, r.PartitionedFrame);
 	}
-	
+
 	public static int zclSize(TransferPartitionedFrameCommand r) throws ZclValidationException {
 		int size = 1 + ((r.PartitionIndicator > 0xFF) ? 2 : 1) + 1 + r.PartitionedFrame.length;
 		return size;

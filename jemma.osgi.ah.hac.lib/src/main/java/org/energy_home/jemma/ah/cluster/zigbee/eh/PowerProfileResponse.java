@@ -32,14 +32,14 @@ public class PowerProfileResponse {
 		this.PowerProfileID = PowerProfileID;
 		this.PowerProfileTransferredPhases = PowerProfileTransferredPhases;
 	}
-	
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder("{");
 		sb.append("TotalProfileNum=").append(TotalProfileNum);
 		sb.append(", PowerProfileID=").append(PowerProfileID);
 		sb.append(", PowerProfileTransferredPhases=").append(Arrays.toString(PowerProfileTransferredPhases));
 		sb.append("}");
-		return sb.toString();		
+		return sb.toString();
 	}
 
 }

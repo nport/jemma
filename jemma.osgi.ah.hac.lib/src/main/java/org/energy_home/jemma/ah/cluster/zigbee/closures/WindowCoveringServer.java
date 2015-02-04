@@ -42,9 +42,11 @@ public interface WindowCoveringServer {
 
 	public short getConfigStatus(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-	public short getCurrentPositionLiftPercentage(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
+	public short getCurrentPositionLiftPercentage(IEndPointRequestContext context) throws ApplianceException,
+			ServiceClusterException;
 
-	public short getCurrentPositionTiltPercentage(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
+	public short getCurrentPositionTiltPercentage(IEndPointRequestContext context) throws ApplianceException,
+			ServiceClusterException;
 
 	public int getInstalledOpenLimit(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
@@ -72,12 +74,16 @@ public interface WindowCoveringServer {
 
 	public void execStop(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-	public void execGoToLiftValue(int LiftValue, IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
+	public void execGoToLiftValue(int LiftValue, IEndPointRequestContext context) throws ApplianceException,
+			ServiceClusterException;
 
-	public void execGoToLiftPercentage(short PercentageLiftValue, IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
+	public void execGoToLiftPercentage(short PercentageLiftValue, IEndPointRequestContext context) throws ApplianceException,
+			ServiceClusterException;
 
-	public void execGoToTiltValue(int TiltValue, IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
+	public void execGoToTiltValue(int TiltValue, IEndPointRequestContext context) throws ApplianceException,
+			ServiceClusterException;
 
-	public void execGoToTiltPercentage(short PercentageTiltValue, IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
+	public void execGoToTiltPercentage(short PercentageTiltValue, IEndPointRequestContext context) throws ApplianceException,
+			ServiceClusterException;
 
 }

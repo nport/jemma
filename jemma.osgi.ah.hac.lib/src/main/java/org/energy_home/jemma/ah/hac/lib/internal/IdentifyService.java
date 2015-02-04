@@ -17,10 +17,10 @@ package org.energy_home.jemma.ah.hac.lib.internal;
 
 public interface IdentifyService {
 	public boolean isIdentifyActive();
-	
+
 	public void setIdentifyDelay(long millisecs);
-	
+
 	public long getIdentifyDelay();
-	
+
 	public void stopIdentify();
 }

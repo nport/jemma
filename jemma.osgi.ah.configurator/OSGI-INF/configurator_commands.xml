@@ -5,4 +5,5 @@
    <service>
       <provide interface="org.eclipse.osgi.framework.console.CommandProvider"/>
    </service>
+   <property name="osgi.command.scope" type="String" value="conf"/>
 </scr:component>

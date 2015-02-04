@@ -24,23 +24,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.osgi.service.http.HttpContext;
 
 public class HacHttpContext implements HttpContext {
-	
+
 	private HttpContext ctx;
 
 	public HacHttpContext(HttpContext ctx) {
 		this.ctx = ctx;
 	}
 
-	public String getMimeType(String page) {		
+	public String getMimeType(String page) {
 		String mime = ctx.getMimeType(page);
 		if (mime == null) {
-			if (page.endsWith(".manifest"))  {  
-				return "text/cache-manifest";  
-			}
-			else if (page.endsWith(".css")) {
-				return "text/css";  
-			}
-			else if (page.endsWith(".js")) {
+			if (page.endsWith(".manifest")) {
+				return "text/cache-manifest";
+			} else if (page.endsWith(".css")) {
+				return "text/css";
+			} else if (page.endsWith(".js")) {
 				return "text/javascript";
 			}
 			return null;

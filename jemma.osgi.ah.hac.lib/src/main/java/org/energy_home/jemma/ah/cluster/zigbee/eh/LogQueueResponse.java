@@ -15,16 +15,15 @@
  */
 package org.energy_home.jemma.ah.cluster.zigbee.eh;
 
-
 public class LogQueueResponse {
 
-    public long LogIds[];
+	public long LogIds[];
 
-    public LogQueueResponse() {
-    }
+	public LogQueueResponse() {
+	}
 
-    public LogQueueResponse(long logIds[]) {
-        this.LogIds = logIds;
-    }
+	public LogQueueResponse(long logIds[]) {
+		this.LogIds = logIds;
+	}
 
 }

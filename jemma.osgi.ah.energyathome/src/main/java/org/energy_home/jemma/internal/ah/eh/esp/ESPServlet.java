@@ -15,7 +15,6 @@
  */
 package org.energy_home.jemma.internal.ah.eh.esp;
 
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URI;
@@ -34,28 +33,28 @@ import org.osgi.service.http.NamespaceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ESPServlet extends HttpServlet {	
+public class ESPServlet extends HttpServlet {
 	private static final long serialVersionUID = -615518450441731123L;
 
-	private static final Logger LOG = LoggerFactory.getLogger( ESPServlet.class );
-	
-	private static final String servletUri = "/esp";	
+	private static final Logger LOG = LoggerFactory.getLogger(ESPServlet.class);
+
+	private static final String servletUri = "/esp";
 	private static final String userRegistrationUri = "/esp/registerUser";
 	private static final String authTokenUriStr = "/esp/authToken";
-	
+
 	private static final String remoteGetRegistrationUri = "/ehproxy/getregisteruri.php";
 	private static final String remoteAuthTokenUriStr = "/ehproxy/gethapsession.php";
-	
+
 	private String remoteHostAddr;
 	private int remoteHostPort;
-	
+
 	private URI userRegistrationGetUri;
 	private URI remoteAuthTokenUri;
 
 	private ESPService espService;
 
 	private static RestClient restClient;
-	
+
 	private void releaseRequestResources(HttpResponse response) {
 		try {
 			if (response != null)
@@ -64,8 +63,9 @@ public class ESPServlet extends HttpServlet {
 			LOG.error("releaseRequestResources: error while consuming rest client response", e);
 		}
 	}
-	
-	protected void service(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws ServletException, IOException {
+
+	protected void service(HttpServletRequest servletRequest, HttpServletResponse servletResponse) throws ServletException,
+			IOException {
 		String queryString = servletRequest.getRequestURI();
 
 		if (queryString.startsWith(userRegistrationUri)) {
@@ -83,7 +83,7 @@ public class ESPServlet extends HttpServlet {
 					servletResponse.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
 				} finally {
 					releaseRequestResources(response);
-				}					
+				}
 			}
 		} else if (queryString.startsWith(authTokenUriStr)) {
 			HttpResponse response = null;
@@ -104,12 +104,12 @@ public class ESPServlet extends HttpServlet {
 					} catch (Exception e2) {
 						LOG.error("service: error while releasing printwriter used for connection to remoteAuthTokenUri", e2);
 					}
-			}				
-		} else{
+			}
+		} else {
 			servletResponse.sendError(HttpServletResponse.SC_NOT_FOUND);
-		} 
+		}
 	}
-	
+
 	public void start() {
 		try {
 			remoteHostAddr = ESPConfiguration.getRemoteHostAddr();
@@ -121,13 +121,13 @@ public class ESPServlet extends HttpServlet {
 		}
 		restClient = RestClient.get();
 	}
-	
+
 	public void stop() {
 		restClient.release();
 		userRegistrationGetUri = null;
 		remoteAuthTokenUri = null;
 	}
-	
+
 	public void setHttpService(HttpService httpService) {
 		try {
 			httpService.registerServlet(servletUri, this, null, null);
@@ -138,17 +138,17 @@ public class ESPServlet extends HttpServlet {
 		}
 
 	}
-	
+
 	public void unsetHttpService(HttpService httpService) {
 		httpService.unregister(servletUri);
 	}
-	
+
 	public void setESPService(ESPService espService) {
 		this.espService = espService;
 	}
-	
+
 	public void unsetESPService(ESPService espService) {
 		this.espService = null;
 	}
-	
+
 }

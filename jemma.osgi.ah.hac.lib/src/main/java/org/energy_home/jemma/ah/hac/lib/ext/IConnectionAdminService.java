@@ -24,10 +24,10 @@ import org.osgi.framework.InvalidSyntaxException;
 
 public interface IConnectionAdminService {
 
-	//public void statusUpdated(String pid);
+	// public void statusUpdated(String pid);
 
 	public ArrayList getBindRules();
-	
+
 	public boolean removeBindRule(String pid) throws HacException;
 
 	/**
@@ -49,10 +49,11 @@ public interface IConnectionAdminService {
 	public boolean deactivateBind(String appliance1Pid, String appliance2Pid);
 
 	public String[] getPeerAppliancesPids(String appliancePid) throws HacException;
-	
+
 	public IAppliance[] getPeerAppliances(String appliancePid, int endPoint) throws HacException;
 
-	public IAppliance[] getPeerAppliances(String appliancePid, int endPointId, int propertyKey, String propertyValue) throws HacException;
+	public IAppliance[] getPeerAppliances(String appliancePid, int endPointId, int propertyKey, String propertyValue)
+			throws HacException;
 
 	/**
 	 * 

@@ -17,8 +17,12 @@ package org.energy_home.jemma.ah.hac.lib.ext;
 
 public interface INetworkManager {
 	boolean isNetworkOpen();
+
 	void openNetwork() throws Exception;
+
 	void openNetwork(int duration) throws Exception;
+
 	void closeNetwork() throws Exception;
+
 	void removeDevice(String devicePid) throws Exception;
 }

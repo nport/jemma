@@ -17,8 +17,8 @@ package org.energy_home.jemma.ah.ebrain;
 
 public interface IOnOffProxy {
 	public Boolean getStatus(String applianceId);
-	
+
 	public Boolean setStatus(String applianceId, Boolean status);
-	
+
 	void subscribeStatus(String applianceId, long minReportingInterval, long maxReportingInterval);
 }

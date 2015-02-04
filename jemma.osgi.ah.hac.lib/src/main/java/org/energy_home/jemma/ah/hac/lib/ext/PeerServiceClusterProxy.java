@@ -28,29 +28,28 @@ import org.energy_home.jemma.ah.hac.lib.ServiceCluster;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PeerServiceClusterProxy implements InvocationHandler  {
-	
+public class PeerServiceClusterProxy implements InvocationHandler {
+
 	private static final Logger LOG = LoggerFactory.getLogger(PeerServiceClusterProxy.class);
-	
+
 	private IServiceCluster serviceCluster = null;
 	private ServiceCluster serviceClusterImpl = null;
 	private boolean isPeerServiceCluster = false;
 	private IEndPoint endPoint;
 
 	private void initServiceClusterImpl() {
-		this.serviceClusterImpl = (serviceCluster instanceof PeerServiceCluster) ? 
-				((PeerServiceCluster) serviceCluster).getManagedServiceCluster() :
-				(ServiceCluster) serviceCluster;
+		this.serviceClusterImpl = (serviceCluster instanceof PeerServiceCluster) ? ((PeerServiceCluster) serviceCluster)
+				.getManagedServiceCluster() : (ServiceCluster) serviceCluster;
 		this.endPoint = serviceCluster.getEndPoint();
 		if (this.serviceCluster instanceof PeerServiceCluster)
 			isPeerServiceCluster = true;
 	}
-	
+
 	public PeerServiceClusterProxy(IServiceCluster serviceCluster) {
 		this.serviceCluster = serviceCluster;
 		initServiceClusterImpl();
 	}
-	
+
 	public PeerServiceClusterProxy(Object clusterInterfaceImpl, Class clusterInterfaceClass) throws ApplianceException {
 		this.serviceCluster = new ServiceCluster(clusterInterfaceImpl, clusterInterfaceClass);
 		initServiceClusterImpl();
@@ -58,16 +57,17 @@ public class PeerServiceClusterProxy implements InvocationHandler  {
 
 	public ServiceCluster getServiceCluster() {
 		return serviceClusterImpl;
-	}			
-	
-	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable { 
+	}
+
+	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		try {
-			if (method.getDeclaringClass().equals(IServiceCluster.class)) {				
+			if (method.getDeclaringClass().equals(IServiceCluster.class)) {
 				return method.invoke(serviceCluster, args);
 			} else {
 				serviceClusterImpl.checkServiceClusterAvailability();
 				if (isPeerServiceCluster)
-					args[args.length-1] = ((PeerEndPoint)endPoint).getPeerValidRequestContext((IEndPointRequestContext) args[args.length-1]);
+					args[args.length - 1] = ((PeerEndPoint) endPoint)
+							.getPeerValidRequestContext((IEndPointRequestContext) args[args.length - 1]);
 				return method.invoke(serviceClusterImpl.getClusterInterfaceImpl(), args);
 			}
 		} catch (Exception e) {
@@ -80,6 +80,6 @@ public class PeerServiceClusterProxy implements InvocationHandler  {
 			LOG.debug(e.getMessage(), e);
 			throw new ServiceClusterException("Unknown error while executing service cluster request");
 		}
-	}	
+	}
 
 }

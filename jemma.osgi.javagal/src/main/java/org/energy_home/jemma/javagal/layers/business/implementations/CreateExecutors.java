@@ -9,17 +9,15 @@ import java.util.concurrent.TimeUnit;
 
 public class CreateExecutors {
 
-	public static ExecutorService createThreadPoolExecutor(String name, int poolSize,
-			long keepAliveTime) {
+	public static ExecutorService createThreadPoolExecutor(String name, int poolSize, long keepAliveTime) {
 		TimeUnit unit = TimeUnit.SECONDS;
 		BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<Runnable>();
 
-		ExecutorService executor = new ThreadPoolExecutor(poolSize, poolSize,
-				keepAliveTime, unit, workQueue, new ThreadFactory() {
-					public Thread newThread(Runnable r) {
-						return new Thread(r, "THPool-APSMessageIndication");
-					}
-				});
+		ExecutorService executor = new ThreadPoolExecutor(poolSize, poolSize, keepAliveTime, unit, workQueue, new ThreadFactory() {
+			public Thread newThread(Runnable r) {
+				return new Thread(r, "THPool-APSMessageIndication");
+			}
+		});
 
 		return executor;
 	}

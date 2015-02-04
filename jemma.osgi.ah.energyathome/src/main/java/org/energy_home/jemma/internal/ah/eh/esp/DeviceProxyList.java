@@ -20,19 +20,19 @@ import java.util.Map;
 
 public class DeviceProxyList {
 	private Map<String, DeviceProxy> deviceProxyMap = new HashMap(ESPApplication.MAX_NUMBER_OF_APPLIANCES);
-	
+
 	public DeviceProxy getDeviceProxy(String persistentId) {
 		return deviceProxyMap.get(persistentId);
 	}
-	
+
 	public DeviceProxy addDeviceProxy(DeviceProxy deviceProxy) {
 		return deviceProxyMap.put(deviceProxy.getDeviceInfo().getPersistentId(), deviceProxy);
 	}
-	
+
 	public DeviceProxy removeDeviceProxy(String persistentId) {
 		return deviceProxyMap.remove(persistentId);
 	}
-	
+
 	public void clear() {
 		deviceProxyMap.clear();
 	}

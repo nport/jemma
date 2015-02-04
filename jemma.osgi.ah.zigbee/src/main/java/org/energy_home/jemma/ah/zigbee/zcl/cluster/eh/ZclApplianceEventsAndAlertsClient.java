@@ -89,24 +89,23 @@ public class ZclApplianceEventsAndAlertsClient extends ZclServiceCluster impleme
 		}
 		issueExec(zclFrame, 11, context);
 	}
-	
-    public void execEventNotification(short EventHeader, short EventIdentification, IEndPointRequestContext context)
-            throws ApplianceException, ServiceClusterException
-        {
-            int size = 0;
-		size += ZclDataTypeUI8 .zclSize(EventHeader);
-            size += ZclDataTypeUI8 .zclSize(EventIdentification);
-            ZclFrame zclFrame = new ZclFrame(1, size);
-            zclFrame.setCommandId(2);
-            ZclDataTypeUI8 .zclSerialize(zclFrame, EventHeader);
-            ZclDataTypeUI8 .zclSerialize(zclFrame, EventIdentification);
-            issueExec(zclFrame, 11, context);
-        }
+
+	public void execEventNotification(short EventHeader, short EventIdentification, IEndPointRequestContext context)
+			throws ApplianceException, ServiceClusterException {
+		int size = 0;
+		size += ZclDataTypeUI8.zclSize(EventHeader);
+		size += ZclDataTypeUI8.zclSize(EventIdentification);
+		ZclFrame zclFrame = new ZclFrame(1, size);
+		zclFrame.setCommandId(2);
+		ZclDataTypeUI8.zclSerialize(zclFrame, EventHeader);
+		ZclDataTypeUI8.zclSerialize(zclFrame, EventIdentification);
+		issueExec(zclFrame, 11, context);
+	}
 
 	protected IZclFrame parseGetEventsAndAlerts(ApplianceEventsAndAlertsServer o, IZclFrame zclFrame) throws ApplianceException,
 			ServiceClusterException {
-		//TODO: check merge, following line was different in 3.3.0
-		//GetAlertsResponse r = o.execGetAlerts(null);
+		// TODO: check merge, following line was different in 3.3.0
+		// GetAlertsResponse r = o.execGetAlerts(null);
 		GetAlertsResponse r = o.execGetAlerts(endPoint.getDefaultRequestContext());
 		int size = ZclGetAlertsResponse.zclSize(r);
 		IZclFrame zclResponseFrame = zclFrame.createResponseFrame(size);

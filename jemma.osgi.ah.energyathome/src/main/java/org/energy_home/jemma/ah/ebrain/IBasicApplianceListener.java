@@ -16,17 +16,18 @@
 package org.energy_home.jemma.ah.ebrain;
 
 public interface IBasicApplianceListener {
-	
+
 	public static enum ApplianceType {
 		SmartInfo, SmartPlug, WhiteGood
 	}
-	
+
 	public static enum ApplianceCondition {
 		Available, NotAvailable, Removed
 	}
-	
+
 	ApplianceInfo getApplianceInfo(String applianceId);
-	
+
 	void notifyApplianceAvailability(String applianceId, boolean isAvailable, ApplianceType applianceType);
+
 	boolean removeAppliance(String applianceId);
 }

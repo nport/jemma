@@ -15,7 +15,6 @@
  */
 package org.energy_home.jemma.ah.eh.esp;
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -68,16 +67,17 @@ public interface ESPService {
 	public float getTotalInstantaneousPowerFloatValue() throws ESPException;
 
 	public float getInstantaneousProducedPowerFloatValue() throws ESPException;
-	
+
 	public float getInstantaneousSoldPowerFloatValue() throws ESPException;
-	
+
 	/**
 	 * Returns the last instantaneous power (W) read from the specified
 	 * appliance
 	 * 
 	 * @param applianceId
-	 *            The appliance pid or null for smart info appliance; in case of multi end point appliance 
-	 *            this id must encode also end point id with a slash separator (e.g. "ah.app.123456789/2")
+	 *            The appliance pid or null for smart info appliance; in case of
+	 *            multi end point appliance this id must encode also end point
+	 *            id with a slash separator (e.g. "ah.app.123456789/2")
 	 * @return the last instantaneous power read from the appliance (0 in case
 	 *         the appliance is not available,
 	 *         {@value #INVALID_INSTANTANEOUS_POWER_VALUE} in case last notified
@@ -85,11 +85,11 @@ public interface ESPService {
 	 * @throws ESPException
 	 */
 	public float getInstantaneousPowerFloatValue(String applianceId) throws ESPException;
-	
+
 	public List<Float> getEnergyConsumption(String applianceId, long startTime, long endTime, int resolution) throws ESPException;
-	
+
 	public List<Float> getProducedEnergy(long startTime, long endTime, int resolution) throws ESPException;
-	
+
 	public List<Float> getSoldEnergy(long startTime, long endTime, int resolution) throws ESPException;
 
 	public Map<String, List<Float>> getEnergyConsumption(long startTime, long endTime, int resolution) throws ESPException;

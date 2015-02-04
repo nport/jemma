@@ -15,7 +15,6 @@
  */
 package org.energy_home.jemma.internal.ah.eh.esp;
 
-
 import org.energy_home.jemma.ah.cluster.zigbee.general.OnOffClient;
 import org.energy_home.jemma.ah.cluster.zigbee.general.OnOffServer;
 import org.energy_home.jemma.ah.ebrain.IOnOffListener;
@@ -30,20 +29,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class OnOffClusterProxy extends ServiceClusterProxy implements OnOffClient, IServiceClusterListener, IOnOffProxy {
-	private static final Logger LOG = LoggerFactory.getLogger( OnOffClusterProxy.class );
+	private static final Logger LOG = LoggerFactory.getLogger(OnOffClusterProxy.class);
 	private DeviceProxyList proxyList;
 	private IOnOffListener listener;
-	
+
 	private OnOffServer getMeteringServerCluster(DeviceProxy deviceProxy) {
 		// TODO: needs to be modified to manage multi end point devices
 		return (OnOffServer) getServiceCluster(deviceProxy, OnOffServer.class.getName());
 	}
-	
+
 	public OnOffClusterProxy(DeviceProxyList proxy, IOnOffListener listener) throws ApplianceException {
 		this.proxyList = proxy;
 		this.listener = listener;
 	}
-	
+
 	public Boolean getStatus(String applianceId) {
 		Boolean value = null;
 		try {
@@ -55,7 +54,7 @@ public class OnOffClusterProxy extends ServiceClusterProxy implements OnOffClien
 			e.printStackTrace();
 		}
 		return value;
-		
+
 	}
 
 	public Boolean setStatus(String applianceId, Boolean value) {
@@ -73,16 +72,17 @@ public class OnOffClusterProxy extends ServiceClusterProxy implements OnOffClien
 		}
 		return value;
 	}
-	
-	public void notifyAttributeValue(String attributeName, IAttributeValue peerAttributeValue, IEndPointRequestContext endPointRequestContext) {
+
+	public void notifyAttributeValue(String attributeName, IAttributeValue peerAttributeValue,
+			IEndPointRequestContext endPointRequestContext) {
 		try {
 			String applianceId = getApplianceId(endPointRequestContext);
 			if (attributeName.equals(OnOffServer.ATTR_OnOff_NAME)) {
-				Boolean value = (Boolean)peerAttributeValue.getValue();
+				Boolean value = (Boolean) peerAttributeValue.getValue();
 				listener.notifyStatus(applianceId, peerAttributeValue.getTimestamp(), value);
 			} else {
 				LOG.warn("notifyAttributeValue - Received value for unmanaged attribute (" + attributeName + ") - " + applianceId);
-			}			
+			}
 		} catch (Exception e) {
 			LOG.error("notifyAttributeValue error", e);
 		}

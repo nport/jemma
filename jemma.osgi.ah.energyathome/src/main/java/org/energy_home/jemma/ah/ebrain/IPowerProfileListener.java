@@ -40,15 +40,20 @@ import org.energy_home.jemma.ah.ebrain.PowerProfileInfo.PowerProfileTimeConstrai
  */
 
 public interface IPowerProfileListener {
-	
+
 	void notifyPowerProfile(String applianceId, PowerProfileInfo powerProfile);
+
 	void notifyAllPowerProfilesState(String applianceId, PowerProfileState[] powerProfilesState);
+
 	void notifyEnergyPhasesScheduleTime(String applianceId, short powerProfileID, EnergyPhaseScheduleTime[] scheduledPhases);
+
 	void notifyPowerProfileScheduleConstraints(String applianceId, PowerProfileTimeConstraints profileConstraints);
 
 	float calculatePowerProfilePrice(String applianceId, short powerProfileID, int delay);
-	// the difference here is that the profileID is not applicable: OVERALL_SCHEDULE_ID
+
+	// the difference here is that the profileID is not applicable:
+	// OVERALL_SCHEDULE_ID
 	float calculateOverallSchedulePrice();
-	
+
 	EnergyPhaseScheduleTime[] calculateEnergyPhasesSchedule(String applianceId, short powerProfileID);
 }

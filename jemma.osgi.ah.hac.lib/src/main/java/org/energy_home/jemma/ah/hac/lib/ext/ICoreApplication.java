@@ -20,8 +20,8 @@ import org.energy_home.jemma.ah.hac.IApplicationService;
 
 public interface ICoreApplication extends IApplicationService {
 	public void notifyInstallingApplianceAdded(IAppliance appliance);
-	
+
 	public void notifyInstallingApplianceRemoved(IAppliance appliance);
-	
+
 	public void notifyInstallingApplianceAvailabilityUpdated(IAppliance appliance);
 }

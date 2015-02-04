@@ -18,9 +18,10 @@ package org.energy_home.jemma.ah.configurator;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-
 public interface IConfigurator {
 	public void loadConfiguration(String filename);
+
 	public void importConfiguration(InputStream inputStream) throws Exception;
+
 	public void exportConfiguration(OutputStream os) throws Exception;
 }

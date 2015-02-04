@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 public class Zcl4NoksThermostatAppliance extends ZclAppliance {
 	private ZclEndPoint endPoint = null;
 
-	private static final Logger LOG = LoggerFactory.getLogger( Zcl4NoksThermostatAppliance.class );
+	private static final Logger LOG = LoggerFactory.getLogger(Zcl4NoksThermostatAppliance.class);
 
 	public static final String ENDPOINT_TYPE = "Thermostat";
 

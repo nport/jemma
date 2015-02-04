@@ -34,7 +34,7 @@ public class FlexGatewayButtons implements Runnable {
 
 	static final String flexGatewayButtonsDevice = "/dev/input/event0";
 	private File buttonFile;
-	private static final Logger LOG = LoggerFactory.getLogger( FlexGatewayButtons.class );
+	private static final Logger LOG = LoggerFactory.getLogger(FlexGatewayButtons.class);
 	private Thread t;
 
 	private FileInputStream fis = null;
@@ -52,7 +52,7 @@ public class FlexGatewayButtons implements Runnable {
 		try {
 			t.join();
 		} catch (InterruptedException e) {
-			LOG.error("interrupted exception on join",e);
+			LOG.error("interrupted exception on join", e);
 		}
 	}
 
@@ -115,7 +115,8 @@ public class FlexGatewayButtons implements Runnable {
 			} catch (ClosedByInterruptException e) {
 				break;
 			} catch (IOException e) {
-				// FIXME Why these Breaks in catch block ? What is the effect on this ?this seems risky / to be reviewed
+				// FIXME Why these Breaks in catch block ? What is the effect on
+				// this ?this seems risky / to be reviewed
 				LOG.error("Exception on Run", e);
 				break;
 			} finally {
@@ -136,7 +137,7 @@ public class FlexGatewayButtons implements Runnable {
 			try {
 				this.eventAdmin.postEvent(new Event(topic, props));
 			} catch (Exception e) {
-				LOG.error("Exception on postEvent",e);
+				LOG.error("Exception on postEvent", e);
 			}
 		}
 	}

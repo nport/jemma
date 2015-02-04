@@ -15,7 +15,6 @@
  */
 package org.energy_home.jemma.ah.zigbee.appliances.generic;
 
-
 import java.util.Dictionary;
 
 import org.energy_home.jemma.ah.hac.ApplianceException;
@@ -29,12 +28,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ZclGenericApplianceFactory extends DriverApplianceFactory implements Driver {
-	private static final Logger LOG = LoggerFactory.getLogger( ZclGenericApplianceFactory.class );
-	
+	private static final Logger LOG = LoggerFactory.getLogger(ZclGenericApplianceFactory.class);
+
 	public static final String APPLIANCE_TYPE = "org.energy_home.jemma.ah.zigbee.generic";
 	public static final String APPLIANCE_FRIENDLY_NAME = "Generic";
 	public static final String DEVICE_TYPE = "ZigBee";
-	
+
 	public static final IApplianceDescriptor APPLIANCE_DESCRIPTOR = new ApplianceDescriptor(APPLIANCE_TYPE, null,
 			APPLIANCE_FRIENDLY_NAME);
 
@@ -45,24 +44,24 @@ public class ZclGenericApplianceFactory extends DriverApplianceFactory implement
 	public Appliance getInstance(String pid, Dictionary config) throws ApplianceException {
 		return new ZclGenericAppliance(pid, config);
 	}
-	
+
 	public boolean genericMatch(ServiceReference d) {
 		String[] endPoints = (String[]) d.getProperty("zigbee.device.eps");
 		if (endPoints == null || endPoints.length < 1) {
 			LOG.error("Null or invalid zigbee.device.eps property value");
 			return false;
 		}
-//		if (endPoints.length == 1) {
-//			if (endPoints[0].startsWith("260.82"))
-//				// Whitegood appliance
-//				return false;
-//			if (endPoints[0].startsWith("260.81"))
-//				// Smartplug
-//				return false;
-//			if (endPoints[0].startsWith("260.83"))
-//				// SmartInfo
-//				return false;
-//		}
+		// if (endPoints.length == 1) {
+		// if (endPoints[0].startsWith("260.82"))
+		// // Whitegood appliance
+		// return false;
+		// if (endPoints[0].startsWith("260.81"))
+		// // Smartplug
+		// return false;
+		// if (endPoints[0].startsWith("260.83"))
+		// // SmartInfo
+		// return false;
+		// }
 		return true;
 	}
 

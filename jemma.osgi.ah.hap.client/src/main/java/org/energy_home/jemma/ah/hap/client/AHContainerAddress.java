@@ -15,11 +15,9 @@
  */
 package org.energy_home.jemma.ah.hap.client;
 
-
 import java.util.WeakHashMap;
 
 import org.energy_home.jemma.ah.m2m.device.M2MContainerAddress;
-import org.energy_home.jemma.internal.ah.hap.client.AHM2MContainerAddress;
 
 public class AHContainerAddress {
 	private static final String INVALID_CONTAINER_ID = "Invalid container id";
@@ -46,12 +44,13 @@ public class AHContainerAddress {
 	public static AHContainerAddress getAddressFromUrl(String urlOrAddressedId) {
 		return new AHM2MContainerAddress(urlOrAddressedId);
 	}
-	
+
 	public static AHContainerAddress getNetworkAddress(String hagId, String appliancePid, String endPointId, String containerName) {
 		return getNetworkAddress(hagId, appliancePid, endPointId, containerName, false);
 	}
-	
-	public static AHContainerAddress getNetworkAddress(String hagId, String appliancePid, String endPointId, String containerName, boolean isLocal) {
+
+	public static AHContainerAddress getNetworkAddress(String hagId, String appliancePid, String endPointId, String containerName,
+			boolean isLocal) {
 		// TODO: check for a more efficient implementation
 		int key = getHashCode(hagId, appliancePid, endPointId, containerName, new Boolean(isLocal));
 		AHContainerAddress containerAddress = null;
@@ -64,7 +63,7 @@ public class AHContainerAddress {
 		}
 		return containerAddress;
 	}
-	
+
 	protected M2MContainerAddress m2mContainerAddress = null;
 	protected String appliancePid = null;
 	protected String endPointId = null;
@@ -72,10 +71,9 @@ public class AHContainerAddress {
 
 	private boolean isAppliancePid(String part) {
 		// TODO: this test recognize ALL as an appliance filter only
-		return part.startsWith(AHM2MContainerAddress.DEFAULT_APPLIANCE_PREFIX) 
-				|| M2MContainerAddress.isFilterWord(part);
+		return part.startsWith(AHM2MContainerAddress.DEFAULT_APPLIANCE_PREFIX) || M2MContainerAddress.isFilterWord(part);
 	}
-	
+
 	protected AHContainerAddress(String urlOrAddressedId) {
 		m2mContainerAddress = new M2MContainerAddress(urlOrAddressedId);
 		String[] parts = m2mContainerAddress.getContainerIdParts();
@@ -83,7 +81,7 @@ public class AHContainerAddress {
 			throw new IllegalArgumentException(INVALID_CONTAINER_ID);
 		if (parts.length == 1 && isAppliancePid(parts[0])) {
 			appliancePid = parts[0];
-		} else if (parts.length == 2  && isAppliancePid(parts[0])) {
+		} else if (parts.length == 2 && isAppliancePid(parts[0])) {
 			appliancePid = parts[0];
 			endPointId = parts[1];
 		} else if (isAppliancePid(parts[0])) {
@@ -96,7 +94,8 @@ public class AHContainerAddress {
 			throw new IllegalArgumentException(INVALID_CONTAINER_ID);
 	}
 
-	protected AHContainerAddress(String hagId, String appliancePid, String endPointId, String containerName, boolean isLocal, boolean isProxy) throws IllegalArgumentException {
+	protected AHContainerAddress(String hagId, String appliancePid, String endPointId, String containerName, boolean isLocal,
+			boolean isProxy) throws IllegalArgumentException {
 		this.appliancePid = appliancePid;
 		if (endPointId != null)
 			this.endPointId = endPointId.toString();
@@ -107,7 +106,7 @@ public class AHContainerAddress {
 						endPointId }) : ((appliancePid == null) ? new String[] { containerName } : new String[] { appliancePid,
 						endPointId, containerName }), isLocal, isProxy);
 	}
-	
+
 	public boolean isFilterAddress() {
 		return m2mContainerAddress.isFilterAddress();
 	}
@@ -139,11 +138,11 @@ public class AHContainerAddress {
 	public String getUrl() {
 		return m2mContainerAddress.getUrl();
 	}
-	
+
 	public String getContentInstancesUrl() {
 		return m2mContainerAddress.getContentInstancesUrl();
 	}
-	
+
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -158,7 +157,7 @@ public class AHContainerAddress {
 		hashCode = hashCode * 29 + this.m2mContainerAddress.hashCode();
 		return hashCode;
 	}
-	
+
 	public String toString() {
 		return getUrl();
 	}

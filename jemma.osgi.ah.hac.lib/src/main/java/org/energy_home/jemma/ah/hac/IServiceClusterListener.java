@@ -17,8 +17,8 @@ package org.energy_home.jemma.ah.hac;
 
 public interface IServiceClusterListener {
 	/**
-	 * Notifies a change for an attribute value that has been subscribed
-	 * for a specific cluster
+	 * Notifies a change for an attribute value that has been subscribed for a
+	 * specific cluster
 	 * 
 	 * @param attributeName
 	 *            The name of the attribute associated to this notification

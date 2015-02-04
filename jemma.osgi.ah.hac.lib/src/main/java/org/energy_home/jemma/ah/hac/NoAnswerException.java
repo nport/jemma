@@ -19,7 +19,7 @@ public class NoAnswerException extends ServiceClusterException {
 	public NoAnswerException() {
 		super("NoAnswerException");
 	}
-	
+
 	public NoAnswerException(String errorDescription) {
 		super(errorDescription);
 	}

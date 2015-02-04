@@ -15,16 +15,13 @@
  */
 package org.energy_home.jemma.ah.zigbee.appliances;
 
+import java.util.Dictionary;
+
 import org.energy_home.jemma.ah.hac.ApplianceException;
-import org.energy_home.jemma.ah.hac.IAppliance;
 import org.energy_home.jemma.ah.hac.IApplianceDescriptor;
 import org.energy_home.jemma.ah.hac.lib.Appliance;
 import org.energy_home.jemma.ah.hac.lib.ApplianceDescriptor;
 import org.energy_home.jemma.ah.hac.lib.DriverApplianceFactory;
-import org.energy_home.jemma.ah.hac.lib.ApplianceFactory;
-
-import java.util.Dictionary;
-
 import org.osgi.service.device.Driver;
 
 public class Zcl4NoksThermostatApplianceFactory extends DriverApplianceFactory implements Driver {
@@ -47,5 +44,4 @@ public class Zcl4NoksThermostatApplianceFactory extends DriverApplianceFactory i
 		return "(&(DEVICE_CATEGORY=ZigBee)(zigbee.device.device.id=769))";
 	}
 
-	
 }

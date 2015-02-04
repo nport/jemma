@@ -15,24 +15,16 @@
  */
 package org.energy_home.jemma.hac.adapter.http;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.energy_home.jemma.ah.hac.IAppliance;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,23 +35,23 @@ public class ServiceNoParam extends HttpServlet {
 	private HttpServletBinder httpAdapter = null;
 	int offset;
 	private boolean log = false;
-	
+
 	public Properties props;
 
 	public ServiceNoParam(HttpServletBinder httpAdapter, String prefix, Properties props) {
 		this.httpAdapter = httpAdapter;
 		offset = prefix.length();
-		
+
 		this.props = props;
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String content = streamToString(req.getInputStream());
-		
+
 		try {
 			JSONObject response = new JSONObject();
 
-			if (props != null){
+			if (props != null) {
 				response.put("EnergiaProdottaGiornalieroSimul", props.getProperty("EnergiaProdottaGiornalieroSimul"));
 			} else {
 				response.put("none", 0);
@@ -72,66 +64,53 @@ public class ServiceNoParam extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		/*
-		try {
-			JSONObject rpcObject = new JSONObject(content);
-			String methodName = rpcObject.getString("method");
-			String id = rpcObject.getString("id");
-
-			JSONArray paramsArray = rpcObject.getJSONArray("params");
-			ArrayList paramValues = new ArrayList();
-
-			JSONObject response = new JSONObject();
-
-			response.put("id", id);
-
-			Object targetObject = null;
-
-			try {
-				String targetPath = req.getPathInfo().substring(1);
-				targetObject = httpAdapter.getObjectByPid(targetPath);
-
-				if (targetObject == null) {
-					response.put("result", JSONObject.NULL);
-					response.put("error", "ERROR: unable to find target object " + targetPath);
-					resp.getOutputStream().print(response.toString());
-					return;
-				}
-
-				if ((targetObject instanceof IAppliance) && (targetObject != httpAdapter.getImplementor())) {
-					IAppliance ac = (IAppliance) targetObject;
-					paramValues.add(ac.getPid());
-					targetObject = httpAdapter.getImplementor();
-				}
-
-				for (int i = 0; i < paramsArray.length(); i++) {
-					paramValues.add(paramsArray.get(i));
-				}
-
-			} catch (Exception e) {
-				fillResponse(response, e);
-				resp.getOutputStream().print(response.toString());
-			}
-
-			try {
-				Object result = httpAdapter.invokeMethod(targetObject, methodName, paramValues);
-				response.put("result", result);
-				response.put("error", JSONObject.NULL);
-				resp.getOutputStream().print(response.toString());
-				return;
-			} catch (Exception e) {
-				if (log) {
-					System.out.println("[JSonRpc] EXCEPTION: su methodName = " + methodName + ' ' + e.getMessage());
-				}
-				
-				fillResponse(response, e);
-				response.put("result", JSONObject.NULL);
-				resp.getOutputStream().print(response.toString());
-			}
-		} catch (JSONException jsonException) {
-			throw new RuntimeException(jsonException);
-		}*/
+		 * try { JSONObject rpcObject = new JSONObject(content); String
+		 * methodName = rpcObject.getString("method"); String id =
+		 * rpcObject.getString("id");
+		 * 
+		 * JSONArray paramsArray = rpcObject.getJSONArray("params"); ArrayList
+		 * paramValues = new ArrayList();
+		 * 
+		 * JSONObject response = new JSONObject();
+		 * 
+		 * response.put("id", id);
+		 * 
+		 * Object targetObject = null;
+		 * 
+		 * try { String targetPath = req.getPathInfo().substring(1);
+		 * targetObject = httpAdapter.getObjectByPid(targetPath);
+		 * 
+		 * if (targetObject == null) { response.put("result", JSONObject.NULL);
+		 * response.put("error", "ERROR: unable to find target object " +
+		 * targetPath); resp.getOutputStream().print(response.toString());
+		 * return; }
+		 * 
+		 * if ((targetObject instanceof IAppliance) && (targetObject !=
+		 * httpAdapter.getImplementor())) { IAppliance ac = (IAppliance)
+		 * targetObject; paramValues.add(ac.getPid()); targetObject =
+		 * httpAdapter.getImplementor(); }
+		 * 
+		 * for (int i = 0; i < paramsArray.length(); i++) {
+		 * paramValues.add(paramsArray.get(i)); }
+		 * 
+		 * } catch (Exception e) { fillResponse(response, e);
+		 * resp.getOutputStream().print(response.toString()); }
+		 * 
+		 * try { Object result = httpAdapter.invokeMethod(targetObject,
+		 * methodName, paramValues); response.put("result", result);
+		 * response.put("error", JSONObject.NULL);
+		 * resp.getOutputStream().print(response.toString()); return; } catch
+		 * (Exception e) { if (log) {
+		 * System.out.println("[JSonRpc] EXCEPTION: su methodName = " +
+		 * methodName + ' ' + e.getMessage()); }
+		 * 
+		 * fillResponse(response, e); response.put("result", JSONObject.NULL);
+		 * resp.getOutputStream().print(response.toString()); } } catch
+		 * (JSONException jsonException) { throw new
+		 * RuntimeException(jsonException); }
+		 */
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

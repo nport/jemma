@@ -176,13 +176,13 @@ public interface IHacService {
 	public ILocation[] getLocations();
 
 	public ICategory[] getCategories();
-	
+
 	public ILocation getLocation(String appliancePid);
 
 	public ICategory getCategory(String appliancePid);
 
 	public void addCategory(ICategory category) throws HacException;
-	
+
 	public void removeCategory(String categoryPid) throws HacException;
 
 	/**
@@ -199,7 +199,7 @@ public interface IHacService {
 	public Dictionary getManagedConfiguration(String appliancePid);
 
 	public boolean isNetworkOpen(String networkType) throws HacException;
-	
+
 	public void openNetwork(String networkType) throws HacException;
 
 	public void openNetwork(String networkType, int duration) throws HacException;

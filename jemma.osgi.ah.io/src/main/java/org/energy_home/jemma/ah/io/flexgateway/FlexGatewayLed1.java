@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 
 public class FlexGatewayLed1 {
 
-	private static final Logger LOG = LoggerFactory.getLogger( FlexGatewayLed1.class );
+	private static final Logger LOG = LoggerFactory.getLogger(FlexGatewayLed1.class);
 	protected static String target = "cedac";
 	protected static String cedacLedFolder = "/sys/devices/platform/flex_hmi.0";
 	protected static int RED_COLOR = 0;
@@ -65,7 +65,7 @@ public class FlexGatewayLed1 {
 				return true;
 
 			} catch (Exception e) {
-				LOG.error("setting led " + e.getMessage(),e);
+				LOG.error("setting led " + e.getMessage(), e);
 			}
 		}
 		return false;
@@ -95,41 +95,38 @@ public class FlexGatewayLed1 {
 
 		return false;
 	}
-	
-	public static boolean setRgbLedOnCedac(Color color, boolean pulseRed, boolean pulseGreen, boolean pulseBlue, int pulsePeriod, int blinkPeriod) {
-		
+
+	public static boolean setRgbLedOnCedac(Color color, boolean pulseRed, boolean pulseGreen, boolean pulseBlue, int pulsePeriod,
+			int blinkPeriod) {
+
 		if (pulseBlue) {
 			setLedOnCedac(2, "blue" + " " + color.getBlue());
 			setLedOnCedac(2, "pulse_blue_start");
-		}
-		else {
+		} else {
 			setLedOnCedac(2, "pulse_blue_stop");
 			setLedOnCedac(2, "blue" + " " + color.getBlue());
 		}
 		if (pulseGreen) {
 			setLedOnCedac(2, "green" + " " + color.getGreen());
 			setLedOnCedac(2, "pulse_green_start");
-		}
-		else {
+		} else {
 			setLedOnCedac(2, "pulse_green_stop");
 			setLedOnCedac(2, "green" + " " + color.getGreen());
 		}
 		if (pulseRed) {
 			setLedOnCedac(2, "red" + " " + color.getRed());
 			setLedOnCedac(2, "pulse_red_start");
-		}
-		else {
+		} else {
 			setLedOnCedac(2, "pulse_red_stop");
 			setLedOnCedac(2, "red" + " " + color.getRed());
 		}
-		
+
 		if (blinkPeriod > 0) {
 			setLedOnCedac(2, "blink_on " + blinkPeriod);
-		}
-		else {
+		} else {
 			setLedOnCedac(2, "blink_off");
 		}
-		
+
 		return false;
 	}
 }

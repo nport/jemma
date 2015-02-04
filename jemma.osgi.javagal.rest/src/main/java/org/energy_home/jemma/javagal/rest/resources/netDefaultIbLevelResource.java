@@ -15,36 +15,24 @@
  */
 package org.energy_home.jemma.javagal.rest.resources;
 
-import java.util.Arrays;
-
+import org.energy_home.jemma.javagal.rest.util.Util;
 import org.energy_home.jemma.zgd.GatewayConstants;
 import org.energy_home.jemma.zgd.jaxb.Info;
 import org.energy_home.jemma.zgd.jaxb.Info.Detail;
 import org.energy_home.jemma.zgd.jaxb.Status;
-import org.energy_home.jemma.javagal.rest.util.ResourcePathURIs;
-import org.energy_home.jemma.javagal.rest.util.Resources;
-import org.energy_home.jemma.javagal.rest.util.Util;
 import org.restlet.data.MediaType;
 import org.restlet.resource.Get;
-import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
-
-
-
-
 
 /**
  * Resource file used to manage the API GET:URL menu.
- *
+ * 
  * @author 
  *         "Ing. Marco Nieddu <marco.nieddu@consoft.it> or <marco.niedducv@gmail.com> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
  * 
  */
 public class netDefaultIbLevelResource extends ServerResource {
 
-	
-	
-	
 	@Get
 	public void represent() {
 		Detail _det = new Detail();
@@ -52,7 +40,8 @@ public class netDefaultIbLevelResource extends ServerResource {
 		Status _st = new Status();
 		_st.setCode((short) GatewayConstants.SUCCESS);
 		_info.setStatus(_st);
-		_det.getValue().add("a1 - nwkSecurityMaterialSet (The two entries for the security material set, does not includes incoming counters.)");
+		_det.getValue()
+				.add("a1 - nwkSecurityMaterialSet (The two entries for the security material set, does not includes incoming counters.)");
 		_det.getValue().add("c3 - apsChannelMask (Mask of channels to form/join)");
 		_det.getValue().add("c4 - apsUseExtendedPANID (Extended PAN ID)");
 		_det.getValue().add("c8 - apsUseInsecureJoin (Use secure or insecure join)");
@@ -63,8 +52,8 @@ public class netDefaultIbLevelResource extends ServerResource {
 		_det.getValue().add("DA - nwkDeviceType");
 		_det.getValue().add("DB - nwkSoftwareVersion");
 		_det.getValue().add("E6 - SASNwkKey");
-		//_det.getValue().add("85 - MacKey");
-		
+		// _det.getValue().add("85 - MacKey");
+
 		_info.setDetail(_det);
 		getResponse().setEntity(Util.marshal(_info), MediaType.APPLICATION_XML);
 		return;

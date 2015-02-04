@@ -36,6 +36,7 @@ import org.energy_home.jemma.ah.zigbee.zcl.ZclException;
 import org.energy_home.jemma.ah.zigbee.zcl.ZclValidationException;
 import org.energy_home.jemma.ah.zigbee.zcl.lib.ZclServiceCluster;
 import org.energy_home.jemma.ah.zigbee.zcl.lib.types.ZclAbstractDataType;
+import org.energy_home.jemma.ah.zigbee.zcl.lib.types.ZclDataTypeBoolean;
 import org.energy_home.jemma.ah.zigbee.zcl.lib.types.ZclDataTypeEnum8;
 import org.energy_home.jemma.ah.zigbee.zcl.lib.types.ZclDataTypeI16;
 import org.energy_home.jemma.ah.zigbee.zcl.lib.types.ZclDataTypeUI16;
@@ -55,16 +56,29 @@ public class ZclApplianceControlServer extends ZclServiceCluster implements Appl
 				ZclApplianceControlServer.ATTR_FinishTime_NAME, new ZclDataTypeUI16(), null, true, 1));
 		attributesMapByName.put(ZclApplianceControlServer.ATTR_RemainingTime_NAME, new ZclAttributeDescriptor(2,
 				ZclApplianceControlServer.ATTR_RemainingTime_NAME, new ZclDataTypeUI16(), null, true, 1));
-		attributesMapByName.put(ATTR_CycleTarget0_NAME, new ZclAttributeDescriptor(4,
-				ATTR_CycleTarget0_NAME, new ZclDataTypeUI8(), null, true, 1));
-		attributesMapByName.put(ATTR_CycleTarget1_NAME, new ZclAttributeDescriptor(5,
-				ATTR_CycleTarget1_NAME, new ZclDataTypeUI8(), null, true, 1));
-		attributesMapByName.put(ATTR_TemperatureTarget0_NAME, new ZclAttributeDescriptor(6,
-				ATTR_TemperatureTarget0_NAME, new ZclDataTypeI16(), null, true, 1));
-		attributesMapByName.put(ATTR_TemperatureTarget1_NAME, new ZclAttributeDescriptor(7,
-				ATTR_TemperatureTarget1_NAME, new ZclDataTypeI16(), null, true, 1));
-		attributesMapByName.put(ATTR_Spin_NAME, new ZclAttributeDescriptor(10, //spin attribute id: 0x000a
-				ATTR_Spin_NAME, new ZclDataTypeI16(), null, true, 1));
+		attributesMapByName.put(ATTR_CycleTarget0_NAME, new ZclAttributeDescriptor(4, ATTR_CycleTarget0_NAME, new ZclDataTypeUI8(),
+				null, true, 1));
+		attributesMapByName.put(ATTR_CycleTarget1_NAME, new ZclAttributeDescriptor(5, ATTR_CycleTarget1_NAME, new ZclDataTypeUI8(),
+				null, true, 1));
+		attributesMapByName.put(ATTR_TemperatureTarget0_NAME, new ZclAttributeDescriptor(6, ATTR_TemperatureTarget0_NAME,
+				new ZclDataTypeI16(), null, true, 1));
+		attributesMapByName.put(ATTR_TemperatureTarget1_NAME, new ZclAttributeDescriptor(7, ATTR_TemperatureTarget1_NAME,
+				new ZclDataTypeI16(), null, true, 1));
+		attributesMapByName
+				.put(ATTR_Spin_NAME, new ZclAttributeDescriptor(10, ATTR_Spin_NAME, new ZclDataTypeI16(), null, true, 1));
+		attributesMapByName.put(ATTR_SuperCoolMode_NAME, new ZclAttributeDescriptor(11, ATTR_SuperCoolMode_NAME,
+				new ZclDataTypeBoolean(), null, true, 1));
+		attributesMapByName.put(ATTR_SuperFreezeMode_NAME, new ZclAttributeDescriptor(12, ATTR_SuperFreezeMode_NAME,
+				new ZclDataTypeBoolean(), null, true, 1));
+		attributesMapByName.put(ATTR_NormalMode_NAME, new ZclAttributeDescriptor(13, ATTR_NormalMode_NAME,
+				new ZclDataTypeBoolean(), null, true, 1));
+		attributesMapByName.put(ATTR_EcoMode_NAME, new ZclAttributeDescriptor(14, ATTR_EcoMode_NAME, new ZclDataTypeBoolean(),
+				null, true, 1));
+		attributesMapByName.put(ATTR_HolidayMode_NAME, new ZclAttributeDescriptor(15, ATTR_HolidayMode_NAME,
+				new ZclDataTypeBoolean(), null, true, 1));
+		attributesMapByName.put(ATTR_IceParty_NAME, new ZclAttributeDescriptor(20, ATTR_IceParty_NAME, new ZclDataTypeBoolean(),
+				null, true, 1));
+
 	}
 
 	public ZclApplianceControlServer() throws ApplianceException {
@@ -89,16 +103,15 @@ public class ZclApplianceControlServer extends ZclServiceCluster implements Appl
 		case 1:
 			responseZclFrame = parseSignalStateNotification(c, zclFrame);
 			break;
-			
+
 		default:
 			throw new ZclException(ZCL.UNSUP_CLUSTER_COMMAND);
 		}
-		
+
 		if (responseZclFrame == null) {
 			if (!zclFrame.isDefaultResponseDisabled()) {
 				responseZclFrame = getDefaultResponse(zclFrame, statusCode);
-			}
-			else {
+			} else {
 				return true;
 			}
 		}
@@ -235,7 +248,7 @@ public class ZclApplianceControlServer extends ZclServiceCluster implements Appl
 		setCachedAttributeObject(2, new Integer(v));
 		return v;
 	}
-	
+
 	public short getCycleTarget0(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException {
 		if (context != null) {
 			Short objectResult = null;
@@ -249,7 +262,7 @@ public class ZclApplianceControlServer extends ZclServiceCluster implements Appl
 		setCachedAttributeObject(4, new Short(v));
 		return v;
 	}
-	
+
 	public short getCycleTarget1(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException {
 		if (context != null) {
 			Short objectResult = null;
@@ -263,7 +276,7 @@ public class ZclApplianceControlServer extends ZclServiceCluster implements Appl
 		setCachedAttributeObject(5, new Short(v));
 		return v;
 	}
-	
+
 	public int getTemperatureTarget0(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException {
 		if (context != null) {
 			Integer objectResult = null;
@@ -277,7 +290,7 @@ public class ZclApplianceControlServer extends ZclServiceCluster implements Appl
 		setCachedAttributeObject(6, new Integer(v));
 		return v;
 	}
-	
+
 	public int getTemperatureTarget1(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException {
 		if (context != null) {
 			Integer objectResult = null;
@@ -295,16 +308,136 @@ public class ZclApplianceControlServer extends ZclServiceCluster implements Appl
 	public short getSpin(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException {
 		if (context != null) {
 			Short objectResult = null;
-			objectResult = ((Short) getValidCachedAttributeObject(10 //spin attribute ID: 0x000a
+			objectResult = ((Short) getValidCachedAttributeObject(10 // spin
+																		// attribute
+																		// ID:
+																		// 0x000a
 					, context.getMaxAgeForAttributeValues()));
 			if (objectResult != null) {
 				return objectResult.shortValue();
 			}
 		}
-		IZclFrame zclFrame = readAttribute(10, context);//spin attribute ID: 0x000a
+		IZclFrame zclFrame = readAttribute(10, context);// spin attribute ID:
+														// 0x000a
 		Integer v = ZclDataTypeUI16.zclParse(zclFrame);
 		setCachedAttributeObject(10, v.shortValue());
 		return v.shortValue();
+	}
+
+	public boolean getEcoMode(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException {
+		if (context != null) {
+			Boolean objectResult = null;
+			objectResult = ((Boolean) getValidCachedAttributeObject(14 // EcoMode
+																		// attribute
+																		// ID:
+																		// 0x000e
+					, context.getMaxAgeForAttributeValues()));
+			if (objectResult != null) {
+				return objectResult;
+			}
+		}
+		IZclFrame zclFrame = readAttribute(14, context);// EcoMode attribute ID:
+														// 0x000e
+		Boolean v = ZclDataTypeBoolean.zclParse(zclFrame);
+		setCachedAttributeObject(14, v);
+		return v;
+	}
+
+	public boolean getNormalMode(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException {
+		if (context != null) {
+			Boolean objectResult = null;
+			objectResult = ((Boolean) getValidCachedAttributeObject(13 // NormalMode
+																		// attribute
+																		// ID:
+																		// 0x000d
+					, context.getMaxAgeForAttributeValues()));
+			if (objectResult != null) {
+				return objectResult;
+			}
+		}
+		IZclFrame zclFrame = readAttribute(13, context);// NormalMode attribute
+														// ID: 0x000d
+		Boolean v = ZclDataTypeBoolean.zclParse(zclFrame);
+		setCachedAttributeObject(13, v);
+		return v;
+	}
+
+	public boolean getHolidayMode(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException {
+		if (context != null) {
+			Boolean objectResult = null;
+			objectResult = ((Boolean) getValidCachedAttributeObject(15 // HolidayMode
+																		// attribute
+																		// ID:
+																		// 0x000f
+					, context.getMaxAgeForAttributeValues()));
+			if (objectResult != null) {
+				return objectResult;
+			}
+		}
+		IZclFrame zclFrame = readAttribute(15, context);// HolidayMode attribute
+														// ID: 0x000f
+		Boolean v = ZclDataTypeBoolean.zclParse(zclFrame);
+		setCachedAttributeObject(15, v);
+		return v;
+	}
+
+	public boolean getIceParty(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException {
+		if (context != null) {
+			Boolean objectResult = null;
+			objectResult = ((Boolean) getValidCachedAttributeObject(20 // IceParty
+																		// attribute
+																		// ID:
+																		// 0x0014
+					, context.getMaxAgeForAttributeValues()));
+			if (objectResult != null) {
+				return objectResult;
+			}
+		}
+		IZclFrame zclFrame = readAttribute(20, context);// IceParty attribute
+														// ID: 0x0014
+		Boolean v = ZclDataTypeBoolean.zclParse(zclFrame);
+		setCachedAttributeObject(20, v);
+		return v;
+	}
+
+	public boolean getSuperCoolMode(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException {
+		if (context != null) {
+			Boolean objectResult = null;
+			objectResult = ((Boolean) getValidCachedAttributeObject(11 // SuperCool
+																		// attribute
+																		// ID:
+																		// 0x000b
+					, context.getMaxAgeForAttributeValues()));
+			if (objectResult != null) {
+				return objectResult;
+			}
+		}
+		IZclFrame zclFrame = readAttribute(11, context); // SuperCool attribute
+															// ID: 0x000b
+		Boolean v = ZclDataTypeBoolean.zclParse(zclFrame);
+		setCachedAttributeObject(11, v);
+		return v;
+	}
+
+	public boolean getSuperFreezeMode(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException {
+		if (context != null) {
+			Boolean objectResult = null;
+			objectResult = ((Boolean) getValidCachedAttributeObject(12 // SuperFreeze
+																		// attribute
+																		// ID:
+																		// 0x000c
+					, context.getMaxAgeForAttributeValues()));
+			if (objectResult != null) {
+				return objectResult;
+			}
+		}
+		IZclFrame zclFrame = readAttribute(12, context); // SuperFreeze
+															// attribute ID:
+															// 0x000c
+		Boolean v = ZclDataTypeBoolean.zclParse(zclFrame);
+		setCachedAttributeObject(12, v);
+		return v;
+
 	}
 
 }

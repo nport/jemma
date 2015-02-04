@@ -15,6 +15,8 @@
  */
 package org.energy_home.jemma.ah.zigbee.appliances;
 
+import java.util.Dictionary;
+
 import org.energy_home.jemma.ah.hac.ApplianceException;
 import org.energy_home.jemma.ah.hac.IEndPointTypes;
 import org.energy_home.jemma.ah.zigbee.zcl.cluster.eh.ZclMeterIdentificationServer;
@@ -24,16 +26,13 @@ import org.energy_home.jemma.ah.zigbee.zcl.cluster.general.ZclTimeClient;
 import org.energy_home.jemma.ah.zigbee.zcl.cluster.metering.ZclSimpleMeteringServer;
 import org.energy_home.jemma.ah.zigbee.zcl.lib.ZclAppliance;
 import org.energy_home.jemma.ah.zigbee.zcl.lib.ZclEndPoint;
-
-import java.util.Dictionary;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ZclZinAppliance extends ZclAppliance {
 	private ZclEndPoint endPoint = null;
 
-	private static final Logger LOG = LoggerFactory.getLogger( ZclZinAppliance.class );
+	private static final Logger LOG = LoggerFactory.getLogger(ZclZinAppliance.class);
 
 	/*
 	 * try { IAppliance[] appliances =

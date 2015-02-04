@@ -81,7 +81,7 @@ import org.slf4j.LoggerFactory;
 /**
  * JavaGal Controller. Only one instance of this object can exists at a time.
  * All clients can access this instance via their dedicated proxies (see
- * {@link org.energy_home.jemma.zgd.GalExtenderProxy}).
+ * {@link org.energy_home.jemma.internal.zgd.GalExtenderProxy}).
  * 
  * @author "Ing. Marco Nieddu <a href="mailto:marco.nieddu@consoft.it
  *         ">marco.nieddu@consoft.it</a> or <a href="marco.niedducv@gmail.com
@@ -95,7 +95,8 @@ public class GalController {
 	private Long CallbackIdentifier = (long) 1;
 	private List<WrapperWSNNode> NetworkCache = Collections.synchronizedList(new LinkedList<WrapperWSNNode>());
 	private List<CallbackEntry> listCallback = Collections.synchronizedList(new LinkedList<CallbackEntry>());
-	private List<GatewayDeviceEventEntry> listGatewayEventListener = Collections.synchronizedList(new LinkedList<GatewayDeviceEventEntry>());
+	private List<GatewayDeviceEventEntry> listGatewayEventListener = Collections
+			.synchronizedList(new LinkedList<GatewayDeviceEventEntry>());
 	// FIXME mass-rename logger to LOG when ready
 	private static final Logger LOG = LoggerFactory.getLogger(GalController.class);
 	private ApsMessageManager apsManager = null;
@@ -193,7 +194,8 @@ public class GalController {
 				}
 			} else {
 				short _EndPoint = 0;
-				_EndPoint = DataLayer.configureEndPointSync(PropertiesManager.getCommandTimeoutMS(), PropertiesManager.getSimpleDescriptorReadFromFile());
+				_EndPoint = DataLayer.configureEndPointSync(PropertiesManager.getCommandTimeoutMS(),
+						PropertiesManager.getSimpleDescriptorReadFromFile());
 				if (_EndPoint == 0)
 					throw new Exception("Error on configure endpoint");
 
@@ -278,7 +280,8 @@ public class GalController {
 					if (DataLayer.getIKeyInstance().isConnected()) {
 						short _EndPoint = 0;
 						if (lastEndPoint == null) {
-							_EndPoint = configureEndpoint(PropertiesManager.getCommandTimeoutMS(), PropertiesManager.getSimpleDescriptorReadFromFile());
+							_EndPoint = configureEndpoint(PropertiesManager.getCommandTimeoutMS(),
+									PropertiesManager.getSimpleDescriptorReadFromFile());
 							if (_EndPoint == 0)
 								throw new Exception("Error on configure endpoint");
 						} else {
@@ -292,7 +295,8 @@ public class GalController {
 							st = startGatewayDevice(PropertiesManager.getCommandTimeoutMS(), -1, lastSai, false);
 
 						} else {
-							st = startGatewayDevice(PropertiesManager.getCommandTimeoutMS(), -1, PropertiesManager.getSturtupAttributeInfo(), false);
+							st = startGatewayDevice(PropertiesManager.getCommandTimeoutMS(), -1,
+									PropertiesManager.getSturtupAttributeInfo(), false);
 						}
 						if (st.getCode() != GatewayConstants.SUCCESS)
 							throw new Exception("Error on starting gal" + st.getMessage());
@@ -339,8 +343,9 @@ public class GalController {
 		manageMapPanId = new ManageMapPanId(this);
 		_lockerStartDevice = new ParserLocker();
 		_discoveryManager = new Discovery_Freshness_ForcePing(this);
-		
-		executor = CreateExecutors.createThreadPoolExecutor("THPool-GalController", _properties.getNumberOfThreadForAnyPool(), _properties.getKeepAliveThread() * 60);
+
+		executor = CreateExecutors.createThreadPoolExecutor("THPool-GalController", _properties.getNumberOfThreadForAnyPool(),
+				_properties.getKeepAliveThread() * 60);
 		initializeGAL();
 	}
 
@@ -493,7 +498,10 @@ public class GalController {
 	 */
 	public short configureEndpoint(long timeout, SimpleDescriptor desc) throws IOException, Exception, GatewayException {
 
-		if ((desc.getApplicationInputCluster().size() + desc.getApplicationOutputCluster().size()) > 30) {
+		if ((desc.getApplicationInputCluster().size() + desc.getApplicationOutputCluster().size()) > 30/*
+																										 * 60
+																										 * Bytes
+																										 */) {
 			throw new Exception("Simple Descriptor Out Of Memory");
 		} else {
 			short result = DataLayer.configureEndPointSync(timeout, desc);
@@ -521,7 +529,10 @@ public class GalController {
 			synchronized (getNetworkcache()) {
 				for (WrapperWSNNode o : getNetworkcache()) {
 
-					if (o.get_node() != null && o.get_node().getAddress() != null && o.get_node().getAddress().getNetworkAddress().equals(get_GalNode().get_node().getAddress().getNetworkAddress())) {
+					if (o.get_node() != null
+							&& o.get_node().getAddress() != null
+							&& o.get_node().getAddress().getNetworkAddress()
+									.equals(get_GalNode().get_node().getAddress().getNetworkAddress())) {
 						o.set_nodeServices(result);
 						result = o.get_nodeServices();
 						break;
@@ -562,10 +573,12 @@ public class GalController {
 	 */
 	public void executeAutoStart() throws Exception {
 		LOG.info("Executing AutoStart procedure...");
-		short _EndPoint = DataLayer.configureEndPointSync(PropertiesManager.getCommandTimeoutMS(), PropertiesManager.getSimpleDescriptorReadFromFile());
+		short _EndPoint = DataLayer.configureEndPointSync(PropertiesManager.getCommandTimeoutMS(),
+				PropertiesManager.getSimpleDescriptorReadFromFile());
 		if (_EndPoint > 0x00) {
 			LOG.info("Configure EndPoint completed...");
-			Status _statusStartGatewayDevice = DataLayer.startGatewayDeviceSync(PropertiesManager.getCommandTimeoutMS(), PropertiesManager.getSturtupAttributeInfo());
+			Status _statusStartGatewayDevice = DataLayer.startGatewayDeviceSync(PropertiesManager.getCommandTimeoutMS(),
+					PropertiesManager.getSturtupAttributeInfo());
 			if (_statusStartGatewayDevice.getCode() == 0x00) {
 				LOG.info("StartGateway Device completed...");
 				return;
@@ -685,7 +698,8 @@ public class GalController {
 		synchronized (getNetworkcache()) {
 			for (WrapperWSNNode x : getNetworkcache()) {
 				if (PropertiesManager.getDebugEnabled())
-					LOG.info("Node:" + x.get_node().getAddress().getNetworkAddress() + " - DiscoveryCompleted:" + x.is_discoveryCompleted());
+					LOG.info("Node:" + x.get_node().getAddress().getNetworkAddress() + " - DiscoveryCompleted:"
+							+ x.is_discoveryCompleted());
 				if (x.is_discoveryCompleted()) {
 					LQINode _lqinode = new LQINode();
 					Mgmt_LQI_rsp _rsp = x.get_Mgmt_LQI_rsp();
@@ -696,7 +710,8 @@ public class GalController {
 							for (NeighborTableLis_Record _n1 : _rsp.NeighborTableList) {
 								try {
 									Neighbor e = new Neighbor();
-									Integer _shortAddress = getShortAddress_FromIeeeAddress(BigInteger.valueOf(_n1._Extended_Address));
+									Integer _shortAddress = getShortAddress_FromIeeeAddress(BigInteger
+											.valueOf(_n1._Extended_Address));
 									e.setShortAddress(_shortAddress);
 									e.setDepth((short) _n1._Depth);
 									e.setDeviceTypeRxOnWhenIdleRelationship(_n1._Device_Type_RxOnWhenIdle_Relationship);
@@ -738,7 +753,8 @@ public class GalController {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public NodeDescriptor getNodeDescriptor(final long timeout, final int _requestIdentifier, final Address addrOfInterest, final boolean Async) throws IOException, Exception, GatewayException {
+	public NodeDescriptor getNodeDescriptor(final long timeout, final int _requestIdentifier, final Address addrOfInterest,
+			final boolean Async) throws IOException, Exception, GatewayException {
 		if (addrOfInterest.getNetworkAddress() == null && addrOfInterest.getIeeeAddress() != null)
 			addrOfInterest.setNetworkAddress(getShortAddress_FromIeeeAddress(addrOfInterest.getIeeeAddress()));
 		if (addrOfInterest.getIeeeAddress() == null && addrOfInterest.getNetworkAddress() != null)
@@ -753,7 +769,8 @@ public class GalController {
 					if (getGatewayStatus() == GatewayStatus.GW_RUNNING) {
 						try {
 							nodeDescriptor = DataLayer.getNodeDescriptorSync(timeout, addrOfInterest);
-							WrapperWSNNode x = new WrapperWSNNode((GalController) this.getParameter(), String.format("%04X", addrOfInterest.getNetworkAddress()));
+							WrapperWSNNode x = new WrapperWSNNode((GalController) this.getParameter(), String.format("%04X",
+									addrOfInterest.getNetworkAddress()));
 							WSNNode node = new WSNNode();
 							node.setAddress(addrOfInterest);
 							x.set_node(node);
@@ -764,7 +781,8 @@ public class GalController {
 							Status _s = new Status();
 							_s.setCode((short) GatewayConstants.SUCCESS);
 							get_gatewayEventManager().notifyNodeDescriptor(_requestIdentifier, _s, nodeDescriptor);
-							get_gatewayEventManager().notifyNodeDescriptorExtended(_requestIdentifier, _s, nodeDescriptor, addrOfInterest);
+							get_gatewayEventManager().notifyNodeDescriptorExtended(_requestIdentifier, _s, nodeDescriptor,
+									addrOfInterest);
 
 						} catch (IOException e) {
 
@@ -772,20 +790,23 @@ public class GalController {
 							_s.setCode((short) GatewayConstants.GENERAL_ERROR);
 							_s.setMessage(e.getMessage());
 							get_gatewayEventManager().notifyNodeDescriptor(_requestIdentifier, _s, nodeDescriptor);
-							get_gatewayEventManager().notifyNodeDescriptorExtended(_requestIdentifier, _s, nodeDescriptor, addrOfInterest);
+							get_gatewayEventManager().notifyNodeDescriptorExtended(_requestIdentifier, _s, nodeDescriptor,
+									addrOfInterest);
 						} catch (GatewayException e) {
 							Status _s = new Status();
 							_s.setCode((short) GatewayConstants.GENERAL_ERROR);
 							_s.setMessage(e.getMessage());
 							get_gatewayEventManager().notifyNodeDescriptor(_requestIdentifier, _s, nodeDescriptor);
-							get_gatewayEventManager().notifyNodeDescriptorExtended(_requestIdentifier, _s, nodeDescriptor, addrOfInterest);
+							get_gatewayEventManager().notifyNodeDescriptorExtended(_requestIdentifier, _s, nodeDescriptor,
+									addrOfInterest);
 
 						} catch (Exception e) {
 							Status _s = new Status();
 							_s.setCode((short) GatewayConstants.GENERAL_ERROR);
 							_s.setMessage(e.getMessage());
 							get_gatewayEventManager().notifyNodeDescriptor(_requestIdentifier, _s, nodeDescriptor);
-							get_gatewayEventManager().notifyNodeDescriptorExtended(_requestIdentifier, _s, nodeDescriptor, addrOfInterest);
+							get_gatewayEventManager().notifyNodeDescriptorExtended(_requestIdentifier, _s, nodeDescriptor,
+									addrOfInterest);
 
 						}
 					} else {
@@ -793,7 +814,8 @@ public class GalController {
 						_s.setCode((short) GatewayConstants.GENERAL_ERROR);
 						_s.setMessage("Gal is not in running state!");
 						get_gatewayEventManager().notifyNodeDescriptor(_requestIdentifier, _s, nodeDescriptor);
-						get_gatewayEventManager().notifyNodeDescriptorExtended(_requestIdentifier, _s, nodeDescriptor, addrOfInterest);
+						get_gatewayEventManager().notifyNodeDescriptorExtended(_requestIdentifier, _s, nodeDescriptor,
+								addrOfInterest);
 
 					}
 
@@ -860,7 +882,8 @@ public class GalController {
 	 *             if a ZGD error occurs.
 	 */
 
-	public Status startGatewayDevice(final long timeout, final int _requestIdentifier, final StartupAttributeInfo sai, final boolean Async) throws IOException, Exception, GatewayException {
+	public Status startGatewayDevice(final long timeout, final int _requestIdentifier, final StartupAttributeInfo sai,
+			final boolean Async) throws IOException, Exception, GatewayException {
 		// The network can start only from those two gateway status...
 		if (Async) {
 			executor.execute(new Runnable() {
@@ -987,7 +1010,8 @@ public class GalController {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public Status startGatewayDevice(long timeout, int _requestIdentifier, boolean Async) throws IOException, Exception, GatewayException {
+	public Status startGatewayDevice(long timeout, int _requestIdentifier, boolean Async) throws IOException, Exception,
+			GatewayException {
 		StartupAttributeInfo sai = PropertiesManager.getSturtupAttributeInfo();
 		return startGatewayDevice(timeout, _requestIdentifier, sai, Async);
 
@@ -1014,7 +1038,8 @@ public class GalController {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public Status resetDongle(final long timeout, final int _requestIdentifier, final short mode, final boolean Async) throws IOException, Exception, GatewayException {
+	public Status resetDongle(final long timeout, final int _requestIdentifier, final short mode, final boolean Async)
+			throws IOException, Exception, GatewayException {
 		if (mode == GatewayConstants.RESET_COMMISSIONING_ASSOCIATION) {
 			PropertiesManager.setStartupSet((short) 0x18);
 			PropertiesManager.getSturtupAttributeInfo().setStartupControl((short) 0x00);
@@ -1180,7 +1205,8 @@ public class GalController {
 	 *             if a ZGD error occurs.
 	 */
 	@Deprecated
-	public long createCallback(int proxyIdentifier, Callback callback, APSMessageListener listener) throws IOException, Exception, GatewayException {
+	public long createCallback(int proxyIdentifier, Callback callback, APSMessageListener listener) throws IOException, Exception,
+			GatewayException {
 		CallbackEntry callbackEntry = new CallbackEntry();
 		callbackEntry.setCallback(callback);
 		callbackEntry.setDestination(listener);
@@ -1211,7 +1237,8 @@ public class GalController {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public long createCallback(int proxyIdentifier, Callback callback, MessageListener listener) throws IOException, Exception, GatewayException {
+	public long createCallback(int proxyIdentifier, Callback callback, MessageListener listener) throws IOException, Exception,
+			GatewayException {
 		CallbackEntry callbackEntry = new CallbackEntry();
 		callbackEntry.setCallback(callback);
 		callbackEntry.setGenericDestination(listener);
@@ -1279,7 +1306,8 @@ public class GalController {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public NodeServices startServiceDiscovery(final long timeout, final int _requestIdentifier, final Address aoi, boolean Async) throws IOException, Exception, GatewayException {
+	public NodeServices startServiceDiscovery(final long timeout, final int _requestIdentifier, final Address aoi, boolean Async)
+			throws IOException, Exception, GatewayException {
 		if (aoi.getNetworkAddress() == null && aoi.getIeeeAddress() != null)
 			aoi.setNetworkAddress(getShortAddress_FromIeeeAddress(aoi.getIeeeAddress()));
 		if (aoi.getIeeeAddress() == null && aoi.getNetworkAddress() != null)
@@ -1304,7 +1332,8 @@ public class GalController {
 								_newNodeService.getActiveEndpoints().add(_n);
 							}
 
-							WrapperWSNNode x = new WrapperWSNNode((GalController) this.getParameter(), String.format("%04X", aoi.getNetworkAddress()));
+							WrapperWSNNode x = new WrapperWSNNode((GalController) this.getParameter(), String.format("%04X",
+									aoi.getNetworkAddress()));
 							WSNNode node = new WSNNode();
 							node.setAddress(aoi);
 							x.set_node(node);
@@ -1409,19 +1438,40 @@ public class GalController {
 	 */
 	public void setGatewayEventListener(GatewayEventListener listener, int proxyIdentifier) {
 		boolean _listenerFound = false;
-		for (int i = 0; i < getListGatewayEventListener().size(); i++) {
-			if (getListGatewayEventListener().get(i).getProxyIdentifier() == proxyIdentifier) {
-				if (listener == null) {
-					getListGatewayEventListener().remove(i);
-					if (getPropertiesManager().getDebugEnabled())
-						LOG.info("Removing Listener for: " + proxyIdentifier);
-					return;
-				} else {
-					_listenerFound = true;
-					break;
-				}
-			}
+		synchronized (getListGatewayEventListener()) {
 
+			for (int i = 0; i < getListGatewayEventListener().size(); i++) {
+				if (getListGatewayEventListener().get(i).getProxyIdentifier() == proxyIdentifier) {
+					if (listener == null) {
+						getListGatewayEventListener().remove(i);
+
+						synchronized (getCallbacks()) {
+							for (CallbackEntry x : getCallbacks()) {
+								if (x.getProxyIdentifier() == proxyIdentifier)
+									try {
+										deleteCallback(x.getCallbackIdentifier());
+									} catch (IOException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									} catch (GatewayException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									} catch (Exception e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+							}
+						}
+						if (getPropertiesManager().getDebugEnabled())
+							LOG.info("Removing Listener for: " + proxyIdentifier);
+						return;
+					} else {
+						_listenerFound = true;
+						break;
+					}
+				}
+
+			}
 		}
 
 		if ((!_listenerFound) && (listener != null)) {
@@ -1449,14 +1499,21 @@ public class GalController {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public void sendAPSMessage(long timeout, long _requestIdentifier, APSMessage message) throws IOException, Exception, GatewayException {
+	public void sendAPSMessage(long timeout, long _requestIdentifier, APSMessage message) throws IOException, Exception,
+			GatewayException {
 		if (getGatewayStatus() == GatewayStatus.GW_RUNNING) {
 			/*
-			if (message.getDestinationAddress().getNetworkAddress() == null && message.getDestinationAddress().getIeeeAddress() != null)
-				message.getDestinationAddress().setNetworkAddress(getShortAddress_FromIeeeAddress(message.getDestinationAddress().getIeeeAddress()));
-			if (message.getDestinationAddress().getIeeeAddress() == null && message.getDestinationAddress().getNetworkAddress() != null)
-				message.getDestinationAddress().setIeeeAddress(getIeeeAddress_FromShortAddress(message.getDestinationAddress().getNetworkAddress()));
-			*/
+			 * if (message.getDestinationAddress().getNetworkAddress() == null
+			 * && message.getDestinationAddress().getIeeeAddress() != null)
+			 * message.getDestinationAddress().setNetworkAddress(
+			 * getShortAddress_FromIeeeAddress
+			 * (message.getDestinationAddress().getIeeeAddress())); if
+			 * (message.getDestinationAddress().getIeeeAddress() == null &&
+			 * message.getDestinationAddress().getNetworkAddress() != null)
+			 * message.getDestinationAddress().setIeeeAddress(
+			 * getIeeeAddress_FromShortAddress
+			 * (message.getDestinationAddress().getNetworkAddress()));
+			 */
 			DataLayer.sendApsSync(timeout, message);
 		} else
 			throw new GatewayException("Gal is not in running state!");
@@ -1478,7 +1535,8 @@ public class GalController {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public void sendInterPANMessage(long timeout, long _requestIdentifier, InterPANMessage message) throws IOException, Exception, GatewayException {
+	public void sendInterPANMessage(long timeout, long _requestIdentifier, InterPANMessage message) throws IOException, Exception,
+			GatewayException {
 		if (getGatewayStatus() == GatewayStatus.GW_RUNNING) {
 			DataLayer.sendInterPANMessaSync(timeout, message);
 		} else
@@ -1507,7 +1565,8 @@ public class GalController {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public Status leave(final long timeout, final int _requestIdentifier, final Address addrOfInterest, final int mask, final boolean Async) throws IOException, Exception, GatewayException {
+	public Status leave(final long timeout, final int _requestIdentifier, final Address addrOfInterest, final int mask,
+			final boolean Async) throws IOException, Exception, GatewayException {
 		if (addrOfInterest.getNetworkAddress() == null && addrOfInterest.getIeeeAddress() != null)
 			addrOfInterest.setNetworkAddress(getShortAddress_FromIeeeAddress(addrOfInterest.getIeeeAddress()));
 		if (addrOfInterest.getIeeeAddress() == null && addrOfInterest.getNetworkAddress() != null)
@@ -1527,7 +1586,8 @@ public class GalController {
 								_s = DataLayer.leaveSync(timeout, addrOfInterest, mask);
 								if (_s.getCode() == GatewayConstants.SUCCESS) {
 									/* get the node from cache */
-									WrapperWSNNode x = new WrapperWSNNode((GalController) this.getParameter(), String.format("%04X", addrOfInterest.getNetworkAddress()));
+									WrapperWSNNode x = new WrapperWSNNode((GalController) this.getParameter(), String.format(
+											"%04X", addrOfInterest.getNetworkAddress()));
 									WSNNode node = new WSNNode();
 									node.setAddress(addrOfInterest);
 									x.set_node(node);
@@ -1540,7 +1600,6 @@ public class GalController {
 										get_gatewayEventManager().notifyleaveResultExtended(_s, addrOfInterest);
 									}
 								}
-
 
 							} catch (IOException e) {
 								Status _s1 = new Status();
@@ -1607,8 +1666,9 @@ public class GalController {
 							get_gatewayEventManager().notifyleaveResultExtended(_s, addrOfInterest);
 						}
 					}
-					
+
 					return Utils.clone(_s);
+
 				} else
 					throw new GatewayException("Is not possible Leave the GAL!");
 			} else
@@ -1617,7 +1677,8 @@ public class GalController {
 
 	}
 
-	private void leavePhilips(final long timeout, final int _requestIdentifier, final Address addrOfInterest) throws IOException, Exception, GatewayException {
+	private void leavePhilips(final long timeout, final int _requestIdentifier, final Address addrOfInterest) throws IOException,
+			Exception, GatewayException {
 		/* Check if the device is the Philips light */
 		WrapperWSNNode wrapNode = new WrapperWSNNode(this, String.format("%04X", addrOfInterest.getNetworkAddress()));
 		WSNNode node = new WSNNode();
@@ -1653,7 +1714,8 @@ public class GalController {
 				scanReqCommand.setProfileID(49246);
 				scanReqCommand.setClusterID(4096);
 				scanReqCommand.setASDULength(9);
-				scanReqCommand.setASDU(new byte[] { 0x11, 0x01, 0x00, (byte) 0xCA, (byte) 0xFE, (byte) 0xCA, (byte) 0xFE, 0x02, 0x33 });
+				scanReqCommand.setASDU(new byte[] { 0x11, 0x01, 0x00, (byte) 0xCA, (byte) 0xFE, (byte) 0xCA, (byte) 0xFE, 0x02,
+						0x33 });
 				sendInterPANMessage(timeout, _requestIdentifier, scanReqCommand);
 
 				// Thread.sleep(1000);
@@ -1704,7 +1766,8 @@ public class GalController {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public Status permitJoin(final long timeout, final int _requestIdentifier, final Address addrOfInterest, final short duration, final boolean Async) throws IOException, GatewayException, Exception {
+	public Status permitJoin(final long timeout, final int _requestIdentifier, final Address addrOfInterest, final short duration,
+			final boolean Async) throws IOException, GatewayException, Exception {
 		if (Async) {
 			executor.execute(new Runnable() {
 				public void run() {
@@ -1794,7 +1857,8 @@ public class GalController {
 	 * @throws Exception
 	 *             if a general error occurs.
 	 */
-	public Status permitJoinAll(final long timeout, final int _requestIdentifier, final short duration, final boolean Async) throws IOException, Exception {
+	public Status permitJoinAll(final long timeout, final int _requestIdentifier, final short duration, final boolean Async)
+			throws IOException, Exception {
 		final Address _add = new Address();
 		_add.setNetworkAddress(0xFFFC);
 		if (Async) {
@@ -1859,7 +1923,8 @@ public class GalController {
 		_index = existIntolistGatewayEventListener(requestIdentifier);
 		if (_index != -1) {
 			/* if exist */
-			if (((discoveryMask & GatewayConstants.DISCOVERY_ANNOUNCEMENTS) > 0) || (discoveryMask == GatewayConstants.DISCOVERY_STOP)) {
+			if (((discoveryMask & GatewayConstants.DISCOVERY_ANNOUNCEMENTS) > 0)
+					|| (discoveryMask == GatewayConstants.DISCOVERY_STOP)) {
 				synchronized (listGatewayEventListener.get(_index)) {
 					listGatewayEventListener.get(_index).setDiscoveryMask(discoveryMask);
 				}
@@ -1871,7 +1936,8 @@ public class GalController {
 				int i = 0;
 				synchronized (getNetworkcache()) {
 					for (WrapperWSNNode x : getNetworkcache()) {
-						if (!x.get_node().getAddress().getNetworkAddress().equals(GalNode.get_node().getAddress().getNetworkAddress())) {
+						if (!x.get_node().getAddress().getNetworkAddress()
+								.equals(GalNode.get_node().getAddress().getNetworkAddress())) {
 							x.abortTimers();
 							_toremove.add(i);
 						}
@@ -1907,7 +1973,8 @@ public class GalController {
 		} else {
 
 			LOG.error("Error on startNodeDiscovery: No GatewayEventListener found for the User. Set the GatewayEventListener before call this API!");
-			throw new GatewayException("No GatewayEventListener found for the User. Set the GatewayEventListener before call this API!");
+			throw new GatewayException(
+					"No GatewayEventListener found for the User. Set the GatewayEventListener before call this API!");
 		}
 
 	}
@@ -1928,7 +1995,8 @@ public class GalController {
 		int _index = -1;
 		if ((_index = existIntolistGatewayEventListener(requestIdentifier)) != -1) {
 
-			if (((discoveryFreshness_mask & GatewayConstants.DISCOVERY_LEAVE) > 0) || (discoveryFreshness_mask == GatewayConstants.DISCOVERY_STOP)) {
+			if (((discoveryFreshness_mask & GatewayConstants.DISCOVERY_LEAVE) > 0)
+					|| (discoveryFreshness_mask == GatewayConstants.DISCOVERY_STOP)) {
 				listGatewayEventListener.get(_index).setFreshnessMask(discoveryFreshness_mask);
 			}
 
@@ -1936,7 +2004,8 @@ public class GalController {
 
 			LOG.error("Error on subscribeNodeRemoval: No GatewayEventListener found for the User. Set the GatewayEventListener before call this API!");
 
-			throw new GatewayException("No GatewayEventListener found for the User. Set the GatewayEventListener before call this API!");
+			throw new GatewayException(
+					"No GatewayEventListener found for the User. Set the GatewayEventListener before call this API!");
 		}
 
 	}
@@ -1993,7 +2062,8 @@ public class GalController {
 					String _networkPanID = null;
 					while (_networkPanID == null) {
 						try {
-							_networkPanID = DataLayer.NMLE_GetSync(PropertiesManager.getCommandTimeoutMS(), (short) 0x80, (short) 0x00);
+							_networkPanID = DataLayer.NMLE_GetSync(PropertiesManager.getCommandTimeoutMS(), (short) 0x80,
+									(short) 0x00);
 						} catch (Exception e) {
 
 							LOG.error("Error retrieving the PanID of the Network!");
@@ -2006,7 +2076,8 @@ public class GalController {
 					String _NetworkAdd = null;
 					while (_NetworkAdd == null) {
 						try {
-							_NetworkAdd = DataLayer.NMLE_GetSync(PropertiesManager.getCommandTimeoutMS(), (short) 0x96, (short) 0x00);
+							_NetworkAdd = DataLayer.NMLE_GetSync(PropertiesManager.getCommandTimeoutMS(), (short) 0x96,
+									(short) 0x00);
 						} catch (Exception e) {
 
 							LOG.error("Error retrieving the Gal Network Address!");
@@ -2031,7 +2102,8 @@ public class GalController {
 					_add.setIeeeAddress(_IeeeAdd);
 					galNode.setAddress(_add);
 
-					WrapperWSNNode galNodeWrapper = new WrapperWSNNode(((GalController) this.getParameter()), String.format("%04X", _add.getNetworkAddress()));
+					WrapperWSNNode galNodeWrapper = new WrapperWSNNode(((GalController) this.getParameter()), String.format("%04X",
+							_add.getNetworkAddress()));
 
 					/* Read the NodeDescriptor of the GAL */
 					NodeDescriptor _NodeDescriptor = null;
@@ -2041,23 +2113,33 @@ public class GalController {
 							if (_NodeDescriptor != null) {
 								if (galNode.getCapabilityInformation() == null)
 									galNode.setCapabilityInformation(new MACCapability());
-								galNode.getCapabilityInformation().setReceiverOnWhenIdle(_NodeDescriptor.getMACCapabilityFlag().isReceiverOnWhenIdle());
-								galNode.getCapabilityInformation().setAllocateAddress(_NodeDescriptor.getMACCapabilityFlag().isAllocateAddress());
-								galNode.getCapabilityInformation().setAlternatePanCoordinator(_NodeDescriptor.getMACCapabilityFlag().isAlternatePanCoordinator());
-								galNode.getCapabilityInformation().setDeviceIsFFD(_NodeDescriptor.getMACCapabilityFlag().isDeviceIsFFD());
-								galNode.getCapabilityInformation().setMainsPowered(_NodeDescriptor.getMACCapabilityFlag().isMainsPowered());
-								galNode.getCapabilityInformation().setSecuritySupported(_NodeDescriptor.getMACCapabilityFlag().isSecuritySupported());
+								galNode.getCapabilityInformation().setReceiverOnWhenIdle(
+										_NodeDescriptor.getMACCapabilityFlag().isReceiverOnWhenIdle());
+								galNode.getCapabilityInformation().setAllocateAddress(
+										_NodeDescriptor.getMACCapabilityFlag().isAllocateAddress());
+								galNode.getCapabilityInformation().setAlternatePanCoordinator(
+										_NodeDescriptor.getMACCapabilityFlag().isAlternatePanCoordinator());
+								galNode.getCapabilityInformation().setDeviceIsFFD(
+										_NodeDescriptor.getMACCapabilityFlag().isDeviceIsFFD());
+								galNode.getCapabilityInformation().setMainsPowered(
+										_NodeDescriptor.getMACCapabilityFlag().isMainsPowered());
+								galNode.getCapabilityInformation().setSecuritySupported(
+										_NodeDescriptor.getMACCapabilityFlag().isSecuritySupported());
 								galNodeWrapper.set_node(galNode);
 								galNodeWrapper.reset_numberOfAttempt();
 								galNodeWrapper.set_discoveryCompleted(true);
 
 								/* If the Node Not Exists */
 								if (getFromNetworkCache(galNodeWrapper) == null) {
-									if (getPropertiesManager().getDebugEnabled()){
-										String shortAdd = (galNodeWrapper.get_node().getAddress().getNetworkAddress() != null) ? String.format("%04X", galNodeWrapper.get_node().getAddress().getNetworkAddress()): "NULL";
-										String IeeeAdd = (galNodeWrapper.get_node().getAddress().getIeeeAddress() != null) ? String.format("%08X", galNodeWrapper.get_node().getAddress().getIeeeAddress()): "NULL";
-										
-										LOG.info("Adding node from [SetNetworkStatus Announcement] into the NetworkCache IeeeAddress:" + IeeeAdd + " --- Short:" + shortAdd );
+									if (getPropertiesManager().getDebugEnabled()) {
+										String shortAdd = (galNodeWrapper.get_node().getAddress().getNetworkAddress() != null) ? String
+												.format("%04X", galNodeWrapper.get_node().getAddress().getNetworkAddress())
+												: "NULL";
+										String IeeeAdd = (galNodeWrapper.get_node().getAddress().getIeeeAddress() != null) ? String
+												.format("%08X", galNodeWrapper.get_node().getAddress().getIeeeAddress()) : "NULL";
+
+										LOG.info("Adding node from [SetNetworkStatus Announcement] into the NetworkCache IeeeAddress:"
+												+ IeeeAdd + " --- Short:" + shortAdd);
 									}
 									getNetworkcache().add(galNodeWrapper);
 								}
@@ -2084,7 +2166,8 @@ public class GalController {
 					Status _permitjoin = null;
 					while (_permitjoin == null || ((_permitjoin != null) && (_permitjoin.getCode() != GatewayConstants.SUCCESS))) {
 						try {
-							_permitjoin = DataLayer.permitJoinSync(PropertiesManager.getCommandTimeoutMS(), _add, (short) 0x00, (byte) 0x01);
+							_permitjoin = DataLayer.permitJoinSync(PropertiesManager.getCommandTimeoutMS(), _add, (short) 0x00,
+									(byte) 0x01);
 							if (_permitjoin.getCode() != GatewayConstants.SUCCESS) {
 								Status _st = new Status();
 								_st.setCode((short) GatewayConstants.GENERAL_ERROR);
@@ -2134,7 +2217,8 @@ public class GalController {
 
 					Status _s = new Status();
 					_s.setCode((short) 0x00);
-					System.out.println("\n\rNodeDiscovered From SetGatewayStatus:" + String.format("%04X", galNodeWrapper.get_node().getAddress().getNetworkAddress()) + "\n\r");
+					System.out.println("\n\rNodeDiscovered From SetGatewayStatus:"
+							+ String.format("%04X", galNodeWrapper.get_node().getAddress().getNetworkAddress()) + "\n\r");
 
 					try {
 						get_gatewayEventManager().nodeDiscovered(_s, galNodeWrapper.get_node());
@@ -2251,7 +2335,8 @@ public class GalController {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public ServiceDescriptor getServiceDescriptor(final long timeout, final int _requestIdentifier, final Address addrOfInterest, final short endpoint, boolean Async) throws IOException, Exception, GatewayException {
+	public ServiceDescriptor getServiceDescriptor(final long timeout, final int _requestIdentifier, final Address addrOfInterest,
+			final short endpoint, boolean Async) throws IOException, Exception, GatewayException {
 		if (addrOfInterest.getNetworkAddress() == null && addrOfInterest.getIeeeAddress() != null)
 			addrOfInterest.setNetworkAddress(getShortAddress_FromIeeeAddress(addrOfInterest.getIeeeAddress()));
 		if (addrOfInterest.getIeeeAddress() == null && addrOfInterest.getNetworkAddress() != null)
@@ -2327,7 +2412,8 @@ public class GalController {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public BindingList getNodeBindingsSync(final long timeout, final int _requestIdentifier, final Address aoi, final short index, boolean Async) throws IOException, Exception, GatewayException {
+	public BindingList getNodeBindingsSync(final long timeout, final int _requestIdentifier, final Address aoi, final short index,
+			boolean Async) throws IOException, Exception, GatewayException {
 		if (aoi.getNetworkAddress() == null && aoi.getIeeeAddress() != null)
 			aoi.setNetworkAddress(getShortAddress_FromIeeeAddress(aoi.getIeeeAddress()));
 		if (aoi.getIeeeAddress() == null && aoi.getNetworkAddress() != null)
@@ -2395,7 +2481,8 @@ public class GalController {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public Status addBindingSync(final long timeout, final int _requestIdentifier, final Binding binding, final boolean Async) throws IOException, Exception, GatewayException {
+	public Status addBindingSync(final long timeout, final int _requestIdentifier, final Binding binding, final boolean Async)
+			throws IOException, Exception, GatewayException {
 		final Address aoi = new Address();
 		aoi.setIeeeAddress(binding.getSourceIEEEAddress());
 		aoi.setNetworkAddress(getShortAddress_FromIeeeAddress(aoi.getIeeeAddress()));
@@ -2460,7 +2547,8 @@ public class GalController {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public Status removeBindingSync(final long timeout, final int _requestIdentifier, final Binding binding, final boolean Async) throws IOException, Exception, GatewayException {
+	public Status removeBindingSync(final long timeout, final int _requestIdentifier, final Binding binding, final boolean Async)
+			throws IOException, Exception, GatewayException {
 		final Address aoi = new Address();
 		aoi.setIeeeAddress(binding.getSourceIEEEAddress());
 		aoi.setNetworkAddress(getShortAddress_FromIeeeAddress(aoi.getIeeeAddress()));
@@ -2522,7 +2610,8 @@ public class GalController {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public Status frequencyAgilitySync(final long timeout, final int _requestIdentifier, final short scanChannel, final short scanDuration, final boolean Async) throws IOException, Exception, GatewayException {
+	public Status frequencyAgilitySync(final long timeout, final int _requestIdentifier, final short scanChannel,
+			final short scanDuration, final boolean Async) throws IOException, Exception, GatewayException {
 		if (Async) {
 			executor.execute(new Runnable() {
 				public void run() {
@@ -2595,16 +2684,25 @@ public class GalController {
 		synchronized (getNetworkcache()) {
 			for (WrapperWSNNode y : getNetworkcache()) {
 				if (getPropertiesManager().getDebugEnabled())
-					LOG.debug("[getIeeeAddress_FromShortAddress] Short Address:" + ((y.get_node().getAddress().getNetworkAddress() != null) ? String.format("%04X", y.get_node().getAddress().getNetworkAddress()) : "NULL") + " - IEEE Address:" + ((y.get_node().getAddress().getIeeeAddress() != null) ? String.format("%016X", y.get_node().getAddress().getIeeeAddress()) : "NULL") + " - - Discovery Completed:" + y.is_discoveryCompleted());
+					LOG.debug("[getIeeeAddress_FromShortAddress] Short Address:"
+							+ ((y.get_node().getAddress().getNetworkAddress() != null) ? String.format("%04X", y.get_node()
+									.getAddress().getNetworkAddress()) : "NULL")
+							+ " - IEEE Address:"
+							+ ((y.get_node().getAddress().getIeeeAddress() != null) ? String.format("%016X", y.get_node()
+									.getAddress().getIeeeAddress()) : "NULL") + " - - Discovery Completed:"
+							+ y.is_discoveryCompleted());
 
-				if (y.is_discoveryCompleted() && y.get_node() != null && y.get_node().getAddress() != null && y.get_node().getAddress().getNetworkAddress() != null && y.get_node().getAddress().getIeeeAddress() != null && y.get_node().getAddress().getNetworkAddress().intValue() == shortAddress.intValue()) {
+				if (y.is_discoveryCompleted() && y.get_node() != null && y.get_node().getAddress() != null
+						&& y.get_node().getAddress().getNetworkAddress() != null
+						&& y.get_node().getAddress().getIeeeAddress() != null
+						&& y.get_node().getAddress().getNetworkAddress().intValue() == shortAddress.intValue()) {
 					if (getPropertiesManager().getDebugEnabled())
 						LOG.debug("[getIeeeAddress_FromShortAddress] FOUND Node: " + String.format("%04X", shortAddress));
 
 					if (y.get_node().getAddress().getIeeeAddress() == null)
 						throw new Exception("Iee Null on GAL: " + String.format("%04X", shortAddress));
 					else
-						return y.get_node().getAddress().getIeeeAddress();
+						return BigInteger.valueOf(y.get_node().getAddress().getIeeeAddress().longValue());
 				}
 			}
 			throw new Exception("Short Address not found on GAL: " + String.format("%04X", shortAddress));
@@ -2626,15 +2724,24 @@ public class GalController {
 		synchronized (getNetworkcache()) {
 			for (WrapperWSNNode y : getNetworkcache()) {
 				if (getPropertiesManager().getDebugEnabled())
-					LOG.debug("[getShortAddress_FromIeeeAddress] Short Address:" + ((y.get_node().getAddress().getNetworkAddress() != null) ? String.format("%04X", y.get_node().getAddress().getNetworkAddress()) : "NULL") + " - IEEE Address:" + ((y.get_node().getAddress().getIeeeAddress() != null) ? String.format("%016X", y.get_node().getAddress().getIeeeAddress()) : "NULL") + " - - Discovery Completed:" + y.is_discoveryCompleted());
-				if (y.is_discoveryCompleted() && (y.get_node() != null) && (y.get_node().getAddress() != null) && (y.get_node().getAddress().getIeeeAddress() != null) && (y.get_node().getAddress().getNetworkAddress() != null) && y.get_node().getAddress().getIeeeAddress().longValue() == IeeeAddress.longValue()) {
+					LOG.debug("[getShortAddress_FromIeeeAddress] Short Address:"
+							+ ((y.get_node().getAddress().getNetworkAddress() != null) ? String.format("%04X", y.get_node()
+									.getAddress().getNetworkAddress()) : "NULL")
+							+ " - IEEE Address:"
+							+ ((y.get_node().getAddress().getIeeeAddress() != null) ? String.format("%016X", y.get_node()
+									.getAddress().getIeeeAddress()) : "NULL") + " - - Discovery Completed:"
+							+ y.is_discoveryCompleted());
+				if (y.is_discoveryCompleted() && (y.get_node() != null) && (y.get_node().getAddress() != null)
+						&& (y.get_node().getAddress().getIeeeAddress() != null)
+						&& (y.get_node().getAddress().getNetworkAddress() != null)
+						&& y.get_node().getAddress().getIeeeAddress().longValue() == IeeeAddress.longValue()) {
 					if (getPropertiesManager().getDebugEnabled())
 						LOG.debug("[getShortAddress_FromIeeeAddress] FOUND Node: " + String.format("%016X", IeeeAddress));
 
 					if (y.get_node().getAddress().getNetworkAddress() == null)
 						throw new Exception("Shoort Address null on GAL: " + String.format("%016X", IeeeAddress));
 					else
-						return y.get_node().getAddress().getNetworkAddress();
+						return new Integer(y.get_node().getAddress().getNetworkAddress());
 				}
 			}
 			throw new Exception("Ieee Address not found on GAL: " + String.format("%016X", IeeeAddress));

@@ -29,7 +29,6 @@ public class HttpBinder implements EventHandler, HttpServletBinder {
 
 	private static final Logger LOG = LoggerFactory.getLogger(HttpBinder.class);
 
-	
 	private HttpImplementor implementor = null;
 
 	public HttpBinder() {
@@ -39,7 +38,8 @@ public class HttpBinder implements EventHandler, HttpServletBinder {
 		this.implementor = implementor;
 	}
 
-	public Object invokeMethod(Object targetObject, String methodName, ArrayList paramValues) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+	public Object invokeMethod(Object targetObject, String methodName, ArrayList paramValues) throws IllegalArgumentException,
+			IllegalAccessException, InvocationTargetException {
 		// TODO Auto-generated method stub
 		return null;
 	}

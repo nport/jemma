@@ -65,15 +65,13 @@ public class SimpleLoginModule implements LoginModule {
 		};
 	}
 
-	public void initialize(Subject subject, final CallbackHandler handler,
-			Map arg2, Map arg3) {
+	public void initialize(Subject subject, final CallbackHandler handler, Map arg2, Map arg3) {
 		this.handler = handler;
 		this.subject = subject;
 	}
 
 	public boolean login() throws LoginException {
-		final Callback[] callbacks = { new NameCallback("Username"),
-				new PasswordCallback("Password", false) };
+		final Callback[] callbacks = { new NameCallback("Username"), new PasswordCallback("Password", false) };
 
 		try {
 			handler.handle(callbacks);
@@ -83,8 +81,7 @@ public class SimpleLoginModule implements LoginModule {
 			throw new LoginException(e.getMessage());
 		}
 		String name = ((NameCallback) callbacks[0]).getName();
-		String password = new String(((PasswordCallback) callbacks[1])
-				.getPassword());
+		String password = new String(((PasswordCallback) callbacks[1]).getPassword());
 		if ("user".equals(name) && "password".equals(password)) {
 			user = createUser(callbacks);
 			return true;

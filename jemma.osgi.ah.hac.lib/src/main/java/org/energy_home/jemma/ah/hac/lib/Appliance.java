@@ -44,38 +44,39 @@ import org.energy_home.jemma.ah.hac.lib.internal.AppliancesProxy;
  * 
  */
 public class Appliance extends BasicAppliance implements IManagedAppliance {
-	
+
 	public static final String APPLIANCE_EPS_TYPES_PROPERTY = "ah.app.eps.types";
 	public static final String APPLIANCE_EPS_IDS_PROPERTY = "ah.app.eps.ids";
-	
-//  In driver mode IManagedAppliance service is unregistered in case of zigbee node disconnection
+
+	// In driver mode IManagedAppliance service is unregistered in case of
+	// zigbee node disconnection
 	private static final String AH_HAC_LIGHT_MODE = "driver";
 	private static final String AH_EXECUTION_MODE = System.getProperty("org.energy_home.jemma.ah.hac.mode");
-	
+
 	private static boolean isHacDriverModeActive() {
 		return AH_HAC_LIGHT_MODE.equals(AH_EXECUTION_MODE);
 	}
-	
+
 	private class ApplianceManagerImpl extends ApplianceManager {
 		/**
-		 * Returns the list of (client or server) cluster types implemented by one
-		 * of this appliance's end point and matching the list of clusters exposed
-		 * by a peer appliance's end point.
+		 * Returns the list of (client or server) cluster types implemented by
+		 * one of this appliance's end point and matching the list of clusters
+		 * exposed by a peer appliance's end point.
 		 * <p>
 		 * This method is used by the A@H framework to obtain the list of this
-		 * appliance's service clusters objects (attributes and commands) to expose
-		 * to the peer appliance when a connection is established.
+		 * appliance's service clusters objects (attributes and commands) to
+		 * expose to the peer appliance when a connection is established.
 		 * <p>
-		 * It has to be re-implemented only if the appliance needs to customize the
-		 * matching algorithm used to find the service clusters exposed to peer
-		 * appliances through connections created by the A@H framework.
-		 *
+		 * It has to be re-implemented only if the appliance needs to customize
+		 * the matching algorithm used to find the service clusters exposed to
+		 * peer appliances through connections created by the A@H framework.
+		 * 
 		 * @param endPointId
 		 *            This appliance end point identifier on which the matching
 		 *            algorithm has to be executed
 		 * @param side
-		 *            This appliance end point side (client or server) on which the
-		 *            matching algorithm has to be executed
+		 *            This appliance end point side (client or server) on which
+		 *            the matching algorithm has to be executed
 		 * @param peerApplianceDescriptor
 		 *            The peer appliance descriptor (it can be used in custom
 		 *            matching algorithms, implemented by specific appliance
@@ -83,12 +84,13 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 		 * @param peerEndPointType
 		 *            The peer end point type
 		 * @param peerServiceClusterTypes
-		 *            The service cluster types implemented by the peer appliance
+		 *            The service cluster types implemented by the peer
+		 *            appliance
 		 * @param peerClusterListenerTypes
 		 *            The service cluster types exposed by the peer appliance
 		 *            without implementing any attributes/commands
-		 * @return The list of found matching cluster types, {@code null} in case no
-		 *         matching clusters are found.
+		 * @return The list of found matching cluster types, {@code null} in
+		 *         case no matching clusters are found.
 		 */
 		public String[] getMatchingClusterTypes(int endPointId, int side, IApplianceDescriptor peerApplianceDescriptor,
 				String peerEndPointType, String[] peerServiceClusterTypes, String[] peerClusterListenerTypes) {
@@ -111,7 +113,8 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 							clusterType = serviceClusterTypes[i];
 							break;
 						}
-						// TODO: add here implementation for matching proprietary
+						// TODO: add here implementation for matching
+						// proprietary
 						// clusters
 						/*
 						 * int indexOfClusterTypePrefix =
@@ -126,9 +129,9 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 						 * (indexOfClusterTypePrefix > 0) peerSubClusterType =
 						 * peerServiceClusterTypes
 						 * [j].substring(indexOfClusterTypePrefix); if
-						 * (subClusterType != null && peerSubClusterType != null &&
-						 * subClusterType.equals(peerSubClusterType)) { clusterType
-						 * = subClusterType; break; }
+						 * (subClusterType != null && peerSubClusterType != null
+						 * && subClusterType.equals(peerSubClusterType)) {
+						 * clusterType = subClusterType; break; }
 						 */
 					}
 					if (clusterType != null) {
@@ -146,7 +149,8 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 							clusterType = serviceClusterTypes[i];
 							break;
 						}
-						// TODO: add here implementation for matching proprietary
+						// TODO: add here implementation for matching
+						// proprietary
 						// clusters
 						/*
 						 * int indexOfClusterTypePrefix =
@@ -161,9 +165,9 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 						 * (indexOfClusterTypePrefix > 0) peerSubClusterType =
 						 * peerClusterListenerTypes
 						 * [j].substring(indexOfClusterTypePrefix); if
-						 * (subClusterType != null && peerSubClusterType != null &&
-						 * subClusterType.equals(peerSubClusterType)) { clusterType
-						 * = subClusterType; break; }
+						 * (subClusterType != null && peerSubClusterType != null
+						 * && subClusterType.equals(peerSubClusterType)) {
+						 * clusterType = subClusterType; break; }
 						 */
 					}
 					if (clusterType != null)
@@ -179,8 +183,8 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 				return (String[]) result.toArray(resultArray);
 			}
 			return null;
-		}	
-		
+		}
+
 		public final void peerApplianceConnected(EndPoint endPoint, IAppliance peerAppliance) {
 			if (endPoint.peerAppliancesListener != null) {
 				try {
@@ -190,11 +194,11 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 				}
 			}
 		}
-		
+
 		public final void setAppliancesProxy(AppliancesProxy proxy) {
 			Appliance.this.appliancesProxy = proxy;
 		}
-		
+
 		public final void addPeerAppliance(EndPoint endPoint, IAppliance peerAppliance) {
 			String peerAppliancePid = peerAppliance.getPid();
 			endPoint.peerAppliances.put(peerAppliancePid, peerAppliance);
@@ -210,21 +214,21 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 				}
 			}
 		}
-		
+
 		public final void removePeerAppliance(EndPoint endPoint, IAppliance peerAppliance) {
 			// TODO: add here subscription management code
 			String peerAppliancePid = peerAppliance.getPid();
 			endPoint.peerAppliances.remove(peerAppliancePid);
 		}
-		
+
 		public final Dictionary getCustomConfiguration() {
 			return Appliance.this.getCustomConfiguration();
-		}	
+		}
 	}
-	
+
 	AppliancesProxy appliancesProxy;
 	ApplianceManagerImpl applianceManager = new ApplianceManagerImpl();
-	
+
 	private void addDefaultEndPoint(EndPoint defaultEndPoint) throws ApplianceException {
 		if (!defaultEndPoint.getType().equals(IEndPoint.COMMON_END_POINT_TYPE))
 			throw new ApplianceValidationException("Invalid default cluster type or id");
@@ -246,32 +250,34 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 				LOG.warn("Configuration cluster not available", e);
 			}
 		}
-	}	
-	
+	}
+
 	private synchronized void statusUpdated() {
-//  In driver mode IManagedAppliance service is unregistered in case of zigbee node disconnection
+		// In driver mode IManagedAppliance service is unregistered in case of
+		// zigbee node disconnection
 		if (isDriver && isHacDriverModeActive() && !this.isAvailable) {
 			factory.deleteAppliance(getPid(), false);
 			return;
 		}
-		
+
 		EndPoint endPoint = null;
 		Map pid2AlreadyNotifiedEndPointIds = new HashMap();
 		if (endPoints != null) {
 			for (Iterator iterator = endPoints.values().iterator(); iterator.hasNext();) {
 				endPoint = (EndPoint) iterator.next();
-				// Common end point never changes its status (it is always available) 
+				// Common end point never changes its status (it is always
+				// available)
 				if (endPoint.getId() != IEndPoint.COMMON_END_POINT_ID) {
-					endPoint.updatePeerAppliances(pid2AlreadyNotifiedEndPointIds);				
+					endPoint.updatePeerAppliances(pid2AlreadyNotifiedEndPointIds);
 				}
-			}			
+			}
 		}
 	}
-	
+
 	void setApplianceFactory(ApplianceFactory factory) {
 		this.factory = factory;
 	}
-	
+
 	void updateConfig(Dictionary config) throws ApplianceException {
 		try {
 			this.configuration = config;
@@ -281,13 +287,13 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 				String newLocationPid = (String) config.get(IAppliance.APPLIANCE_LOCATION_PID_PROPERTY);
 				String newCategoryPid = (String) config.get(IAppliance.APPLIANCE_CATEGORY_PID_PROPERTY);
 				String newIconName = (String) config.get(IAppliance.APPLIANCE_ICON_PROPERTY);
-				
+
 				String[] newNames = (String[]) config.get(IAppliance.END_POINT_NAMES_PROPERTY);
 				String[] newLocationPids = (String[]) config.get(IAppliance.END_POINT_LOCATION_PIDS_PROPERTY);
 				String[] newCategoryPids = (String[]) config.get(IAppliance.END_POINT_CATEGORY_PIDS_PROPERTY);
 				String[] newIconNames = (String[]) config.get(IAppliance.END_POINT_ICONS_PROPERTY);
 				IEndPoint[] eps = getEndPoints();
-				
+
 				if (newNames != null || newLocationPids != null || newCategoryPids != null || newIconNames != null) {
 					boolean updateNames = newNames != null && newNames.length == eps.length;
 					boolean updateLocationPids = newLocationPids != null && newLocationPids.length == eps.length;
@@ -298,13 +304,16 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 						if (updateNames && newNames[i] != null && !newNames[i].equals(configServerCluster.getConfigName())) {
 							configServerCluster.setConfigName(newNames[i]);
 						}
-						if (updateLocationPids && newLocationPids[i] != null && !newLocationPids[i].equals(configServerCluster.getConfigLocationPid())) {
+						if (updateLocationPids && newLocationPids[i] != null
+								&& !newLocationPids[i].equals(configServerCluster.getConfigLocationPid())) {
 							configServerCluster.setConfigLocationPid(newLocationPids[i]);
 						}
-						if (updateCategoryPids && newCategoryPids[i] != null && !newCategoryPids[i].equals(configServerCluster.getConfigCategoryPid())) {
+						if (updateCategoryPids && newCategoryPids[i] != null
+								&& !newCategoryPids[i].equals(configServerCluster.getConfigCategoryPid())) {
 							configServerCluster.setConfigCategoryPid(newCategoryPids[i]);
 						}
-						if (updateIconNames && newIconNames[i] != null && !newIconNames[i].equals(configServerCluster.getConfigIconName())) {
+						if (updateIconNames && newIconNames[i] != null
+								&& !newIconNames[i].equals(configServerCluster.getConfigIconName())) {
 							configServerCluster.setConfigIconName(newIconNames[i]);
 						}
 					}
@@ -324,18 +333,17 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 							configServerCluster.setConfigIconName(newIconName);
 						}
 					}
-				}			
+				}
 				configurationUpdated();
-			}
-			else {
+			} else {
 				LOG.debug("updateConfig called on appliance " + this.pid + " with null config parameter");
 			}
 		} catch (Exception e) {
 			LOG.warn(e.getMessage(), e);
 		}
 
-	}	
-	
+	}
+
 	/**
 	 * Create an instance of a {@code driver} or {@code logical} appliance
 	 * 
@@ -344,8 +352,8 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 	 * @param config
 	 *            A {@code Dictionary} with the initial configuration
 	 * @param isDriver
-	 *            {@code true} if this is a {@code driver appliance}, {@code
-	 *            false} if this is a {@code logical appliance}
+	 *            {@code true} if this is a {@code driver appliance},
+	 *            {@code false} if this is a {@code logical appliance}
 	 * @throws ApplianceException
 	 *             In case some of the passed parameters are not supported by
 	 *             this type of appliance
@@ -358,7 +366,7 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 		defaultEndPoint.addServiceCluster((ServiceCluster) basicServerCluster);
 		this.addDefaultEndPoint(defaultEndPoint);
 	}
-	
+
 	protected synchronized void start() {
 		try {
 			updateConfig(configuration);
@@ -373,18 +381,18 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 		if (!isDriver())
 			this.setAvailability(false);
 	}
-	
+
 	protected synchronized void configurationUpdated() {
 		LOG.debug("Configuration updated in appliance '" + this.getPid() + "'");
 		for (Iterator iterator = endPoints.values().iterator(); iterator.hasNext();) {
-			((EndPoint)iterator.next()).configurationUpdated();	
+			((EndPoint) iterator.next()).configurationUpdated();
 		}
 	}
-	
+
 	protected synchronized void removeEndPoint(int endPointId) {
 		this.endPoints.remove(new Integer(endPointId));
 	}
-	
+
 	public final void setAvailability(boolean availability) {
 		boolean statusUpdateNeeded = false;
 		if (this.isAvailable != availability)
@@ -392,7 +400,7 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 		this.isAvailable = availability;
 		if (statusUpdateNeeded)
 			statusUpdated();
-	}	
+	}
 
 	/**
 	 * Add an end point associated to a specific type
@@ -407,13 +415,13 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 	 */
 	public synchronized final EndPoint addEndPoint(String endPointType) throws ApplianceException {
 		return addEndPoint(new EndPoint(endPointType));
-	}	
-	
+	}
+
 	public synchronized final EndPoint addEndPoint(EndPoint endPoint) throws ApplianceException {
 		int id = this.endPoints.size();
 		return addEndPoint(endPoint, id);
 	}
-	
+
 	public synchronized final EndPoint addEndPoint(EndPoint endPoint, int id) throws ApplianceException {
 		endPoint.setId(id);
 		if (endPoint == null || endPoint.getType() == IEndPoint.COMMON_END_POINT_TYPE)
@@ -427,7 +435,7 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 			LOG.warn("Configuration cluster not available", e);
 		}
 		return endPoint;
-	}	
+	}
 
 	public ILocation[] getLocations() throws ApplianceValidationException {
 		return applianceManager.getLocations();
@@ -444,41 +452,41 @@ public class Appliance extends BasicAppliance implements IManagedAppliance {
 	public ICategory getCategory(String pid) throws ApplianceValidationException {
 		return applianceManager.getCategory(pid);
 	}
-	
+
 	/**
-	 * This method is invoked by the A@H framework when the {@code
-	 * IManagedAppliance} interface is registered or when some configuration
-	 * parameters are modified by the framework.
+	 * This method is invoked by the A@H framework when the
+	 * {@code IManagedAppliance} interface is registered or when some
+	 * configuration parameters are modified by the framework.
 	 * 
 	 * @param config
 	 *            A {@code Dictionary} with all the configuration parameters
 	 * 
 	 * @throws ApplianceException
 	 *             In case some of the passed configuration parameters are wrong
-	 */	
-	public final String[] getPeerAppliancesPids() {	
+	 */
+	public final String[] getPeerAppliancesPids() {
 		Set peerPids = new HashSet();
 		IAppliance[] peerAppliances = null;
 		for (Iterator iterator = endPoints.values().iterator(); iterator.hasNext();) {
-			peerAppliances = ((EndPoint)iterator.next()).getPeerAppliances();
+			peerAppliances = ((EndPoint) iterator.next()).getPeerAppliances();
 			if (peerAppliances != null)
 				for (int i = 0; i < peerAppliances.length; i++) {
 					peerPids.add(peerAppliances[i].getPid());
-				}		
+				}
 		}
 		String[] result = new String[peerPids.size()];
 		return (String[]) peerPids.toArray(result);
-		
+
 	}
 
 	public final String toString() {
 		return getPid();
 	}
-	
-	//**** IManagedAppliance methods
-	
+
+	// **** IManagedAppliance methods
+
 	public final IApplianceManager getApplianceManager() {
 		return applianceManager;
 	}
-	
+
 }

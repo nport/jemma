@@ -22,19 +22,19 @@ import org.energy_home.jemma.utils.thread.ExecutorService;
 public class ExecutorObject implements ExecutorService {
 	private ExecutorManager executorManager;
 	private String user;
-	
+
 	public ExecutorObject(String user) {
 		this.user = user;
 		this.executorManager = ExecutorManager.getInstance();
 		executorManager.addUser(user);
 	}
-	
+
 	public void release() {
 		executorManager.removeUser(user);
 	}
-	
+
 	public void addNearRealTimeOrderedTask(Runnable runnable) {
-		executorManager.addNearRealTimeOrderedTask(user, runnable);	
+		executorManager.addNearRealTimeOrderedTask(user, runnable);
 	}
 
 	public ScheduledFuture<?> scheduleTask(Runnable runnable, long delay) {
@@ -44,5 +44,5 @@ public class ExecutorObject implements ExecutorService {
 	public ScheduledFuture<?> scheduleTask(Runnable runnable, long delay, long period) {
 		return executorManager.scheduleTask(user, runnable, delay, period);
 	}
-	
+
 }

@@ -36,7 +36,7 @@ public class Configurator implements Driver, ServiceTrackerCustomizer {
 
 	private HashMap trackedDevices = new HashMap();
 
-	private static final Logger LOG = LoggerFactory.getLogger( Configurator.class );
+	private static final Logger LOG = LoggerFactory.getLogger(Configurator.class);
 
 	public void activate(BundleContext bc, Map props) {
 		this.bc = bc;

@@ -17,7 +17,6 @@ package org.energy_home.jemma.ah.zigbee.zcl;
 
 import org.energy_home.jemma.ah.hac.ServiceClusterException;
 
-
 public class ZclValidationException extends ServiceClusterException {
 	private static final long serialVersionUID = 6593768542224312233L;
 	private int reason = -1;
@@ -25,12 +24,12 @@ public class ZclValidationException extends ServiceClusterException {
 	public ZclValidationException(String errorDescription) {
 		super(errorDescription);
 	}
-	
+
 	public ZclValidationException(int reason, String errorDescription) {
 		super(errorDescription);
-		this.reason  = reason;
+		this.reason = reason;
 	}
-	
+
 	public int getReason() {
 		return reason;
 	}

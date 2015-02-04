@@ -22,7 +22,6 @@ import org.energy_home.jemma.m2m.ContentInstanceItemsList;
 import org.energy_home.jemma.m2m.ContentInstancesBatchRequest;
 import org.energy_home.jemma.m2m.ContentInstancesBatchResponse;
 
-
 public interface M2MNetworkScl {
 
 	public static final long CONTENT_INSTANCE_LATEST_ID = -1;
@@ -30,24 +29,24 @@ public interface M2MNetworkScl {
 	public static final long CONTENT_INSTANCE_INVALID_ID = Long.MIN_VALUE;
 
 	public String getSclId();
-	
+
 	public ContentInstance getSclContentInstance(M2MContainerAddress containerAddress, long instanceId) throws M2MServiceException;
 
 	public ContentInstanceItemsList getSclContentInstanceItemsList(M2MContainerAddress containerAddressFilter, long instanceId)
 			throws M2MServiceException;
 
-	public ContentInstanceItems getSclContentInstanceItems(M2MContainerAddress containerAddress, long startInstanceId, long endInstanceId)
-			throws M2MServiceException;
-
-	public ContentInstanceItemsList getSclContentInstanceItemsList(M2MContainerAddress containerAddressFilter, long startInstanceId,
+	public ContentInstanceItems getSclContentInstanceItems(M2MContainerAddress containerAddress, long startInstanceId,
 			long endInstanceId) throws M2MServiceException;
+
+	public ContentInstanceItemsList getSclContentInstanceItemsList(M2MContainerAddress containerAddressFilter,
+			long startInstanceId, long endInstanceId) throws M2MServiceException;
 
 	public ContentInstance createSclContentInstance(M2MContainerAddress containerAddress, ContentInstance contentInstance)
 			throws M2MServiceException;
 
 	public ContentInstancesBatchResponse sendContentInstanceBatchRequest(ContentInstancesBatchRequest cibr)
 			throws M2MServiceException;
-	
+
 	public HttpResponse httpGet(String uri) throws M2MServiceException;
 
 }

@@ -15,10 +15,10 @@
  */
 package org.energy_home.jemma.ah.ebrain;
 
-
 import java.util.Calendar;
 
 import org.energy_home.jemma.ah.ebrain.algo.DailyTariff;
+
 /*
  * Daily Tariff for the week. It assumes that each profile is a segment that specifies a tariff
  * in KW/hour for a given start/end interval. Cost unit is expressed in euros,
@@ -28,26 +28,30 @@ import org.energy_home.jemma.ah.ebrain.algo.DailyTariff;
  */
 public class TwoTierDailyTariff extends DailyTariff {
 	public TwoTierDailyTariff() throws Exception {
-		// to optimize tariff selection, tariffs must be ordered from the most convenient to to worst
+		// to optimize tariff selection, tariffs must be ordered from the most
+		// convenient to to worst
 		TariffIntervals[] workdays = new TariffIntervals[] {
-			//new TariffIntervals(0.0395f, new int[] {000, 800, 1900, 2400}),
-			//new TariffIntervals(0.1095f, new int[] {800, 1900})
-			//new TariffIntervals(0.14537f, new int[] {000, 800, 1900, 2400}),
-			//new TariffIntervals(0.16686f, new int[] {800, 1900})
-			//new TariffIntervals(0.161961071181481f, new int[] {000, 800, 1900, 2400}),
-			//new TariffIntervals(0.170771071181482f, new int[] {800, 1900})
-			//new TariffIntervals(0.161961071181481f, new int[] {000, 800, 1900, 2400}),
-			//new TariffIntervals(0.170771071181482f, new int[] {800, 1900})
-			new TariffIntervals(0.19f, new int[] {000, 800, 1900, 2400}),
-			new TariffIntervals(0.20f, new int[] {800, 1900})
-		};
-			
+				// new TariffIntervals(0.0395f, new int[] {000, 800, 1900,
+				// 2400}),
+				// new TariffIntervals(0.1095f, new int[] {800, 1900})
+				// new TariffIntervals(0.14537f, new int[] {000, 800, 1900,
+				// 2400}),
+				// new TariffIntervals(0.16686f, new int[] {800, 1900})
+				// new TariffIntervals(0.161961071181481f, new int[] {000, 800,
+				// 1900, 2400}),
+				// new TariffIntervals(0.170771071181482f, new int[] {800,
+				// 1900})
+				// new TariffIntervals(0.161961071181481f, new int[] {000, 800,
+				// 1900, 2400}),
+				// new TariffIntervals(0.170771071181482f, new int[] {800,
+				// 1900})
+				new TariffIntervals(0.19f, new int[] { 000, 800, 1900, 2400 }), new TariffIntervals(0.20f, new int[] { 800, 1900 }) };
+
 		TariffIntervals[] weekends = new TariffIntervals[] {
-			//new TariffIntervals(0.14537f, new int[] {000, 2400})
-			//new TariffIntervals(0.161961071181481f, new int[] {000, 2400})
-			new TariffIntervals(0.19f, new int[] {000, 2400})
-		};
-		
+		// new TariffIntervals(0.14537f, new int[] {000, 2400})
+		// new TariffIntervals(0.161961071181481f, new int[] {000, 2400})
+		new TariffIntervals(0.19f, new int[] { 000, 2400 }) };
+
 		for (int day = Calendar.MONDAY; day <= Calendar.FRIDAY; ++day) {
 			setDailyTariff(workdays, day);
 		}

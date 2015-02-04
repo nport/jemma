@@ -19,6 +19,8 @@ import org.energy_home.jemma.ah.ebrain.old.SmartAppliance;
 
 public interface OverloadDetectorListener {
 	void notifyOverload(SmartAppliance a);
+
 	void notifyUnderload(SmartAppliance a);
+
 	void notifySafeLoad();
 }

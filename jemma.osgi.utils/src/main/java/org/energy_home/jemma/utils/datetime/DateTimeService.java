@@ -17,6 +17,6 @@ package org.energy_home.jemma.utils.datetime;
 
 public interface DateTimeService {
 	public boolean isDateTimeOk();
-	
+
 	public boolean isDateTimeOk(long timeInMillis);
 }

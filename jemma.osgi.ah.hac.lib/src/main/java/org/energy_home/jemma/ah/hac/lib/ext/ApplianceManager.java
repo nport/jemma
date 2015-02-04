@@ -26,17 +26,18 @@ import org.energy_home.jemma.ah.hac.lib.internal.AppliancesProxy;
 
 public abstract class ApplianceManager implements IApplianceManager {
 	private static final String APPLIANCE_NOT_INITIALIZED = "Appliance not  initialized";
-	
+
 	private IHacService hacService;
-	//private IConnectionAdminService connectionAdminService;
+
+	// private IConnectionAdminService connectionAdminService;
 
 	public void setHacService(IHacService hacService) {
 		this.hacService = hacService;
 	}
-	
-//	public void configUpdated(Dictionary props) throws HacException {
-//		hacService.updateConfiguration(managedAppliance.getPid(), props);
-//	}
+
+	// public void configUpdated(Dictionary props) throws HacException {
+	// hacService.updateConfiguration(managedAppliance.getPid(), props);
+	// }
 
 	public ILocation[] getLocations() throws ApplianceValidationException {
 		if (hacService == null)
@@ -61,20 +62,20 @@ public abstract class ApplianceManager implements IApplianceManager {
 			throw new ApplianceValidationException();
 		return hacService.getCategory(pid);
 	}
-	
+
 	public abstract String[] getMatchingClusterTypes(int endPointId, int side, IApplianceDescriptor peerApplianceDescriptor,
 			String peerEndPointType, String[] peerServiceClusterTypes, String[] peerClusterListenerTypes);
 
 	public abstract void peerApplianceConnected(EndPoint endPoint, IAppliance peerAppliance);
-	
+
 	public abstract void addPeerAppliance(EndPoint endPoint, IAppliance peerAppliance);
 
 	public abstract void peerApplianceDisconnected(EndPoint endPoint, IAppliance peerAppliance);
-	
+
 	public abstract void removePeerAppliance(EndPoint endPoint, IAppliance peerAppliance);
-	
+
 	public abstract Object getCustomConfiguration();
-	
+
 	public abstract void setAppliancesProxy(AppliancesProxy proxy);
 
 }

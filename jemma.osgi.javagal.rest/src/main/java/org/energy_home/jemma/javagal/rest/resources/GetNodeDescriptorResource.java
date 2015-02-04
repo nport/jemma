@@ -15,14 +15,6 @@
  */
 package org.energy_home.jemma.javagal.rest.resources;
 
-import org.energy_home.jemma.zgd.GatewayConstants;
-import org.energy_home.jemma.zgd.GatewayInterface;
-import org.energy_home.jemma.zgd.jaxb.Address;
-import org.energy_home.jemma.zgd.jaxb.Info;
-import org.energy_home.jemma.zgd.jaxb.NodeDescriptor;
-import org.energy_home.jemma.zgd.jaxb.Status;
-import org.energy_home.jemma.zgd.jaxb.Info.Detail;
-
 import java.math.BigInteger;
 
 import org.energy_home.jemma.javagal.rest.GalManagerRestApplication;
@@ -31,16 +23,25 @@ import org.energy_home.jemma.javagal.rest.util.ClientResources;
 import org.energy_home.jemma.javagal.rest.util.ResourcePathURIs;
 import org.energy_home.jemma.javagal.rest.util.Resources;
 import org.energy_home.jemma.javagal.rest.util.Util;
+import org.energy_home.jemma.zgd.GatewayConstants;
+import org.energy_home.jemma.zgd.GatewayInterface;
+import org.energy_home.jemma.zgd.jaxb.Address;
+import org.energy_home.jemma.zgd.jaxb.Info;
+import org.energy_home.jemma.zgd.jaxb.Info.Detail;
+import org.energy_home.jemma.zgd.jaxb.NodeDescriptor;
+import org.energy_home.jemma.zgd.jaxb.Status;
 import org.restlet.data.MediaType;
 import org.restlet.data.Parameter;
 import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
 
 /**
- * Resource file used to manage the API GET:getNodeDescriptorSync, getNodeDescriptor
+ * Resource file used to manage the API GET:getNodeDescriptorSync,
+ * getNodeDescriptor
  * 
- * @author "Ing. Marco Nieddu <marco.nieddu@consoft.it> or <marco.niedducv@gmail.com> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
- *
+ * @author 
+ *         "Ing. Marco Nieddu <marco.nieddu@consoft.it> or <marco.niedducv@gmail.com> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
+ * 
  */
 public class GetNodeDescriptorResource extends ServerResource {
 	private GatewayInterface proxyGalInterface;
@@ -53,8 +54,7 @@ public class GetNodeDescriptorResource extends ServerResource {
 		try {
 			Address _add = new Address();
 			// addrString parameters check
-			String addrString = (String) getRequest().getAttributes().get(
-					"addr");
+			String addrString = (String) getRequest().getAttributes().get("addr");
 			if (addrString != null) {
 				if (addrString.length() > 4)// IEEEAddress
 				{
@@ -69,21 +69,18 @@ public class GetNodeDescriptorResource extends ServerResource {
 				Info info = new Info();
 				Status _st = new Status();
 				_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-				_st.setMessage("Error: mandatory address' parameter's value invalid. You provided: "
-						+ addrString);
+				_st.setMessage("Error: mandatory address' parameter's value invalid. You provided: " + addrString);
 				info.setStatus(_st);
 				Info.Detail detail = new Info.Detail();
 				info.setDetail(detail);
-				getResponse().setEntity(Util.marshal(info),
-						MediaType.APPLICATION_XML);
-				return ;
+				getResponse().setEntity(Util.marshal(info), MediaType.APPLICATION_XML);
+				return;
 
 			}
 
 			String timeoutString = null;
 			Long timeout = -1L;
-			Parameter timeoutParam = getRequest().getResourceRef()
-					.getQueryAsForm().getFirst("timeout");
+			Parameter timeoutParam = getRequest().getResourceRef().getQueryAsForm().getFirst("timeout");
 			if (timeoutParam != null) {
 				timeoutString = timeoutParam.getSecond();
 				try {
@@ -96,9 +93,8 @@ public class GetNodeDescriptorResource extends ServerResource {
 					info.setStatus(_st);
 					Info.Detail detail = new Info.Detail();
 					info.setDetail(detail);
-					getResponse().setEntity(Util.marshal(info),
-							MediaType.APPLICATION_XML);
-					return ;
+					getResponse().setEntity(Util.marshal(info), MediaType.APPLICATION_XML);
+					return;
 
 				}
 				// if (timeout < 0 || timeout > 0xffff) {
@@ -106,31 +102,25 @@ public class GetNodeDescriptorResource extends ServerResource {
 					Info info = new Info();
 					Status _st = new Status();
 					_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-					_st.setMessage("Error: optional '"
-							+ ResourcePathURIs.TIMEOUT_PARAM
-							+ "' parameter's value invalid. You provided: "
-							+ timeoutString);
+					_st.setMessage("Error: optional '" + ResourcePathURIs.TIMEOUT_PARAM
+							+ "' parameter's value invalid. You provided: " + timeoutString);
 					info.setStatus(_st);
 					Info.Detail detail = new Info.Detail();
 					info.setDetail(detail);
-					getResponse().setEntity(Util.marshal(info),
-							MediaType.APPLICATION_XML);
-					return ;
+					getResponse().setEntity(Util.marshal(info), MediaType.APPLICATION_XML);
+					return;
 
 				}
 			}
 
-			Parameter urilistenerParam = getRequest().getResourceRef()
-					.getQueryAsForm().getFirst(Resources.URI_PARAM_URILISTENER);
+			Parameter urilistenerParam = getRequest().getResourceRef().getQueryAsForm().getFirst(Resources.URI_PARAM_URILISTENER);
 
 			if (urilistenerParam == null) {
 				// Sync call because urilistener not present.
 				// Gal Manager check
-				proxyGalInterface = getRestManager().getClientObjectKey(-1,
-						getClientInfo().getAddress()).getGatewayInterface();
-				NodeDescriptor nd = proxyGalInterface.getNodeDescriptorSync(
-						timeout, _add);
-				
+				proxyGalInterface = getRestManager().getClientObjectKey(-1, getClientInfo().getAddress()).getGatewayInterface();
+				NodeDescriptor nd = proxyGalInterface.getNodeDescriptorSync(timeout, _add);
+
 				Detail _det = new Detail();
 				_det.setNodeDescriptor(nd);
 				Info _info = new Info();
@@ -140,9 +130,7 @@ public class GetNodeDescriptorResource extends ServerResource {
 				_info.setDetail(_det);
 				getResponse().setEntity(Util.marshal(_info), MediaType.APPLICATION_XML);
 				return;
-				
-				
-				
+
 			} else {
 				// Async call. We know here that urilistenerParam is not null...
 				urilistener = urilistenerParam.getValue();
@@ -150,7 +138,8 @@ public class GetNodeDescriptorResource extends ServerResource {
 				// result but wait that the IPHA polls for it using the request
 				// identifier.
 
-				ClientResources rcmal = getRestManager().getClientObjectKey(Util.getPortFromUriListener(urilistener), getClientInfo().getAddress());
+				ClientResources rcmal = getRestManager().getClientObjectKey(Util.getPortFromUriListener(urilistener),
+						getClientInfo().getAddress());
 				proxyGalInterface = rcmal.getGatewayInterface();
 
 				rcmal.getClientEventListener().setNodeDescriptorDestination(urilistener);
@@ -162,9 +151,8 @@ public class GetNodeDescriptorResource extends ServerResource {
 				infoToReturn.setStatus(status);
 				infoToReturn.setRequestIdentifier(Util.getRequestIdentifier());
 				infoToReturn.setDetail(detail);
-				getResponse().setEntity(Util.marshal(infoToReturn),
-						MediaType.TEXT_XML);
-				return ;
+				getResponse().setEntity(Util.marshal(infoToReturn), MediaType.TEXT_XML);
+				return;
 			}
 		} catch (NullPointerException npe) {
 			Info info = new Info();
@@ -175,7 +163,7 @@ public class GetNodeDescriptorResource extends ServerResource {
 			Info.Detail detail = new Info.Detail();
 			info.setDetail(detail);
 			getResponse().setEntity(Util.marshal(info), MediaType.APPLICATION_XML);
-			return ;
+			return;
 
 		} catch (Exception e) {
 			Info info = new Info();
@@ -186,7 +174,7 @@ public class GetNodeDescriptorResource extends ServerResource {
 			Info.Detail detail = new Info.Detail();
 			info.setDetail(detail);
 			getResponse().setEntity(Util.marshal(info), MediaType.APPLICATION_XML);
-			return ;
+			return;
 		}
 	}
 

@@ -20,10 +20,11 @@ import java.util.Dictionary;
 import org.energy_home.jemma.ah.hac.ILocation;
 
 /**
- * Implementation of the {@link org.energy_home.jemma.ah.hac.ILocation} interface
+ * Implementation of the {@link org.energy_home.jemma.ah.hac.ILocation}
+ * interface
  */
 public class Location implements ILocation {
-	
+
 	String name = null;
 	String iconName = null;
 	String pid = null;
@@ -43,7 +44,7 @@ public class Location implements ILocation {
 		this.iconName = iconName;
 		this.pid = pid;
 	}
-	
+
 	public Location() {
 	}
 

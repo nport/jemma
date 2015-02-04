@@ -15,12 +15,11 @@
  */
 package org.energy_home.jemma.ah.zigbee.zcl.lib.types;
 
-
-
 /**
  * ZigBee type constants
  * 
- * TODO: implementare tutti i tipi di ZigBee (in particolare quelli utilizzati da Indesit!
+ * TODO: implementare tutti i tipi di ZigBee (in particolare quelli utilizzati
+ * da Indesit!
  */
 
 public class ZclTypes {
@@ -53,7 +52,7 @@ public class ZclTypes {
 
 	public static final short ZclOctetsType = 0x41;
 	public static final short ZclStringType = 0x42;
-	
+
 	public static final short ZclClusterIDType = 0xe8;
 	public static final short ZclAttributeIDType = 0xe9;
 	public static final short ZclBACnetOIDType = 0xea;

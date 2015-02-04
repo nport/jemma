@@ -15,6 +15,5 @@
  */
 package org.energy_home.jemma.ah.ebrain;
 
-
 public interface IPowerAndControlProxy extends IPowerProfileProxy, IApplianceControlProxy {
 }

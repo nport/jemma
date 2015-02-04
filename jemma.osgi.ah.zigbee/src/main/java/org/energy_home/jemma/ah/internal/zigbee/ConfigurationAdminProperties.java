@@ -23,9 +23,9 @@ import java.util.Map;
  */
 public class ConfigurationAdminProperties {
 	private Map props = new HashMap();
-	
+
 	// TODO: read also system properties
-	
+
 	protected boolean getProperty(String name, boolean defaultValue) {
 		Object prop = props.get(name);
 		if (prop == null) {
@@ -49,7 +49,7 @@ public class ConfigurationAdminProperties {
 			return defaultValue;
 		}
 	}
-	
+
 	protected int getProperty(String name, short defaultValue) {
 		Object prop = props.get(name);
 		if (prop == null) {
@@ -61,18 +61,18 @@ public class ConfigurationAdminProperties {
 			return defaultValue;
 		}
 	}
-	
+
 	public Object getProperty(String name) {
 		return null;
 	}
-	
+
 	public Object getDefaultValue(String name) {
 		return null;
 	}
-	
-	
+
 	/**
 	 * Updates the properties
+	 * 
 	 * @param props
 	 */
 

@@ -29,12 +29,12 @@ public class EnergyPhasesScheduleResponse {
 		this.PowerProfileID = PowerProfileID;
 		this.ScheduledPhases = ScheduledPhases;
 	}
-	
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder("{");
 		sb.append("PowerProfileID=").append(PowerProfileID);
 		sb.append(", ScheduledPhases=").append(Arrays.toString(ScheduledPhases));
 		sb.append("}");
-		return sb.toString();		
+		return sb.toString();
 	}
 }

@@ -21,23 +21,22 @@ import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.Properties;
 
-public class PersistentProperties extends Properties {	
+public class PersistentProperties extends Properties {
 	private URL url;
 	private Properties properties = null;
-	
+
 	public void PersistentProperties1(URL url) throws Exception {
 		this.url = url;
-		this.properties  = new Properties();
+		this.properties = new Properties();
 		this.loadProperties();
 	}
-	
+
 	private synchronized void loadProperties() throws Exception {
 		File f;
 		f = new File(url.getFile());
 		if (f.exists()) {
 			this.properties.load(new FileInputStream(f));
-		}
-		else {
+		} else {
 			f.createNewFile();
 		}
 	}
@@ -49,9 +48,9 @@ public class PersistentProperties extends Properties {
 		} catch (Exception e) {
 			System.out.println("unable to write preferences");
 			e.printStackTrace();
-		}		
+		}
 	}
-	
+
 	public void putString(String name, String value) {
 		this.properties.setProperty(name, value);
 		try {
@@ -61,37 +60,37 @@ public class PersistentProperties extends Properties {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public boolean getBoolean(String name, boolean value) {
 		String v = this.properties.getProperty(name);
 		if (v == null) {
 			return value;
 		}
-		
+
 		return Boolean.parseBoolean(v);
 	}
-	
+
 	public String getString(String name, String value) {
 		String v = this.properties.getProperty(name);
 		if (v == null) {
 			return value;
 		}
-		
+
 		return v;
 	}
-	
+
 	public synchronized void saveProperties() throws Exception {
 		this.saveProperties();
 	}
-	
-	protected  void _saveProperties() throws Exception {
+
+	protected void _saveProperties() throws Exception {
 		File f;
 		f = new File(url.getFile());
 		FileOutputStream fos = new FileOutputStream(f);
 		properties.store(fos, null);
 		fos.close();
 	}
-	
+
 	public synchronized void sync() throws Exception {
 		this._saveProperties();
 	}

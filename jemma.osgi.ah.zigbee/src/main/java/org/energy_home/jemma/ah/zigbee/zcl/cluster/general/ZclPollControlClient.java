@@ -95,15 +95,15 @@ public class ZclPollControlClient extends ZclServiceCluster implements PollContr
 		return null;
 	}
 
-	protected IZclFrame parseSetLongPollInterval(org.energy_home.jemma.ah.cluster.zigbee.general.PollControlServer o, IZclFrame zclFrame)
-			throws ApplianceException, ServiceClusterException {
+	protected IZclFrame parseSetLongPollInterval(org.energy_home.jemma.ah.cluster.zigbee.general.PollControlServer o,
+			IZclFrame zclFrame) throws ApplianceException, ServiceClusterException {
 		long NewLongPollInterval = ZclDataTypeUI32.zclParse(zclFrame);
 		o.execSetLongPollInterval(NewLongPollInterval, null);
 		return null;
 	}
 
-	protected IZclFrame parseSetShortPollInterval(org.energy_home.jemma.ah.cluster.zigbee.general.PollControlServer o, IZclFrame zclFrame)
-			throws ApplianceException, ServiceClusterException {
+	protected IZclFrame parseSetShortPollInterval(org.energy_home.jemma.ah.cluster.zigbee.general.PollControlServer o,
+			IZclFrame zclFrame) throws ApplianceException, ServiceClusterException {
 		int NewShortPollInterval = ZclDataTypeUI16.zclParse(zclFrame);
 		o.execSetShortPollInterval(NewShortPollInterval, null);
 		return null;

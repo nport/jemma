@@ -15,14 +15,6 @@
  */
 package org.energy_home.jemma.javagal.rest.resources;
 
-import org.energy_home.jemma.zgd.GatewayConstants;
-import org.energy_home.jemma.zgd.GatewayInterface;
-import org.energy_home.jemma.zgd.jaxb.Address;
-import org.energy_home.jemma.zgd.jaxb.Binding;
-import org.energy_home.jemma.zgd.jaxb.BindingList;
-import org.energy_home.jemma.zgd.jaxb.Info;
-import org.energy_home.jemma.zgd.jaxb.Status;
-
 import java.math.BigInteger;
 
 import org.energy_home.jemma.javagal.rest.GalManagerRestApplication;
@@ -31,6 +23,13 @@ import org.energy_home.jemma.javagal.rest.util.ClientResources;
 import org.energy_home.jemma.javagal.rest.util.ResourcePathURIs;
 import org.energy_home.jemma.javagal.rest.util.Resources;
 import org.energy_home.jemma.javagal.rest.util.Util;
+import org.energy_home.jemma.zgd.GatewayConstants;
+import org.energy_home.jemma.zgd.GatewayInterface;
+import org.energy_home.jemma.zgd.jaxb.Address;
+import org.energy_home.jemma.zgd.jaxb.Binding;
+import org.energy_home.jemma.zgd.jaxb.BindingList;
+import org.energy_home.jemma.zgd.jaxb.Info;
+import org.energy_home.jemma.zgd.jaxb.Status;
 import org.restlet.data.MediaType;
 import org.restlet.data.Parameter;
 import org.restlet.resource.Get;
@@ -38,9 +37,12 @@ import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
 /**
- * Resource file used to manage the APIs GET:getNodeBindingsSync, getNodeBindings. POST:addBindingSync,addBinding
- * @author "Ing. Marco Nieddu <marco.nieddu@consoft.it> or <marco.niedducv@gmail.com> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
- *
+ * Resource file used to manage the APIs GET:getNodeBindingsSync,
+ * getNodeBindings. POST:addBindingSync,addBinding
+ * 
+ * @author 
+ *         "Ing. Marco Nieddu <marco.nieddu@consoft.it> or <marco.niedducv@gmail.com> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
+ * 
  */
 public class BindingsResource extends ServerResource {
 	private GatewayInterface proxyGalInterface;
@@ -56,8 +58,7 @@ public class BindingsResource extends ServerResource {
 		try {
 			Address address = new Address();
 			// addrString parameters check
-			String addrString = (String) getRequest().getAttributes().get(
-					Resources.PARAMETER_ADDR);
+			String addrString = (String) getRequest().getAttributes().get(Resources.PARAMETER_ADDR);
 			if (addrString != null) {
 				if (addrString.length() > 4) {
 					// IEEEAddress
@@ -73,8 +74,7 @@ public class BindingsResource extends ServerResource {
 				Info info = new Info();
 				Status _st = new Status();
 				_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-				_st.setMessage("Error: mandatory '" + Resources.URI_ADDR
-						+ "' parameter's value invalid. You provided: "
+				_st.setMessage("Error: mandatory '" + Resources.URI_ADDR + "' parameter's value invalid. You provided: "
 						+ addrString);
 				info.setStatus(_st);
 				Info.Detail detail = new Info.Detail();
@@ -85,8 +85,7 @@ public class BindingsResource extends ServerResource {
 
 			String timeoutString = null;
 			Long timeout = -1L;
-			Parameter timeoutParam = getRequest().getResourceRef()
-					.getQueryAsForm().getFirst(Resources.URI_PARAM_TIMEOUT);
+			Parameter timeoutParam = getRequest().getResourceRef().getQueryAsForm().getFirst(Resources.URI_PARAM_TIMEOUT);
 			if (timeoutParam != null) {
 				timeoutString = timeoutParam.getValue();
 				try {
@@ -96,16 +95,13 @@ public class BindingsResource extends ServerResource {
 						Info info = new Info();
 						Status _st = new Status();
 						_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-						_st.setMessage("Error: optional '"
-								+ ResourcePathURIs.TIMEOUT_PARAM
-								+ "' parameter's value invalid. You provided: "
-								+ timeoutString);
+						_st.setMessage("Error: optional '" + ResourcePathURIs.TIMEOUT_PARAM
+								+ "' parameter's value invalid. You provided: " + timeoutString);
 						info.setStatus(_st);
 						Info.Detail detail = new Info.Detail();
 						info.setDetail(detail);
 						getResponse().setEntity(Util.marshal(info), MediaType.APPLICATION_XML);
 						return;
-
 
 					}
 				} catch (NumberFormatException nfe) {
@@ -113,10 +109,8 @@ public class BindingsResource extends ServerResource {
 					Info info = new Info();
 					Status _st = new Status();
 					_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-					_st.setMessage("Error: optional '"
-							+ ResourcePathURIs.TIMEOUT_PARAM
-							+ "' parameter's value invalid. You provided: "
-							+ timeoutString);
+					_st.setMessage("Error: optional '" + ResourcePathURIs.TIMEOUT_PARAM
+							+ "' parameter's value invalid. You provided: " + timeoutString);
 					info.setStatus(_st);
 					Info.Detail detail = new Info.Detail();
 					info.setDetail(detail);
@@ -128,8 +122,7 @@ public class BindingsResource extends ServerResource {
 
 			String indexString = null;
 			Long index = -1L;
-			Parameter indexParam = getRequest().getResourceRef()
-					.getQueryAsForm().getFirst(Resources.URI_PARAM_INDEX);
+			Parameter indexParam = getRequest().getResourceRef().getQueryAsForm().getFirst(Resources.URI_PARAM_INDEX);
 			if (indexParam != null) {
 				indexString = indexParam.getValue();
 				try {
@@ -138,10 +131,8 @@ public class BindingsResource extends ServerResource {
 						Info info = new Info();
 						Status _st = new Status();
 						_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-						_st.setMessage("Error: optional '"
-								+ Resources.URI_PARAM_INDEX
-								+ "' parameter's value invalid. You provided: "
-								+ indexString);
+						_st.setMessage("Error: optional '" + Resources.URI_PARAM_INDEX
+								+ "' parameter's value invalid. You provided: " + indexString);
 						info.setStatus(_st);
 						Info.Detail detail = new Info.Detail();
 						info.setDetail(detail);
@@ -153,9 +144,7 @@ public class BindingsResource extends ServerResource {
 					Info info = new Info();
 					Status _st = new Status();
 					_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-					_st.setMessage("Error: optional '"
-							+ Resources.URI_PARAM_INDEX
-							+ "' parameter's value invalid. You provided: "
+					_st.setMessage("Error: optional '" + Resources.URI_PARAM_INDEX + "' parameter's value invalid. You provided: "
 							+ indexString);
 					info.setStatus(_st);
 					Info.Detail detail = new Info.Detail();
@@ -166,26 +155,22 @@ public class BindingsResource extends ServerResource {
 				}
 			}
 
-			Parameter urilistenerParam = getRequest().getResourceRef()
-					.getQueryAsForm().getFirst(Resources.URI_PARAM_URILISTENER);
+			Parameter urilistenerParam = getRequest().getResourceRef().getQueryAsForm().getFirst(Resources.URI_PARAM_URILISTENER);
 
 			if (urilistenerParam == null) {
 				// Sync call because urilistener not present.
 				// Gal Manager check
-				proxyGalInterface = getRestManager().getClientObjectKey(-1,
-						getClientInfo().getAddress()).getGatewayInterface();
+				proxyGalInterface = getRestManager().getClientObjectKey(-1, getClientInfo().getAddress()).getGatewayInterface();
 				BindingList bindingList = null;
 				if (index > 0) {
-					bindingList = proxyGalInterface.getNodeBindingsSync(
-							timeout, address, index.shortValue());
+					bindingList = proxyGalInterface.getNodeBindingsSync(timeout, address, index.shortValue());
 				} else {
-					bindingList = proxyGalInterface.getNodeBindingsSync(
-							timeout, address);
+					bindingList = proxyGalInterface.getNodeBindingsSync(timeout, address);
 				}
-				
+
 				Info info = new Info();
 				Status _st = new Status();
-				_st.setCode((short)GatewayConstants.SUCCESS);
+				_st.setCode((short) GatewayConstants.SUCCESS);
 				Info.Detail detail = new Info.Detail();
 				info.setStatus(_st);
 				detail.setBindings(bindingList);
@@ -198,15 +183,15 @@ public class BindingsResource extends ServerResource {
 				// Process async. If urilistener equals "", don't send the
 				// result but wait that the IPHA polls for it using the request
 				// identifier.
-				
-				ClientResources rcmal = getRestManager().getClientObjectKey(Util.getPortFromUriListener(urilistener), getClientInfo().getAddress());
+
+				ClientResources rcmal = getRestManager().getClientObjectKey(Util.getPortFromUriListener(urilistener),
+						getClientInfo().getAddress());
 				proxyGalInterface = rcmal.getGatewayInterface();
 
 				rcmal.getClientEventListener().setNodeBindingDestination(urilistener);
 
 				if (index > 0) {
-					proxyGalInterface.getNodeBindings(timeout, address,
-							index.shortValue());
+					proxyGalInterface.getNodeBindings(timeout, address, index.shortValue());
 				} else {
 					proxyGalInterface.getNodeBindings(timeout, address);
 				}
@@ -217,8 +202,7 @@ public class BindingsResource extends ServerResource {
 				infoToReturn.setStatus(status);
 				infoToReturn.setRequestIdentifier(Util.getRequestIdentifier());
 				infoToReturn.setDetail(detail);
-				getResponse().setEntity(Util.marshal(infoToReturn),
-						MediaType.TEXT_XML);
+				getResponse().setEntity(Util.marshal(infoToReturn), MediaType.TEXT_XML);
 				return;
 			}
 		} catch (NullPointerException npe) {
@@ -270,8 +254,7 @@ public class BindingsResource extends ServerResource {
 			return;
 
 		}
-		if ((binding.getDeviceDestination() == null)
-				|| binding.getDeviceDestination().size() != 1) {
+		if ((binding.getDeviceDestination() == null) || binding.getDeviceDestination().size() != 1) {
 
 			Info info = new Info();
 			Status _st = new Status();
@@ -287,8 +270,7 @@ public class BindingsResource extends ServerResource {
 		try {
 			Address _add = new Address();
 			// addrString parameters check
-			String addrString = (String) getRequest().getAttributes().get(
-					Resources.PARAMETER_ADDR);
+			String addrString = (String) getRequest().getAttributes().get(Resources.PARAMETER_ADDR);
 			if (addrString != null) {
 				if (addrString.length() > 4) {
 					// IEEEAddress
@@ -304,22 +286,19 @@ public class BindingsResource extends ServerResource {
 				Info info = new Info();
 				Status _st = new Status();
 				_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-				_st.setMessage("Error: mandatory '" + Resources.URI_ADDR
-						+ "' parameter's value invalid. You provided: "
+				_st.setMessage("Error: mandatory '" + Resources.URI_ADDR + "' parameter's value invalid. You provided: "
 						+ addrString);
 				info.setStatus(_st);
 				Info.Detail detail = new Info.Detail();
 				info.setDetail(detail);
-				getResponse().setEntity(Util.marshal(info),
-						MediaType.APPLICATION_XML);
+				getResponse().setEntity(Util.marshal(info), MediaType.APPLICATION_XML);
 				return;
 
 			}
 
 			String timeoutString = null;
 			Long timeout = -1L;
-			Parameter timeoutParam = getRequest().getResourceRef()
-					.getQueryAsForm().getFirst(Resources.URI_PARAM_TIMEOUT);
+			Parameter timeoutParam = getRequest().getResourceRef().getQueryAsForm().getFirst(Resources.URI_PARAM_TIMEOUT);
 			if (timeoutParam != null) {
 				timeoutString = timeoutParam.getValue();
 				try {
@@ -329,15 +308,12 @@ public class BindingsResource extends ServerResource {
 						Info info = new Info();
 						Status _st = new Status();
 						_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-						_st.setMessage("Error: optional '"
-								+ ResourcePathURIs.TIMEOUT_PARAM
-								+ "' parameter's value invalid. You provided: "
-								+ timeoutString);
+						_st.setMessage("Error: optional '" + ResourcePathURIs.TIMEOUT_PARAM
+								+ "' parameter's value invalid. You provided: " + timeoutString);
 						info.setStatus(_st);
 						Info.Detail detail = new Info.Detail();
 						info.setDetail(detail);
-						getResponse().setEntity(Util.marshal(info),
-								MediaType.APPLICATION_XML);
+						getResponse().setEntity(Util.marshal(info), MediaType.APPLICATION_XML);
 						return;
 
 					}
@@ -345,30 +321,24 @@ public class BindingsResource extends ServerResource {
 					Info info = new Info();
 					Status _st = new Status();
 					_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-					_st.setMessage("Error: optional '"
-							+ ResourcePathURIs.TIMEOUT_PARAM
-							+ "' parameter's value invalid. You provided: "
-							+ timeoutString);
+					_st.setMessage("Error: optional '" + ResourcePathURIs.TIMEOUT_PARAM
+							+ "' parameter's value invalid. You provided: " + timeoutString);
 					info.setStatus(_st);
 					Info.Detail detail = new Info.Detail();
 					info.setDetail(detail);
-					getResponse().setEntity(Util.marshal(info),
-							MediaType.APPLICATION_XML);
+					getResponse().setEntity(Util.marshal(info), MediaType.APPLICATION_XML);
 					return;
 
 				}
 			}
 
-			Parameter urilistenerParam = getRequest().getResourceRef()
-					.getQueryAsForm().getFirst(Resources.URI_PARAM_URILISTENER);
+			Parameter urilistenerParam = getRequest().getResourceRef().getQueryAsForm().getFirst(Resources.URI_PARAM_URILISTENER);
 
 			if (urilistenerParam == null) {
 				// Sync call because urilistener not present.
 				// Gal Manager check
-				proxyGalInterface = getRestManager().getClientObjectKey(-1,
-						getClientInfo().getAddress()).getGatewayInterface();
-				Status status = proxyGalInterface.addBindingSync(timeout,
-						binding);
+				proxyGalInterface = getRestManager().getClientObjectKey(-1, getClientInfo().getAddress()).getGatewayInterface();
+				Status status = proxyGalInterface.addBindingSync(timeout, binding);
 				Info info = new Info();
 				info.setStatus(status);
 				Info.Detail detail = new Info.Detail();
@@ -382,7 +352,8 @@ public class BindingsResource extends ServerResource {
 				// result but wait that the IPHA polls for it using the request
 				// identifier.
 
-				ClientResources rcmal = getRestManager().getClientObjectKey(Util.getPortFromUriListener(urilistener), getClientInfo().getAddress());
+				ClientResources rcmal = getRestManager().getClientObjectKey(Util.getPortFromUriListener(urilistener),
+						getClientInfo().getAddress());
 				proxyGalInterface = rcmal.getGatewayInterface();
 
 				rcmal.getClientEventListener().setBindingDestination(urilistener);
@@ -394,8 +365,7 @@ public class BindingsResource extends ServerResource {
 				infoToReturn.setStatus(status);
 				infoToReturn.setRequestIdentifier(Util.getRequestIdentifier());
 				infoToReturn.setDetail(detail);
-				getResponse().setEntity(Util.marshal(infoToReturn),
-						MediaType.TEXT_XML);
+				getResponse().setEntity(Util.marshal(infoToReturn), MediaType.TEXT_XML);
 				return;
 			}
 		} catch (NullPointerException npe) {

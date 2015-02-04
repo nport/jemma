@@ -150,6 +150,7 @@
 	width: 85px;
 	height: 80%;
 	
+	
 }
 
 #IndicatoreCostiSotto,#IndicatoreConsumiSotto {
@@ -287,6 +288,7 @@
 	font-size: 1.0em;
 	font-weight: bold;
 	text-align: center;
+	color: green; 
 }
 	
 #DettaglioGraficoConsumoOdierno {

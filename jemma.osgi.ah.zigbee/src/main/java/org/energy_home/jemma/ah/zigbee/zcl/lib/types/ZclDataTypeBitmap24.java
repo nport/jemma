@@ -22,12 +22,12 @@ public class ZclDataTypeBitmap24 {
 	public static final int ZCL_DATA_TYPE = ZclTypes.ZclBitmap24Type;
 	private static final int BYTE_ARRAY_LENGTH = 3;
 	static final boolean IS_ANALOG = false;
-	
+
 	public static int zclParse(IZclFrame zclFrame) throws ZclValidationException {
 		return zclFrame.parseUInt24();
 	}
-	
-	public static void zclSerialize(IZclFrame zclFrame, int uint)  throws ZclValidationException {
+
+	public static void zclSerialize(IZclFrame zclFrame, int uint) throws ZclValidationException {
 		zclFrame.appendUInt24(uint);
 	}
 

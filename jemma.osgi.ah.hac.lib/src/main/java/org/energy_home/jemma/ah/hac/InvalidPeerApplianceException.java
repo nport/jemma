@@ -24,12 +24,12 @@ public class InvalidPeerApplianceException extends ApplianceValidationException 
 	private static final long serialVersionUID = -4776260979659656336L;
 
 	/**
-	 * Creates an {@link InvalidPeerApplianceException} 
+	 * Creates an {@link InvalidPeerApplianceException}
 	 */
 	public InvalidPeerApplianceException() {
 		super("InvalidPeerApplianceException");
 	}
-	
+
 	/**
 	 * Creates an {@link InvalidPeerApplianceException} on the specified error
 	 * description

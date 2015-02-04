@@ -23,29 +23,29 @@ import org.energy_home.jemma.ah.hac.IServiceCluster;
 
 public class SharedApplicationServices implements IApplicationService {
 
-	private IServiceCluster[] serviceClusters = null; 
-	
+	private IServiceCluster[] serviceClusters = null;
+
 	public SharedApplicationServices() throws ApplianceException {
 		serviceClusters = new IServiceCluster[] { new IASZoneClientCluster() };
 	}
-	
+
 	public IServiceCluster[] getServiceClusters() {
 		return serviceClusters;
 	}
 
 	public void notifyApplianceAdded(IApplicationEndPoint endPoint, IAppliance appliance) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void notifyApplianceRemoved(IAppliance appliance) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void notifyApplianceAvailabilityUpdated(IAppliance appliance) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

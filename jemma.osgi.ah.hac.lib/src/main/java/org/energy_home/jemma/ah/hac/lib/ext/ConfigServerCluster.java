@@ -107,7 +107,7 @@ public class ConfigServerCluster extends ServiceCluster implements ConfigServer 
 	public String getConfigIconName() {
 		return this.configIconName;
 	}
-	
+
 	public void setConfigName(String name) {
 		this.configName = name;
 		this.notifyAttributeValue(ATTR_NAME_NAME, new AttributeValue(name, System.currentTimeMillis()));

@@ -16,26 +16,26 @@
 
 package org.energy_home.jemma.ah.cluster.zigbee.general;
 
-
 public class ViewSceneResponse {
 
-    public short Status;
-    public int GroupID;
-    public short SceneID;
-    public int TransitionTime;
-    public String SceneName;
-    public byte[] ExtensionFieldSet;
+	public short Status;
+	public int GroupID;
+	public short SceneID;
+	public int TransitionTime;
+	public String SceneName;
+	public byte[] ExtensionFieldSet;
 
-    public ViewSceneResponse() {
-    }
+	public ViewSceneResponse() {
+	}
 
-    public ViewSceneResponse(short Status, int GroupID, short SceneID, int TransitionTime, String SceneName, byte[] ExtensionFieldSet) {
-        this.Status = Status;
-        this.GroupID = GroupID;
-        this.SceneID = SceneID;
-        this.TransitionTime = TransitionTime;
-        this.SceneName = SceneName;
-        this.ExtensionFieldSet = ExtensionFieldSet;
-    }
+	public ViewSceneResponse(short Status, int GroupID, short SceneID, int TransitionTime, String SceneName,
+			byte[] ExtensionFieldSet) {
+		this.Status = Status;
+		this.GroupID = GroupID;
+		this.SceneID = SceneID;
+		this.TransitionTime = TransitionTime;
+		this.SceneName = SceneName;
+		this.ExtensionFieldSet = ExtensionFieldSet;
+	}
 
 }

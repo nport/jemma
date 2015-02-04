@@ -21,25 +21,17 @@ import org.energy_home.jemma.ah.hac.ServiceClusterException;
 
 public interface RelativeHumidityMeasurementServer {
 
-    final static String ATTR_MeasuredValue_NAME = "MeasuredValue";
-    final static String ATTR_MinMeasuredValue_NAME = "MinMeasuredValue";
-    final static String ATTR_MaxMeasuredValue_NAME = "MaxMeasuredValue";
-    final static String ATTR_Tolerance_NAME = "Tolerance";
+	final static String ATTR_MeasuredValue_NAME = "MeasuredValue";
+	final static String ATTR_MinMeasuredValue_NAME = "MinMeasuredValue";
+	final static String ATTR_MaxMeasuredValue_NAME = "MaxMeasuredValue";
+	final static String ATTR_Tolerance_NAME = "Tolerance";
 
-    public int getMeasuredValue(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public int getMeasuredValue(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-    public int getMinMeasuredValue(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public int getMinMeasuredValue(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-    public int getMaxMeasuredValue(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public int getMaxMeasuredValue(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-    public int getTolerance(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public int getTolerance(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
 }

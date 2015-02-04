@@ -15,12 +15,11 @@
  */
 package org.energy_home.jemma.ah.zigbee.appliances;
 
+import java.util.Dictionary;
+
 import org.energy_home.jemma.ah.hac.ApplianceException;
-import org.energy_home.jemma.ah.hac.IApplianceDescriptor;
-import org.energy_home.jemma.ah.hac.IEndPoint;
 import org.energy_home.jemma.ah.hac.IEndPointTypes;
 import org.energy_home.jemma.ah.hac.ServiceClusterException;
-import org.energy_home.jemma.ah.hac.lib.ServiceCluster;
 import org.energy_home.jemma.ah.zigbee.zcl.cluster.general.ZclAlarmsServer;
 import org.energy_home.jemma.ah.zigbee.zcl.cluster.general.ZclBasicServer;
 import org.energy_home.jemma.ah.zigbee.zcl.cluster.general.ZclIdentifyServer;
@@ -28,9 +27,6 @@ import org.energy_home.jemma.ah.zigbee.zcl.cluster.general.ZclPowerConfiguration
 import org.energy_home.jemma.ah.zigbee.zcl.cluster.security.ZclIASZoneServer;
 import org.energy_home.jemma.ah.zigbee.zcl.lib.ZclAppliance;
 import org.energy_home.jemma.ah.zigbee.zcl.lib.ZclEndPoint;
-
-import java.util.Dictionary;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +35,7 @@ public class ZclIASZoneAppliance extends ZclAppliance {
 
 	private ZclIASZoneServer iasZoneServer;
 
-	private static final Logger LOG = LoggerFactory.getLogger( ZclIASZoneAppliance.class );
+	private static final Logger LOG = LoggerFactory.getLogger(ZclIASZoneAppliance.class);
 
 	public ZclIASZoneAppliance(String pid, Dictionary config) throws ApplianceException {
 		super(pid, config);
@@ -73,11 +69,11 @@ public class ZclIASZoneAppliance extends ZclAppliance {
 				// TODO attention the following call may block the attached()
 				// method. Therefore it should be asynchronous.
 				int zoneType = iasZoneServer.getZoneType(null);
-				switch (zoneType) { //FIXME magic numbers ?
+				switch (zoneType) { // FIXME magic numbers ?
 				case 0x0015:
 					LOG.debug("This is a Contact Switch IASZone Device");
 					break;
-					
+
 				case 0x002a:
 					LOG.debug("This is a Water Sensor IASZone Device");
 					break;
@@ -86,7 +82,7 @@ public class ZclIASZoneAppliance extends ZclAppliance {
 					break;
 				}
 			} catch (ApplianceException e) {
-				LOG.error("exception while reading ZoneType attribute. " + e.getMessage(),e);
+				LOG.error("exception while reading ZoneType attribute. " + e.getMessage(), e);
 			}
 		}
 	}

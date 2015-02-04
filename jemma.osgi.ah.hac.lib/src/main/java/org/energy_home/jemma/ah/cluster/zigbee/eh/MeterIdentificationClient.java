@@ -15,8 +15,6 @@
  */
 package org.energy_home.jemma.ah.cluster.zigbee.eh;
 
-
 public interface MeterIdentificationClient {
-
 
 }

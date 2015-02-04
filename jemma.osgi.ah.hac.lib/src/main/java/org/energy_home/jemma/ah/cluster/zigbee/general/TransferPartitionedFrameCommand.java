@@ -20,7 +20,7 @@ public class TransferPartitionedFrameCommand {
 	public int PartitionIndicator;
 	public short FrameType;
 	public byte[] PartitionedFrame;
-	
+
 	public boolean isFirstBlock() {
 		return (FragmentationOptions & 0x01) > 0;
 	}

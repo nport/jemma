@@ -28,26 +28,26 @@ import org.energy_home.jemma.ah.hac.lib.ServiceCluster;
 
 public class EndPointProxy extends EndPoint implements IEndPoint {
 	private Map serviceClusterProxyMap = new HashMap();
-	
+
 	public EndPointProxy(String type) throws ApplianceException {
 		super(type);
-	}		
-	
+	}
+
 	public void removeServiceCluster(ServiceCluster serviceCluster) throws ApplianceException {
 		String clusterName = serviceCluster.getName();
 		super.removeServiceCluster(clusterName);
 	}
-	
+
 	public ServiceClusterProxy getServiceClusterProxy(String clusterName) {
 		return (ServiceClusterProxy) serviceClusterProxyMap.get(clusterName);
 	}
-	
+
 	public synchronized void addServiceClusterProxy(ServiceClusterProxy serviceClusterProxy) throws ApplianceException {
 		if (serviceClusterProxy == null || getServiceCluster(serviceClusterProxy.getName()) != null)
 			throw new ApplianceException(INVALID_CLUSTER_OBJECT_MESSAGE);
 		Class clusterIf = serviceClusterProxy.getClusterInterfaceClass();
-		IServiceCluster serviceCluster = (IServiceCluster)Proxy.newProxyInstance(clusterIf.getClassLoader(), 
-				new Class[] {IServiceCluster.class, IServiceClusterListener.class, clusterIf}, serviceClusterProxy);
+		IServiceCluster serviceCluster = (IServiceCluster) Proxy.newProxyInstance(clusterIf.getClassLoader(), new Class[] {
+				IServiceCluster.class, IServiceClusterListener.class, clusterIf }, serviceClusterProxy);
 		if (serviceClusterProxy.getSide() == IServiceCluster.SERVER_SIDE) {
 			serverServiceClusters.put(serviceClusterProxy.getType(), serviceCluster);
 		} else {
@@ -55,9 +55,9 @@ public class EndPointProxy extends EndPoint implements IEndPoint {
 		}
 		serviceClusterProxyMap.put(serviceClusterProxy.getName(), serviceClusterProxy);
 	}
-	
+
 	public synchronized void checkAndRemoveEmptyServiceClusterProxy(String clusterName) throws ApplianceException {
-		ServiceClusterProxy serviceClusterProxy = (ServiceClusterProxy)serviceClusterProxyMap.get(clusterName);
+		ServiceClusterProxy serviceClusterProxy = (ServiceClusterProxy) serviceClusterProxyMap.get(clusterName);
 		if (serviceClusterProxy != null) {
 			if (serviceClusterProxy.getFirstServiceCluster() == null) {
 				removeServiceCluster(clusterName);
@@ -66,5 +66,5 @@ public class EndPointProxy extends EndPoint implements IEndPoint {
 		} else
 			return;
 	}
-	
+
 }

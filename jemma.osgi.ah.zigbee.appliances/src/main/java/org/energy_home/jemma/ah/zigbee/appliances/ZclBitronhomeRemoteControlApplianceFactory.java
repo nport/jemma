@@ -27,21 +27,14 @@ import org.osgi.service.device.Driver;
 /**
  * 
  * @author ISMB-Pert
- *
- *  bitronhome 4-Buttons Remote Control  
- *   * the ZigbeeManger Match filter
- * Adding bitronhome Remote Control [deviceProperties Key Value pairs]
- * 		{
- * 			zigbee.device.eps.number=1,
- * 			zigbee.device.device.id=6,
- * 			zigbee.device.eps=[Ljava.lang.String;@f0f6ac,
- * 			service.pid=5149013002559736,
- * 			zigbee.device.ep.id=1,
- * 			DEVICE_SERIAL=5149013002559736, 
- * 			DEVICE_CATEGORY=ZigBee, 
- * 			zigbee.device.profile.id=260, 
- * 			zigbee.device.manufacturer.id=0
- * 		}
+ * 
+ *         bitronhome 4-Buttons Remote Control * the ZigbeeManger Match filter
+ *         Adding bitronhome Remote Control [deviceProperties Key Value pairs] {
+ *         zigbee.device.eps.number=1, zigbee.device.device.id=6,
+ *         zigbee.device.eps=[Ljava.lang.String;@f0f6ac,
+ *         service.pid=5149013002559736, zigbee.device.ep.id=1,
+ *         DEVICE_SERIAL=5149013002559736, DEVICE_CATEGORY=ZigBee,
+ *         zigbee.device.profile.id=260, zigbee.device.manufacturer.id=0 }
  */
 
 public class ZclBitronhomeRemoteControlApplianceFactory extends DriverApplianceFactory implements Driver {
@@ -61,8 +54,8 @@ public class ZclBitronhomeRemoteControlApplianceFactory extends DriverApplianceF
 	}
 
 	public String deviceMatchFilterString() {
-		String result = "(&(DEVICE_CATEGORY=ZigBee)(zigbee.device.device.id=6))"; 	
-		return result; 
-		
+		String result = "(&(DEVICE_CATEGORY=ZigBee)(zigbee.device.device.id=6))";
+		return result;
+
 	}
 }

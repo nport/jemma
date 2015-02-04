@@ -50,9 +50,9 @@ public class ZclURMETIASWDServer extends ZclServiceCluster implements ZigBeeDevi
 
 	static {
 		attributeDescriptors = new ZclAttributeDescriptor[1];
-		attributeDescriptors[0] = new ZclAttributeDescriptor(0, ZclURMETIASWDServer.ATTR_MaxDurtation_NAME, new ZclDataTypeUI16(), null,
-				true, 1);
-		
+		attributeDescriptors[0] = new ZclAttributeDescriptor(0, ZclURMETIASWDServer.ATTR_MaxDurtation_NAME, new ZclDataTypeUI16(),
+				null, true, 1);
+
 		attributesMapByName = fillAttributesMapsByName(attributeDescriptors, attributesMapByName);
 		attributesMapById = fillAttributesMapsById(attributeDescriptors, attributesMapById);
 	}
@@ -118,15 +118,16 @@ public class ZclURMETIASWDServer extends ZclServiceCluster implements ZigBeeDevi
 		short ZoneID = 0xff;
 		int Delay = 0;
 		boolean gotZoneId = false;
-		
-		// Added the following code to mantain the compatibility with HA 1.1 devices
+
+		// Added the following code to mantain the compatibility with HA 1.1
+		// devices
 		try {
 			ZoneID = ZclDataTypeUI8.zclParse(zclFrame);
 			gotZoneId = true;
 			Delay = ZclDataTypeUI16.zclParse(zclFrame);
 		} catch (Exception e) {
 			if (gotZoneId)
-				throw new ZclValidationException("missing Delay in ZoneStatusChangeNotification");	
+				throw new ZclValidationException("missing Delay in ZoneStatusChangeNotification");
 		}
 
 		if (o == null) {

@@ -15,15 +15,14 @@
  */
 package org.energy_home.jemma.javagal.rest.resources;
 
-import org.energy_home.jemma.zgd.GatewayConstants;
-import org.energy_home.jemma.zgd.GatewayInterface;
-import org.energy_home.jemma.zgd.jaxb.Info;
-import org.energy_home.jemma.zgd.jaxb.Status;
-
 import org.energy_home.jemma.javagal.rest.GalManagerRestApplication;
 import org.energy_home.jemma.javagal.rest.RestManager;
 import org.energy_home.jemma.javagal.rest.util.Resources;
 import org.energy_home.jemma.javagal.rest.util.Util;
+import org.energy_home.jemma.zgd.GatewayConstants;
+import org.energy_home.jemma.zgd.GatewayInterface;
+import org.energy_home.jemma.zgd.jaxb.Info;
+import org.energy_home.jemma.zgd.jaxb.Status;
 import org.restlet.data.MediaType;
 import org.restlet.representation.AppendableRepresentation;
 import org.restlet.resource.Delete;
@@ -31,8 +30,10 @@ import org.restlet.resource.ServerResource;
 
 /**
  * Resource file used to manage the API POST:deleteCallback.
- * @author "Ing. Marco Nieddu <marco.nieddu@consoft.it> or <marco.niedducv@gmail.com> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
- *
+ * 
+ * @author 
+ *         "Ing. Marco Nieddu <marco.nieddu@consoft.it> or <marco.niedducv@gmail.com> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
+ * 
  */
 public class CallbackResource extends ServerResource {
 
@@ -41,8 +42,7 @@ public class CallbackResource extends ServerResource {
 	@Delete
 	public void deleteCallback() {
 
-		String idString = (String) getRequest().getAttributes().get(
-				Resources.PARAMETER_ID);
+		String idString = (String) getRequest().getAttributes().get(Resources.PARAMETER_ID);
 		Long id = -1l;
 
 		if (idString == null) {
@@ -62,13 +62,11 @@ public class CallbackResource extends ServerResource {
 				Info info = new Info();
 				Status _st = new Status();
 				_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-				_st.setMessage("Error: mandatory callback id parameter incorrect (Unsigned32). You provided: "
-						+ idString);
+				_st.setMessage("Error: mandatory callback id parameter incorrect (Unsigned32). You provided: " + idString);
 				info.setStatus(_st);
 				Info.Detail detail = new Info.Detail();
 				info.setDetail(detail);
-				getResponse().setEntity(Util.marshal(info),
-						MediaType.APPLICATION_XML);
+				getResponse().setEntity(Util.marshal(info), MediaType.APPLICATION_XML);
 				return;
 			}
 		}
@@ -76,8 +74,7 @@ public class CallbackResource extends ServerResource {
 			Info info = new Info();
 			Status _st = new Status();
 			_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-			_st.setMessage("Error1: mandatory id parameter's value invalid (Unsigned32). You provided: "
-					+ id);
+			_st.setMessage("Error1: mandatory id parameter's value invalid (Unsigned32). You provided: " + id);
 			info.setStatus(_st);
 			Info.Detail detail = new Info.Detail();
 			info.setDetail(detail);
@@ -89,21 +86,19 @@ public class CallbackResource extends ServerResource {
 		AppendableRepresentation toReturn = new AppendableRepresentation();
 		try {
 			// Check for Gal Interface
-			proxyGalInterface = getRestManager().getClientObjectKey(-1,
-					getClientInfo().getAddress()).getGatewayInterface();
+			proxyGalInterface = getRestManager().getClientObjectKey(-1, getClientInfo().getAddress()).getGatewayInterface();
 
 			// Delete Callback
 			proxyGalInterface.deleteCallback(id);
-			
+
 			Info.Detail detail = new Info.Detail();
 			Info infoToReturn = new Info();
 			Status status = new Status();
 			status.setCode((short) GatewayConstants.SUCCESS);
 			infoToReturn.setStatus(status);
 			infoToReturn.setDetail(detail);
-			getResponse().setEntity(Util.marshal(infoToReturn),
-					MediaType.TEXT_XML);
-			
+			getResponse().setEntity(Util.marshal(infoToReturn), MediaType.TEXT_XML);
+
 			return;
 		} catch (NullPointerException npe) {
 			Info info = new Info();

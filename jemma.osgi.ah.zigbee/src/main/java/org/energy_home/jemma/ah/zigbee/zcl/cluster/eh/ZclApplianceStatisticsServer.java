@@ -96,15 +96,14 @@ public class ZclApplianceStatisticsServer extends ZclServiceCluster implements A
 		case 3:
 			responseZclFrame = parseStatisticsAvailable(c, zclFrame);
 			break;
-			
+
 		default:
-			throw new ZclException(ZCL.UNSUP_CLUSTER_COMMAND);	
+			throw new ZclException(ZCL.UNSUP_CLUSTER_COMMAND);
 		}
 		if (responseZclFrame == null) {
 			if (!zclFrame.isDefaultResponseDisabled()) {
 				responseZclFrame = getDefaultResponse(zclFrame, statusCode);
-			}
-			else {
+			} else {
 				return true;
 			}
 		}
@@ -133,7 +132,7 @@ public class ZclApplianceStatisticsServer extends ZclServiceCluster implements A
 		}
 		return null;
 	}
-	
+
 	protected Collection getAttributeDescriptors() {
 		return attributesMapByName.values();
 	}

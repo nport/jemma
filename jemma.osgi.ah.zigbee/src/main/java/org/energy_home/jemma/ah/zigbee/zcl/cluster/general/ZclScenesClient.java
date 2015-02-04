@@ -57,8 +57,7 @@ public class ZclScenesClient extends ZclServiceCluster implements ScenesClient, 
 		IZclFrame responseZclFrame = null;
 		ZigBeeDevice device = getZigBeeDevice();
 		int statusCode = ZCL.SUCCESS;
-		ScenesServer c = ((ScenesServer) getSinglePeerCluster((ScenesServer.class
-				.getName())));
+		ScenesServer c = ((ScenesServer) getSinglePeerCluster((ScenesServer.class.getName())));
 		switch (commandId) {
 		case 0:
 			responseZclFrame = parseAddScene(c, zclFrame);

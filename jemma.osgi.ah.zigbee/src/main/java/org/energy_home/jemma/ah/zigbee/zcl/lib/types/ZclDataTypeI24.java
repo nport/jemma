@@ -22,19 +22,19 @@ public class ZclDataTypeI24 extends ZclAbstractDataType {
 	public static final int ZCL_DATA_TYPE = ZclTypes.ZclInt24Type;
 	private static final int BYTE_ARRAY_LENGTH = 3;
 	static final boolean IS_ANALOG = true;
-		
+
 	public static int zclParse(IZclFrame zclFrame) throws ZclValidationException {
 		return zclFrame.parseUInt24();
 	}
-	
-	public static void zclSerialize(IZclFrame zclFrame, int uint)  throws ZclValidationException {
+
+	public static void zclSerialize(IZclFrame zclFrame, int uint) throws ZclValidationException {
 		zclFrame.appendUInt24(uint);
 	}
 
 	public static int zclSize(int value) {
 		return BYTE_ARRAY_LENGTH;
 	}
-	
+
 	public boolean isAnalog() {
 		return IS_ANALOG;
 	}

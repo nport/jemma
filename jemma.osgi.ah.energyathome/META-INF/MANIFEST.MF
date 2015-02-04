@@ -1,53 +1,49 @@
 Manifest-Version: 1.0
 Bundle-Category: Automation@Home
+Bundle-DocURL: http://www.telecomitalia.it/
 Bundle-ManifestVersion: 2
 Bundle-Name: Energyathome
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-SymbolicName: jemma.osgi.ah.energyathome;singleton:=true
 Bundle-Vendor: Telecom Italia
-Bundle-Version: 2.2.25
+Bundle-Version: 2.2.26
 Created-By: Apache Maven Bundle Plugin
 Export-Package: org.energy_home.jemma.ah.ebrain;uses:="org.energy_home.j
- emma.ah.ebrain.algo,org.energy_home.jemma.m2m.ah,org.energy_home.jemma.
- shal,org.slf4j,org.energy_home.jemma.m2m,org.energy_home.jemma.ah.ebrai
- n.old,org.energy_home.jemma.ah.cluster.zigbee.eh,org.energy_home.jemma.
- ah.hap.client";version="2.2.25",org.energy_home.jemma.ah.ebrain.algo;us
+ emma.ah.cluster.zigbee.eh,org.energy_home.jemma.ah.ebrain.algo,org.ener
+ gy_home.jemma.ah.ebrain.old,org.energy_home.jemma.ah.hap.client,org.ene
+ rgy_home.jemma.m2m,org.energy_home.jemma.m2m.ah,org.energy_home.jemma.s
+ hal,org.slf4j";version="2.2.26",org.energy_home.jemma.ah.ebrain.algo;us
  es:="org.energy_home.jemma.ah.ebrain,org.energy_home.jemma.ah.ebrain.ol
- d,org.energy_home.jemma.ah.cluster.zigbee.eh,org.slf4j";version="2.2.25
- ",org.energy_home.jemma.ah.ebrain.old;uses:="org.energy_home.jemma.ah.c
- luster.zigbee.eh,org.energy_home.jemma.m2m.ah,org.energy_home.jemma.ah.
- ebrain,org.energy_home.jemma.ah.ebrain.algo,org.slf4j";version="2.2.25"
- ,org.energy_home.jemma.ah.eh.esp;version="2.2.4"
-Import-Package: javax.servlet;version="2.4",javax.servlet.http;version="
- 2.4",org.apache.http;version="[4.1,5)",org.apache.http.util;version="[4
- .1,5)",org.eclipse.osgi.framework.console;version="[1.0,2.0)",org.energ
- y_home.jemma.ah.cluster.ah;version="[3.0.0,3.1.0)",org.energy_home.jemm
- a.ah.cluster.zigbee.eh;version="[3.1.0,3.2.0)",org.energy_home.jemma.ah
- .cluster.zigbee.general;version="[3.1.0,3.2.0)",org.energy_home.jemma.a
- h.cluster.zigbee.metering;version="[3.1.0,3.2.0)",org.energy_home.jemma
- .ah.ebrain,org.energy_home.jemma.ah.eh.esp;version="[2.2,3)",org.energy
- _home.jemma.ah.hac;version="[3.0.0,3.1.0)",org.energy_home.jemma.ah.hac
- .lib;version="[3.0.0,3.1.0)",org.energy_home.jemma.ah.hac.lib.ext;versi
- on="[3.4.0,3.5.0)",org.energy_home.jemma.ah.hap.client;version="[1.4.0,
- 1.5.0)",org.energy_home.jemma.m2m;version="[1.3.0,1.4.0)",org.energy_ho
- me.jemma.m2m.ah;version="[1.2.2,1.3.0)",org.energy_home.jemma.shal;vers
- ion="[1.2,2)",org.energy_home.jemma.shal.min;version="[1.2,2)",org.ener
- gy_home.jemma.utils.datetime;version="[1.0.0,1.1.0)",org.energy_home.je
- mma.utils.rest;version="[1.0.0,1.1.0)",org.energy_home.jemma.utils.thre
- ad;version="1.0.0",org.energy_home.jemma.utils.xml.jaxb;version="[1.0.0
- ,1.1.0)",org.osgi.framework;version="[1.5,2.0)",org.osgi.service.cm;ver
- sion="[1.3,2.0)",org.osgi.service.device;version="[1.1,2.0)",org.osgi.s
- ervice.event;version="[1.2,2.0)",org.osgi.service.http;version="[1.2,2.
- 0)",org.slf4j;version="[1.6,2)"
+ d";version="2.2.26",org.energy_home.jemma.ah.ebrain.old;uses:="org.ener
+ gy_home.jemma.ah.cluster.zigbee.eh,org.energy_home.jemma.ah.ebrain,org.
+ energy_home.jemma.ah.ebrain.algo,org.energy_home.jemma.m2m.ah";version=
+ "2.2.26",org.energy_home.jemma.ah.eh.esp;version="2.2.4"
+Import-Package: javax.servlet,javax.servlet.http,org.apache.http,org.apa
+ che.http.util;version="[4.1,5)",org.eclipse.osgi.framework.console;vers
+ ion="[1.1,2)",org.energy_home.jemma.ah.cluster.ah;version="[3.0,4)",org
+ .energy_home.jemma.ah.cluster.zigbee.eh;version="[3.1,4)",org.energy_ho
+ me.jemma.ah.cluster.zigbee.general;version="[3.1,4)",org.energy_home.je
+ mma.ah.cluster.zigbee.metering;version="[3.1,4)",org.energy_home.jemma.
+ ah.ebrain,org.energy_home.jemma.ah.eh.esp;version="[2.2,3)",org.energy_
+ home.jemma.ah.hac;version="[3.0,4)",org.energy_home.jemma.ah.hac.lib;ve
+ rsion="[3.0,4)",org.energy_home.jemma.ah.hap.client;version="[1.4,2)",o
+ rg.energy_home.jemma.m2m;version="[1.3,2)",org.energy_home.jemma.m2m.ah
+ ;version="[1.2,2)",org.energy_home.jemma.shal;version="[1.4,2)",org.ene
+ rgy_home.jemma.shal.min;version="[1.4,2)",org.energy_home.jemma.utils.d
+ atetime;version="[1.0,2)",org.energy_home.jemma.utils.rest;version="[1.
+ 0,2)",org.energy_home.jemma.utils.thread;version="[1.0,2)",org.osgi.ser
+ vice.event;version="[1.2,2)",org.osgi.service.http;version="[1.2,2)",or
+ g.slf4j;version="[1.6,2)"
 Include-Resource: OSGI-INF/esp.xml=OSGI-INF/esp.xml,OSGI-INF/espconsole.
  xml=OSGI-INF/espconsole.xml,OSGI-INF/espeventsdispatcher.xml=OSGI-INF/e
  speventsdispatcher.xml,OSGI-INF/espweb.xml=OSGI-INF/espweb.xml,xml/scen
  arios/EmptyConfig.xml=src/main/resources/xml/scenarios/EmptyConfig.xml,
  xml/scenarios/EnergyAtHome.xml=src/main/resources/xml/scenarios/EnergyA
- tHome.xml
+ tHome.xml,org/energy_home/jemma/ah/eh/esp/packageinfo=src/main/java/org
+ /energy_home/jemma/ah/eh/esp/packageinfo
 Private-Package: org.energy_home.jemma.internal.ah.eh.esp,org.energy_hom
  e.jemma.osgi.ah.eh.esp,xml.scenarios
 Require-Bundle: org.apache.httpcomponents.httpclient;bundle-version="4.1
  .0",org.apache.httpcomponents.httpcore;bundle-version="4.1.0"
 Service-Component: OSGI-INF/*.xml
-Tool: Bnd-1.50.0
+Tool: Bnd-2.3.0.201405100607

@@ -80,14 +80,15 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class HacService implements TimerListener, FrameworkListener, IHacService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(HacService.class);
 
 	private static String replaceIvalidPidChars(String appliancePid) {
 		char[] chars = appliancePid.toCharArray();
 		for (int i = 0; i < chars.length; i++) {
-			if (!Character.isDigit(chars[i]) && !Character.isLetter(chars[i]))
+			if (!Character.isDigit(chars[i]) && !Character.isLetter(chars[i])) {
 				chars[i] = '-';
+			}
 		}
 		return new String(chars);
 	}
@@ -130,8 +131,8 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 
 	private boolean saveConfigurationToCurrent = true;
 	private static final String servicePid = "org.telecomitalia.hac";
-	//TODO: check merge, path was empty in 3.3.0
-	//private final static String SCENARIOS_PATH = "xml/scenarios/";
+	// TODO: check merge, path was empty in 3.3.0
+	// private final static String SCENARIOS_PATH = "xml/scenarios/";
 	private final static String SCENARIOS_PATH = "";
 
 	private String defaultConfig = "defaultconfig";
@@ -150,13 +151,15 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 	private ServiceRegistration locationsServiceReg;
 	private boolean useManagedApplianceServiceTracker = true;
 	private ManagedApplianceServiceTracker managedApplianceServiceTracker = null;
-//	private CoreAppliance coreAppliance = null;
-	private boolean patched = false; // true if an upgrade from 2.2.8 to 3.0.5 (hac.lib) has been detected.
+	// private CoreAppliance coreAppliance = null;
+	private boolean patched = false; // true if an upgrade from 2.2.8 to 3.0.5
+										// (hac.lib) has been detected.
 	private boolean enableUpdatePatch = false;
 
 	public IApplianceFactory getFactoryFromManagedAppliance(IManagedAppliance appliance) {
-		if (appliance == null)
+		if (appliance == null) {
 			return null;
+		}
 		return (IApplianceFactory) type2applianceFactory.get(appliance.getDescriptor().getType());
 	}
 
@@ -180,13 +183,14 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 				this.managedApplianceServiceTracker = new ManagedApplianceServiceTracker(bc, this);
 				this.managedApplianceServiceTracker.open();
 			}
-// Core appliance no more used (now exported service clusters have been implemented by AppliancesProxy)
-//			try {
-//				coreAppliance = new CoreAppliance();
-//				coreAppliance.start(bc);
-//			} catch (ApplianceException e) {
-//				log.error("Error while creating core appliance", e);
-//			}
+			// Core appliance no more used (now exported service clusters have
+			// been implemented by AppliancesProxy)
+			// try {
+			// coreAppliance = new CoreAppliance();
+			// coreAppliance.start(bc);
+			// } catch (ApplianceException e) {
+			// log.error("Error while creating core appliance", e);
+			// }
 		}
 	}
 
@@ -216,9 +220,10 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 			Led.setLed(0);
 			this.bc.removeFrameworkListener(this);
 			LOG.debug("deactivated");
-//			coreAppliance.stop();
-			if (this.managedApplianceServiceTracker != null)
+			// coreAppliance.stop();
+			if (this.managedApplianceServiceTracker != null) {
 				this.managedApplianceServiceTracker.close();
+			}
 		}
 	}
 
@@ -239,8 +244,9 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 
 	public void unsetDocumentBuilderFactory(DocumentBuilderFactory r) {
 		synchronized (lockHacService) {
-			if (factory == r)
+			if (factory == r) {
 				factory = null;
+			}
 		}
 	}
 
@@ -278,7 +284,7 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 			}
 
 			String appStatus = (String) appProps.get("ah.status");
-			if (appStatus != null && (appStatus.equals("installing"))) {
+			if (appStatus != null && appStatus.equals("installing")) {
 				LOG.debug("New appliance to install detected: " + appliancePid);
 				installingAppliances.add(appliance);
 			} else {
@@ -305,11 +311,12 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 					String factoryPid = (String) appProps.get(IAppliance.APPLIANCE_TYPE_PROPERTY);
 
 					if (factoryPid == null) {
-						if (!appliance.isSingleton())
+						if (!appliance.isSingleton()) {
 							LOG.debug("the appliance doesn't have the ah.app.type property set and is not a singleton");
+						}
 						return;
 					}
-					
+
 					IApplianceFactory applianceFactory = this.getApplianceFactory(factoryPid);
 
 					if (applianceFactory == null) {
@@ -330,7 +337,7 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 
 				Dictionary props = new Hashtable();
 				for (Iterator iterator = appProps.keySet().iterator(); iterator.hasNext();) {
-					Object type = (Object) iterator.next();
+					Object type = iterator.next();
 					props.put(type, appProps.get(type));
 				}
 				if (applianceName == null) {
@@ -381,7 +388,7 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 			}
 
 			String appStatus = (String) props.get("ah.status");
-			if (appStatus != null && (appStatus.equals("installing"))) {
+			if (appStatus != null && appStatus.equals("installing")) {
 				// !!!Multieps: a concurrent update can occur (device access and
 				// configuration admin can concurrenlty attach and update the
 				// application)
@@ -391,8 +398,9 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 				// !!!Multieps: a concurrent update can occur (device access and
 				// configuration admin can concurrently attach and update the
 				// application)
-				if (installingAppliances.contains(appliance))
+				if (installingAppliances.contains(appliance)) {
 					installingAppliances.remove(appliance);
+				}
 				if (!appliances.contains(appliance)) {
 					appliances.add(appliance);
 				}
@@ -431,7 +439,7 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 	public void setApplianceFactory(IApplianceFactory s, Map props) throws HacException {
 		synchronized (lockHacService) {
 			String type = (String) props.get("service.pid");
-			if ((type == null) || (type != null) && (type.length() == 0)) {
+			if (type == null || type != null && type.length() == 0) {
 				LOG.debug("the appliance factory doesn't have the service.pid set");
 				throw new HacException("type missing in appliance factory " + s.getName());
 			}
@@ -466,8 +474,9 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 
 	public void unsetTimer(Timer timer) {
 		synchronized (lockHacService) {
-			if (this.timer == timer)
+			if (this.timer == timer) {
 				this.timer = null;
+			}
 		}
 	}
 
@@ -486,8 +495,9 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 
 	protected void createConfiguration(String factoryPid, String pid, Dictionary props) {
 
-		if (pid == null)
+		if (pid == null) {
 			pid = generatePid();
+		}
 
 		Configuration c = null;
 
@@ -524,8 +534,9 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 	protected String createApplianceByFactory(String factoryPid, Dictionary props) throws HacException {
 		synchronized (lockHacService) {
 			ApplianceFactory applianceFactoryService = this.getApplianceFactory(factoryPid);
-			if (applianceFactoryService == null)
+			if (applianceFactoryService == null) {
 				throw new HacException("unable to find an appliance factory for type '" + factoryPid + "'");
+			}
 
 			// check if the property dictionary contains the ah.app.name
 			// property
@@ -539,7 +550,7 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 				pid = this.generatePid();
 			}
 
-			if ((props.get(IAppliance.APPLIANCE_NAME_PROPERTY) == null) && (friendlyName != null)) {
+			if (props.get(IAppliance.APPLIANCE_NAME_PROPERTY) == null && friendlyName != null) {
 				String name = createUniqueName(friendlyName);
 				props.put(IAppliance.APPLIANCE_NAME_PROPERTY, name);
 			}
@@ -566,7 +577,7 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 		boolean res = loadConfiguration(configurationFilename, true);
 		if (!res) {
 			/* switch to factory default */
-			if ((defaultConfig != null) && !defaultConfig.equals("")) {
+			if (defaultConfig != null && !defaultConfig.equals("")) {
 				LOG.debug("no saved configuration found, try to load '" + defaultConfig + "'");
 				if (loadConfiguration(defaultConfig, false)) {
 					// log.debug("configuration '" + defaultConfig +
@@ -589,7 +600,7 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 	}
 
 	protected void timerStart(int event, int timePeriod) {
-		Timer time = (Timer) getTimer();
+		Timer time = getTimer();
 		time.notifyAfter(this, timePeriod, event);
 	}
 
@@ -598,7 +609,7 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 	}
 
 	protected void timerCancel(int event) {
-		Timer time = (Timer) getTimer();
+		Timer time = getTimer();
 		time.removeListener(this, event);
 	}
 
@@ -606,8 +617,6 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 		return Integer.toString(newAppliancePid++);
 	}
 
-
-	
 	private String generateUniquePid(String prefix) {
 		int count = 1;
 		String generatedPid;
@@ -707,7 +716,7 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 				Iterator it = appliances.iterator();
 				while (it.hasNext()) {
 					d = (IManagedAppliance) it.next();
-					if ((d.getDescriptor().getType() != null) && (d.getDescriptor().getType().compareTo(key_value) == 0)) {
+					if (d.getDescriptor().getType() != null && d.getDescriptor().getType().compareTo(key_value) == 0) {
 						result.add(d);
 					}
 				}
@@ -722,8 +731,9 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 					d = (IManagedAppliance) it.next();
 					if (d != null) {
 						String locationPid = (String) d.getConfiguration().get(IAppliance.APPLIANCE_LOCATION_PID_PROPERTY);
-						if (locationPid != null && locationPid.equals(key_value))
+						if (locationPid != null && locationPid.equals(key_value)) {
 							result.add(d);
+						}
 					}
 				}
 			} else if (key_type == IAppliance.APPLIANCE_CATEGORY_PID_PROPERTY_KEY) {
@@ -738,8 +748,9 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 					d = (IManagedAppliance) it.next();
 					if (d != null) {
 						String categoryPid = (String) d.getConfiguration().get(IAppliance.APPLIANCE_CATEGORY_PID_PROPERTY);
-						if (categoryPid != null && categoryPid.equals(key_value))
+						if (categoryPid != null && categoryPid.equals(key_value)) {
 							result.add(d);
+						}
 					}
 				}
 			} else if (key_type == IAppliance.APPLIANCE_NAME_PROPERTY_KEY) {
@@ -755,14 +766,16 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 					if (d != null) {
 						Dictionary c = d.getConfiguration();
 						String name = (String) c.get(IAppliance.APPLIANCE_NAME_PROPERTY);
-						if (name != null && name.equals(key_value))
+						if (name != null && name.equals(key_value)) {
 							result.add(d);
+						}
 					}
 				}
 			} else if (key_type == IAppliance.APPLIANCE_PID_PROPERTY_KEY) {
 				IAppliance appliance = (IAppliance) this.pid2appliance.get(key_value);
-				if (appliance != null)
+				if (appliance != null) {
 					result.add(appliance);
+				}
 			}
 			return result;
 		}
@@ -798,8 +811,9 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 	}
 
 	public boolean removeAppliance(String appliancePid) {
-		if (appliancePid.equals(IAppliancesProxy.PROXY_APPLIANCE_PID))
+		if (appliancePid.equals(IAppliancesProxy.PROXY_APPLIANCE_PID)) {
 			throw new IllegalArgumentException("Appliances proxy appliance cannot be deleted!");
+		}
 		synchronized (lockHacService) {
 			IManagedAppliance appliance = (IManagedAppliance) this.pid2appliance.get(appliancePid);
 			this.removeDevice(appliance);
@@ -870,10 +884,11 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 		synchronized (lockHacService) {
 			try {
 				Configuration[] configurations = configAdmin.listConfigurations("(appliance.pid=*)");
-				if (configurations != null)
+				if (configurations != null) {
 					for (int i = 0; i < configurations.length; i++) {
 						configurations[i].delete();
 					}
+				}
 			} catch (IOException e) {
 				LOG.warn("exception deleting configurations", e);
 			} catch (Exception e) {
@@ -941,8 +956,9 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 		}
 
 		String xmlConfig = doc2xmlString(doc);
-		if (LOG.isDebugEnabled())
+		if (LOG.isDebugEnabled()) {
 			LOG.debug(xmlConfig);
+		}
 
 		// save the configuration on the filesystem
 		File configFile = bc.getDataFile(SCENARIOS_PATH + configName + ".xml");
@@ -1065,16 +1081,16 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 			}
 
 			LOG.debug("try to load '" + configName + "'");
-			
+
 			try {
 				if (storageArea) {
 					String configFilename = SCENARIOS_PATH + configName + ".xml";
 					if (getProperty("org.energy_home.jemma.ah.updatepatch", enableUpdatePatch)) {
-						patched  = PatchUpdateBug.patchUpdateBugOnHacLib(bc, configFilename);
+						patched = PatchUpdateBug.patchUpdateBugOnHacLib(bc, configFilename);
 					}
 					configFile = bc.getDataFile(configFilename);
 					LOG.debug("storage area is " + configFile);
-					stream = new FileInputStream(configFile);					
+					stream = new FileInputStream(configFile);
 				} else {
 					File f = new File(configName);
 					if (f.isAbsolute()) {
@@ -1090,7 +1106,7 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 					}
 				}
 			} catch (FileNotFoundException e) {
-				LOG.warn("no saved configuration '" + configName + "'", e);
+				LOG.warn("no previously saved hac configuration found");
 				return false;
 			} catch (IOException e) {
 				LOG.warn("unable to open file " + configName, e);
@@ -1128,8 +1144,8 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 					return false;
 				}
 			}
-			
-			if (patched && (getProperty("it.telecomitalia.ah.updatepatch", enableUpdatePatch))) {
+
+			if (patched && getProperty("it.telecomitalia.ah.updatepatch", enableUpdatePatch)) {
 				PatchUpdateBug.moveFactoryConfigurations(configAdmin, LocationsService.FACTORY_PID);
 			}
 
@@ -1202,7 +1218,7 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 			NamedNodeMap attrs = node.getAttributes();
 			String tag = node.getNodeName();
 
-			if ((tag == "location") && (loadLocations)) {
+			if (tag == "location" && loadLocations) {
 				String name = attrs.getNamedItem("name").getNodeValue();
 				String icon = attrs.getNamedItem("icon").getNodeValue();
 				String pid = attrs.getNamedItem("pid").getNodeValue();
@@ -1227,13 +1243,13 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 					// message
 					LOG.warn("error while adding location found reading configuration file", e);
 				}
-			} else if ((tag == "appliance") && (loadAppliances)) {
+			} else if (tag == "appliance" && loadAppliances) {
 				/*
-				 * String name = attrs.getNamedItem("name").getNodeValue();
-				 * if (log.isDebugEnabled()) log.debug("reading va " + name);
+				 * String name = attrs.getNamedItem("name").getNodeValue(); if
+				 * (log.isDebugEnabled()) log.debug("reading va " + name);
 				 */
 				properties = new Hashtable();
-			} else if ((tag == "property") && (lastNode != null) && (properties != null)) {
+			} else if (tag == "property" && lastNode != null && properties != null) {
 				// log.debug("last node is " + lastNode.getNodeName());
 				String name = attrs.getNamedItem("name").getNodeValue();
 
@@ -1272,12 +1288,12 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 
 						String type = (String) properties.get(IAppliance.APPLIANCE_TYPE_PROPERTY);
 
-						if ((appliancePid != null) && (type != null)) {
+						if (appliancePid != null && type != null) {
 							String locationPid = (String) properties.get(IAppliance.APPLIANCE_LOCATION_PID_PROPERTY);
 							String categoryPid = (String) properties.get(IAppliance.APPLIANCE_CATEGORY_PID_PROPERTY);
-							if ((locationPid != null) && (this.locationsDb.getByPid(locationPid) == null)) {
+							if (locationPid != null && this.locationsDb.getByPid(locationPid) == null) {
 								LOG.debug("WARNING: device " + servicePid + " specifies an unknown location pid");
-							} else if ((categoryPid != null) && (this.categories.getCategoryByPid(categoryPid) == null)) {
+							} else if (categoryPid != null && this.categories.getCategoryByPid(categoryPid) == null) {
 								LOG.debug("WARNING: device " + servicePid + " specifies an unknown category pid");
 							} else {
 								createConfiguration(type, appliancePid, properties);
@@ -1496,8 +1512,9 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 				return false;
 			}
 
-			if (LOG.isDebugEnabled())
+			if (LOG.isDebugEnabled()) {
 				LOG.debug(new String(responseBody));
+			}
 
 			return true;
 		}
@@ -1518,8 +1535,9 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 
 		// Remove the extension.
 		int extensionIndex = filename.lastIndexOf(".");
-		if (extensionIndex == -1)
+		if (extensionIndex == -1) {
 			return filename;
+		}
 
 		return filename.substring(0, extensionIndex);
 	}
@@ -1579,7 +1597,7 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 			} else if (level == 1) {
 				try {
 					int time = 4;
-					LOG.debug("shutdown in " + (time * 60) + " seconds");
+					LOG.debug("shutdown in " + time * 60 + " seconds");
 					String osName = System.getProperty("os.name");
 					String shutdownCommand = null;
 					if (osName.equals("Linux")) {
@@ -1615,7 +1633,7 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 				}
 			}
 		}
-		return (path.delete());
+		return path.delete();
 	}
 
 	protected Document createDoc() {
@@ -1719,7 +1737,7 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 			}
 		}
 	}
-	
+
 	public void installAppliance(String appliancePid) throws HacException {
 		synchronized (lockHacService) {
 			IManagedAppliance appliance = (IManagedAppliance) this.pid2appliance.get(appliancePid);
@@ -1737,7 +1755,7 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 					throw new HacException("an appliance can be installed only if has been already created");
 				}
 				Dictionary props = c.getProperties();
-				
+
 				// remove the ah.status properties to force appliance
 				// installation
 				props.remove("ah.status");
@@ -1754,8 +1772,9 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 	public void updateAppliance(String appliancePid, Dictionary props) throws HacException {
 		synchronized (lockHacService) {
 			IManagedAppliance managedAppliance = (IManagedAppliance) pid2appliance.get(appliancePid);
-			if (managedAppliance == null)
+			if (managedAppliance == null) {
 				throw new HacException("unable to update appliance because it doesn't exist" + appliancePid);
+			}
 
 			Configuration c;
 			try {
@@ -1774,12 +1793,14 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 	}
 
 	public void createAppliance(String appliancePid, Dictionary props) throws HacException {
-		if (appliancePid.equals(IAppliancesProxy.PROXY_APPLIANCE_PID))
+		if (appliancePid.equals(IAppliancesProxy.PROXY_APPLIANCE_PID)) {
 			throw new IllegalArgumentException("Appliances proxy appliance cannot be created!");
+		}
 		synchronized (lockHacService) {
 			IManagedAppliance managedAppliance = (IManagedAppliance) pid2appliance.get(appliancePid);
-			if (managedAppliance != null)
+			if (managedAppliance != null) {
 				throw new HacException("appliance " + appliancePid + " already exists");
+			}
 
 			Configuration c;
 			try {
@@ -1806,30 +1827,35 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 			}
 		}
 	}
-	//TODO: check merge, method below missing in 3.3.0
-	private void manageMultiEndPointConfiguration(Dictionary props, Dictionary oldProps, String applianceProperty, String endPointsProperty) {
+
+	// TODO: check merge, method below missing in 3.3.0
+	private void manageMultiEndPointConfiguration(Dictionary props, Dictionary oldProps, String applianceProperty,
+			String endPointsProperty) {
 		String value = (String) props.get(applianceProperty);
 		String[] values = (String[]) props.get(endPointsProperty);
 		if (values == null) {
-			values = (String[])  oldProps.get(endPointsProperty);
-		}	
+			values = (String[]) oldProps.get(endPointsProperty);
+		}
 		if (value == null && values != null && values.length > 0) {
-			// If no appliance property is present and end point 0 property is present, the appliance property is created/aligned  
+			// If no appliance property is present and end point 0 property is
+			// present, the appliance property is created/aligned
 			props.put(applianceProperty, values[0]);
-		}	
+		}
 		if (value != null && values != null && values.length > 0 && !value.equals(values[0])) {
-			// If appliance property is present and end point properties are already present or updated,
-			// all end point corresponding properties are reset to appliance property			
+			// If appliance property is present and end point properties are
+			// already present or updated,
+			// all end point corresponding properties are reset to appliance
+			// property
 			for (int i = 0; i < values.length; i++) {
-				values[i] = (String)value;				
+				values[i] = value;
 			}
 			props.put(endPointsProperty, values);
 		}
 	}
-	
+
 	/**
-	 * Checks and adds or updates some properties contained in
-	 * the configuration. The props dictionary is changed.
+	 * Checks and adds or updates some properties contained in the
+	 * configuration. The props dictionary is changed.
 	 * 
 	 * @param c
 	 *            The Configuration Admin configuration.
@@ -1840,7 +1866,8 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 	 * @throws HacException
 	 */
 
-	private void checkAndUpdateProperties(IManagedAppliance managedAppliance, Configuration c, Dictionary props) throws HacException {
+	private void checkAndUpdateProperties(IManagedAppliance managedAppliance, Configuration c, Dictionary props)
+			throws HacException {
 		// don't override the appliance type property. Fatal error if
 		// this property is not set for the appliance
 		Dictionary oldProps = c.getProperties();
@@ -1850,32 +1877,40 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 			// property!!!!! Perche?
 			LOG.warn(IAppliance.APPLIANCE_TYPE_PROPERTY + " property not found in record");
 		}
-		
-		// Restore some key properties: it seems it does not associate to new service registration properties 
-		// that are not included in last change to configuration (it also avoid to have some properties
+
+		// Restore some key properties: it seems it does not associate to new
+		// service registration properties
+		// that are not included in last change to configuration (it also avoid
+		// to have some properties
 		// can contains invalid values)
 		props.put(IAppliance.APPLIANCE_TYPE_PROPERTY, managedAppliance.getDescriptor().getType());
 		props.put(IAppliance.APPLIANCE_PID, managedAppliance.getPid());
 		props.put(IAppliance.APPLIANCE_EPS_IDS_PROPERTY, managedAppliance.getEndPointIds());
-		props.put(IAppliance.APPLIANCE_EPS_TYPES_PROPERTY, managedAppliance.getEndPointTypes());		
+		props.put(IAppliance.APPLIANCE_EPS_TYPES_PROPERTY, managedAppliance.getEndPointTypes());
 		props.put(IAppliance.APPLIANCE_EPS_IDS_PROPERTY, managedAppliance.getEndPointIds());
-		props.put(IAppliance.APPLIANCE_EPS_TYPES_PROPERTY, managedAppliance.getEndPointTypes());		
+		props.put(IAppliance.APPLIANCE_EPS_TYPES_PROPERTY, managedAppliance.getEndPointTypes());
 		Dictionary customConfig = managedAppliance.getCustomConfiguration();
-		if (customConfig != null) {				
+		if (customConfig != null) {
 			for (Enumeration e = customConfig.keys(); e.hasMoreElements();) {
-				String key = (String)e.nextElement();
+				String key = (String) e.nextElement();
 				// Custom properties that are invalid are filtered
-				if (key.startsWith(IAppliance.APPLIANCE_CUSTOM_PROPERTIES_PREXIF));
+				if (key.startsWith(IAppliance.APPLIANCE_CUSTOM_PROPERTIES_PREXIF)) {
+					;
+				}
 				props.put(key, customConfig.get(key));
 			}
-		}	
-		//TODO: check merge, 5 lines below were missing in 3.3.0
-		// For compatibility with old applications (i.e. green@home), appliance common property is always managed
+		}
+		// TODO: check merge, 5 lines below were missing in 3.3.0
+		// For compatibility with old applications (i.e. green@home), appliance
+		// common property is always managed
 		manageMultiEndPointConfiguration(props, oldProps, IAppliance.APPLIANCE_NAME_PROPERTY, IAppliance.END_POINT_NAMES_PROPERTY);
-		manageMultiEndPointConfiguration(props, oldProps, IAppliance.APPLIANCE_CATEGORY_PID_PROPERTY, IAppliance.END_POINT_CATEGORY_PIDS_PROPERTY);
-		manageMultiEndPointConfiguration(props, oldProps, IAppliance.APPLIANCE_LOCATION_PID_PROPERTY, IAppliance.END_POINT_LOCATION_PIDS_PROPERTY);
-		manageMultiEndPointConfiguration(props, oldProps, IAppliance.APPLIANCE_ICON_PROPERTY, IAppliance.END_POINT_LOCATION_PIDS_PROPERTY);
-		
+		manageMultiEndPointConfiguration(props, oldProps, IAppliance.APPLIANCE_CATEGORY_PID_PROPERTY,
+				IAppliance.END_POINT_CATEGORY_PIDS_PROPERTY);
+		manageMultiEndPointConfiguration(props, oldProps, IAppliance.APPLIANCE_LOCATION_PID_PROPERTY,
+				IAppliance.END_POINT_LOCATION_PIDS_PROPERTY);
+		manageMultiEndPointConfiguration(props, oldProps, IAppliance.APPLIANCE_ICON_PROPERTY,
+				IAppliance.END_POINT_LOCATION_PIDS_PROPERTY);
+
 	}
 
 	private Map networkManagers = new HashMap(1);
@@ -1883,9 +1918,9 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 	public void addNetworkManager(INetworkManager manager, Map properties) {
 		synchronized (networkManagers) {
 			String key = (String) properties.get("network.type");
-			if (key == null)
+			if (key == null) {
 				LOG.debug("addNetworkManager: received invalid network type property");
-			else {
+			} else {
 				LOG.debug("Adding network manager for " + key);
 				networkManagers.put(key, manager);
 			}
@@ -1895,9 +1930,9 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 	public void removeNetworkManager(INetworkManager manager, Map properties) {
 		synchronized (networkManagers) {
 			String key = (String) properties.get("network.type");
-			if (key == null)
+			if (key == null) {
 				LOG.debug("removeNetworkManager: received invalid network type property");
-			else {
+			} else {
 				LOG.debug("Removing network manager for " + key);
 				networkManagers.remove(key);
 			}
@@ -1911,17 +1946,20 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 		} catch (Exception e) {
 			LOG.error("getManagedConfiguration(" + appliancePid + ") error", e);
 		}
-		if (c != null)
+		if (c != null) {
 			return c.getProperties();
+		}
 		return null;
 	}
 
 	public boolean isNetworkOpen(String networkType) throws HacException {
-		if (networkType == null)
+		if (networkType == null) {
 			throw new HacException("isNetworkOpen: network type cannot be null");
+		}
 		INetworkManager nm = (INetworkManager) networkManagers.get(networkType);
-		if (nm == null)
+		if (nm == null) {
 			throw new HacException("isNetworkOpen: network type " + networkType + " not available");
+		}
 		try {
 			return nm.isNetworkOpen();
 		} catch (Exception e) {
@@ -1930,13 +1968,15 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 			throw new HacException(msg);
 		}
 	}
-	
+
 	public void openNetwork(String networkType) throws HacException {
-		if (networkType == null)
+		if (networkType == null) {
 			throw new HacException("openNetwork: network type cannot be null");
+		}
 		INetworkManager nm = (INetworkManager) networkManagers.get(networkType);
-		if (nm == null)
+		if (nm == null) {
 			throw new HacException("openNetwork: network type " + networkType + " not available");
+		}
 		try {
 			nm.openNetwork();
 		} catch (Exception e) {
@@ -1947,11 +1987,13 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 	}
 
 	public void openNetwork(String networkType, int duration) throws HacException {
-		if (networkType == null)
+		if (networkType == null) {
 			throw new HacException("openNetwork: network type cannot be null");
+		}
 		INetworkManager nm = (INetworkManager) networkManagers.get(networkType);
-		if (nm == null)
+		if (nm == null) {
 			throw new HacException("openNetwork: network type " + networkType + " not available");
+		}
 		try {
 			nm.openNetwork(duration);
 		} catch (Exception e) {
@@ -1962,11 +2004,13 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 	}
 
 	public void closeNetwork(String networkType) throws HacException {
-		if (networkType == null)
+		if (networkType == null) {
 			throw new HacException("closeNetwork: network type cannot be null");
+		}
 		INetworkManager nm = (INetworkManager) networkManagers.get(networkType);
-		if (nm == null)
+		if (nm == null) {
 			throw new HacException("closeNetwork: network type " + networkType + " not available");
+		}
 		try {
 			nm.closeNetwork();
 		} catch (Exception e) {
@@ -1981,18 +2025,17 @@ public class HacService implements TimerListener, FrameworkListener, IHacService
 			categories.remove(categoryPid);
 		}
 	}
-	
+
 	boolean getProperty(String name, boolean defaultValue) {
 		String value = System.getProperty(name);
-		
+
 		if (value != null) {
 			if (value.equals("true")) {
 				return true;
-			}
-			else if (value.equals("false")) {
+			} else if (value.equals("false")) {
 				return false;
 			}
 		}
-		return defaultValue;	
+		return defaultValue;
 	}
 }

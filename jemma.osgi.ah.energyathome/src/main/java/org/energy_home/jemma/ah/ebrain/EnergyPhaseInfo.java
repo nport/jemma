@@ -16,32 +16,33 @@
 package org.energy_home.jemma.ah.ebrain;
 
 public class EnergyPhaseInfo {
-	
+
 	public static class EnergyPhaseScheduleTime {
 		private short energyPhaseID;
 		private int scheduledDelay;
-		
+
 		public EnergyPhaseScheduleTime(short id, int time) {
 			energyPhaseID = id;
 			scheduledDelay = time;
 		}
-		
+
 		public short getEnergyPhaseID() {
 			return energyPhaseID;
 		}
+
 		public int getScheduledDelay() {
 			return scheduledDelay;
 		}
 	}
-	
-	// % value that bias the allocated power consumption between the peak power (100%) and the average power (0%)
+
+	// % value that bias the allocated power consumption between the peak power
+	// (100%) and the average power (0%)
 	public static final float BIAS_FACTOR = 0.85f;
 	public static final int INDEFINITE_DURATION = 0xffff;
 	// limit allocation to 24 hours for indefinite durations
 	public static final int MAXIMUM_DURATION = 24 * 60;
 	public static final int UNSCHEDULED_TIME = -1;
-	
-	
+
 	private short energyPhaseID;
 	private short macroPhaseID;
 	// effective duration used for energy allocation;
@@ -51,19 +52,20 @@ public class EnergyPhaseInfo {
 
 	// is to be converted with the decimal formatting passed in the init method
 	private float totalEnergy;
-	
+
 	// the energy in one slot for the average power.
 	private float oneSlotMeanEnergy;
-	
-	// the allocated energy in one slot during the scheduling which is a biased delta
+
+	// the allocated energy in one slot during the scheduling which is a biased
+	// delta
 	// between the average and the peak power
 	private float oneSlotBiasedPeakEnergy;
-	
+
 	// the scheduled slot of the phase when set by the scheduler
 	private int scheduledSlot = UNSCHEDULED_TIME;
 	private int slotDuration;
 	private int slotMaxDelay;
-		
+
 	public EnergyPhaseInfo(short id) {
 		energyPhaseID = id;
 	}
@@ -103,7 +105,7 @@ public class EnergyPhaseInfo {
 	public void setTotalEnergy(int totalEnergy) {
 		this.totalEnergy = totalEnergy;
 	}
-	
+
 	public int getMaxActivationDelay() {
 		return maxActivationDelay;
 	}
@@ -115,11 +117,11 @@ public class EnergyPhaseInfo {
 	public float getMeanPower() {
 		return oneSlotMeanEnergy * CalendarUtil.SLOTS_IN_ONE_HOUR;
 	}
-	
+
 	public float getBiasedPeakPower() {
 		return oneSlotBiasedPeakEnergy * CalendarUtil.SLOTS_IN_ONE_HOUR;
 	}
-	
+
 	public float getOneSlotMeanEnergy() {
 		return oneSlotMeanEnergy;
 	}
@@ -131,11 +133,11 @@ public class EnergyPhaseInfo {
 	public int getSlotDuration() {
 		return slotDuration;
 	}
-	
+
 	public int getSlotMaxDelay() {
 		return slotMaxDelay;
 	}
-	
+
 	public int getScheduledSlot() {
 		return scheduledSlot;
 	}
@@ -147,34 +149,34 @@ public class EnergyPhaseInfo {
 	void init(float decimalFormatting) {
 		totalEnergy *= decimalFormatting;
 
-		// if energy is 0 use the peak power by duration; duration is in minutes so divide by 60
-		if (totalEnergy == 0) totalEnergy = (float)peakPower * expectedDuration / 60;
-		
-		if (expectedDuration == INDEFINITE_DURATION || expectedDuration <= 0) expectedDuration = MAXIMUM_DURATION;
+		// if energy is 0 use the peak power by duration; duration is in minutes
+		// so divide by 60
+		if (totalEnergy == 0)
+			totalEnergy = (float) peakPower * expectedDuration / 60;
+
+		if (expectedDuration == INDEFINITE_DURATION || expectedDuration <= 0)
+			expectedDuration = MAXIMUM_DURATION;
 		slotDuration = CalendarUtil.slotsFromMinutes(expectedDuration);
 		slotMaxDelay = CalendarUtil.slotsFromMinutes(maxActivationDelay);
 
 		oneSlotMeanEnergy = totalEnergy / slotDuration;
-		float oneSlotPeakEnergy = (float)peakPower / CalendarUtil.SLOTS_IN_ONE_HOUR;
+		float oneSlotPeakEnergy = (float) peakPower / CalendarUtil.SLOTS_IN_ONE_HOUR;
 		float biasDelta = BIAS_FACTOR * (oneSlotPeakEnergy - oneSlotMeanEnergy);
 		oneSlotBiasedPeakEnergy = oneSlotMeanEnergy + biasDelta;
 	}
-	
+
 	/*
-	public void allocateMeanEnergy(int start, float[] energyAllocation) {
-		allocateEnergy(start, oneSlotMeanEnergy, energyAllocation);
-	}
-	
-	public void allocateBiasedPeakEnergy(int start, float[] energyAllocation) {
-		allocateEnergy(start, oneSlotBiasedPeakEnergy, energyAllocation);
-	}
-	
-	private void allocateEnergy(int start, float energySlot, float[] energyAllocation)  {
-		for (int i = slotDuration; --i >= 0;)
-			if (start + i < energyAllocation.length) energyAllocation[start + i] += energySlot;
-			else energyAllocation[i] += energySlot * 100000;
-	}
-	*/	
+	 * public void allocateMeanEnergy(int start, float[] energyAllocation) {
+	 * allocateEnergy(start, oneSlotMeanEnergy, energyAllocation); }
+	 * 
+	 * public void allocateBiasedPeakEnergy(int start, float[] energyAllocation)
+	 * { allocateEnergy(start, oneSlotBiasedPeakEnergy, energyAllocation); }
+	 * 
+	 * private void allocateEnergy(int start, float energySlot, float[]
+	 * energyAllocation) { for (int i = slotDuration; --i >= 0;) if (start + i <
+	 * energyAllocation.length) energyAllocation[start + i] += energySlot; else
+	 * energyAllocation[i] += energySlot * 100000; }
+	 */
 	public String toString() {
 		StringBuilder sb = new StringBuilder("\nEnergy Phase ID ").append(energyPhaseID);
 		sb.append("\nduration = ").append(expectedDuration);

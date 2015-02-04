@@ -16,8 +16,9 @@
 package org.energy_home.jemma.ah.hac;
 
 /**
- * This interface is used by the framework to manage all registered appliances 
+ * This interface is used by the framework to manage all registered appliances
  * <p>
+ * 
  * @see IManagedAppliance
  * 
  */

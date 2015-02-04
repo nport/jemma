@@ -62,7 +62,8 @@ public class SerialPortConnectorJssc implements IConnector {
 	 *             if an error occurs.
 	 */
 	public SerialPortConnectorJssc(String _portName, int _boudRate, IDataLayer _DataLayer) throws Exception {
-		// The Skelmir JVM seems to require this to rise an Exception in case the 
+		// The Skelmir JVM seems to require this to rise an Exception in case
+		// the
 		// jSSC lib is missing
 		SerialPort.class.getName();
 		DataLayer = _DataLayer;
@@ -220,7 +221,8 @@ public class SerialPortConnectorJssc implements IConnector {
 	 */
 	public void initialize() throws Exception {
 		if (DataLayer.getPropertiesManager().getDebugEnabled())
-			LOG.info("Starting inizialize procedure for: PortName=" + commport + " -- Speed=" + boudrate + " -- DefaultTimeout:" + DataLayer.getPropertiesManager().getCommandTimeoutMS());
+			LOG.info("Starting inizialize procedure for: PortName=" + commport + " -- Speed=" + boudrate + " -- DefaultTimeout:"
+					+ DataLayer.getPropertiesManager().getCommandTimeoutMS());
 		if (!connect(commport, boudrate)) {
 			throw new Exception("Unable to connect to serial port!");
 		}
@@ -236,7 +238,8 @@ public class SerialPortConnectorJssc implements IConnector {
 		DataLayer.clearBuffer();
 		setIgnoreMessage(false);
 		if (DataLayer.getPropertiesManager().getDebugEnabled())
-			LOG.info("Re-Starting inizialize procedure after CPUReset for: PortName=" + commport + " -- Speed=" + boudrate + " -- DefaultTimeout:" + DataLayer.getPropertiesManager().getCommandTimeoutMS());
+			LOG.info("Re-Starting inizialize procedure after CPUReset for: PortName=" + commport + " -- Speed=" + boudrate
+					+ " -- DefaultTimeout:" + DataLayer.getPropertiesManager().getCommandTimeoutMS());
 		if (!connect(commport, boudrate)) {
 			throw new Exception("Unable to connect to serial port!");
 		}

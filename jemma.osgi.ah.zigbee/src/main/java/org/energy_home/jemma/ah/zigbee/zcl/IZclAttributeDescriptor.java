@@ -18,13 +18,13 @@ package org.energy_home.jemma.ah.zigbee.zcl;
 import org.energy_home.jemma.ah.zigbee.zcl.lib.types.ZclAbstractDataType;
 
 public interface IZclAttributeDescriptor {
-	
+
 	public static final int ACCESS_RW = 0;
 	public static final int ACCESS_RO = 1;
 	public static final int ACCESS_WO = 1;
-	
+
 	public String getName();
-	
+
 	public Class getJavaClass();
 
 	public int zclGetId();
@@ -32,6 +32,6 @@ public interface IZclAttributeDescriptor {
 	public ZclAbstractDataType zclGetDataType();
 
 	public boolean isReportable();
-	
+
 	public int accessMode();
 }

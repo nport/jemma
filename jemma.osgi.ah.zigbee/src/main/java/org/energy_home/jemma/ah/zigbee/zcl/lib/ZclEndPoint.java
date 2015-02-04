@@ -21,8 +21,8 @@ import org.energy_home.jemma.ah.zigbee.ZigBeeDevice;
 import org.energy_home.jemma.ah.zigbee.zcl.IZclServiceEndPoint;
 
 public class ZclEndPoint extends EndPoint implements IZclServiceEndPoint {
-	private ZigBeeDevice device = null; 
-	
+	private ZigBeeDevice device = null;
+
 	public ZclEndPoint(String type) throws ApplianceException {
 		super(type);
 	}
@@ -30,9 +30,9 @@ public class ZclEndPoint extends EndPoint implements IZclServiceEndPoint {
 	public ZigBeeDevice zclGetZigBeeDevice() {
 		return device;
 	}
-	
+
 	public void zclSetZigBeeDevice(ZigBeeDevice device) {
 		this.device = device;
 	}
-	
+
 }

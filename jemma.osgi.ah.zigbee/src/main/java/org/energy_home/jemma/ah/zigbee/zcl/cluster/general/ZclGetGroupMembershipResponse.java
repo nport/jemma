@@ -37,20 +37,18 @@ public class ZclGetGroupMembershipResponse {
 		return r;
 	}
 
-	public static void zclSerialize(IZclFrame zclFrame, GetGroupMembershipResponse r)
-        throws ZclValidationException
-    {
-        ZclDataTypeUI8.zclSerialize(zclFrame, r.Capacity);
-        short GroupCount = 0;
-        if (r.GroupList != null) {
-        	GroupCount = (short) r.GroupList.length;
-        }
-        
-        ZclDataTypeUI8.zclSerialize(zclFrame, GroupCount);
-        for (int i = 0; i < GroupCount; i++) {
-        	ZclDataTypeUI16.zclSerialize(zclFrame, r.GroupList[i]);
-        }
-    }
+	public static void zclSerialize(IZclFrame zclFrame, GetGroupMembershipResponse r) throws ZclValidationException {
+		ZclDataTypeUI8.zclSerialize(zclFrame, r.Capacity);
+		short GroupCount = 0;
+		if (r.GroupList != null) {
+			GroupCount = (short) r.GroupList.length;
+		}
+
+		ZclDataTypeUI8.zclSerialize(zclFrame, GroupCount);
+		for (int i = 0; i < GroupCount; i++) {
+			ZclDataTypeUI16.zclSerialize(zclFrame, r.GroupList[i]);
+		}
+	}
 
 	public static int zclSize(GetGroupMembershipResponse r) throws ZclValidationException {
 		int size = 0;

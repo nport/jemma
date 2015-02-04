@@ -53,7 +53,6 @@
 						</Import-Package>
 						<Export-Package>!*</Export-Package>
 						<Service-Component>OSGI-INF/hac_upnp.xml</Service-Component>
-						<Bundle-Vendor>Telecom Italia</Bundle-Vendor>
 						<Bundle-Category>Automation@Home</Bundle-Category>
 						<Bundle-RequiredExecutionEnvironment>OSGi/Minimum-1.2,
 							 CDC-1.1/Foundation-1.1,

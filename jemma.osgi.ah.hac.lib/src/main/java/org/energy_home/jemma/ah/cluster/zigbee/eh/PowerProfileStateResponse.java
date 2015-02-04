@@ -17,21 +17,20 @@ package org.energy_home.jemma.ah.cluster.zigbee.eh;
 
 import java.util.Arrays;
 
-
 public class PowerProfileStateResponse {
-    public PowerProfile[] PowerProfiles;
+	public PowerProfile[] PowerProfiles;
 
-    public PowerProfileStateResponse() {
-    }
+	public PowerProfileStateResponse() {
+	}
 
-    public PowerProfileStateResponse(org.energy_home.jemma.ah.cluster.zigbee.eh.PowerProfile[] PowerProfiles) {
-        this.PowerProfiles = PowerProfiles;
-    }
-    
+	public PowerProfileStateResponse(org.energy_home.jemma.ah.cluster.zigbee.eh.PowerProfile[] PowerProfiles) {
+		this.PowerProfiles = PowerProfiles;
+	}
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder("{");
 		sb.append("PowerProfiles=").append(Arrays.toString(PowerProfiles));
 		sb.append("}");
-		return sb.toString();		
+		return sb.toString();
 	}
 }

@@ -48,16 +48,18 @@ import org.slf4j.LoggerFactory;
 public class EndPoint extends BasicEndPoint {
 	private static final String INVALID_APPLIANCE_OBJECT_MESSAGE = "Invalid appliance object";
 	private static final String INVALID_CLUSTER_NAME_MESSAGE = "Invalid cluster name";
-	
+
 	private static final String CLUSTER_DEFAULT_IMPL_POSTFIX = "Cluster";
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(EndPoint.class);
-	
+
 	IPeerAppliancesListener peerAppliancesListener;
-	// Each item is indexed by peerAppliancePid and its value is an IEndPoint List
+	// Each item is indexed by peerAppliancePid and its value is an IEndPoint
+	// List
 	HashMap peerAppliances;
+
 	// Added to manage interaction without connections and proxies
-	
+
 	protected final synchronized void removeServiceCluster(String clusterName) throws ApplianceException {
 		IServiceCluster serviceCluster = getServiceCluster(clusterName);
 		if (serviceCluster == null)
@@ -69,10 +71,11 @@ public class EndPoint extends BasicEndPoint {
 			clientServiceClusters.remove(serviceCluster.getType());
 		}
 		if (serviceCluster instanceof ServiceCluster)
-			((ServiceCluster)serviceCluster).setEndPoint(null);
+			((ServiceCluster) serviceCluster).setEndPoint(null);
 	}
-	
-	protected final synchronized ServiceCluster addServiceCluster(ServiceCluster serviceCluster, IServiceCluster serviceClusterProxy) throws ApplianceException {
+
+	protected final synchronized ServiceCluster addServiceCluster(ServiceCluster serviceCluster, IServiceCluster serviceClusterProxy)
+			throws ApplianceException {
 		if (serviceCluster == null)
 			throw new ApplianceException(INVALID_CLUSTER_OBJECT_MESSAGE);
 
@@ -84,7 +87,7 @@ public class EndPoint extends BasicEndPoint {
 		serviceCluster.setEndPoint(this);
 		return serviceCluster;
 	}
-	
+
 	protected final void addClusterListener(String clusterName, IServiceClusterListener listener) throws ApplianceException {
 		if (clusterName == null)
 			throw new ApplianceException(INVALID_CLUSTER_NAME_MESSAGE);
@@ -96,45 +99,45 @@ public class EndPoint extends BasicEndPoint {
 		} else {
 			clientClusterListenerTypes.put(type, listener);
 		}
-	}	
-	
-	void configurationUpdated() {
-		if (((Appliance)appliance).appliancesProxy != null)
-			((Appliance)appliance).appliancesProxy.notifyConfigurationUpdated(appliance.getPid(), id);
 	}
-	
+
+	void configurationUpdated() {
+		if (((Appliance) appliance).appliancesProxy != null)
+			((Appliance) appliance).appliancesProxy.notifyConfigurationUpdated(appliance.getPid(), id);
+	}
+
 	void setId(int id) {
 		this.id = id;
 	}
 
 	final void updatePeerAppliances(Map pid2AlreadyNotifiedEndPointIds) {
 		String appliancePid = getAppliance().getPid();
-		if (((Appliance)appliance).appliancesProxy != null) {
-			if (pid2AlreadyNotifiedEndPointIds.get(((Appliance)appliance).appliancesProxy.getPid()) == null) {
-				((Appliance)appliance).appliancesProxy.notifyAvailabilityUpdated(appliancePid);
-				pid2AlreadyNotifiedEndPointIds.put(((Appliance)appliance).appliancesProxy.getPid(), new ArrayList(0));
+		if (((Appliance) appliance).appliancesProxy != null) {
+			if (pid2AlreadyNotifiedEndPointIds.get(((Appliance) appliance).appliancesProxy.getPid()) == null) {
+				((Appliance) appliance).appliancesProxy.notifyAvailabilityUpdated(appliancePid);
+				pid2AlreadyNotifiedEndPointIds.put(((Appliance) appliance).appliancesProxy.getPid(), new ArrayList(0));
 			}
 		}
 
 		for (Iterator it = peerAppliances.values().iterator(); it.hasNext();) {
 			PeerAppliance peerAppliance = (PeerAppliance) it.next();
 			IEndPoint[] peerEndPoints = peerAppliance.getEndPoints();
-			List alreadyNotifiedEndPointIds = (List)pid2AlreadyNotifiedEndPointIds.get(peerAppliance.getPid());
+			List alreadyNotifiedEndPointIds = (List) pid2AlreadyNotifiedEndPointIds.get(peerAppliance.getPid());
 			if (alreadyNotifiedEndPointIds == null) {
 				alreadyNotifiedEndPointIds = new ArrayList(1);
 				pid2AlreadyNotifiedEndPointIds.put(peerAppliance.getPid(), alreadyNotifiedEndPointIds);
 			}
 			for (int i = 0; i < peerEndPoints.length; i++) {
 				Integer endPointId = new Integer(peerEndPoints[i].getId());
-				// A connection on end point 0 is never notified 
+				// A connection on end point 0 is never notified
 				if (endPointId.intValue() != IEndPoint.COMMON_END_POINT_ID && !alreadyNotifiedEndPointIds.contains(endPointId)) {
-					((PeerEndPoint)peerEndPoints[i]).getManagedEndPoint().peerApplianceUpdated(appliancePid);
+					((PeerEndPoint) peerEndPoints[i]).getManagedEndPoint().peerApplianceUpdated(appliancePid);
 					alreadyNotifiedEndPointIds.add(endPointId);
 				}
 			}
 		}
-	}	
-	
+	}
+
 	void peerApplianceUpdated(String peerAppliancePid) {
 		// TODO: add here subscription management code
 		if (this.peerAppliancesListener != null) {
@@ -145,18 +148,18 @@ public class EndPoint extends BasicEndPoint {
 			}
 		}
 	}
-	
+
 	void setAppliance(Appliance appliance) throws ApplianceException {
 		if (appliance == null)
 			throw new ApplianceException(INVALID_APPLIANCE_OBJECT_MESSAGE);
 		this.appliance = appliance;
 	}
-	
+
 	public EndPoint(String type) throws ApplianceException {
 		super(type);
 		this.peerAppliances = new HashMap();
 	}
-	
+
 	/**
 	 * Method used to register a service cluster listener associated to
 	 * asynchronous interaction on all registered clusters for this end point
@@ -188,25 +191,26 @@ public class EndPoint extends BasicEndPoint {
 		serviceCluster.setEndPoint(this);
 		return serviceCluster;
 	}
-	
+
 	/**
 	 * Method used to register a client or server service cluster whose
 	 * attributes/command are implemented by this end point
 	 * 
 	 * @param clusterName
-	 *            The service cluster name (e.g. {@code
+	 *            The service cluster name (e.g.
+	 *            {@code
 	 *            org.energy_home.jemma.ah.zigbee.cluster.general.OnOffServer.class.getName
 	 *            ()})
 	 * @param clusterImpl
-	 *            The object implementing the specific interface (e.g. {@code
-	 *            org.energy_home.jemma.ah.zigbee.cluster.general.OnOffServer}
+	 *            The object implementing the specific interface (e.g.
+	 *            {@code org.energy_home.jemma.ah.zigbee.cluster.general.OnOffServer}
 	 *            associated to the registered cluster. Passing
 	 *            <code>null</code> as clusterImpl is the same as calling the
 	 *            {@link registerCluster}. In this case <code>null</code> is
 	 *            returned
-	 * @return A {@link IServiceCluster} object created to manage service cluster
-	 *         interactions or <code>null</code> if {@code clusterImpl} is
-	 *         {@code null}.
+	 * @return A {@link IServiceCluster} object created to manage service
+	 *         cluster interactions or <code>null</code> if {@code clusterImpl}
+	 *         is {@code null}.
 	 * @throws ApplianceException
 	 *             In case of some errors during the service cluster
 	 *             registration (e.g. invalid implementation object)
@@ -220,7 +224,8 @@ public class EndPoint extends BasicEndPoint {
 		}
 
 		try {
-			// TODO: needs to be mapped to a service for instantiation of proprietary services
+			// TODO: needs to be mapped to a service for instantiation of
+			// proprietary services
 			clusterIf = Class.forName(clusterName);
 		} catch (Exception e) {
 			throw new ApplianceValidationException("Invalid cluster interface class");
@@ -232,13 +237,14 @@ public class EndPoint extends BasicEndPoint {
 		Method[] methods = clusterIf.getMethods();
 
 		if (clusterImpl == null || !clusterIf.isAssignableFrom(clusterImpl.getClass())) {
-			LOG.debug(clusterImpl.getClass().getName() + " must inherit from " + clusterName + " in order to use registerCluster(clusterName, implClass)");
+			LOG.debug(clusterImpl.getClass().getName() + " must inherit from " + clusterName
+					+ " in order to use registerCluster(clusterName, implClass)");
 			throw new ApplianceValidationException("Invalid cluster interface class");
 		}
 
-//		if (methods == null || methods.length == 0)
-//			throw new ApplianceValidationException(
-//					"Cluster interface has no method: use method registerCluster(clusterName) to register such a cluster");
+		// if (methods == null || methods.length == 0)
+		// throw new ApplianceValidationException(
+		// "Cluster interface has no method: use method registerCluster(clusterName) to register such a cluster");
 
 		if (ServiceCluster.class.isAssignableFrom(clusterImpl.getClass())) {
 			return addServiceCluster((ServiceCluster) clusterImpl);
@@ -246,21 +252,26 @@ public class EndPoint extends BasicEndPoint {
 			try {
 				PeerServiceClusterProxy serviceClusterHandler = new PeerServiceClusterProxy(clusterImpl, clusterIf);
 				ServiceCluster serviceCluster = serviceClusterHandler.getServiceCluster();
-				return addServiceCluster(serviceCluster, (IServiceCluster)Proxy.newProxyInstance(clusterIf.getClassLoader(), 
-								new Class[] {IServiceCluster.class, clusterIf }, serviceClusterHandler));
+				return addServiceCluster(
+						serviceCluster,
+						(IServiceCluster) Proxy.newProxyInstance(clusterIf.getClassLoader(), new Class[] { IServiceCluster.class,
+								clusterIf }, serviceClusterHandler));
 
 			} catch (Exception e) {
-				throw new ApplianceValidationException("End point cluster proxy instantiation error " + clusterIf.getClass().getName());
+				throw new ApplianceValidationException("End point cluster proxy instantiation error "
+						+ clusterIf.getClass().getName());
 			}
 		}
 	}
 
 	/**
 	 * Method used to register a client or server cluster exposed by this end
-	 * point without implementing any associated attributes/commands and no listener.
+	 * point without implementing any associated attributes/commands and no
+	 * listener.
 	 * 
 	 * @param clusterName
-	 *            The service cluster name (e.g. {@code
+	 *            The service cluster name (e.g.
+	 *            {@code
 	 *            org.energy_home.jemma.ah.zigbee.cluster.general.OnOffServer.class.getName
 	 *            ()})
 	 * @throws ApplianceException
@@ -276,19 +287,20 @@ public class EndPoint extends BasicEndPoint {
 	 * point without implementing any associated attributes/commands.
 	 * 
 	 * @param clusterName
-	 *            The service cluster name (e.g. {@code
+	 *            The service cluster name (e.g.
+	 *            {@code
 	 *            org.energy_home.jemma.ah.zigbee.cluster.general.OnOffServer.class.getName
 	 *            ()})
 	 * @param clusterListener
-	 * 			  Listener of the specified cluster
+	 *            Listener of the specified cluster
 	 * @throws ApplianceException
 	 *             In case of some errors during the service cluster
 	 *             registration (e.g. invalid implementation object)
 	 */
 	public final void registerClusterListener(String clusterName, IServiceClusterListener listener) throws ApplianceException {
 		this.addClusterListener(clusterName, listener);
-	}	
-	
+	}
+
 	/**
 	 * Retrieves the list of peer appliances connected to this end point
 	 * 
@@ -312,7 +324,7 @@ public class EndPoint extends BasicEndPoint {
 	public final IAppliance getPeerAppliance(String peerAppliancePid) {
 		return (IAppliance) peerAppliances.get(peerAppliancePid);
 	}
-	
+
 	/**
 	 * Returns all the connected peer end points
 	 * 
@@ -355,18 +367,18 @@ public class EndPoint extends BasicEndPoint {
 		endPoints.values().toArray(endPointsArray);
 		return endPointsArray;
 	}
-	
+
 	/**
 	 * Returns a peer appliance end point identified by the specified end point
-	 * identifier 
+	 * identifier
 	 * 
 	 * @param peerAppliancePid
 	 *            The pid that uniquely identify the peer appliance
 	 * @param endPointId
 	 *            The requested end point identifier
-	 * @return The requested peer appliance end point {@link IEndPoint} currently
-	 *         connected to this end point, {@code null} in case no connected
-	 *         end points are found for the specified appliance
+	 * @return The requested peer appliance end point {@link IEndPoint}
+	 *         currently connected to this end point, {@code null} in case no
+	 *         connected end points are found for the specified appliance
 	 */
 	public final IEndPoint getPeerEndPoint(String peerAppliancePid, int endPointId) {
 		PeerAppliance peerAppliance = (PeerAppliance) peerAppliances.get(peerAppliancePid);
@@ -389,9 +401,9 @@ public class EndPoint extends BasicEndPoint {
 	 */
 	public IServiceCluster[] getPeerServiceClusters(String clusterName) {
 		List peerServiceClusters = new ArrayList();
-		
-		if (((Appliance)appliance).appliancesProxy != null) {
-			IEndPoint proxyEndPoint = ((Appliance)appliance).appliancesProxy.getEndPoint(DEFAULT_END_POINT_ID);
+
+		if (((Appliance) appliance).appliancesProxy != null) {
+			IEndPoint proxyEndPoint = ((Appliance) appliance).appliancesProxy.getEndPoint(DEFAULT_END_POINT_ID);
 			IServiceCluster proxyServiceCluster = proxyEndPoint.getServiceCluster(clusterName);
 			if (proxyServiceCluster != null)
 				peerServiceClusters.add(proxyServiceCluster);
@@ -427,25 +439,25 @@ public class EndPoint extends BasicEndPoint {
 	 *         are found, only one random instance is returned by this method.
 	 */
 	public final IServiceCluster getPeerServiceCluster(String clusterName) {
-		if (((Appliance)appliance).appliancesProxy != null) {
-			IEndPoint proxyEndPoint = ((Appliance)appliance).appliancesProxy.getEndPoint(DEFAULT_END_POINT_ID);
+		if (((Appliance) appliance).appliancesProxy != null) {
+			IEndPoint proxyEndPoint = ((Appliance) appliance).appliancesProxy.getEndPoint(DEFAULT_END_POINT_ID);
 			IServiceCluster proxyServiceCluster = proxyEndPoint.getServiceCluster(clusterName);
 			if (proxyServiceCluster != null)
 				return proxyServiceCluster;
 		}
-		
+
 		PeerAppliance peerAppliance = null;
 		for (Iterator iterator = peerAppliances.values().iterator(); iterator.hasNext();) {
 			peerAppliance = (PeerAppliance) iterator.next();
 			if (peerAppliance == null)
-				continue;	
+				continue;
 			Map endPoints = peerAppliance.getEndPointsMap();
 			IServiceCluster peerServiceCluster = null;
 			for (Iterator iterator2 = endPoints.values().iterator(); iterator2.hasNext();) {
 				peerServiceCluster = ((PeerEndPoint) iterator2.next()).getServiceCluster(clusterName);
 				if (peerServiceCluster != null)
 					return peerServiceCluster;
-			}		
+			}
 		}
 		return null;
 	}
@@ -460,14 +472,14 @@ public class EndPoint extends BasicEndPoint {
 	 * @param clusterName
 	 *            The name of the requested peer appliance's service clusters
 	 * @return An array of requested peer appliance's {@link IServiceCluster}
-	 *         whose end point is currently connected to this end point, {@code
-	 *         null} in case no connected service clusters are found for the
-	 *         specified appliance and cluster name.
+	 *         whose end point is currently connected to this end point,
+	 *         {@code null} in case no connected service clusters are found for
+	 *         the specified appliance and cluster name.
 	 */
 	public final IServiceCluster[] getPeerServiceClusters(String peerAppliancePid, String clusterName) {
 		PeerAppliance peerAppliance = (PeerAppliance) peerAppliances.get(peerAppliancePid);
 		if (peerAppliance == null)
-			return null;	
+			return null;
 		List peerServiceClusters = new ArrayList();
 		Map endPoints = peerAppliance.getEndPointsMap();
 		IServiceCluster peerServiceCluster = null;
@@ -499,7 +511,7 @@ public class EndPoint extends BasicEndPoint {
 	public final IServiceCluster getPeerServiceCluster(String peerAppliancePid, String clusterName) {
 		PeerAppliance peerAppliance = (PeerAppliance) peerAppliances.get(peerAppliancePid);
 		if (peerAppliance == null)
-			return null;	
+			return null;
 		Map endPoints = peerAppliance.getEndPointsMap();
 		IServiceCluster peerServiceCluster = null;
 		for (Iterator iterator2 = endPoints.values().iterator(); iterator2.hasNext();) {
@@ -509,11 +521,11 @@ public class EndPoint extends BasicEndPoint {
 		}
 		return null;
 	}
-	
+
 	public final IServiceCluster getPeerServiceCluster(String peerAppliancePid, String clusterName, int endPointId) {
 		PeerAppliance peerAppliance = (PeerAppliance) peerAppliances.get(peerAppliancePid);
 		if (peerAppliance == null)
-			return null;	
+			return null;
 		IEndPoint peerEndPoint = peerAppliance.getEndPoint(endPointId);
 		if (peerEndPoint != null)
 			return peerEndPoint.getServiceCluster(clusterName);
@@ -553,6 +565,6 @@ public class EndPoint extends BasicEndPoint {
 	 */
 	public final void unregisterPeerAppliancesListener() {
 		this.peerAppliancesListener = null;
-	}	
+	}
 
 }

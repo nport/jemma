@@ -40,7 +40,7 @@ public class ZclSimpleMeteringClient extends ZclServiceCluster implements Simple
 	protected int getClusterId() {
 		return CLUSTER_ID;
 	}
-	
+
 	protected int readAttributeResponseGetSize(int attrId) throws ServiceClusterException, ZclValidationException {
 		switch (attrId) {
 

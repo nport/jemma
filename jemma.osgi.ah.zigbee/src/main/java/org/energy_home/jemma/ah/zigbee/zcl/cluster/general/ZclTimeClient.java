@@ -34,7 +34,6 @@ import org.energy_home.jemma.ah.zigbee.zcl.lib.types.ZclDataTypeUI32;
 import org.energy_home.jemma.ah.zigbee.zcl.lib.types.ZclDataTypeUI8;
 import org.energy_home.jemma.ah.zigbee.zcl.lib.types.ZclDataTypeUTCTime;
 
-
 public class ZclTimeClient extends ZclServiceCluster implements TimeClient, ZigBeeDeviceListener {
 
 	public final static short CLUSTER_ID = 10;

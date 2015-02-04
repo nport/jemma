@@ -15,19 +15,18 @@
  */
 package org.energy_home.jemma.ah.cluster.zigbee.eh;
 
-
 public class LogResponse {
 
-    public long Timestamp;
-    public long LogID;
-    public byte[] LogPayload;
+	public long Timestamp;
+	public long LogID;
+	public byte[] LogPayload;
 
-    public LogResponse() {
-    }
+	public LogResponse() {
+	}
 
-    public LogResponse(long Timestamp, long LogID, long LogLength, byte[] LogPayload) {
-        this.Timestamp = Timestamp;
-        this.LogID = LogID;
-        this.LogPayload = LogPayload;
-    }
+	public LogResponse(long Timestamp, long LogID, long LogLength, byte[] LogPayload) {
+		this.Timestamp = Timestamp;
+		this.LogID = LogID;
+		this.LogPayload = LogPayload;
+	}
 }

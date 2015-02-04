@@ -182,9 +182,11 @@ public abstract class DriverApplianceFactory extends ApplianceFactory {
 		}
 	}
 
-	public abstract String deviceMatchFilterString() ;
+	public abstract String deviceMatchFilterString();
 
-	public String classMatchFilterString() {return null;}
+	public String classMatchFilterString() {
+		return null;
+	}
 
 	public boolean genericMatch(ServiceReference d) {
 		return false;
@@ -224,7 +226,7 @@ public abstract class DriverApplianceFactory extends ApplianceFactory {
 			matchValue = 1;
 		} else
 			matchValue = Device.MATCH_NONE;
-		
+
 		return matchValue;
 	}
 }

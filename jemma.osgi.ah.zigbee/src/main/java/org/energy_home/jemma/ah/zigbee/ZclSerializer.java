@@ -87,7 +87,7 @@ public class ZclSerializer {
 		System.arraycopy(data, 0, newarray, 0, newarray.length);
 		return newarray;
 	}
-	
+
 	public int getPosition() {
 		return pos;
 	}
@@ -239,27 +239,28 @@ public class ZclSerializer {
 		data[pos++] = (byte) (uint16 & 0xFF);
 		data[pos++] = (byte) (uint16 >> 8);
 	}
-	
+
 	public void append_uint24(int uint24) {
 		data[pos++] = (byte) (uint24 & 0xFF);
 		data[pos++] = (byte) (uint24 >> 8);
 		data[pos++] = (byte) (uint24 >> 16);
-	}	
+	}
+
 	public void append_uint32(int uint32) {
 		data[pos++] = (byte) (uint32 & 0xFF);
 		data[pos++] = (byte) (uint32 >> 8);
 		data[pos++] = (byte) (uint32 >> 16);
 		data[pos++] = (byte) (uint32 >> 24);
-	}	
-	
+	}
+
 	public void append_ulong(long l, int size) {
 		for (int i = 0; i < size; i++) {
 			data[pos++] = (byte) (l & 0xFF);
 			l >>= 8;
 		}
-	}	
-	
-	public void append_octets (byte[] octets) {
+	}
+
+	public void append_octets(byte[] octets) {
 		for (int i = 0; i < octets.length; i++) {
 			data[pos++] = octets[i];
 		}

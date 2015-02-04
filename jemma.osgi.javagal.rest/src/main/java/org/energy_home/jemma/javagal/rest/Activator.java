@@ -16,17 +16,14 @@ package org.energy_home.jemma.javagal.rest;
  *
  */
 
-import java.io.File;
-import java.math.BigInteger;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.energy_home.jemma.javagal.rest.util.Resources;
-import org.energy_home.jemma.zgd.*;
+import org.energy_home.jemma.zgd.GalExtenderProxyFactory;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.osgi.util.tracker.ServiceTracker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Osgi's activator for the javagal Rest package.
@@ -36,7 +33,7 @@ import org.osgi.util.tracker.ServiceTracker;
  * 
  */
 public class Activator implements BundleActivator {
-	private static final Logger LOG = LoggerFactory.getLogger( Activator.class );
+	private static final Logger LOG = LoggerFactory.getLogger(Activator.class);
 	private static BundleContext context;
 	PropertiesManager PropertiesManager = null;
 
@@ -87,7 +84,7 @@ public class Activator implements BundleActivator {
 	/**
 	 * Factory tracker class for GatewayInterface objects.
 	 * 
-	 * @author
+	 * @author 
 	 *         "Ing. Marco Nieddu <marco.nieddu@consoft.it> or <marco.niedducv@gmail.com> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
 	 * 
 	 */

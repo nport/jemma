@@ -27,8 +27,8 @@ public class BasicServerCluster extends ServiceCluster implements BasicServer {
 	public BasicServerCluster() throws ApplianceException {
 		super();
 	}
-	
-	final static String[] supportedAttributes = {  ATTR_ZCLVersion_NAME, ATTR_PowerSource_NAME };
+
+	final static String[] supportedAttributes = { ATTR_ZCLVersion_NAME, ATTR_PowerSource_NAME };
 
 	public String[] getSupportedAttributeNames(IEndPointRequestContext endPointRequestContext) throws ApplianceException,
 			ServiceClusterException {

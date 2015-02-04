@@ -27,9 +27,8 @@ import org.energy_home.jemma.zgd.GatewayConstants;
 import org.energy_home.jemma.zgd.GatewayInterface;
 import org.energy_home.jemma.zgd.jaxb.Address;
 import org.energy_home.jemma.zgd.jaxb.Info;
-import org.energy_home.jemma.zgd.jaxb.InterPANMessage;
-import org.energy_home.jemma.zgd.jaxb.InterPANMessageResult;
 import org.energy_home.jemma.zgd.jaxb.Info.Detail;
+import org.energy_home.jemma.zgd.jaxb.InterPANMessage;
 import org.energy_home.jemma.zgd.jaxb.Status;
 import org.energy_home.jemma.zgd.jaxb.ZDPCommand;
 import org.restlet.data.MediaType;
@@ -77,7 +76,8 @@ public class SendZdpAndInterPANAndLeaveResource extends ServerResource {
 		// Uri parameters check
 		String timeoutString = null;
 		String urilistener = null;
-		String aoiString = null; // Note aoiString is correct even if we read the addr parameter and we call it aoi
+		String aoiString = null; // Note aoiString is correct even if we read
+									// the addr parameter and we call it aoi
 		Long timeout = -1l;
 		Parameter timeoutParam = getRequest().getResourceRef().getQueryAsForm().getFirst(Resources.URI_PARAM_TIMEOUT);
 		if (timeoutParam == null) {
@@ -100,7 +100,8 @@ public class SendZdpAndInterPANAndLeaveResource extends ServerResource {
 					Info info = new Info();
 					Status _st = new Status();
 					_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-					_st.setMessage("Error: mandatory '" + Resources.URI_PARAM_TIMEOUT + "' parameter's value invalid. You provided: " + timeoutString);
+					_st.setMessage("Error: mandatory '" + Resources.URI_PARAM_TIMEOUT
+							+ "' parameter's value invalid. You provided: " + timeoutString);
 					info.setStatus(_st);
 					Info.Detail detail = new Info.Detail();
 					info.setDetail(detail);
@@ -113,7 +114,8 @@ public class SendZdpAndInterPANAndLeaveResource extends ServerResource {
 				Info info = new Info();
 				Status _st = new Status();
 				_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-				_st.setMessage("Error: mandatory '" + Resources.URI_PARAM_TIMEOUT + "' parameter's value invalid. You provided: " + timeoutString);
+				_st.setMessage("Error: mandatory '" + Resources.URI_PARAM_TIMEOUT + "' parameter's value invalid. You provided: "
+						+ timeoutString);
 				info.setStatus(_st);
 				Info.Detail detail = new Info.Detail();
 				info.setDetail(detail);
@@ -184,7 +186,8 @@ public class SendZdpAndInterPANAndLeaveResource extends ServerResource {
 					return;
 				} else {
 					urilistener = urilistenerParam.getValue();
-					ClientResources rcmal = getRestManager().getClientObjectKey(Util.getPortFromUriListener(urilistener), getClientInfo().getAddress());
+					ClientResources rcmal = getRestManager().getClientObjectKey(Util.getPortFromUriListener(urilistener),
+							getClientInfo().getAddress());
 					proxyGalInterface = rcmal.getGatewayInterface();
 					if (rcmal.getClientEventListener() != null)
 						rcmal.getClientEventListener().setInterPANCommandDestination(urilistener);
@@ -229,7 +232,8 @@ public class SendZdpAndInterPANAndLeaveResource extends ServerResource {
 					return;
 				} else {
 					urilistener = urilistenerParam.getValue();
-					ClientResources rcmal = getRestManager().getClientObjectKey(Util.getPortFromUriListener(urilistener), getClientInfo().getAddress());
+					ClientResources rcmal = getRestManager().getClientObjectKey(Util.getPortFromUriListener(urilistener),
+							getClientInfo().getAddress());
 					proxyGalInterface = rcmal.getGatewayInterface();
 					if (rcmal.getClientEventListener() != null)
 						rcmal.getClientEventListener().setZdpCommandDestination(urilistener);
@@ -293,7 +297,8 @@ public class SendZdpAndInterPANAndLeaveResource extends ServerResource {
 			Info info = new Info();
 			Status _st = new Status();
 			_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-			_st.setMessage("Error: mandatory '" + Resources.PARAMETER_ADDR + "' parameter's value invalid. You provided: " + addrString);
+			_st.setMessage("Error: mandatory '" + Resources.PARAMETER_ADDR + "' parameter's value invalid. You provided: "
+					+ addrString);
 			info.setStatus(_st);
 			Info.Detail detail = new Info.Detail();
 			info.setDetail(detail);
@@ -325,7 +330,8 @@ public class SendZdpAndInterPANAndLeaveResource extends ServerResource {
 					Info info = new Info();
 					Status _st = new Status();
 					_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-					_st.setMessage("Error: mandatory '" + Resources.URI_PARAM_TIMEOUT + "' parameter's value invalid. You provided: " + timeoutString);
+					_st.setMessage("Error: mandatory '" + Resources.URI_PARAM_TIMEOUT
+							+ "' parameter's value invalid. You provided: " + timeoutString);
 					info.setStatus(_st);
 					Info.Detail detail = new Info.Detail();
 					info.setDetail(detail);
@@ -338,7 +344,8 @@ public class SendZdpAndInterPANAndLeaveResource extends ServerResource {
 				Info info = new Info();
 				Status _st = new Status();
 				_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-				_st.setMessage("Error: mandatory '" + Resources.URI_PARAM_TIMEOUT + "' parameter's value invalid. You provided: " + timeoutString);
+				_st.setMessage("Error: mandatory '" + Resources.URI_PARAM_TIMEOUT + "' parameter's value invalid. You provided: "
+						+ timeoutString);
 				info.setStatus(_st);
 				Info.Detail detail = new Info.Detail();
 				info.setDetail(detail);
@@ -374,7 +381,8 @@ public class SendZdpAndInterPANAndLeaveResource extends ServerResource {
 				// but wait that the IPHA polls for it using the request
 				// identifier. Async is possible only if start=true
 
-				ClientResources rcmal = getRestManager().getClientObjectKey(Util.getPortFromUriListener(urilistener), getClientInfo().getAddress());
+				ClientResources rcmal = getRestManager().getClientObjectKey(Util.getPortFromUriListener(urilistener),
+						getClientInfo().getAddress());
 				proxyGalInterface = rcmal.getGatewayInterface();
 
 				rcmal.getClientEventListener().setLeaveResultDestination(urilistener);

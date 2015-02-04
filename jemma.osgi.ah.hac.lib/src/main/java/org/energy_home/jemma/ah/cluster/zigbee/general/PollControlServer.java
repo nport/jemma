@@ -21,60 +21,41 @@ import org.energy_home.jemma.ah.hac.ServiceClusterException;
 
 public interface PollControlServer {
 
-    final static String ATTR_ChecknInInterval_NAME = "ChecknInInterval";
-    final static String ATTR_LongPollInterval_NAME = "LongPollInterval";
-    final static String ATTR_ShortPollInterval_NAME = "ShortPollInterval";
-    final static String ATTR_FastPollTimeout_NAME = "FastPollTimeout";
-    final static String ATTR_CheckInIntervalMin_NAME = "CheckInIntervalMin";
-    final static String ATTR_LongPollIntervalMin_NAME = "LongPollIntervalMin";
-    final static String ATTR_FastPollTimeoutMax_NAME = "FastPollTimeoutMax";
-    final static String CMD_CheckInResponse_NAME = "CheckInResponse";
-    final static String CMD_FastPollStop_NAME = "FastPollStop";
-    final static String CMD_SetLongPollInterval_NAME = "SetLongPollInterval";
-    final static String CMD_SetShortPollInterval_NAME = "SetShortPollInterval";
+	final static String ATTR_ChecknInInterval_NAME = "ChecknInInterval";
+	final static String ATTR_LongPollInterval_NAME = "LongPollInterval";
+	final static String ATTR_ShortPollInterval_NAME = "ShortPollInterval";
+	final static String ATTR_FastPollTimeout_NAME = "FastPollTimeout";
+	final static String ATTR_CheckInIntervalMin_NAME = "CheckInIntervalMin";
+	final static String ATTR_LongPollIntervalMin_NAME = "LongPollIntervalMin";
+	final static String ATTR_FastPollTimeoutMax_NAME = "FastPollTimeoutMax";
+	final static String CMD_CheckInResponse_NAME = "CheckInResponse";
+	final static String CMD_FastPollStop_NAME = "FastPollStop";
+	final static String CMD_SetLongPollInterval_NAME = "SetLongPollInterval";
+	final static String CMD_SetShortPollInterval_NAME = "SetShortPollInterval";
 
-    public long getChecknInInterval(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public long getChecknInInterval(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-    public long getLongPollInterval(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public long getLongPollInterval(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-    public int getShortPollInterval(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public int getShortPollInterval(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-    public int getFastPollTimeout(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public int getFastPollTimeout(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-    public long getCheckInIntervalMin(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public long getCheckInIntervalMin(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-    public long getLongPollIntervalMin(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public long getLongPollIntervalMin(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-    public int getFastPollTimeoutMax(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public int getFastPollTimeoutMax(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-    public void execCheckInResponse(boolean StartFastPolling, int FastPollTimeout, IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public void execCheckInResponse(boolean StartFastPolling, int FastPollTimeout, IEndPointRequestContext context)
+			throws ApplianceException, ServiceClusterException;
 
-    public void execFastPollStop(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public void execFastPollStop(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-    public void execSetLongPollInterval(long NewLongPollInterval, IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public void execSetLongPollInterval(long NewLongPollInterval, IEndPointRequestContext context) throws ApplianceException,
+			ServiceClusterException;
 
-    public void execSetShortPollInterval(int NewShortPollInterval, IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public void execSetShortPollInterval(int NewShortPollInterval, IEndPointRequestContext context) throws ApplianceException,
+			ServiceClusterException;
 
 }

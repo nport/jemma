@@ -34,12 +34,21 @@ import org.slf4j.LoggerFactory;
 public class ZclSmartPlugAppliance extends ZclAppliance {
 	private ZclEndPoint endPoint = null;
 
-	private static final Logger LOG = LoggerFactory.getLogger( ZclSmartPlugAppliance.class );
+	private static final Logger LOG = LoggerFactory.getLogger(ZclSmartPlugAppliance.class);
 
 	public ZclSmartPlugAppliance(String pid, Dictionary config) throws ApplianceException {
 		super(pid, config);
 
-		endPoint = this.zclAddEndPoint(IEndPointTypes.ZIGBEE_SMART_PLUG);	//@Changed by AndreaRanalli: to be verifies if this is correct!
+		endPoint = this.zclAddEndPoint(IEndPointTypes.ZIGBEE_SMART_PLUG); // @Changed
+																			// by
+																			// AndreaRanalli:
+																			// to
+																			// be
+																			// verifies
+																			// if
+																			// this
+																			// is
+																			// correct!
 
 		// Server Clusters
 		endPoint.addServiceCluster(new ZclOnOffServer());
@@ -47,15 +56,16 @@ public class ZclSmartPlugAppliance extends ZclAppliance {
 		endPoint.addServiceCluster(new ZclIdentifyServer());
 		endPoint.addServiceCluster(new ZclIdentifyClient());
 		endPoint.addServiceCluster(new ZclSimpleMeteringServer());
-		
-		ConfigServer serviceCluster = (ConfigServer) this.getEndPoint(0).getServiceCluster("org.energy_home.jemma.ah.cluster.ah.ConfigServer");
+
+		ConfigServer serviceCluster = (ConfigServer) this.getEndPoint(0).getServiceCluster(
+				"org.energy_home.jemma.ah.cluster.ah.ConfigServer");
 		if (serviceCluster != null) {
 			try {
 				if (serviceCluster.getIconName(null) == null) {
-					//serviceCluster.setIconName("lampadina.png", null);
+					// serviceCluster.setIconName("lampadina.png", null);
 				}
 			} catch (ServiceClusterException e) {
-				
+
 			}
 		}
 	}

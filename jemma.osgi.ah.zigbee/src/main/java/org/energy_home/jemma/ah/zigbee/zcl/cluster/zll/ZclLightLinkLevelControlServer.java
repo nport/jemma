@@ -23,7 +23,7 @@ public class ZclLightLinkLevelControlServer extends ZclLevelControlServer {
 	public ZclLightLinkLevelControlServer() throws ApplianceException {
 		super();
 	}
-	
+
 	protected int getProfileId() {
 		return 260;
 	}

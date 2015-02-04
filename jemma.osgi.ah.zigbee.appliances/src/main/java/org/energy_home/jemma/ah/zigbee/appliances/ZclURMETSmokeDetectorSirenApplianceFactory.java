@@ -42,33 +42,23 @@ public class ZclURMETSmokeDetectorSirenApplianceFactory extends DriverApplianceF
 
 	public String deviceMatchFilterString() {
 		return "(&(DEVICE_CATEGORY=ZigBee))";
-		
-		/*{zigbee.device.eps.number=1, 
-		zigbee.device.device.id=1026,
-		zigbee.device.eps=[Ljava.lang.String;@1db3aac,
-		service.pid=5149012990629360,
-		zigbee.device.ep.id=1, 
-		DEVICE_SERIAL=5149012990629360, 
-		DEVICE_CATEGORY=ZigBee,
-		zigbee.device.profile.id=260,
-		zigbee.device.manufacturer.id=0}*/
-		
+
+		/*
+		 * {zigbee.device.eps.number=1, zigbee.device.device.id=1026,
+		 * zigbee.device.eps=[Ljava.lang.String;@1db3aac,
+		 * service.pid=5149012990629360, zigbee.device.ep.id=1,
+		 * DEVICE_SERIAL=5149012990629360, DEVICE_CATEGORY=ZigBee,
+		 * zigbee.device.profile.id=260, zigbee.device.manufacturer.id=0}
+		 */
 
 	}
-/*
-	{zigbee.device.eps.number=1, 
-			zigbee.device.device.id=1022, 
-			zigbee.device.eps=[260.1022.1], 
-			service.pid=5149012977647065, 
-			zigbee.device.ep.id=1, 
-			DEVICE_SERIAL=5149012977647065, 
-			DEVICE_CATEGORY=ZigBee, 
-			zigbee.device.profile.id=260, 
-			
-			zigbee.device.manufacturer.id=0, service.id=114}
-	
-	*/
+	/*
+	 * {zigbee.device.eps.number=1, zigbee.device.device.id=1022,
+	 * zigbee.device.eps=[260.1022.1], service.pid=5149012977647065,
+	 * zigbee.device.ep.id=1, DEVICE_SERIAL=5149012977647065,
+	 * DEVICE_CATEGORY=ZigBee, zigbee.device.profile.id=260,
+	 * 
+	 * zigbee.device.manufacturer.id=0, service.id=114}
+	 */
 
 }
-
-

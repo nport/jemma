@@ -75,9 +75,10 @@ public class SerialPortConnectorRxTx implements IConnector {
 	 *             if an error occurs.
 	 */
 	public SerialPortConnectorRxTx(String _portName, int _boudRate, IDataLayer _DataLayer) throws Exception {
-		// The Skelmir JVM seems to require this to rise an Exception in case the 
+		// The Skelmir JVM seems to require this to rise an Exception in case
+		// the
 		// RxTx lib is missing
-		//SerialPort.class.getName();
+		// SerialPort.class.getName();
 		DataLayer = _DataLayer;
 		commport = _portName;
 		boudrate = _boudRate;
@@ -96,9 +97,10 @@ public class SerialPortConnectorRxTx implements IConnector {
 	private boolean connect(String portName, int speed) throws Exception {
 
 		try {
-			//Enumeration portIdentifiers = CommPortIdentifier.getPortIdentifiers();			
-			//System.setProperty("gnu.io.rxtx.SerialPorts", portName);
-			
+			// Enumeration portIdentifiers =
+			// CommPortIdentifier.getPortIdentifiers();
+			// System.setProperty("gnu.io.rxtx.SerialPorts", portName);
+
 			Enumeration portList = CommPortIdentifier.getPortIdentifiers();
 			CommPortIdentifier portIdentifier = null;
 			boolean found = false;
@@ -114,11 +116,10 @@ public class SerialPortConnectorRxTx implements IConnector {
 
 			if (!found) {
 				throw new RuntimeException("Could not find port: " + portName);
-			}
-			else {
+			} else {
 				System.out.println(portName + " found!");
 			}
-			
+
 			if (portIdentifier.isCurrentlyOwned()) {
 				LOG.error("Error: Port is currently in use:" + portName + " by: " + portIdentifier.getCurrentOwner());
 				disconnect();
@@ -158,11 +159,11 @@ public class SerialPortConnectorRxTx implements IConnector {
 
 		} catch (NoSuchPortException e) {
 			System.out.println("aaaaa");
-			Enumeration portIdentifiers = CommPortIdentifier.getPortIdentifiers();	
+			Enumeration portIdentifiers = CommPortIdentifier.getPortIdentifiers();
 			LOG.error("Port " + portName + " not found.");
 			if (portIdentifiers != null) {
 				System.out.println("ddd");
-				while(portIdentifiers.hasMoreElements()) {
+				while (portIdentifiers.hasMoreElements()) {
 					System.out.println("ccc");
 					CommPortIdentifier id = (CommPortIdentifier) portIdentifiers.nextElement();
 					System.out.println("vvvv");
@@ -299,7 +300,8 @@ public class SerialPortConnectorRxTx implements IConnector {
 	 */
 	public void initialize() throws Exception {
 		if (DataLayer.getPropertiesManager().getDebugEnabled())
-			LOG.info("Starting inizialize procedure for: PortName=" + commport + " -- Speed=" + boudrate + " -- DefaultTimeout:" + DataLayer.getPropertiesManager().getCommandTimeoutMS());
+			LOG.info("Starting inizialize procedure for: PortName=" + commport + " -- Speed=" + boudrate + " -- DefaultTimeout:"
+					+ DataLayer.getPropertiesManager().getCommandTimeoutMS());
 		if (!connect(commport, boudrate)) {
 			throw new Exception("Unable to connect to serial port " + commport);
 		}
@@ -315,7 +317,8 @@ public class SerialPortConnectorRxTx implements IConnector {
 		DataLayer.clearBuffer();
 		setIgnoreMessage(false);
 		if (DataLayer.getPropertiesManager().getDebugEnabled())
-			LOG.info("Re-Starting inizialize procedure after CPUReset for: PortName=" + commport + " -- Speed=" + boudrate + " -- DefaultTimeout:" + DataLayer.getPropertiesManager().getCommandTimeoutMS());
+			LOG.info("Re-Starting inizialize procedure after CPUReset for: PortName=" + commport + " -- Speed=" + boudrate
+					+ " -- DefaultTimeout:" + DataLayer.getPropertiesManager().getCommandTimeoutMS());
 		if (!connect(commport, boudrate)) {
 			throw new Exception("Unable to connect to serial port!");
 		}

@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 public class ZclDimmableLightAppliance extends ZclAppliance {
 	private ZclEndPoint endPoint = null;
 
-	private static final Logger LOG = LoggerFactory.getLogger( ZclDimmableLightAppliance.class );
+	private static final Logger LOG = LoggerFactory.getLogger(ZclDimmableLightAppliance.class);
 
 	public ZclDimmableLightAppliance(String pid, Dictionary config) throws ApplianceException {
 		super(pid, config);
@@ -43,7 +43,7 @@ public class ZclDimmableLightAppliance extends ZclAppliance {
 		endPoint.addServiceCluster(new ZclBasicServer());
 		endPoint.addServiceCluster(new ZclIdentifyServer());
 		endPoint.addServiceCluster(new ZclIdentifyClient());
-		
+
 	}
 
 	protected void attached() {

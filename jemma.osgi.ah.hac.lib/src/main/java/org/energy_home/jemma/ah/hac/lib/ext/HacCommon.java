@@ -23,14 +23,14 @@ public class HacCommon {
 
 	/**
 	 * Prefix associated to all methods of an {@link IServiceInterface} used to
-	 * read an attribute of a service cluster. The value is {@value}
+	 * read an attribute of a service cluster. The value is * {@value}
 	 */
 	public static final String CLUSTER_ATTRIBUTE_GETTER_PREFIX = "get";
 
 	/**
 	 * TODO: used for initial implementation of map attributes (do not use yet)
 	 */
-//	public static final String CLUSTER_ATTRIBUTE_SELECT_PREFIX = "select";
+	// public static final String CLUSTER_ATTRIBUTE_SELECT_PREFIX = "select";
 
 	/**
 	 * Prefix associated to all methods of an {@link IServiceInterface} used to
@@ -41,7 +41,7 @@ public class HacCommon {
 	/**
 	 * TODO: used for initial implementation of map attributes (do not use yet)
 	 */
-//	public static final String CLUSTER_ATTRIBUTE_PUT_PREFIX = "put";
+	// public static final String CLUSTER_ATTRIBUTE_PUT_PREFIX = "put";
 
 	/**
 	 * Prefix associated to all methods of an {@link IServiceInterface} used to

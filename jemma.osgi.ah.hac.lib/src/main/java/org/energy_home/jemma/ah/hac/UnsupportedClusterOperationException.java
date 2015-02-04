@@ -21,7 +21,7 @@ public class UnsupportedClusterOperationException extends ServiceClusterExceptio
 	public UnsupportedClusterOperationException() {
 		super("UnsupportedClusterOperationException");
 	}
-	
+
 	public UnsupportedClusterOperationException(String errorDescription) {
 		super(errorDescription);
 	}

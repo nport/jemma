@@ -19,12 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.energy_home.jemma.ah.cluster.zigbee.eh.ApplianceControlServer;
 import org.energy_home.jemma.ah.ebrain.IOverloadStatusListener.OverloadStatus;
 import org.energy_home.jemma.ah.ebrain.algo.DailyTariff;
-import org.energy_home.jemma.ah.hac.lib.EndPoint;
 import org.energy_home.jemma.ah.hap.client.M2MHapException;
 import org.energy_home.jemma.m2m.ContentInstance;
 import org.energy_home.jemma.m2m.ah.ApplianceLog;
@@ -34,6 +30,8 @@ import org.energy_home.jemma.shal.DeviceDescriptor.DeviceType;
 import org.energy_home.jemma.shal.DeviceInfo;
 import org.energy_home.jemma.shal.DeviceListener;
 import org.energy_home.jemma.shal.DeviceService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MeteringCore implements IMeteringListener, DeviceListener {
 	private static final Logger LOG = LoggerFactory.getLogger(MeteringCore.class);
@@ -65,11 +63,13 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 			// TODO Auto-generated method stub
 		}
 
-		public void storeDeliveredEnergyCostPowerInfo(String applianceId, EnergyCostInfo eci, MinMaxPowerInfo powerInfo) throws Exception {
+		public void storeDeliveredEnergyCostPowerInfo(String applianceId, EnergyCostInfo eci, MinMaxPowerInfo powerInfo)
+				throws Exception {
 			// TODO Auto-generated method stub
 		}
 
-		public void storeReceivedEnergyCostPowerInfo(String applianceId, EnergyCostInfo eci, MinMaxPowerInfo powerInfo) throws Exception {
+		public void storeReceivedEnergyCostPowerInfo(String applianceId, EnergyCostInfo eci, MinMaxPowerInfo powerInfo)
+				throws Exception {
 			// TODO Auto-generated method stub
 		}
 
@@ -77,7 +77,6 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 			// TODO Auto-generated method stub
 			return null;
 		}
-
 
 	};
 
@@ -180,24 +179,27 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 				double summation = meteringProxy.getCurrentSummationDelivered(applianceId);
 				notifyCurrentSummationDelivered(applianceId, System.currentTimeMillis(), summation);
 				// TODO: complete/review logging
-				LOG.debug("refreshCurrentSummationDeliveredSubscription - read power and summation for appliance " + applianceId + ": summation=" + summation);
+				LOG.debug("refreshCurrentSummationDeliveredSubscription - read power and summation for appliance " + applianceId
+						+ ": summation=" + summation);
 
 			}
 		}
 	}
-	
+
 	private void refreshCurrentSummationReceivedSubscription(ApplianceInfo appliance) {
 		float formatting = getOrRetrieveSummationFormatting(appliance);
 		if (formatting != IMeteringProxy.INVALID_FORMATTING_VALUE) {
 			double deltaValue = SMART_INFO_SUMMATION_DELTA_VALUE / formatting;
 			String applianceId = appliance.getApplianceId();
-			meteringProxy.subscribeCurrentSummationReceived(applianceId, SMART_INFO_SUMMATION_MIN_INTERVAL, SMART_INFO_SUMMATION_MAX_INTERVAL, deltaValue);
+			meteringProxy.subscribeCurrentSummationReceived(applianceId, SMART_INFO_SUMMATION_MIN_INTERVAL,
+					SMART_INFO_SUMMATION_MAX_INTERVAL, deltaValue);
 			// meteringProxy.subscribeCurrentSummationReceived(applianceId,5,10,5);
 			if (checkMeteringSubscriptions) {
 				double summation = meteringProxy.getCurrentSummationReceived(applianceId);
 				notifyCurrentSummationReceived(applianceId, System.currentTimeMillis(), summation);
 				// TODO: complete/review logging
-				LOG.debug("refreshCurrentSummationReceivedSubscription - read power and summation for appliance " + applianceId + ": received=" + summation);
+				LOG.debug("refreshCurrentSummationReceivedSubscription - read power and summation for appliance " + applianceId
+						+ ": received=" + summation);
 			}
 		}
 	}
@@ -227,7 +229,8 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 				float power = meteringProxy.getIstantaneousDemand(applianceId);
 				notifyIstantaneousDemandPower(applianceId, System.currentTimeMillis(), power);
 				// TODO: complete/review logging
-				LOG.debug("refreshInstantaneousDemandSubscription - read power and summation for appliance " + applianceId + ": power=" + power);
+				LOG.debug("refreshInstantaneousDemandSubscription - read power and summation for appliance " + applianceId
+						+ ": power=" + power);
 			}
 		}
 	}
@@ -248,16 +251,21 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 		// Generate overload warnings depending on current instantaneous
 		// delivered power
 		try {
-			if (signedPower <= powerThresholds.getContractualThreshold() && !currentOverloadStatus.equals(OverloadStatus.NoOverloadWarning)) {
+			if (signedPower <= powerThresholds.getContractualThreshold()
+					&& !currentOverloadStatus.equals(OverloadStatus.NoOverloadWarning)) {
 				currentOverloadStatus = OverloadStatus.NoOverloadWarning;
 				overloadStatusListener.notifyOverloadStatusUpdate(currentOverloadStatus);
-			} else if (signedPower > powerThresholds.getContractualThreshold() && signedPower <= powerThresholds.getFirstThreshold() && !currentOverloadStatus.equals(OverloadStatus.ContractualPowerThresholdWarning)) {
+			} else if (signedPower > powerThresholds.getContractualThreshold()
+					&& signedPower <= powerThresholds.getFirstThreshold()
+					&& !currentOverloadStatus.equals(OverloadStatus.ContractualPowerThresholdWarning)) {
 				currentOverloadStatus = OverloadStatus.ContractualPowerThresholdWarning;
 				overloadStatusListener.notifyOverloadStatusUpdate(currentOverloadStatus);
-			} else if (signedPower > powerThresholds.getFirstThreshold() && signedPower <= powerThresholds.getSecondThreshold() && !currentOverloadStatus.equals(OverloadStatus.FirstPowerThresholdWarning)) {
+			} else if (signedPower > powerThresholds.getFirstThreshold() && signedPower <= powerThresholds.getSecondThreshold()
+					&& !currentOverloadStatus.equals(OverloadStatus.FirstPowerThresholdWarning)) {
 				currentOverloadStatus = OverloadStatus.FirstPowerThresholdWarning;
 				overloadStatusListener.notifyOverloadStatusUpdate(currentOverloadStatus);
-			} else if (signedPower > powerThresholds.getSecondThreshold() && !currentOverloadStatus.equals(OverloadStatus.SecondPowerThresholdWarning)) {
+			} else if (signedPower > powerThresholds.getSecondThreshold()
+					&& !currentOverloadStatus.equals(OverloadStatus.SecondPowerThresholdWarning)) {
 				currentOverloadStatus = OverloadStatus.SecondPowerThresholdWarning;
 				overloadStatusListener.notifyOverloadStatusUpdate(currentOverloadStatus);
 			}
@@ -281,23 +289,31 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 							// ((SmartMeterInfo)appliance).getProducedEnergyTime()
 							// > 1500 * DEFAULT_SUMMATION_MAX_INTERVAL) {
 							if (System.currentTimeMillis() - ((SmartMeterInfo) appliance).getProducedEnergyTime() > 2500 * DEFAULT_SUMMATION_MAX_INTERVAL) {
-								LOG.warn(String.format("Periodic task - invalid current summation received subscription for appliance %s", appliance.getApplianceId()));
+								LOG.warn(String.format(
+										"Periodic task - invalid current summation received subscription for appliance %s",
+										appliance.getApplianceId()));
 								refreshCurrentSummationReceivedSubscription(appliance);
 							}
 						}
 
 						if (smartInfoProduction != appliance) {
-							// TODO: ADDED BY MARCO -- SALTARE QUESTO PASSO SE L APPLIANCE NON SUPPORTA IL METER CLUSTER, MEGLIO SE SI ESEGUE UN CONTROLLO SULLA PRESENZA DEL CLUSTER METERING 0x0702
-							if ((appliance.getApplianceType() == DeviceType.WINDOW_COVERING) || (appliance.getApplianceType() == DeviceType.DOOR_LOCK))
+							// TODO: ADDED BY MARCO -- SALTARE QUESTO PASSO SE L
+							// APPLIANCE NON SUPPORTA IL METER CLUSTER, MEGLIO
+							// SE
+							// SI ESEGUE UN CONTROLLO SULLA PRESENZA DEL CLUSTER
+							// METERING 0x0702
+							if ((appliance.getApplianceType() == DeviceType.WINDOW_COVERING)
+									|| (appliance.getApplianceType() == DeviceType.DOOR_LOCK))
 								return;
 
-							
 							// TODO: check merge, different values in 3.3.0
 							// if (System.currentTimeMillis() -
 							// appliance.getAccumulatedEnergyTime() > 1500 *
 							// DEFAULT_SUMMATION_MAX_INTERVAL) {
 							if (System.currentTimeMillis() - appliance.getAccumulatedEnergyTime() > 2500 * DEFAULT_SUMMATION_MAX_INTERVAL) {
-								LOG.warn(String.format("Periodic task - invalid current summation delivered subscription for appliance %s", appliance.getApplianceId()));
+								LOG.warn(String.format(
+										"Periodic task - invalid current summation delivered subscription for appliance %s",
+										appliance.getApplianceId()));
 								refreshCurrentSummationDeliveredSubscription(appliance);
 							}
 
@@ -306,13 +322,17 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 							// appliance.getIstantaneousPowerTime() > 1500 *
 							// DEFAULT_INST_DEMAND_MAX_INTERVAL) {
 							if (System.currentTimeMillis() - appliance.getIstantaneousPowerTime() > 2500 * DEFAULT_INST_DEMAND_MAX_INTERVAL) {
-								LOG.warn(String.format("Periodic task - invalid instantaneous demand subscription for appliance %s", appliance.getApplianceId()));
+								LOG.warn(String.format(
+										"Periodic task - invalid instantaneous demand subscription for appliance %s",
+										appliance.getApplianceId()));
 								refreshInstantaneousDemandSubscription(appliance);
 							}
 						}
 
 					} catch (Exception e) {
-						LOG.warn(String.format("Periodic task error while initializing subscriptions for appliance %s", appliance.getApplianceId()), e);
+						LOG.warn(
+								String.format("Periodic task error while initializing subscriptions for appliance %s",
+										appliance.getApplianceId()), e);
 					}
 				}
 			}
@@ -351,7 +371,6 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 			throw new IllegalArgumentException("The argument cannot be null.");
 		meteringProxy = proxy;
 	}
-
 
 	public IOnOffProxy getOnOffProxy() {
 		return onOffProxy;
@@ -433,8 +452,10 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 		if (appliance == smartInfoProduction)
 			return;
 
-		if (power == IMeteringProxy.INVALID_INSTANTANEOUS_POWER_VALUE || power == IMeteringProxy.INVALID_INSTANTANEOUS_POWER_STANDARD_VALUE) {
-			LOG.warn(String.format("Invalid Instantaneous Demand %f, from %s, at %s", power, applianceId, CalendarUtil.toSecondString(time)));
+		if (power == IMeteringProxy.INVALID_INSTANTANEOUS_POWER_VALUE
+				|| power == IMeteringProxy.INVALID_INSTANTANEOUS_POWER_STANDARD_VALUE) {
+			LOG.warn(String.format("Invalid Instantaneous Demand %f, from %s, at %s", power, applianceId,
+					CalendarUtil.toSecondString(time)));
 			try {
 				cloudProxy.storeEvent(applianceId, time, ICloudServiceProxy.EVENT_INVALID_INST_DEMAND_VALUE);
 			} catch (Exception e) {
@@ -464,7 +485,8 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 			return;
 
 		if (totalEnergy == IMeteringProxy.INVALID_ENERGY_CONSUMPTION_VALUE) {
-			LOG.warn(String.format("Invalid Current Summation %f, from %s, at %s", totalEnergy, applianceId, CalendarUtil.toSecondString(time)));
+			LOG.warn(String.format("Invalid Current Summation %f, from %s, at %s", totalEnergy, applianceId,
+					CalendarUtil.toSecondString(time)));
 			try {
 				cloudProxy.storeEvent(applianceId, time, ICloudServiceProxy.EVENT_INVALID_CURRENT_SUMMATION_DELIVERED_VALUE);
 			} catch (Exception e) {
@@ -478,7 +500,8 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 				totalEnergy = IMeteringProxy.INVALID_ENERGY_CONSUMPTION_VALUE;
 		}
 
-		LOG.debug(String.format("Current summation delivered %f, from %s, at %s", totalEnergy, applianceId, CalendarUtil.toSecondString(time)));
+		LOG.debug(String.format("Current summation delivered %f, from %s, at %s", totalEnergy, applianceId,
+				CalendarUtil.toSecondString(time)));
 		// TODO: check merge, if condition was different
 		// if (totalEnergy != IMeteringProxy.INVALID_ENERGY_CONSUMPTION_VALUE) {
 		EnergyCostInfo eci = appliance.updateEnergyCost(time, totalEnergy);
@@ -513,7 +536,8 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 		SmartMeterInfo appliance = (SmartMeterInfo) getApplianceInfo(applianceId);
 
 		if (totalEnergy == IMeteringProxy.INVALID_ENERGY_CONSUMPTION_VALUE) {
-			LOG.warn(String.format("Invalid Current Summation %f, from %s, at %s", totalEnergy, applianceId, CalendarUtil.toSecondString(time)));
+			LOG.warn(String.format("Invalid Current Summation %f, from %s, at %s", totalEnergy, applianceId,
+					CalendarUtil.toSecondString(time)));
 			try {
 				cloudProxy.storeEvent(applianceId, time, ICloudServiceProxy.EVENT_INVALID_CURRENT_SUMMATION_RECEIVED_VALUE);
 			} catch (Exception e) {
@@ -527,7 +551,8 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 				totalEnergy = IMeteringProxy.INVALID_ENERGY_CONSUMPTION_VALUE;
 		}
 
-		LOG.debug(String.format("Current summation received %f, from %s, at %s", totalEnergy, applianceId, CalendarUtil.toSecondString(time)));
+		LOG.debug(String.format("Current summation received %f, from %s, at %s", totalEnergy, applianceId,
+				CalendarUtil.toSecondString(time)));
 
 		if (totalEnergy != IMeteringProxy.INVALID_ENERGY_CONSUMPTION_VALUE) {
 			try {
@@ -726,8 +751,11 @@ public class MeteringCore implements IMeteringListener, DeviceListener {
 		appliance.setAvailable(isAvailable);
 		if (appliance.isAvailable()) {
 			if (appliance != smartInfoProduction) {
-				// TODO: ADDED BY MARCO -- SALTARE QUESTO PASSO SE L APPLIANCE NON SUPPORTA IL METER CLUSTER, MEGLIO SE SI ESEGUE UN CONTROLLO SULLA PRESENZA DEL CLUSTER METERING 0x0702
-				if ((appliance.getApplianceType() == DeviceType.DOOR_LOCK) || (appliance.getApplianceType() == DeviceType.WINDOW_COVERING))
+				// TODO: ADDED BY MARCO -- SALTARE QUESTO PASSO SE L APPLIANCE
+				// NON SUPPORTA IL METER CLUSTER, MEGLIO SE SI ESEGUE UN
+				// CONTROLLO SULLA PRESENZA DEL CLUSTER METERING 0x0702
+				if ((appliance.getApplianceType() == DeviceType.DOOR_LOCK)
+						|| (appliance.getApplianceType() == DeviceType.WINDOW_COVERING))
 					return;
 				refreshCurrentSummationDeliveredSubscription(appliance);
 				refreshInstantaneousDemandSubscription(appliance);

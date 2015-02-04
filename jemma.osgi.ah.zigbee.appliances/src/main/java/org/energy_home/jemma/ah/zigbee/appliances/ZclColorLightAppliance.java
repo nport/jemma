@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 public class ZclColorLightAppliance extends ZclAppliance {
 	private ZclEndPoint endPoint = null;
 
-	private static final Logger LOG = LoggerFactory.getLogger( ZclColorLightAppliance.class );
+	private static final Logger LOG = LoggerFactory.getLogger(ZclColorLightAppliance.class);
 
 	public ZclColorLightAppliance(String pid, Dictionary config) throws ApplianceException {
 		super(pid, config);
@@ -39,12 +39,12 @@ public class ZclColorLightAppliance extends ZclAppliance {
 		endPoint = this.zclAddEndPoint(IEndPointTypes.ZIGBEE_COLOR_LIGHT);
 
 		// Server Clusters
-		endPoint.addServiceCluster(new ZclLightLinkIdentifyServer());		
+		endPoint.addServiceCluster(new ZclLightLinkIdentifyServer());
 		endPoint.addServiceCluster(new ZclLightLinkOnOffServer());
 		endPoint.addServiceCluster(new ZclLightLinkLevelControlServer());
-		endPoint.addServiceCluster(new ZclLightLinkColorControlServer());		
+		endPoint.addServiceCluster(new ZclLightLinkColorControlServer());
 	}
-	
+
 	protected void attached() {
 		LOG.debug("ZclColorLightAppliance attached");
 	}

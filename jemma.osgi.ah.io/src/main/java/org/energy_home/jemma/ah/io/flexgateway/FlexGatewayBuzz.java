@@ -15,7 +15,6 @@
  */
 package org.energy_home.jemma.ah.io.flexgateway;
 
-
 import java.io.File;
 import java.io.FileWriter;
 
@@ -26,7 +25,7 @@ import org.slf4j.LoggerFactory;
 //XXX Many Files in this project are Flexgateway-only - we sould re-design to separate generic features from platform-specific e.g. fragments ?
 public class FlexGatewayBuzz {
 
-	private static final Logger LOG = LoggerFactory.getLogger( FlexGatewayBuzz.class );
+	private static final Logger LOG = LoggerFactory.getLogger(FlexGatewayBuzz.class);
 	protected static String target = "cedac";
 	protected static String cedacBuzzFolder = "/sys/devices/platform/flex_hmi.0";
 	protected static int RED_COLOR = 0;
@@ -61,46 +60,45 @@ public class FlexGatewayBuzz {
 				return true;
 
 			} catch (Exception e) {
-				LOG.error("Exception setting buzz ",e);
+				LOG.error("Exception setting buzz ", e);
 			}
 		}
 		return false;
 	}
-	
+
 	public static boolean cmdStartBuzzOnCedac() {
-		
+
 		setBuzzOnCedac("start");
-		
-		return false;
-	}
-	
-	public static boolean cmdStopBuzzOnCedac() {
-		
-		setBuzzOnCedac("stop");
-		
-		return false;
-	}
-	
-	public static boolean cmdStartBeepBuzzOnCedac() {
-		
-		setBuzzOnCedac("start_beep");
-		
-		return false;
-	}
-	
-	public static boolean cmdStopBeepBuzzOnCedac() {
-		
-		setBuzzOnCedac("stop_beep");
-		
+
 		return false;
 	}
 
-	
+	public static boolean cmdStopBuzzOnCedac() {
+
+		setBuzzOnCedac("stop");
+
+		return false;
+	}
+
+	public static boolean cmdStartBeepBuzzOnCedac() {
+
+		setBuzzOnCedac("start_beep");
+
+		return false;
+	}
+
+	public static boolean cmdStopBeepBuzzOnCedac() {
+
+		setBuzzOnCedac("stop_beep");
+
+		return false;
+	}
+
 	public static boolean cmdStartBeepPeriodBuzzOnCedac(int value) {
-		
+
 		setBuzzOnCedac("period " + value);
 		setBuzzOnCedac("start");
-		
+
 		return false;
 	}
 }

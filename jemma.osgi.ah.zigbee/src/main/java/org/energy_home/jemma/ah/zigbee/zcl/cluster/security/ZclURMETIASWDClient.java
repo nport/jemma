@@ -74,8 +74,7 @@ public class ZclURMETIASWDClient extends ZclServiceCluster implements ZigBeeDevi
 		int size = 0;
 		size += ZclDataTypeEnum16.zclSize(ZoneType);
 		size += ZclDataTypeUI16.zclSize(ManufacturerCode);
-		
-		
+
 		ZclFrame zclFrame = new ZclFrame(1, size);
 		zclFrame.setCommandId(1);
 		ZclDataTypeEnum16.zclSerialize(zclFrame, ZoneType);

@@ -82,23 +82,22 @@ public class GatewayEventManager implements IGatewayEventManager {
 	 */
 	public GatewayEventManager(GalController _gal) {
 		gal = _gal;
-		
+
 		PropertiesManager pm = gal.getPropertiesManager();
-		
+
 		if (pm.getDebugEnabled())
 			LOG.info("Creating Executor for GatewayEventManager with:" + pm.getNumberOfThreadForAnyPool() + " threads");
-				
-		executor = CreateExecutors.createThreadPoolExecutor("THPool-EventManager", pm.getNumberOfThreadForAnyPool(), pm.getKeepAliveThread() * 60);
+
+		executor = CreateExecutors.createThreadPoolExecutor("THPool-EventManager", pm.getNumberOfThreadForAnyPool(),
+				pm.getKeepAliveThread() * 60);
 
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	public void notifyGatewayStartResult(final Status status) {
 		executor.execute(new Runnable() {
-
-			
 
 			public void run() {
 				for (GatewayDeviceEventEntry<?> gel : getGal().getListGatewayEventListener()) {
@@ -145,7 +144,7 @@ public class GatewayEventManager implements IGatewayEventManager {
 					if (gel.getProxyIdentifier() == _requestIdentifier) {
 						Status cstatus = null;
 						NodeServices cnodeServices = null;
-						synchronized (status) {						
+						synchronized (status) {
 							cstatus = Utils.clone(status);
 						}
 						synchronized (nodeServices) {
@@ -251,10 +250,9 @@ public class GatewayEventManager implements IGatewayEventManager {
 				for (GatewayDeviceEventEntry<?> gel : getGal().getListGatewayEventListener()) {
 					Status cstatus = null;
 					synchronized (status) {
-						if (clone ) {
+						if (clone) {
 							cstatus = Utils.clone(status);
-						}
-						else {
+						} else {
 							cstatus = status;
 						}
 					}
@@ -360,7 +358,8 @@ public class GatewayEventManager implements IGatewayEventManager {
 						synchronized (address) {
 							caddress = Utils.clone(address);
 						}
-						((GatewayEventListenerExtended) gl.getGatewayEventListener()).nodeDescriptorRetrievedExtended(cstatus, cnode, caddress);
+						((GatewayEventListenerExtended) gl.getGatewayEventListener()).nodeDescriptorRetrievedExtended(cstatus,
+								cnode, caddress);
 					}
 				}
 			}
@@ -371,7 +370,8 @@ public class GatewayEventManager implements IGatewayEventManager {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void notifyNodeDescriptorExtended(final int _requestIdentifier, final Status status, final NodeDescriptor node, final Address address) {
+	public void notifyNodeDescriptorExtended(final int _requestIdentifier, final Status status, final NodeDescriptor node,
+			final Address address) {
 		executor.execute(new Runnable() {
 			public void run() {
 				for (GatewayDeviceEventEntry<?> gl : getGal().getListGatewayEventListener()) {
@@ -392,7 +392,8 @@ public class GatewayEventManager implements IGatewayEventManager {
 								caddress = Utils.clone(address);
 							}
 
-							((GatewayEventListenerExtended) gl.getGatewayEventListener()).nodeDescriptorRetrievedExtended(cstatus, cnode, caddress);
+							((GatewayEventListenerExtended) gl.getGatewayEventListener()).nodeDescriptorRetrievedExtended(cstatus,
+									cnode, caddress);
 						}
 				}
 			}
@@ -405,13 +406,12 @@ public class GatewayEventManager implements IGatewayEventManager {
 	 * {@inheritDoc}
 	 */
 	public void nodeDiscovered(final Status status, final WSNNode node) throws Exception {
-		
-		
+
 		executor.execute(new Runnable() {
 			public void run() {
 				for (GatewayDeviceEventEntry<?> gl : getGal().getListGatewayEventListener()) {
 					{
-						
+
 						boolean _ReportOnExistingNodes = ((gl.getDiscoveryMask() & DISCOVERY_FRESHNESS) != 0);
 						boolean _ReportAnnouncements = ((gl.getDiscoveryMask() & DISCOVERY_ANNOUNCEMENTS) != 0);
 						if (_ReportOnExistingNodes || _ReportAnnouncements) {
@@ -431,7 +431,6 @@ public class GatewayEventManager implements IGatewayEventManager {
 			}
 
 		});
-		
 
 	}
 
@@ -439,7 +438,7 @@ public class GatewayEventManager implements IGatewayEventManager {
 	 * {@inheritDoc}
 	 */
 	public void nodeRemoved(final Status status, final WSNNode node) throws Exception {
-		System.out.println("\n\rNodeDiscovered :" + String.format("%04X", node.getAddress().getNetworkAddress())  + "\n\r");
+		System.out.println("\n\rNodeDiscovered :" + String.format("%04X", node.getAddress().getNetworkAddress()) + "\n\r");
 
 		executor.execute(new Runnable() {
 			public void run() {

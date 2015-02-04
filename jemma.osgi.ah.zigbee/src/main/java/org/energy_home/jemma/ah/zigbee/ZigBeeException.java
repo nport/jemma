@@ -17,7 +17,7 @@ package org.energy_home.jemma.ah.zigbee;
 
 import org.energy_home.jemma.ah.hac.ApplianceException;
 
-public class ZigBeeException extends ApplianceException {	
+public class ZigBeeException extends ApplianceException {
 	public ZigBeeException(String errorDescription) {
 		super(errorDescription);
 	}

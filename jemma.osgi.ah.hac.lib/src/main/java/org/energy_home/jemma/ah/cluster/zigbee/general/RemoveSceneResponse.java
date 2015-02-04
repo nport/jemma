@@ -16,20 +16,19 @@
 
 package org.energy_home.jemma.ah.cluster.zigbee.general;
 
-
 public class RemoveSceneResponse {
 
-    public short Status;
-    public int GroupID;
-    public short SceneID;
+	public short Status;
+	public int GroupID;
+	public short SceneID;
 
-    public RemoveSceneResponse() {
-    }
+	public RemoveSceneResponse() {
+	}
 
-    public RemoveSceneResponse(short Status, int GroupID, short SceneID) {
-        this.Status = Status;
-        this.GroupID = GroupID;
-        this.SceneID = SceneID;
-    }
+	public RemoveSceneResponse(short Status, int GroupID, short SceneID) {
+		this.Status = Status;
+		this.GroupID = GroupID;
+		this.SceneID = SceneID;
+	}
 
 }

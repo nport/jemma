@@ -154,7 +154,7 @@ public class TimeServerCluster extends ServiceCluster implements TimeServer {
 	public long getValidUntilTime(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException {
 		throw new UnsupportedClusterAttributeException();
 	}
-	
+
 	public void setTimeZone(long TimeZone, IEndPointRequestContext context) throws ApplianceException, ServiceClusterException {
 		throw new ReadOnlyAttributeException();
 	}

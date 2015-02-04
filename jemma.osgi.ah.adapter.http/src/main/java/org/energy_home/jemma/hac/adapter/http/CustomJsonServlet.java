@@ -15,7 +15,6 @@
  */
 package org.energy_home.jemma.hac.adapter.http;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -25,22 +24,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.energy_home.jemma.ah.hac.IAppliance;
 import org.osgi.service.http.HttpContext;
 import org.osgi.service.useradmin.Authorization;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CustomJsonServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 7495225913754933111L;
 	private HttpServletBinder httpAdapter = null;
 	// int offset;
-	//FIXME we should leave the log configuration to the log configuration file!
-	@Deprecated 
+	// FIXME we should leave the log configuration to the log configuration
+	// file!
+	@Deprecated
 	private boolean logEnabled = false;
 
-	private static final Logger LOG = LoggerFactory.getLogger( CustomJsonServlet.class );
+	private static final Logger LOG = LoggerFactory.getLogger(CustomJsonServlet.class);
 
 	public CustomJsonServlet(HttpServletBinder httpAdapter, String prefix) {
 		this.httpAdapter = httpAdapter;
@@ -52,9 +52,8 @@ public class CustomJsonServlet extends HttpServlet {
 
 		String objectid;
 		String methodName;
-		
+
 		HttpSession session = req.getSession(true);
-		
 
 		objectid = req.getParameter("objectid");
 		if (objectid == null) {

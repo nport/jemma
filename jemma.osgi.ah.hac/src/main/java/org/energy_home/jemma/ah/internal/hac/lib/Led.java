@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 public class Led {
 
 	private static final Logger LOG = LoggerFactory.getLogger(Led.class);
-	
+
 	/**
 	 * Interface to the led system of the SheevaPlug
 	 * 

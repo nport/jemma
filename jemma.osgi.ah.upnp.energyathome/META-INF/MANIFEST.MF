@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
 Bundle-Activator: org.energy_home.jemma.ah.upnp.energyathome.Activator
 Bundle-Category: Automation@Home
+Bundle-DocURL: http://www.telecomitalia.it/
 Bundle-ManifestVersion: 2
 Bundle-Name: Hac Upnp Adapter
 Bundle-RequiredExecutionEnvironment: OSGi/Minimum-1.2,CDC-1.1/Foundation
@@ -10,9 +11,11 @@ Bundle-Vendor: Telecom Italia
 Bundle-Version: 1.0.1
 Created-By: Apache Maven Bundle Plugin
 Import-Package: org.osgi.framework;version="[1.5,2.0)",org.osgi.service.
- device;version="[1.1,2.0)",org.osgi.service.upnp;version="[1.1,2.0)"
+ upnp;version="[1.1,2.0)",org.osgi.service.device;version="[1.1,2.0)"
 Include-Resource: OSGI-INF/hac_upnp.xml=OSGI-INF/hac_upnp.xml,image/icon
  .gif=src/main/resources/image/icon.gif
 Private-Package: image,org.energy_home.jemma.ah.upnp.energyathome
+Provide-Capability: osgi.service;effective:=active;objectClass="org.osgi
+ .service.upnp.UPnPDevice";DEVICE_CATEGORY=UPnP;UPnP.export=YES
 Service-Component: OSGI-INF/hac_upnp.xml
-Tool: Bnd-1.50.0
+Tool: Bnd-2.3.0.201405100607

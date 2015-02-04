@@ -74,11 +74,12 @@ public class WebApplication {
 			for (int i = 0; i < servlets.size(); i++) {
 				ServletResource sr = (ServletResource) servlets.get(i);
 				try {
-					httpService.registerServlet(this.toAlias(this.rootUrl + sr.getAlias()), sr.getServlet(), null, this.getHttpContext());
+					httpService.registerServlet(this.toAlias(this.rootUrl + sr.getAlias()), sr.getServlet(), null,
+							this.getHttpContext());
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					continue;
-				} 
+				}
 			}
 		}
 	}
@@ -88,7 +89,7 @@ public class WebApplication {
 			String a = alias.substring(0, alias.length() - 1);
 			return a;
 		}
-			
+
 		return alias;
 	}
 
@@ -121,8 +122,9 @@ public class WebApplication {
 		}
 		return null;
 	}
+
 	public void setHttpContext(HttpContext httpContext) {
-			this.httpContext = httpContext;
-	
+		this.httpContext = httpContext;
+
 	}
 }

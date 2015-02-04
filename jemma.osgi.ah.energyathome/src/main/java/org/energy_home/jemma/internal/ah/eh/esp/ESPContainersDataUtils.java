@@ -15,7 +15,6 @@
  */
 package org.energy_home.jemma.internal.ah.eh.esp;
 
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -38,32 +37,36 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ESPContainersDataUtils {
-	private static final Logger LOG = LoggerFactory.getLogger( ESPContainersDataUtils.class );
-	
-	public static final long FIVE_MINUTES_IN_MILLISEC = 5*60000l; 
-	
+	private static final Logger LOG = LoggerFactory.getLogger(ESPContainersDataUtils.class);
+
+	public static final long FIVE_MINUTES_IN_MILLISEC = 5 * 60000l;
+
 	public static final long ONE_HOUR_IN_MILLISEC = 3600000l;
-	
+
 	public static final long ONE_DAY_IN_MILLISEC = 86400000l;
-	
+
 	public static final float DURATION_ERROR_TOLERANCE = 0.30f;
-	
-	public static int addIntermediateItems(Calendar c, long previousTime, long nextTime, ContentInstanceItems resultItems, int resolution, int lastAddedItems) {		
+
+	public static int addIntermediateItems(Calendar c, long previousTime, long nextTime, ContentInstanceItems resultItems,
+			int resolution, int lastAddedItems) {
 		List<ContentInstance> resultList = resultItems.getContentInstances();
 		long normalizedStartTime = getNormalizedStartTime(c, previousTime, resolution);
 		int startDst = c.get(Calendar.DST_OFFSET);
 		long normalizedEndTime = getNormalizedEndTime(c, nextTime, resolution);
-//		if (normalizedEndTime-nextTime <= 1000) {
-//			// This hack is necessary to manage some of the hap server approximation errors
-//			normalizedEndTime = getNormalizedEndTime(c, nextTime+1000, resolution);
-//			LOG.warn("Hap millisecond approximation error");
-//		}
+		// if (normalizedEndTime-nextTime <= 1000) {
+		// // This hack is necessary to manage some of the hap server
+		// approximation errors
+		// normalizedEndTime = getNormalizedEndTime(c, nextTime+1000,
+		// resolution);
+		// LOG.warn("Hap millisecond approximation error");
+		// }
 		int endDst = c.get(Calendar.DST_OFFSET);
-		
+
 		int itemsToBeAdded = getResultListSize(c, normalizedStartTime, normalizedEndTime, resolution);
 		itemsToBeAdded = itemsToBeAdded - 2;
 		if (lastAddedItems < 0 && itemsToBeAdded + lastAddedItems >= 0) {
-			// This hack is necessary to manage some of the hap server approximation on milliseconds
+			// This hack is necessary to manage some of the hap server
+			// approximation on milliseconds
 			itemsToBeAdded = itemsToBeAdded + lastAddedItems;
 			LOG.warn("getNextItemsToAdd negative value compensated");
 		}
@@ -74,23 +77,24 @@ public class ESPContainersDataUtils {
 		} else if (itemsToBeAdded > 0) {
 			if (resolution == ESPService.HOUR_RESOLUTION && endDst > startDst) {
 				normalizedStartTime += 1;
-				while (itemsAdded < itemsToBeAdded) {		
+				while (itemsAdded < itemsToBeAdded) {
 					normalizedStartTime += ONE_HOUR_IN_MILLISEC;
 					c.setTimeInMillis(normalizedStartTime);
 					startDst = c.get(Calendar.DST_OFFSET);
-					if (startDst == endDst) {		
-						resultList.add(getDefaultContentInstance(AHContainerAddress.getAddressFromUrl(resultItems.getAddressedId()).getContainerName(), normalizedStartTime)); 
+					if (startDst == endDst) {
+						resultList.add(getDefaultContentInstance(AHContainerAddress.getAddressFromUrl(resultItems.getAddressedId())
+								.getContainerName(), normalizedStartTime));
 						itemsAdded++;
 						break;
 					} else {
 						resultList.add(null);
 						itemsAdded++;
 					}
-				}			
-			}	
-			while (itemsAdded < itemsToBeAdded) {	
+				}
+			}
+			while (itemsAdded < itemsToBeAdded) {
 				resultList.add(null);
-				itemsAdded++;				
+				itemsAdded++;
 			}
 		}
 		return itemsAdded;
@@ -184,7 +188,7 @@ public class ESPContainersDataUtils {
 		if (result < 0) {
 			result = 0;
 		}
-		
+
 		if (result > 50) {
 			LOG.warn("getResultListSize return more than 50 results");
 		}
@@ -195,9 +199,10 @@ public class ESPContainersDataUtils {
 		// TODO: check for a more efficient implementation
 		long now = System.currentTimeMillis();
 		long endTime;
-		
-		if (startTime+duration >= now)
-			// Test added to manage produced energy forecast (it is assumed that hourly forecast data are already normalized)
+
+		if (startTime + duration >= now)
+			// Test added to manage produced energy forecast (it is assumed that
+			// hourly forecast data are already normalized)
 			return true;
 
 		Long initialConfigurationTime = ESPConfiguration.getInitialConfigurationTime();
@@ -227,24 +232,25 @@ public class ESPContainersDataUtils {
 		endTime = Math.min(now, endTime);
 		long maxExpectedDuration = endTime - startTime + 1;
 		if (endTime == now)
-			endTime = now-FIVE_MINUTES_IN_MILLISEC;
+			endTime = now - FIVE_MINUTES_IN_MILLISEC;
 		long minExpectedDuration = endTime - startTime + 1;
 		if (minExpectedDuration < 0)
-			minExpectedDuration = 0; 
+			minExpectedDuration = 0;
 		boolean result = duration >= minExpectedDuration * (1 - DURATION_ERROR_TOLERANCE)
 				&& duration <= maxExpectedDuration * (1 + DURATION_ERROR_TOLERANCE);
 		// Check for DST change
 		if (!result && resolution == ESPService.HOUR_RESOLUTION) {
-			c.setTimeInMillis(startTime-1);
+			c.setTimeInMillis(startTime - 1);
 			int startDst = c.get(Calendar.DST_OFFSET);
-			c.setTimeInMillis(endTime+1);
+			c.setTimeInMillis(endTime + 1);
 			int endDst = c.get(Calendar.DST_OFFSET);
 			int dstOffset = endDst - startDst;
-			// TODO: patch to be reviewed when hap server is modified (correct test should be dstOffset < 0) 
+			// TODO: patch to be reviewed when hap server is modified (correct
+			// test should be dstOffset < 0)
 			if (dstOffset != 0) {
 				maxExpectedDuration = maxExpectedDuration + Math.abs(dstOffset);
 				result = duration >= minExpectedDuration * (1 - DURATION_ERROR_TOLERANCE)
-					&& duration <= maxExpectedDuration * (1 + DURATION_ERROR_TOLERANCE);
+						&& duration <= maxExpectedDuration * (1 + DURATION_ERROR_TOLERANCE);
 			}
 		}
 		return result;
@@ -263,19 +269,19 @@ public class ESPContainersDataUtils {
 			ci.setId(id);
 		} catch (Exception e) {
 			LOG.error("Exception on getDefaultContentInstance", e);
-		} 
+		}
 		return ci;
 	}
-	
+
 	public static boolean checkDeltaEnergyMaxValue(EnergyCostInfo eci) {
-		return (eci.getDeltaEnergy()/eci.getDuration()*ONE_HOUR_IN_MILLISEC) < ESPApplication.MAX_HOURLY_DELTA_ENERGY;
+		return (eci.getDeltaEnergy() / eci.getDuration() * ONE_HOUR_IN_MILLISEC) < ESPApplication.MAX_HOURLY_DELTA_ENERGY;
 	}
-	
+
 	public static FloatCDV getCostCDV(EnergyCostInfo eci) {
-		FloatCDV cost = new FloatCDV();	
+		FloatCDV cost = new FloatCDV();
 		if (checkDeltaEnergyMaxValue(eci))
 			cost.setValue(new Float(eci.getCost()));
-		else 
+		else
 			return null;
 		cost.setDuration(eci.getDuration());
 		if (eci.getMinCost() != eci.getMaxCost()) {
@@ -284,30 +290,30 @@ public class ESPContainersDataUtils {
 		}
 		return cost;
 	}
-	
+
 	public static FloatDV getEnergyDV(EnergyCostInfo eci) {
 		FloatDV energy = new FloatDV();
 		if (checkDeltaEnergyMaxValue(eci))
 			energy.setValue(new Float(eci.getDeltaEnergy()));
-		else 
+		else
 			return null;
 		energy.setDuration(eci.getDuration());
 		return energy;
 	}
-	
+
 	public static FloatDV toFloatDV(ContentInstance ci) {
 		if (ci == null)
 			return null;
 		return (FloatDV) ci.getContent();
 	}
-	
+
 	public static Float toFloat(ContentInstance ci) {
 		FloatDV floatDV = toFloatDV(ci);
 		if (floatDV == null)
 			return null;
 		return floatDV.getValue();
 	}
-	
+
 	public static List<Float> toFloatValueList(ContentInstanceItems items) {
 		if (items == null)
 			return null;
@@ -322,44 +328,44 @@ public class ESPContainersDataUtils {
 			resultList.add(toFloat(contentInstance));
 		}
 		return resultList;
-	}	
-	
-	public static void addFloatDV(FloatDV result, FloatDV addendum) {	
-		result.setDuration(result.getDuration()+addendum.getDuration());
+	}
+
+	public static void addFloatDV(FloatDV result, FloatDV addendum) {
+		result.setDuration(result.getDuration() + addendum.getDuration());
 		Float f1 = result.getValue();
 		Float f2 = addendum.getValue();
 		if (f1 == null && f2 != null)
 			result.setValue(f2);
 		else if (f1 != null && f2 != null)
-			result.setValue(new Float(f1.floatValue()+f2.floatValue()));
+			result.setValue(new Float(f1.floatValue() + f2.floatValue()));
 	}
-	
-	public static void addFloatCDV(FloatCDV result, FloatCDV addendum) {	
+
+	public static void addFloatCDV(FloatCDV result, FloatCDV addendum) {
 		addFloatDV(result, addendum);
 		Float f1 = result.getMin();
 		Float f2 = addendum.getMin();
 		if (f1 == null && f2 != null)
 			result.setMin(f2);
 		else if (f1 != null && f2 != null)
-			result.setMin(new Float(f1.floatValue()+f2.floatValue()));
+			result.setMin(new Float(f1.floatValue() + f2.floatValue()));
 		f1 = result.getMax();
 		f2 = addendum.getMax();
 		if (f1 == null && f2 != null)
 			result.setMax(f2);
 		else if (f1 != null && f2 != null)
-			result.setMax(new Float(f1.floatValue()+f2.floatValue()));
+			result.setMax(new Float(f1.floatValue() + f2.floatValue()));
 	}
-	
+
 	public static void addContentInstance(ContentInstance result, ContentInstance addendum) {
 		if (addendum == null)
 			return;
 		Object content = result.getContent();
 		if (content instanceof FloatCDV)
-			addFloatCDV((FloatCDV)content, (FloatCDV)addendum.getContent());
+			addFloatCDV((FloatCDV) content, (FloatCDV) addendum.getContent());
 		else if (content instanceof FloatDV)
-			addFloatDV((FloatDV)content, (FloatDV)addendum.getContent());
+			addFloatDV((FloatDV) content, (FloatDV) addendum.getContent());
 	}
-	
+
 	public static Map<String, List<Float>> toFloatValueListMap(ContentInstanceItemsList itemsList) throws M2MHapException {
 		Map<String, List<Float>> result = null;
 		if (itemsList != null) {
@@ -374,15 +380,16 @@ public class ESPContainersDataUtils {
 		}
 		return result;
 	}
-	
-	public static ContentInstanceItems getNormalizedItems(ContentInstanceItems items, Calendar c, long normalizedStartTime, long normalizedEndTime,
-			int resolution) throws M2MHapException {
+
+	public static ContentInstanceItems getNormalizedItems(ContentInstanceItems items, Calendar c, long normalizedStartTime,
+			long normalizedEndTime, int resolution) throws M2MHapException {
 		if (items == null)
 			return null;
 		ContentInstanceItems result = new ContentInstanceItems();
 		List<ContentInstance> resultList = result.getContentInstances();
 		result.setAddressedId(items.getAddressedId());
-		// TODO: check if it is possible to force the original list to be a linked list
+		// TODO: check if it is possible to force the original list to be a
+		// linked list
 		List<ContentInstance> itemList = items.getContentInstances();
 		int resultSize = getResultListSize(c, normalizedStartTime, normalizedEndTime, resolution);
 		int lastAddedItems = 0;
@@ -392,45 +399,48 @@ public class ESPContainersDataUtils {
 			for (Iterator<ContentInstance> iterator = itemList.iterator(); iterator.hasNext();) {
 				ContentInstance contentInstance = (ContentInstance) iterator.next();
 				if (additionalItemsRequired) {
-					lastAddedItems = addIntermediateItems(c, previousTime, contentInstance.getId().longValue(), result, resolution, lastAddedItems);
+					lastAddedItems = addIntermediateItems(c, previousTime, contentInstance.getId().longValue(), result, resolution,
+							lastAddedItems);
 				}
 				previousTime = contentInstance.getId().longValue();
 				FloatDV content = (FloatDV) contentInstance.getContent();
 				if (content != null && checkDuration(c, contentInstance.getId().longValue(), content.getDuration(), resolution))
 					resultList.add(contentInstance);
 				else {
-					LOG.debug("getNormalizedItems - Added null item,  invalid duration: value=" + content.getValue() +  							", startTime=" + contentInstance.getId().longValue() + ", duration=" + content.getDuration());
+					LOG.debug("getNormalizedItems - Added null item,  invalid duration: value=" + content.getValue()
+							+ ", startTime=" + contentInstance.getId().longValue() + ", duration=" + content.getDuration());
 					resultList.add(null);
 				}
 
 			}
 			if (resultList.size() < resultSize)
-				addIntermediateItems(c, previousTime, normalizedEndTime+1, result, resolution, lastAddedItems);
+				addIntermediateItems(c, previousTime, normalizedEndTime + 1, result, resolution, lastAddedItems);
 		}
 		return result;
 	}
-	
-	public static ContentInstanceItemsList getNormalizedItemsList(ContentInstanceItemsList itemsList, Calendar c, long normalizedStartTime, long normalizedEndTime,
-			int resolution) throws M2MHapException {
+
+	public static ContentInstanceItemsList getNormalizedItemsList(ContentInstanceItemsList itemsList, Calendar c,
+			long normalizedStartTime, long normalizedEndTime, int resolution) throws M2MHapException {
 		if (itemsList == null)
 			return null;
-		// TODO: add filter for deleted appliances 
+		// TODO: add filter for deleted appliances
 		ContentInstanceItemsList result = new ContentInstanceItemsList();
 		List<ContentInstanceItems> list = itemsList.getContentInstanceItems();
 		List<ContentInstanceItems> resultList = result.getContentInstanceItems();
 		ContentInstanceItems items = null;
 		for (Iterator<ContentInstanceItems> iterator = list.iterator(); iterator.hasNext();) {
 			items = (ContentInstanceItems) iterator.next();
-			resultList.add(getNormalizedItems(items, c, normalizedStartTime, normalizedEndTime, resolution));			
-		}		
+			resultList.add(getNormalizedItems(items, c, normalizedStartTime, normalizedEndTime, resolution));
+		}
 		return result;
 	}
 
-	public static ContentInstanceItems getNormalizedWeekDayItems(ContentInstanceItems items, long startInstanceId, long endInstanceId) {
+	public static ContentInstanceItems getNormalizedWeekDayItems(ContentInstanceItems items, long startInstanceId,
+			long endInstanceId) {
 		ContentInstanceItems result = new ContentInstanceItems();
 		result.setAddressedId(items.getAddressedId());
 		List<ContentInstance> resultList = result.getContentInstances();
-		long id = startInstanceId-1;
+		long id = startInstanceId - 1;
 		if (items != null) {
 			List<ContentInstance> itemList = items.getContentInstances();
 			if (itemList != null) {
@@ -453,6 +463,6 @@ public class ESPContainersDataUtils {
 			id++;
 		}
 		return result;
-	}	
-	
+	}
+
 }

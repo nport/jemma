@@ -27,21 +27,14 @@ import org.osgi.service.device.Driver;
 /**
  * 
  * @author ISMB-Pert
- *
- *  bitronhome SMART-PLUG 
- *   * the ZigbeeManger Match filter
- * Adding bitronhome Smart Plug [deviceProperties Key Value pairs]
- * 		{
- * 			zigbee.device.eps.number=2,
- * 			zigbee.device.device.id=9,
- * 			zigbee.device.eps=[Ljava.lang.String;@a23d38,
- * 			service.pid=5149013002484649,
- * 			zigbee.device.ep.id=2,
- * 			DEVICE_SERIAL=5149013002484649, 
- * 			DEVICE_CATEGORY=ZigBee, 
- * 			zigbee.device.profile.id=260, 
- * 			zigbee.device.manufacturer.id=0
- * 		}
+ * 
+ *         bitronhome SMART-PLUG * the ZigbeeManger Match filter Adding
+ *         bitronhome Smart Plug [deviceProperties Key Value pairs] {
+ *         zigbee.device.eps.number=2, zigbee.device.device.id=9,
+ *         zigbee.device.eps=[Ljava.lang.String;@a23d38,
+ *         service.pid=5149013002484649, zigbee.device.ep.id=2,
+ *         DEVICE_SERIAL=5149013002484649, DEVICE_CATEGORY=ZigBee,
+ *         zigbee.device.profile.id=260, zigbee.device.manufacturer.id=0 }
  */
 
 public class ZclBitronhomeSmartPlugApplianceFactory extends DriverApplianceFactory implements Driver {
@@ -61,8 +54,8 @@ public class ZclBitronhomeSmartPlugApplianceFactory extends DriverApplianceFacto
 	}
 
 	public String deviceMatchFilterString() {
-		String result = "(&(DEVICE_CATEGORY=ZigBee)(zigbee.device.device.id=9))"; 
-		return result; 
-		
+		String result = "(&(DEVICE_CATEGORY=ZigBee)(zigbee.device.device.id=9))";
+		return result;
+
 	}
 }

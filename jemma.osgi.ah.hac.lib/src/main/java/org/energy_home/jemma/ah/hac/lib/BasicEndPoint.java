@@ -59,32 +59,32 @@ public class BasicEndPoint implements IApplicationEndPoint {
 		this.clientClusterListenerTypes = new HashMap();
 		this.serviceClustersListener = null;
 	}
-	
+
 	public final IEndPointRequestContext getDefaultRequestContext() {
-			return this.endPointRequestContext;
+		return this.endPointRequestContext;
 	}
-	
+
 	public final IEndPointRequestContext getDefaultRequestContext(boolean isConfirmationRequired) {
 		if (isConfirmationRequired)
 			return this.endPointRequestContext;
-		else 
+		else
 			return this.endPointRequestContextNoConfirmation;
 	}
-	
+
 	public IEndPointRequestContext getRequestContext(boolean isConfirmationRequired, long maxAgeForAttributeValues) {
 		return new EndPointRequestContext(this, isConfirmationRequired, maxAgeForAttributeValues);
 	}
-	
-	public final IEndPointRequestContext getValidRequestContext(IEndPointRequestContext endPointRequestContext) throws ServiceClusterException {
+
+	public final IEndPointRequestContext getValidRequestContext(IEndPointRequestContext endPointRequestContext)
+			throws ServiceClusterException {
 		if (endPointRequestContext == null)
 			return this.endPointRequestContext;
 		IEndPoint requestedEndPoint = endPointRequestContext.getPeerEndPoint();
-		if (appliance.getPid() != requestedEndPoint.getAppliance().getPid() ||
-				getId() != requestedEndPoint.getId())
+		if (appliance.getPid() != requestedEndPoint.getAppliance().getPid() || getId() != requestedEndPoint.getId())
 			throw new ServiceClusterException("Invalid end point request context");
 		return endPointRequestContext;
 	}
-	
+
 	public IAppliance getAppliance() {
 		return this.appliance;
 	}
@@ -100,7 +100,7 @@ public class BasicEndPoint implements IApplicationEndPoint {
 	public boolean isAvailable() {
 		return this.appliance.isAvailable() || this.id == IEndPoint.COMMON_END_POINT_ID;
 	}
-	
+
 	public String[] getServiceClusterNames() {
 		ArrayList clusterNamesList = new ArrayList(clientServiceClusters.size() + serverServiceClusters.size());
 		for (Iterator iterator = clientServiceClusters.keySet().iterator(); iterator.hasNext();) {
@@ -134,9 +134,9 @@ public class BasicEndPoint implements IApplicationEndPoint {
 		}
 		return clusterTypes;
 	}
-	
+
 	public IServiceCluster[] getServiceClusters() {
-		IServiceCluster[] clusterTypes = new IServiceCluster[serverServiceClusters.size()+clientServiceClusters.size()];
+		IServiceCluster[] clusterTypes = new IServiceCluster[serverServiceClusters.size() + clientServiceClusters.size()];
 		int i = 0;
 		for (Iterator iterator = clientServiceClusters.values().iterator(); iterator.hasNext();)
 			clusterTypes[i++] = (IServiceCluster) iterator.next();
@@ -144,7 +144,7 @@ public class BasicEndPoint implements IApplicationEndPoint {
 			clusterTypes[i++] = (IServiceCluster) iterator.next();
 		return clusterTypes;
 	}
-	
+
 	public String[] getServiceClusterTypes(int clusterSide) {
 		String[] clusterTypes = null;
 		int i = 0;
@@ -238,14 +238,14 @@ public class BasicEndPoint implements IApplicationEndPoint {
 		}
 		return serviceCluster;
 	}
-	
+
 	public IServiceClusterListener getServiceClusterListener(String clusterName) {
 		int clusterSide = HacCommon.getClusterSide(clusterName);
 		String clusterType = HacCommon.getClusterType(clusterName);
 		IServiceClusterListener serviceClusterListener = null;
 		IServiceCluster serviceCluster = getServiceCluster(clusterType, clusterSide);
 		if (serviceCluster != null && serviceCluster instanceof IServiceClusterListener)
-			return (IServiceClusterListener)serviceCluster;
+			return (IServiceClusterListener) serviceCluster;
 		switch (clusterSide) {
 		case IServiceCluster.CLIENT_SIDE:
 			serviceClusterListener = (IServiceClusterListener) clientClusterListenerTypes.get(clusterType);
@@ -266,6 +266,5 @@ public class BasicEndPoint implements IApplicationEndPoint {
 	public IServiceClustersListener getServiceClustersListener() {
 		return this.serviceClustersListener;
 	}
-	
 
 }

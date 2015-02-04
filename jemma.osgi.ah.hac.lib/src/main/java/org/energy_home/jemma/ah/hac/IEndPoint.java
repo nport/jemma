@@ -69,10 +69,11 @@ public interface IEndPoint {
 	public String getType();
 
 	/**
-	 * Checks the availability of all the services ({@link IServiceCluster}) 
+	 * Checks the availability of all the services ({@link IServiceCluster})
 	 * implemented by this end point
 	 * 
-	 * @return {@code true} if all cluster services are currently accessible, {@code false} otherwise
+	 * @return {@code true} if all cluster services are currently accessible,
+	 *         {@code false} otherwise
 	 */
 	public boolean isAvailable();
 
@@ -108,12 +109,12 @@ public interface IEndPoint {
 	 * Returns the list of all implemented client and server service cluster,
 	 * whose attributes/commands are exposed by this end point interface.
 	 * 
-	 * @return An array with all the implemented client and server cluster 
-	 *         {@link IServiceCluster} interfaces; an empty array is returned 
+	 * @return An array with all the implemented client and server cluster
+	 *         {@link IServiceCluster} interfaces; an empty array is returned
 	 *         when no implemented cluster types are found
 	 */
-	public IServiceCluster[] getServiceClusters();	
-	
+	public IServiceCluster[] getServiceClusters();
+
 	/**
 	 * Returns the list of all implemented client or server service cluster,
 	 * whose attributes/commands are exposed by this end point interface.
@@ -123,12 +124,13 @@ public interface IEndPoint {
 	 *            {@link IServiceCluster#SERVER_SIDE}) of the requested cluster
 	 *            types.
 	 * 
-	 * @return An array with all the implemented client or server cluster 
-	 *         {@link IServiceCluster} interfaces; an empty array is returned 
-	 *         when no implemented cluster types are found for the specified side
+	 * @return An array with all the implemented client or server cluster
+	 *         {@link IServiceCluster} interfaces; an empty array is returned
+	 *         when no implemented cluster types are found for the specified
+	 *         side
 	 */
-	public IServiceCluster[] getServiceClusters(int clusterSide);	
-	
+	public IServiceCluster[] getServiceClusters(int clusterSide);
+
 	/**
 	 * Returns the list of all implemented client or server service cluster
 	 * types, whose attributes/commands are exposed by this end point interface.
@@ -159,10 +161,11 @@ public interface IEndPoint {
 	 * <p>
 	 * This interface can be casted to the corresponding specific interface,
 	 * e.g. the {@code IServiceCluster} object returned by the invocation of the
-	 * method {@code
+	 * method
+	 * {@code
 	 * getServiceCluster(org.energy_home.jemma.ah.cluster.zigbee.general.OnOffServer.
-	 * class.getName())} can be casted to the class {@code
-	 * org.energy_home.jemma.ah.cluster.zigbee.general.OnOffServer}
+	 * class.getName())} can be casted to the class
+	 * {@code org.energy_home.jemma.ah.cluster.zigbee.general.OnOffServer}
 	 * 
 	 * @param clusterName
 	 *            The name of the requested cluster
@@ -171,18 +174,18 @@ public interface IEndPoint {
 	 *         not found
 	 */
 	public IServiceCluster getServiceCluster(String clusterName);
-	
-//	/**
-//	 * Returns the service clusters listener interface registered for this end
-//	 * point (used to receive asynchronous notification from all service
-//	 * clusters exposed by peer appliances' end points connected to this end
-//	 * point).
-//	 * 
-//	 * @return The service cluster listener interface, {@code null} in case no
-//	 *         listener has been registered
-//	 * 
-//	 * @see IServiceClustersListener
-//	 */
-//	public IServiceClustersListener getServiceClustersListener();
+
+	// /**
+	// * Returns the service clusters listener interface registered for this end
+	// * point (used to receive asynchronous notification from all service
+	// * clusters exposed by peer appliances' end points connected to this end
+	// * point).
+	// *
+	// * @return The service cluster listener interface, {@code null} in case no
+	// * listener has been registered
+	// *
+	// * @see IServiceClustersListener
+	// */
+	// public IServiceClustersListener getServiceClustersListener();
 
 }

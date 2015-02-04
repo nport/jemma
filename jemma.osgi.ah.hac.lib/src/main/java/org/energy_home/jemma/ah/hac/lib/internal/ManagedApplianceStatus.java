@@ -21,32 +21,32 @@ public class ManagedApplianceStatus {
 	static final int STATUS_INSTALLING = 0;
 	static final int STATUS_ENABLING = 1;
 	static final int STATUS_ENABLED = 2;
-	
+
 	private IManagedAppliance appliance;
 	private int status;
 	private long lastSubscriptionRequestTime;
-	
+
 	ManagedApplianceStatus(IManagedAppliance appliance, int status) {
 		this.appliance = appliance;
 		this.status = status;
 	}
-	
+
 	IManagedAppliance getAppliance() {
 		return this.appliance;
 	}
-	
+
 	int getStatus() {
 		return this.status;
 	}
-	
+
 	void setStatus(int status) {
 		this.status = status;
 	}
-	
+
 	long getLastSubscriptionRequestTime() {
 		return this.lastSubscriptionRequestTime;
 	}
-	
+
 	void setLastSubscriptionRequestTime(long time) {
 		this.lastSubscriptionRequestTime = time;
 	}

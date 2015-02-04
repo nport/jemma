@@ -15,8 +15,6 @@
  */
 package org.energy_home.jemma.ah.ebrain.algo;
 
-
-
 /**
  * Given a time series, say a complete monthly data for 12 months, the
  * Holt-Winters smoothing and forecasting technique is built on the following
@@ -43,15 +41,15 @@ public class TripleExponentialSmoothing {
 	private double mse = Double.NaN, mape = Double.NaN;
 	private double[] lastForecast, lastSeries;
 
-	TripleExponentialSmoothing() {}
-	
+	TripleExponentialSmoothing() {
+	}
+
 	/*
-	 * @param alpha
-	 *            - overall smoothing coefficient.
-	 * @param beta
-	 *            - seasonal smoothing coefficient.
-	 * @param gamma
-	 *            - trend smoothing coefficient.
+	 * @param alpha - overall smoothing coefficient.
+	 * 
+	 * @param beta - seasonal smoothing coefficient.
+	 * 
+	 * @param gamma - trend smoothing coefficient.
 	 */
 	public TripleExponentialSmoothing(double alpha, double beta, double gamma) {
 		if ((alpha < 0.0) || (alpha > 1.0)) {
@@ -63,19 +61,36 @@ public class TripleExponentialSmoothing {
 		if ((gamma < 0.0) || (gamma > 1.0)) {
 			throw new IllegalArgumentException("Value of Gamma should satisfy 0.0 <= gamma <= 1.0");
 		}
-		
+
 		this.alpha = alpha;
 		this.beta = beta;
 		this.gamma = gamma;
 	}
-	
-	public double getMSE() {return mse;}
-	public double getMAPE() {return mape;}
-	public int getPeriod() {return period;}
-	public int getSeasons() {return seasons;}
-	public double[] getLastForecast() {return lastForecast;}
-	public double[] getObservedData() {return lastSeries;}
-	
+
+	public double getMSE() {
+		return mse;
+	}
+
+	public double getMAPE() {
+		return mape;
+	}
+
+	public int getPeriod() {
+		return period;
+	}
+
+	public int getSeasons() {
+		return seasons;
+	}
+
+	public double[] getLastForecast() {
+		return lastForecast;
+	}
+
+	public double[] getObservedData() {
+		return lastSeries;
+	}
+
 	/**
 	 * This method is the entry point. It calculates the initial values and
 	 * returns the forecast for the future k periods.
@@ -101,22 +116,23 @@ public class TripleExponentialSmoothing {
 	public double[] forecast(double[] timeSeries, int period) {
 		return forecast(timeSeries, period, period);
 	}
+
 	public double[] forecast(double[] timeSeries, int period, int k) {
-		if (timeSeries == null) 
+		if (timeSeries == null)
 			throw new IllegalArgumentException("The time series data cannot not null.");
-		
+
 		if (period > timeSeries.length)
 			throw new IllegalArgumentException("The time series data must be >= the period.");
-		
-		if (k <= 0) 
+
+		if (k <= 0)
 			throw new IllegalArgumentException("Number of predicted k values must be greater than 0.");
 
-		if (k > period) 
+		if (k > period)
 			throw new IllegalArgumentException("Number of predicted k values must be <= period.");
-		
+
 		this.period = period;
 		this.seasons = timeSeries.length / period;
-		
+
 		double[] St = new double[timeSeries.length];
 		double[] Bt = new double[timeSeries.length];
 		double[] It = new double[timeSeries.length];
@@ -154,14 +170,14 @@ public class TripleExponentialSmoothing {
 			if ((i - period) >= 0) {
 				It[i] = beta * timeSeries[i] / St[i] + (1.0 - beta) * It[i - period];
 			}
-			
 
 			// Calculate forecast
 			if (((i + k) >= period)) {
 				Ft[i + k] = (St[i] + (k * Bt[i])) * It[i - period + k];
 			}
 			if (debug) {
-				System.out.printf("i = %d, x = %f, St = %f, Bt = %f, It = %f, Ft = %f\n", i, timeSeries[i], St[i], Bt[i], It[i], Ft[i]);
+				System.out.printf("i = %d, x = %f, St = %f, Bt = %f, It = %f, Ft = %f\n", i, timeSeries[i], St[i], Bt[i], It[i],
+						Ft[i]);
 			}
 		}
 
@@ -174,7 +190,6 @@ public class TripleExponentialSmoothing {
 		System.arraycopy(Ft, offset, predicted, 0, len);
 		return predicted;
 	}
-	
 
 	/**
 	 * This method is the entry point. It calculates the initial values and
@@ -218,11 +233,11 @@ public class TripleExponentialSmoothing {
 		}
 
 		double[] forecast = computeHoltWinters(timeSeries, a0, b0, alpha, beta, gamma, initialSeasonalIndices, period, k, debug);
-		//updateAccuracyIndicators(timeSeries, forecast, period);
+		// updateAccuracyIndicators(timeSeries, forecast, period);
 		if (debug) {
 			System.out.println("Mean Square Error " + mse);
 			System.out.println("Mean Absolute % Error " + mape);
-			//printArray("Forecast", forecast);
+			// printArray("Forecast", forecast);
 		}
 
 		return forecast;
@@ -248,7 +263,7 @@ public class TripleExponentialSmoothing {
 
 		if (period > timeSeries.length)
 			throw new IllegalArgumentException("The time series data must be >= the period.");
-		
+
 		if (k <= 0) {
 			throw new IllegalArgumentException("Number of predicted k values must be greater than 0.");
 		}
@@ -319,14 +334,14 @@ public class TripleExponentialSmoothing {
 				It[i] = beta * timeSeries[i] / St[i] + (1.0 - beta) * It[i - period];
 			}
 
-
 			// Calculate forecast
 			if (((i + k) >= period)) {
 				Ft[i + k] = (St[i] + (k * Bt[i])) * It[i - period + k];
 			}
 
 			if (debug) {
-				System.out.printf("i = %d, x = %f, St = %f, Bt = %f, It = %f, Ft = %f\n", i, timeSeries[i], St[i], Bt[i], It[i], Ft[i]);
+				System.out.printf("i = %d, x = %f, St = %f, Bt = %f, It = %f, Ft = %f\n", i, timeSeries[i], St[i], Bt[i], It[i],
+						Ft[i]);
 			}
 		}
 		return Ft;
@@ -348,7 +363,8 @@ public class TripleExponentialSmoothing {
 	 * @return - Initial trend - Bt[1]
 	 */
 	private double getInitialTrend(double[] timeSeries, int period) {
-		if (timeSeries.length < 2 * period) return 0;
+		if (timeSeries.length < 2 * period)
+			return 0;
 		double sum = 0;
 		for (int i = 0; i < period; i++) {
 			sum += (timeSeries[period + i] - timeSeries[i]);
@@ -389,16 +405,15 @@ public class TripleExponentialSmoothing {
 
 		return seasonalIndices;
 	}
-	
-	
+
 	public void calculateErrorsIndicators() {
-        double sumAbsPercentErr = 0.0;
-        double sumErrSquared = 0.0;
-        
+		double sumAbsPercentErr = 0.0;
+		double sumErrSquared = 0.0;
+
 		for (int i = period; i < lastSeries.length; ++i) {
 			double error = lastSeries[i] - lastForecast[i];
 			sumAbsPercentErr += Math.abs(error / lastSeries[i]);
-            sumErrSquared += error * error;
+			sumErrSquared += error * error;
 		}
 		mse = sumErrSquared / (lastSeries.length - period);
 		mape = sumAbsPercentErr / (lastSeries.length - period);
@@ -416,51 +431,48 @@ public class TripleExponentialSmoothing {
 			System.out.println(data[i]);
 		}
 	}
-	
-    public static void main (String[] args) {
-        try {
+
+	public static void main(String[] args) {
+		try {
 			double alpha = 0.3;
 			double beta = 0.7;
 			double gamma = 0.0;
-			
-        	TimeSeriesEnergyLoad tsel = new TimeSeriesEnergyLoad(2);
-        	tsel.setRandomLoad();
-        	TripleExponentialSmoothing t = new TripleExponentialSmoothing(alpha, beta, gamma);
-        	//double[] pred = t.forecast();
-        	double[] expect = tsel.toArray();
-        	double[] pred = t.forecast(expect, tsel.getDailySlots());
-        	//System.exit(0);
-        	for (int i = 0; i < pred.length; ++i) {
+
+			TimeSeriesEnergyLoad tsel = new TimeSeriesEnergyLoad(2);
+			tsel.setRandomLoad();
+			TripleExponentialSmoothing t = new TripleExponentialSmoothing(alpha, beta, gamma);
+			// double[] pred = t.forecast();
+			double[] expect = tsel.toArray();
+			double[] pred = t.forecast(expect, tsel.getDailySlots());
+			// System.exit(0);
+			for (int i = 0; i < pred.length; ++i) {
 				System.out.printf("%d  %12.13f  %12.13f\n", i, pred[i], i < expect.length ? expect[i] : 0);
 			}
-        	
-        	/*
-        	for (int i = 0; i < expect.length; ++i) {
-        		System.out.printf("%d = %12.13f\n", i,expect[i]);
-        	}
-        	System.out.println("\n\n");
-        	for (int i = 0; i < pred.length; ++i) {
-        		System.out.printf("%d = %12.13f\n", i,pred[i]);
-        	}
-      	*/
-        	System.out.println("Mean Square Error " + t.getMSE());
+
+			/*
+			 * for (int i = 0; i < expect.length; ++i) {
+			 * System.out.printf("%d = %12.13f\n", i,expect[i]); }
+			 * System.out.println("\n\n"); for (int i = 0; i < pred.length; ++i)
+			 * { System.out.printf("%d = %12.13f\n", i,pred[i]); }
+			 */
+			System.out.println("Mean Square Error " + t.getMSE());
 			System.out.println("Mean Absolute % Error " + t.getMAPE());
 			System.exit(0);
-			
+
 			EnergyAllocator ea = new EnergyAllocator();
-		
+
 			int period = t.getPeriod();
 			int offset = period * t.getSeasons();
-			//ea.interpolateEnergyForecast(pred, 0, period);
-			
+			// ea.interpolateEnergyForecast(pred, 0, period);
+
 			System.exit(0);
-        	
+
 			/**
 			 * NIST data available at:
 			 * http://www.itl.nist.gov/div898/handbook/pmc/section4/pmc436.htm
 			 */
-			double[] timeSeries = { 362, 385, 432, 341, 382, 409, 498, 387, 473, 513, 582, 474,
-			        544, 582, 681, 557, 628, 707, 773, 592, 627, 725, 854, 661 };
+			double[] timeSeries = { 362, 385, 432, 341, 382, 409, 498, 387, 473, 513, 582, 474, 544, 582, 681, 557, 628, 707, 773,
+					592, 627, 725, 854, 661 };
 			period = 4;
 			int k = 4;
 
@@ -468,21 +480,18 @@ public class TripleExponentialSmoothing {
 			double[] prediction = tes.forecast(timeSeries, alpha, beta, gamma, period, k, true);
 
 			// These are the expected results
-			double[] expected = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-			        594.8043646513713, 357.12171044215734, 410.9203094983815,
-			        444.67743912921156, 550.9296957593741, 421.1681718160631,
-			        565.905732450577, 639.2910221068818, 688.8541669002238,
-			        532.7122406111591, 620.5492369959037, 668.5662327429854,
-			        773.5946568453546, 629.0602103529998, 717.0290609530134,
-			        836.4643466657625, 884.1797655866865, 617.6686414831381,
-			        599.1184450128665, 733.227872348479, 949.0708357438998,
-			        748.6618488792186 };
+			double[] expected = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 594.8043646513713, 357.12171044215734,
+					410.9203094983815, 444.67743912921156, 550.9296957593741, 421.1681718160631, 565.905732450577,
+					639.2910221068818, 688.8541669002238, 532.7122406111591, 620.5492369959037, 668.5662327429854,
+					773.5946568453546, 629.0602103529998, 717.0290609530134, 836.4643466657625, 884.1797655866865,
+					617.6686414831381, 599.1184450128665, 733.227872348479, 949.0708357438998, 748.6618488792186 };
 			for (int i = 0; i < prediction.length; ++i) {
-				//System.out.printf("%12.13f - %12.13f\n", prediction[i], i < expected.length ? expected[i] : 0);
+				// System.out.printf("%12.13f - %12.13f\n", prediction[i], i <
+				// expected.length ? expected[i] : 0);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
+	}
 }

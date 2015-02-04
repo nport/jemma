@@ -73,7 +73,8 @@ public class RestMessageListener implements MessageListener {
 	 * @param _clientResource
 	 *            the client resource.
 	 */
-	public RestMessageListener(Callback callback, String urilistener, ClientResources _clientResource, PropertiesManager __PropertiesManager) {
+	public RestMessageListener(Callback callback, String urilistener, ClientResources _clientResource,
+			PropertiesManager __PropertiesManager) {
 		super();
 		this.callback = callback;
 		this.urilistener = urilistener;
@@ -82,15 +83,12 @@ public class RestMessageListener implements MessageListener {
 		this._PropertiesManager = __PropertiesManager;
 		context.getParameters().add("socketTimeout", ((Integer) (_PropertiesManager.getHttpOptTimeout() * 1000)).toString());
 		executor = Executors.newFixedThreadPool(__PropertiesManager.getNumberOfThreadForAnyPool(), new ThreadFactory() {
-			@Override
 			public Thread newThread(Runnable r) {
-
 				return new Thread(r, "THPool-RestMessageListener");
 			}
 		});
 		if (executor instanceof ThreadPoolExecutor) {
-			((ThreadPoolExecutor) executor).setKeepAliveTime(__PropertiesManager.getKeepAliveThread(), TimeUnit.MINUTES);
-			((ThreadPoolExecutor) executor).allowCoreThreadTimeOut(true);
+			((ThreadPoolExecutor) executor).setKeepAliveTime(__PropertiesManager.getKeepAliveThread() * 60, TimeUnit.SECONDS);
 		}
 	}
 
@@ -158,7 +156,6 @@ public class RestMessageListener implements MessageListener {
 
 	}
 
-	@Override
 	public void notifyInterPANMessage(final InterPANMessageEvent message) {
 		if (urilistener != null) {
 			executor.execute(new Runnable() {

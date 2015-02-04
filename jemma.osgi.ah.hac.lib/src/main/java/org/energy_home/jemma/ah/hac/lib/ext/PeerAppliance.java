@@ -31,17 +31,17 @@ public class PeerAppliance implements IAppliance {
 	protected EndPoint linkedEndPoint;
 	private Map endPoints;
 	private boolean isPeerValid;
-	
+
 	private boolean containsOnlyCommonClientClusters = true;
-	
+
 	EndPoint getLinkedEndPoint() {
 		return this.linkedEndPoint;
 	}
-	
+
 	boolean isPeerValid() {
 		return this.isPeerValid;
 	}
-	
+
 	public PeerAppliance(Appliance managedAppliance, EndPoint linkedEndPoint) {
 		this.managedAppliance = managedAppliance;
 		this.linkedEndPoint = linkedEndPoint;
@@ -49,7 +49,6 @@ public class PeerAppliance implements IAppliance {
 		if (managedAppliance != null)
 			this.endPoints = new HashMap();
 	}
-	
 
 	public void addPeerEndPoint(PeerEndPoint endPoint) throws ApplianceException {
 		this.endPoints.put(new Integer(endPoint.getId()), endPoint);
@@ -61,21 +60,21 @@ public class PeerAppliance implements IAppliance {
 	public void setPeerValid(boolean isPeerValid) {
 		this.isPeerValid = isPeerValid;
 	}
-	
+
 	public Map getEndPointsMap() {
 		return endPoints;
 	}
-	
+
 	public boolean containsOnlyCommonClientClusters() {
 		return containsOnlyCommonClientClusters;
 	}
-	
+
 	/****** IAppliance ******/
 
 	public boolean isSingleton() {
 		return managedAppliance.isSingleton();
 	}
-	
+
 	public String getPid() {
 		return managedAppliance.getPid();
 	}
@@ -91,11 +90,11 @@ public class PeerAppliance implements IAppliance {
 	public Dictionary getCustomConfiguration() {
 		return managedAppliance.getCustomConfiguration();
 	}
-	
+
 	public Dictionary getConfiguration() {
 		return managedAppliance.getConfiguration();
 	}
-	
+
 	public boolean isValid() {
 		return managedAppliance.isValid() && isPeerValid;
 	}
@@ -103,7 +102,7 @@ public class PeerAppliance implements IAppliance {
 	public boolean isAvailable() {
 		return managedAppliance.isAvailable() && isPeerValid;
 	}
-	
+
 	public IEndPoint[] getEndPoints() {
 		if (endPoints.size() > 0) {
 			IEndPoint[] endPointArray = new IEndPoint[endPoints.size()];
@@ -119,7 +118,7 @@ public class PeerAppliance implements IAppliance {
 	public String[] getEndPointTypes() {
 		return managedAppliance.getEndPointTypes();
 	}
-	
+
 	public IEndPoint getEndPoint(int id) {
 		return (IEndPoint) endPoints.get(new Integer(id));
 	}
@@ -127,5 +126,5 @@ public class PeerAppliance implements IAppliance {
 	public String toString() {
 		return getPid();
 	}
-	
+
 }

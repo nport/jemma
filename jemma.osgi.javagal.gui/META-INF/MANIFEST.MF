@@ -1,17 +1,17 @@
 Manifest-Version: 1.0
+Bundle-DocURL: http://www.telecomitalia.it/
 Bundle-ManifestVersion: 2
-Bundle-Name: Java Gal Gui
+Bundle-Name: ZigBee Gateway Device Web User Interface
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-SymbolicName: jemma.osgi.javagal.gui
 Bundle-Vendor: Telecom Italia
 Bundle-Version: 1.0
 Created-By: Apache Maven Bundle Plugin
-Import-Package: javax.security.auth.login,javax.servlet;version="[2.5,3)
- ",javax.servlet.http;version="[2.5,3)",org.osgi.framework;version="[1.5
- ,2.0)",org.osgi.service.component;version="[1.1,2)",org.osgi.service.ev
- ent;version="[1.2,2)",org.osgi.service.http;version="[1.2,2.0)",org.osg
- i.service.useradmin;version="[1.1,2)",org.osgi.util.tracker;version="[1
- .4,2.0]",org.slf4j;version="[1.6,2)"
+Import-Package: javax.security.auth.login,javax.servlet,javax.servlet.ht
+ tp,org.osgi.framework;version="[1.5,2)",org.osgi.service.component;vers
+ ion="[1.1,2)",org.osgi.service.event;version="[1.2,2)",org.osgi.service
+ .http;version="[1.2,2)",org.osgi.service.useradmin;version="[1.1,2)",or
+ g.slf4j;version="[1.6,2)"
 Include-Resource: OSGI-INF/javagalwebgui.xml=OSGI-INF/javagalwebgui.xml,
  webapp/advancedControl.html=src/main/resources/webapp/advancedControl.h
  tml,webapp/cache.manifest=src/main/resources/webapp/cache.manifest,weba
@@ -141,11 +141,10 @@ Include-Resource: OSGI-INF/javagalwebgui.xml=OSGI-INF/javagalwebgui.xml,
  tion_Profile.xml=src/main/resources/webapp/xml/TelecomApplication_Profi
  le.xml,webapp/zigbeeNetworkInfo.html=src/main/resources/webapp/zigbeeNe
  tworkInfo.html
-Private-Package: webapp.xml,webapp.js.arbor.graphics,webapp.css.images,o
- rg.energy_home.jemma.javagal.gui,webapp.js.arbor,webapp.css.images.sign
- al,webapp.css.images.circles,webapp.js.arbor.tween,webapp.js.arbor.phys
- ics,webapp,webapp.css,webapp.js.jquery.i18n,webapp.css.images.arrows,we
- bapp.js.jquery,webapp.js
-Require-Bundle: jemma.osgi.javagal;bundle-version="1.0.0"
+Private-Package: org.energy_home.jemma.javagal.gui,webapp,webapp.css,web
+ app.css.images,webapp.css.images.arrows,webapp.css.images.circles,webap
+ p.css.images.signal,webapp.js.arbor,webapp.js.arbor.graphics,webapp.js.
+ arbor.physics,webapp.js.arbor.tween,webapp.js,webapp.js.jquery,webapp.j
+ s.jquery.i18n,webapp.xml
 Service-Component: OSGI-INF/*.xml
-Tool: Bnd-1.50.0
+Tool: Bnd-2.3.0.201405100607

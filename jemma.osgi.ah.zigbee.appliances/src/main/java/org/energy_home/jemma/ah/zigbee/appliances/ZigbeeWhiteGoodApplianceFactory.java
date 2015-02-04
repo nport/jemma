@@ -15,14 +15,13 @@
  */
 package org.energy_home.jemma.ah.zigbee.appliances;
 
-import org.energy_home.jemma.ah.hac.ApplianceException;
-import org.energy_home.jemma.ah.hac.lib.Appliance;
-import org.energy_home.jemma.ah.hac.IApplianceDescriptor;
-import org.energy_home.jemma.ah.hac.lib.ApplianceDescriptor;
-import org.energy_home.jemma.ah.hac.lib.DriverApplianceFactory;
-
 import java.util.Dictionary;
 
+import org.energy_home.jemma.ah.hac.ApplianceException;
+import org.energy_home.jemma.ah.hac.IApplianceDescriptor;
+import org.energy_home.jemma.ah.hac.lib.Appliance;
+import org.energy_home.jemma.ah.hac.lib.ApplianceDescriptor;
+import org.energy_home.jemma.ah.hac.lib.DriverApplianceFactory;
 import org.osgi.service.device.Driver;
 
 public class ZigbeeWhiteGoodApplianceFactory extends DriverApplianceFactory implements Driver {
@@ -30,7 +29,8 @@ public class ZigbeeWhiteGoodApplianceFactory extends DriverApplianceFactory impl
 	public static final String APPLIANCE_TYPE = "org.energy_home.jemma.ah.zigbee.whitegood";
 	public static final String APPLIANCE_FRIENDLY_NAME = "Whitegood";
 	public static final String DEVICE_TYPE = "ZigBee";
-	public static final IApplianceDescriptor APPLIANCE_DESCRIPTOR = new ApplianceDescriptor(APPLIANCE_TYPE, DEVICE_TYPE, APPLIANCE_FRIENDLY_NAME);
+	public static final IApplianceDescriptor APPLIANCE_DESCRIPTOR = new ApplianceDescriptor(APPLIANCE_TYPE, DEVICE_TYPE,
+			APPLIANCE_FRIENDLY_NAME);
 
 	public Appliance getInstance(String pid, Dictionary config) throws ApplianceException {
 		return new ZigbeeWhiteGoodAppliance(pid, config);

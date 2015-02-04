@@ -24,38 +24,31 @@ import org.energy_home.jemma.ah.zigbee.zcl.lib.types.ZclDataTypeUI8;
 
 public class ZclSignalStateResponse {
 
+	public static SignalStateResponse zclParse(IZclFrame zclFrame) throws ZclValidationException {
+		SignalStateResponse r = new SignalStateResponse();
+		r.ApplianceStatus = ZclDataTypeEnum8.zclParse(zclFrame);
+		r.RemoteEnableFlags = ZclDataTypeUI8.zclParse(zclFrame);
 
-    public static SignalStateResponse zclParse(IZclFrame zclFrame)
-        throws ZclValidationException
-    {
-        SignalStateResponse r = new SignalStateResponse();
-        r.ApplianceStatus = ZclDataTypeEnum8 .zclParse(zclFrame);
-        r.RemoteEnableFlags = ZclDataTypeUI8 .zclParse(zclFrame);
-  
-        try {
-			r.ApplianceStatus2 = ZclDataTypeUI24 .zclParse(zclFrame);
+		try {
+			r.ApplianceStatus2 = ZclDataTypeUI24.zclParse(zclFrame);
 		} catch (Exception e) {
 			r.ApplianceStatus2 = 0;
 		}
-        return r;
-    }
+		return r;
+	}
 
-    public static void zclSerialize(IZclFrame zclFrame, SignalStateResponse r)
-        throws ZclValidationException
-    {
-        ZclDataTypeEnum8 .zclSerialize(zclFrame, r.ApplianceStatus);
-        ZclDataTypeUI8 .zclSerialize(zclFrame, r.RemoteEnableFlags);
-        ZclDataTypeUI24 .zclSerialize(zclFrame, r.ApplianceStatus2);
-    }
+	public static void zclSerialize(IZclFrame zclFrame, SignalStateResponse r) throws ZclValidationException {
+		ZclDataTypeEnum8.zclSerialize(zclFrame, r.ApplianceStatus);
+		ZclDataTypeUI8.zclSerialize(zclFrame, r.RemoteEnableFlags);
+		ZclDataTypeUI24.zclSerialize(zclFrame, r.ApplianceStatus2);
+	}
 
-    public static int zclSize(SignalStateResponse r)
-        throws ZclValidationException
-    {
-        int size = 0;
-        size += ZclDataTypeEnum8 .zclSize(r.ApplianceStatus);
-        size += ZclDataTypeUI8 .zclSize(r.RemoteEnableFlags);
-        size += ZclDataTypeUI24 .zclSize(r.ApplianceStatus2);
-        return size;
-    }
+	public static int zclSize(SignalStateResponse r) throws ZclValidationException {
+		int size = 0;
+		size += ZclDataTypeEnum8.zclSize(r.ApplianceStatus);
+		size += ZclDataTypeUI8.zclSize(r.RemoteEnableFlags);
+		size += ZclDataTypeUI24.zclSize(r.ApplianceStatus2);
+		return size;
+	}
 
 }

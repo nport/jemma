@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 
 public class Led {
 
-	private static final Logger LOG = LoggerFactory.getLogger( Led.class );
+	private static final Logger LOG = LoggerFactory.getLogger(Led.class);
 	protected static String target = "cedac";
 	protected static String cedacLedFolder = "/sys/devices/platform/flex_hmi.0";
 	protected static int RED_COLOR = 0;
@@ -71,7 +71,7 @@ public class Led {
 				return true;
 
 			} catch (Exception e) {
-				LOG.error("Exception setting led " + e.getMessage(),e);
+				LOG.error("Exception setting led " + e.getMessage(), e);
 			}
 		}
 		return false;

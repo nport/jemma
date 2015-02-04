@@ -29,13 +29,13 @@ public class DateUtils {
 	public static final long MILLISEC_IN_ONE_MINUTE = 60000;
 	public static final long MILLISEC_IN_ONE_HOUR = 3600000;
 	public static final long MILLISEC_IN_ONE_DAY = 86400000;
-	
+
 	public static final int HOURS_IN_ONE_WEEK = 24 * 7;
-	
+
 	public static boolean isDateTimeOk() {
 		return System.currentTimeMillis() > DateUtils.DEFAULT_INITIAL_TIME;
 	}
-	
+
 	public static boolean isDateTimeOk(long timeInMillis) {
 		return timeInMillis > DateUtils.DEFAULT_INITIAL_TIME;
 	}

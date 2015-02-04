@@ -19,7 +19,7 @@ public class InvalidValueException extends ServiceClusterException {
 	public InvalidValueException() {
 		super("InvalidValueException");
 	}
-	
+
 	public InvalidValueException(String errorDescription) {
 		super(errorDescription);
 	}

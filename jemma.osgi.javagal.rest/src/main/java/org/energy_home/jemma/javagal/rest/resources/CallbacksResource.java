@@ -15,32 +15,31 @@
  */
 package org.energy_home.jemma.javagal.rest.resources;
 
+import org.energy_home.jemma.javagal.rest.GalManagerRestApplication;
+import org.energy_home.jemma.javagal.rest.RestManager;
+import org.energy_home.jemma.javagal.rest.RestMessageListener;
+import org.energy_home.jemma.javagal.rest.util.ClientResources;
+import org.energy_home.jemma.javagal.rest.util.Resources;
+import org.energy_home.jemma.javagal.rest.util.Util;
 import org.energy_home.jemma.zgd.GatewayConstants;
 import org.energy_home.jemma.zgd.GatewayInterface;
 import org.energy_home.jemma.zgd.jaxb.Callback;
 import org.energy_home.jemma.zgd.jaxb.CallbackIdentifierList;
 import org.energy_home.jemma.zgd.jaxb.Info;
 import org.energy_home.jemma.zgd.jaxb.Status;
-
-import org.energy_home.jemma.javagal.rest.GalManagerRestApplication;
-import org.energy_home.jemma.javagal.rest.RestMessageListener;
-import org.energy_home.jemma.javagal.rest.RestManager;
-import org.energy_home.jemma.javagal.rest.util.ClientResources;
-import org.energy_home.jemma.javagal.rest.util.Resources;
-import org.energy_home.jemma.javagal.rest.util.Util;
 import org.restlet.data.MediaType;
 import org.restlet.data.Parameter;
-import org.restlet.representation.AppendableRepresentation;
-import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
 /**
- * Resource file used to manage the API GET:getlistCallbacks. POST:createCallback
+ * Resource file used to manage the API GET:getlistCallbacks.
+ * POST:createCallback
  * 
- * @author "Ing. Marco Nieddu <marco.nieddu@consoft.it> or <marco.niedducv@gmail.com> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
- *
+ * @author 
+ *         "Ing. Marco Nieddu <marco.nieddu@consoft.it> or <marco.niedducv@gmail.com> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
+ * 
  */
 public class CallbacksResource extends ServerResource {
 
@@ -51,11 +50,9 @@ public class CallbacksResource extends ServerResource {
 
 		// ListCallbacks
 		try {
-			proxyGalInterface = getRestManager().getClientObjectKey(-1,
-					getClientInfo().getAddress()).getGatewayInterface();
-			CallbackIdentifierList callbacksList = proxyGalInterface
-					.getlistCallbacks();
-			
+			proxyGalInterface = getRestManager().getClientObjectKey(-1, getClientInfo().getAddress()).getGatewayInterface();
+			CallbackIdentifierList callbacksList = proxyGalInterface.getlistCallbacks();
+
 			Info.Detail detail = new Info.Detail();
 			detail.setCallbacks(callbacksList);
 			Info infoToReturn = new Info();
@@ -63,9 +60,8 @@ public class CallbacksResource extends ServerResource {
 			status.setCode((short) GatewayConstants.SUCCESS);
 			infoToReturn.setStatus(status);
 			infoToReturn.setDetail(detail);
-			getResponse().setEntity(Util.marshal(infoToReturn),
-					MediaType.TEXT_XML);
-			
+			getResponse().setEntity(Util.marshal(infoToReturn), MediaType.TEXT_XML);
+
 			return;
 		} catch (NullPointerException npe) {
 			Info info = new Info();
@@ -110,8 +106,7 @@ public class CallbacksResource extends ServerResource {
 			return;
 
 		}
-		Parameter urilistenerParam = getRequest().getResourceRef()
-				.getQueryAsForm().getFirst(Resources.URI_PARAM_URILISTENER);
+		Parameter urilistenerParam = getRequest().getResourceRef().getQueryAsForm().getFirst(Resources.URI_PARAM_URILISTENER);
 		if (urilistenerParam != null && !urilistenerParam.equals("")) {
 			urilistener = urilistenerParam.getValue().trim();
 		} else {
@@ -122,8 +117,7 @@ public class CallbacksResource extends ServerResource {
 			Info info = new Info();
 			Status _st = new Status();
 			_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-			_st.setMessage("Mandatory " + Resources.URI_PARAM_URILISTENER
-					+ " parameter missing.");
+			_st.setMessage("Mandatory " + Resources.URI_PARAM_URILISTENER + " parameter missing.");
 			info.setStatus(_st);
 			Info.Detail detail = new Info.Detail();
 			info.setDetail(detail);
@@ -135,20 +129,19 @@ public class CallbacksResource extends ServerResource {
 		// Actual Gal call
 		try {
 
-			ClientResources rcmal = getRestManager().getClientObjectKey(
-					Util.getPortFromUriListener(urilistener),
+			ClientResources rcmal = getRestManager().getClientObjectKey(Util.getPortFromUriListener(urilistener),
 					getClientInfo().getAddress());
 			proxyGalInterface = rcmal.getGatewayInterface();
 
-			RestMessageListener listener = new RestMessageListener(
-					callback, urilistener,rcmal,getRestManager().getPropertiesManager());
-			
+			RestMessageListener listener = new RestMessageListener(callback, urilistener, rcmal, getRestManager()
+					.getPropertiesManager());
+
 			Long id = proxyGalInterface.createCallback(callback, listener);
 
 			if (id >= 0) {
 				listener.setCallBackId(id);
 				rcmal.getCallbacksEventListeners().put(id, listener);
-				
+
 				Info.Detail detail = new Info.Detail();
 				detail.setCallbackIdentifier(id);
 				Info infoToReturn = new Info();
@@ -156,10 +149,9 @@ public class CallbacksResource extends ServerResource {
 				status.setCode((short) GatewayConstants.SUCCESS);
 				infoToReturn.setStatus(status);
 				infoToReturn.setDetail(detail);
-				getResponse().setEntity(Util.marshal(infoToReturn),
-						MediaType.TEXT_XML);
+				getResponse().setEntity(Util.marshal(infoToReturn), MediaType.TEXT_XML);
 				return;
-				
+
 			} else {
 
 				Info info = new Info();
@@ -169,8 +161,7 @@ public class CallbacksResource extends ServerResource {
 				info.setStatus(_st);
 				Info.Detail detail = new Info.Detail();
 				info.setDetail(detail);
-				getResponse().setEntity(Util.marshal(info),
-						MediaType.APPLICATION_XML);
+				getResponse().setEntity(Util.marshal(info), MediaType.APPLICATION_XML);
 				return;
 
 			}
@@ -197,7 +188,6 @@ public class CallbacksResource extends ServerResource {
 			return;
 		}
 
-		
 	}
 
 	/**

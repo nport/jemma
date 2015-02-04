@@ -23,13 +23,12 @@ public class ZclDataTypeIEEEAddress extends ZclAbstractDataType {
 	public static final int ZCL_DATA_TYPE = ZclTypes.ZclIEEEAddressType;
 	private static final int BYTE_ARRAY_LENGTH = 8;
 	static final boolean IS_ANALOG = false;
-	
-	
+
 	public static byte[] zclParse(IZclFrame zclFrame) throws ZclValidationException {
 		return ((ZclFrame) zclFrame).parseArray(BYTE_ARRAY_LENGTH, true);
 	}
-	
-	public static void zclSerialize(IZclFrame zclFrame, byte[] ieeeAddress)  throws ZclValidationException {
+
+	public static void zclSerialize(IZclFrame zclFrame, byte[] ieeeAddress) throws ZclValidationException {
 		((ZclFrame) zclFrame).appendArray(ieeeAddress, true);
 	}
 

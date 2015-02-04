@@ -47,8 +47,8 @@ public interface ScenesServer {
 
 	public byte[] getLastConfiguredBy(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-	public AddSceneResponse execAddScene(int GroupID, short SceneID, int TransitionTime, String SceneName, byte[] ExtensionFieldSet,
-			IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
+	public AddSceneResponse execAddScene(int GroupID, short SceneID, int TransitionTime, String SceneName,
+			byte[] ExtensionFieldSet, IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
 	public ViewSceneResponse execViewScene(int GroupID, short SceneID, IEndPointRequestContext context) throws ApplianceException,
 			ServiceClusterException;

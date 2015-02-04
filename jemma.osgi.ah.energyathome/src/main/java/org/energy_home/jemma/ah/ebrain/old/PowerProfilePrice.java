@@ -19,10 +19,13 @@ import org.energy_home.jemma.ah.cluster.zigbee.eh.GetPowerProfilePriceResponse;
 
 public class PowerProfilePrice extends GetPowerProfilePriceResponse {
 	private int peakOverload;
-	
+
 	public PowerProfilePrice(short PowerProfileID, int Currency, long Price, short PriceTrailingDigit, int overload) {
 		super(PowerProfileID, Currency, Price, PriceTrailingDigit);
 		peakOverload = overload;
 	}
-	public int getPeakOverload() {return peakOverload;}
+
+	public int getPeakOverload() {
+		return peakOverload;
+	}
 }

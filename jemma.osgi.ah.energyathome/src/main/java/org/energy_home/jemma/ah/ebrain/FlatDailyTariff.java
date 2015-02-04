@@ -15,17 +15,15 @@
  */
 package org.energy_home.jemma.ah.ebrain;
 
-
 import java.util.Calendar;
 
 import org.energy_home.jemma.ah.ebrain.algo.DailyTariff;
 
 public class FlatDailyTariff extends DailyTariff {
 	public FlatDailyTariff() throws Exception {
-		TariffIntervals[] weekday = new TariffIntervals[] {
-			new TariffIntervals(0.16686f, new int[] {000, 2400})};
-			//new TariffIntervals(1.0f, new int[] {000, 2400})};
-		
+		TariffIntervals[] weekday = new TariffIntervals[] { new TariffIntervals(0.16686f, new int[] { 000, 2400 }) };
+		// new TariffIntervals(1.0f, new int[] {000, 2400})};
+
 		for (int day = Calendar.SUNDAY; day <= Calendar.SATURDAY; ++day) {
 			setDailyTariff(weekday, day);
 		}

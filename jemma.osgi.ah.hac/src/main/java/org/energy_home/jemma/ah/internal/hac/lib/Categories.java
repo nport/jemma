@@ -44,7 +44,7 @@ public class Categories {
 			throw new HacException("Duplicate category exception");
 		}
 	}
-	
+
 	public void remove(String categoryPid) throws HacException {
 		Category category = this.getCategoryByPid(categoryPid);
 		if (category != null) {

@@ -19,7 +19,7 @@ public class ReadOnlyAttributeException extends ServiceClusterException {
 	public ReadOnlyAttributeException() {
 		super("UnsupportedClusterAttributeException");
 	}
-	
+
 	public ReadOnlyAttributeException(String errorDescription) {
 		super(errorDescription);
 	}

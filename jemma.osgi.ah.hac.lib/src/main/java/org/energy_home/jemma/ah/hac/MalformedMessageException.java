@@ -21,7 +21,7 @@ public class MalformedMessageException extends ServiceClusterException {
 	public MalformedMessageException() {
 		super("MalformedMessageException");
 	}
-	
+
 	public MalformedMessageException(String errorDescription) {
 		super(errorDescription);
 	}

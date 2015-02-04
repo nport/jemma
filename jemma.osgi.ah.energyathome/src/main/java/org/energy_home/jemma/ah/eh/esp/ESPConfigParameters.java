@@ -18,7 +18,7 @@ package org.energy_home.jemma.ah.eh.esp;
 public class ESPConfigParameters {
 	public static final float DEFAULT_CONTRACTUAL_POWER_THRESHOLD = 3000;
 	public static final float DEFAULT_PEAK_PRODUCED_POWER = 0;
-	
+
 	private float contractualPowerThreshold = DEFAULT_CONTRACTUAL_POWER_THRESHOLD;
 	private float peakProducedPower = DEFAULT_PEAK_PRODUCED_POWER;
 
@@ -26,11 +26,11 @@ public class ESPConfigParameters {
 		this.contractualPowerThreshold = contractualPowerThreshold;
 		this.peakProducedPower = peakProducedPower;
 	}
-	
+
 	public ESPConfigParameters() {
 		init(DEFAULT_CONTRACTUAL_POWER_THRESHOLD, DEFAULT_PEAK_PRODUCED_POWER);
 	}
-	
+
 	public ESPConfigParameters(float contractualPowerThreshold) {
 		init(contractualPowerThreshold, DEFAULT_PEAK_PRODUCED_POWER);
 	}
@@ -42,22 +42,22 @@ public class ESPConfigParameters {
 	public float getContractualPowerThreshold() {
 		return contractualPowerThreshold;
 	}
-	
+
 	public void setContractualPowerThreshold(float contractualPowerThreshold) {
-		this.contractualPowerThreshold =contractualPowerThreshold;
+		this.contractualPowerThreshold = contractualPowerThreshold;
 	}
-	
+
 	public float getPeakProducedPower() {
 		return peakProducedPower;
 	}
-	
+
 	public void setPeakProducedPower(float peakProducedPower) {
 		this.peakProducedPower = peakProducedPower;
 	}
-	
+
 	public String toString() {
-		return "ESPConfigParameters [contractualPowerThreshold=" + contractualPowerThreshold + 
-				", peakProducedPower=" + peakProducedPower + "]";
+		return "ESPConfigParameters [contractualPowerThreshold=" + contractualPowerThreshold + ", peakProducedPower="
+				+ peakProducedPower + "]";
 	}
 
 }

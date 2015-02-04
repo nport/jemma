@@ -22,23 +22,24 @@ import org.energy_home.jemma.ah.hac.IEndPointRequestContext;
 import org.energy_home.jemma.ah.hac.ServiceClusterException;
 import org.energy_home.jemma.ah.hac.lib.ServiceCluster;
 
-public class IASZoneClientCluster extends ServiceCluster implements IASZoneClient {	
+public class IASZoneClientCluster extends ServiceCluster implements IASZoneClient {
 	public IASZoneClientCluster() throws ApplianceException {
 		super();
 	}
-	
+
 	// HA 1.1
 	public void execZoneStatusChangeNotification(int zoneStatus, short extendedStatus, IEndPointRequestContext context)
 			throws ApplianceException, ServiceClusterException {
 	}
-	
+
 	// HA 1.2
 	public void execZoneStatusChangeNotification(int zoneStatus, short extendedStatus, short zoneID, int delay,
 			IEndPointRequestContext context) throws ApplianceException, ServiceClusterException {
-		execZoneStatusChangeNotification(zoneStatus, extendedStatus, context);	
+		execZoneStatusChangeNotification(zoneStatus, extendedStatus, context);
 	}
 
-	// Some sensor needs to receive a response to execZoneEnrollRequest during initial configuration phase
+	// Some sensor needs to receive a response to execZoneEnrollRequest during
+	// initial configuration phase
 	public ZoneEnrollResponse execZoneEnrollRequest(int ZoneType, int ManufacturerCode, IEndPointRequestContext context)
 			throws ApplianceException, ServiceClusterException {
 		ZoneEnrollResponse response = new ZoneEnrollResponse();

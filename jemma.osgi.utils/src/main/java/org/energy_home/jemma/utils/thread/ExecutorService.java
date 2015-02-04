@@ -19,8 +19,8 @@ import java.util.concurrent.ScheduledFuture;
 
 public interface ExecutorService {
 	public void addNearRealTimeOrderedTask(Runnable runnable);
-	
+
 	public ScheduledFuture<?> scheduleTask(Runnable runnable, long delay);
-	
+
 	public ScheduledFuture<?> scheduleTask(Runnable runnable, long delay, long period);
 }

@@ -15,9 +15,10 @@
  */
 package org.energy_home.jemma.javagal.layers.presentation;
 
+import org.energy_home.jemma.internal.zgd.GalExtenderProxy;
+import org.energy_home.jemma.internal.zgd.GalExtenderProxyFactoryImpl;
 import org.energy_home.jemma.javagal.layers.PropertiesManager;
 import org.energy_home.jemma.javagal.layers.object.GatewayProperties;
-import org.energy_home.jemma.zgd.GalExtenderProxy;
 import org.energy_home.jemma.zgd.GalExtenderProxyFactory;
 import org.energy_home.jemma.zgd.GatewayInterface;
 import org.osgi.framework.Bundle;
@@ -31,14 +32,14 @@ import org.slf4j.LoggerFactory;
 /**
  * Osgi Activator implementation.
  * 
- * @author 
- *         "Ing. Marco Nieddu <a href="mailto:marco.nieddu@consoft.it">marco.nieddu@consoft.it</a> or <a href="marco.niedducv@gmail.com">marco.niedducv@gmail.com</a> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
- 
+ * @author "Ing. Marco Nieddu <a href="mailto:marco.nieddu@consoft.it
+ *         ">marco.nieddu@consoft.it</a> or <a href="marco.niedducv@gmail.com
+ *         ">marco.niedducv@gmail.com</a> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
  */
 public class Activator implements BundleActivator {
 	private BundleContext bc;
 	private GalExtenderProxyFactory _fac = null;
-	private static final Logger LOG = LoggerFactory.getLogger( Activator.class );
+	private static final Logger LOG = LoggerFactory.getLogger(Activator.class);
 	private ServiceRegistration gatewayInterfaceRegistration;
 	private ServiceRegistration gatewayFactoryRegistration;
 
@@ -53,41 +54,54 @@ public class Activator implements BundleActivator {
 			String _path = "config.properties";
 
 			LOG.info("FILE Conf: " + _path);
-			
+
 			PropertiesManager PropertiesManager = new PropertiesManager(bc.getBundle().getResource(_path));
 
-			if (context.getProperty(GatewayProperties.ZGD_DONGLE_URI_PROP_NAME) != null)
-				PropertiesManager.props.setProperty(GatewayProperties.ZGD_DONGLE_URI_PROP_NAME, context.getProperty(GatewayProperties.ZGD_DONGLE_URI_PROP_NAME));
-			if (context.getProperty(GatewayProperties.ZGD_DONGLE_SPEED_PROP_NAME) != null)
-				PropertiesManager.props.setProperty(GatewayProperties.ZGD_DONGLE_SPEED_PROP_NAME, context.getProperty(GatewayProperties.ZGD_DONGLE_SPEED_PROP_NAME));
-			if (context.getProperty(GatewayProperties.ZGD_DONGLE_TYPE_PROP_NAME) != null)
-				PropertiesManager.props.setProperty(GatewayProperties.ZGD_DONGLE_TYPE_PROP_NAME, context.getProperty(GatewayProperties.ZGD_DONGLE_TYPE_PROP_NAME));
-			if (context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_LOG) != null)
+			if (context.getProperty(GatewayProperties.ZGD_DONGLE_URI_PROP_NAME) != null) {
+				PropertiesManager.props.setProperty(GatewayProperties.ZGD_DONGLE_URI_PROP_NAME,
+						context.getProperty(GatewayProperties.ZGD_DONGLE_URI_PROP_NAME));
+			}
+			if (context.getProperty(GatewayProperties.ZGD_DONGLE_SPEED_PROP_NAME) != null) {
+				PropertiesManager.props.setProperty(GatewayProperties.ZGD_DONGLE_SPEED_PROP_NAME,
+						context.getProperty(GatewayProperties.ZGD_DONGLE_SPEED_PROP_NAME));
+			}
+			if (context.getProperty(GatewayProperties.ZGD_DONGLE_TYPE_PROP_NAME) != null) {
+				PropertiesManager.props.setProperty(GatewayProperties.ZGD_DONGLE_TYPE_PROP_NAME,
+						context.getProperty(GatewayProperties.ZGD_DONGLE_TYPE_PROP_NAME));
+			}
+			if (context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_LOG) != null) {
 				PropertiesManager.props.setProperty("debugEnabled", context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_LOG));
-			if (context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_SERIAL_LOG) != null)
-				PropertiesManager.props.setProperty("serialDataDebugEnabled", context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_SERIAL_LOG));	
-			
-			if (_fac == null)
-				_fac = new GalExtenderProxyFactory(PropertiesManager);
+			}
+			if (context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_SERIAL_LOG) != null) {
+				PropertiesManager.props.setProperty("serialDataDebugEnabled",
+						context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_SERIAL_LOG));
+			}
+
+			if (_fac == null) {
+				_fac = new GalExtenderProxyFactoryImpl(PropertiesManager);
+			}
 
 			gatewayInterfaceServiceFactory = new GatewayInterfaceServiceFactory();
-			gatewayInterfaceRegistration = bc.registerService(GatewayInterface.class.getName(), gatewayInterfaceServiceFactory, null);
+			gatewayInterfaceRegistration = bc.registerService(GatewayInterface.class.getName(), gatewayInterfaceServiceFactory,
+					null);
 
 			gatewayFactoryServiceFactory = new GatewayFactoryServiceFactory();
-			gatewayFactoryRegistration = bc.registerService(GalExtenderProxyFactory.class.getName(), gatewayFactoryServiceFactory, null);
+			gatewayFactoryRegistration = bc.registerService(GalExtenderProxyFactory.class.getName(), gatewayFactoryServiceFactory,
+					null);
 
 			LOG.info("Gal:Osgi Started!");
 		} catch (Exception e) {
-			if (_fac!= null)
+			if (_fac != null) {
 				_fac.destroyGal();
+			}
 			LOG.error("Error Creating Gal Osgi");
-			
+
 			e.printStackTrace();
 		}
 	}
 
 	public void stop(BundleContext bundleContext) throws Exception {
-		if (_fac != null){
+		if (_fac != null) {
 			_fac.destroyGal();
 		}
 		if (gatewayInterfaceServiceFactory != null) {
@@ -113,13 +127,14 @@ public class Activator implements BundleActivator {
 	 */
 	public class GatewayInterfaceServiceFactory implements ServiceFactory {
 		GatewayInterface gatewayInterface = null;
+
 		public Object getService(Bundle bundle, ServiceRegistration reg) {
 			try {
 				gatewayInterface = _fac.createGatewayInterfaceObject();
 				LOG.info("Called getService!");
 				return gatewayInterface;
 			} catch (Exception e) {
-				LOG.error("Exception",e);
+				LOG.error("Exception", e);
 				return null;
 			}
 		}
@@ -127,7 +142,7 @@ public class Activator implements BundleActivator {
 		public void ungetService(Bundle bundle, ServiceRegistration reg, Object service) {
 			try {
 				((GalExtenderProxy) gatewayInterface).deleteProxy();
-				
+
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -147,11 +162,11 @@ public class Activator implements BundleActivator {
 			try {
 				return _fac;
 			} catch (Exception e) {
-				LOG.error("Exception",e);
+				LOG.error("Exception", e);
 				return null;
 			}
 		}
-		
+
 		public void ungetService(Bundle bundle, ServiceRegistration reg, Object service) {
 		}
 	}

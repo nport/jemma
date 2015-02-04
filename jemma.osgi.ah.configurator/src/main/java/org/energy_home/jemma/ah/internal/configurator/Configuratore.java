@@ -108,19 +108,20 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 	private Vector categories = new Vector();
 	private Vector locations = new Vector();
 
-	private static final Logger LOG = LoggerFactory.getLogger( Configuratore.class );
+	private static final Logger LOG = LoggerFactory.getLogger(Configuratore.class);
 
 	protected synchronized void activate(ComponentContext ctxt) {
 		this.bc = ctxt.getBundleContext();
 
-		//TODO To check: unique location in the API bundle to centralize all properties and location codes, with documentation ?
+		// TODO To check: unique location in the API bundle to centralize all
+		// properties and location codes, with documentation ?
 		String defaultConfigProp = this.bc.getProperty("org.energy_home.jemma.ah.configuration.file");
 
 		if (defaultConfigProp != null) {
 			try {
 				loadConfiguration(defaultConfigProp, false);
 			} catch (Exception e) {
-				LOG.error("exception on activate",e);
+				LOG.error("exception on activate", e);
 			}
 		}
 
@@ -293,7 +294,10 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 	 * @return true if the configuration has been read and applied correctly. In
 	 *         case of errors returns false
 	 */
-	//FIXME general comment by Riccerdo: I'm not sure if it covers 100% of what we do here - but probably a lot of this behaviour is already standardized in the ConfigAdmin service. We should consider refactoring to use that.
+	// FIXME general comment by Riccerdo: I'm not sure if it covers 100% of what
+	// we do here - but probably a lot of this behaviour
+	// is already standardized in the ConfigAdmin service. We should consider
+	// refactoring to use that.
 	public boolean loadConfiguration(String configName, boolean storageArea) {
 		File configFile;
 		InputStream stream = null;
@@ -317,7 +321,7 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 					stream = new FileInputStream(configName);
 				} else {
 					String configFilename = SCENARIOS_PATH + configName + ".xml";
-					//URL url = bc.getBundle().getEntry(configFilename);
+					// URL url = bc.getBundle().getEntry(configFilename);
 					URL url = this.getClass().getResource(configFilename);
 					if (url == null) {
 						LOG.error("unable to open file " + configFilename);
@@ -327,10 +331,10 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 				}
 			}
 		} catch (FileNotFoundException e) {
-			LOG.error("unable to open file " + configName,e);
+			LOG.error("unable to open file " + configName, e);
 			return false;
 		} catch (IOException e) {
-			LOG.error("unable to open file " + configName,e);
+			LOG.error("unable to open file " + configName, e);
 			return false;
 		}
 
@@ -347,7 +351,7 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 
 	public void updated(Dictionary props) throws ConfigurationException {
 		LOG.debug("received props");
-		//FIXME Note by Riccardo: why is this empty ?????
+		// FIXME Note by Riccardo: why is this empty ?????
 	}
 
 	public String doc2xmlString(Document doc) {
@@ -415,7 +419,7 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 				String name = attrs.getNamedItem("name").getNodeValue();
 				String icon = attrs.getNamedItem("icon").getNodeValue();
 				String pid = attrs.getNamedItem("pid").getNodeValue();
-				
+
 				locations.add(new Location(pid, name, icon));
 
 			}
@@ -431,7 +435,7 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 					String rule = attrs.getNamedItem("filter").getNodeValue();
 					rules.add(rule);
 				} catch (Exception e) {
-					LOG.error("Excpetion on trasversecConfigurationTree",e);
+					LOG.error("Excpetion on trasversecConfigurationTree", e);
 				}
 			} else if (tag == "connect") {
 				try {
@@ -439,7 +443,7 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 					String pid2 = attrs.getNamedItem("pid2").getNodeValue();
 					this.connAdmin.createConnection(pid1, pid2);
 				} catch (Exception e) {
-					LOG.error("Excpetion on trasversecConfigurationTree",e);
+					LOG.error("Excpetion on trasversecConfigurationTree", e);
 				}
 			} else if ((tag == "appliance") && (loadAppliances)) {
 				props = new Hashtable();
@@ -484,7 +488,7 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 							LOG.error("during reading configuration: unable to retrieve driver pid");
 						}
 					} catch (Exception e) {
-						LOG.error("Excpetion on trasversecConfigurationTree",e);
+						LOG.error("Excpetion on trasversecConfigurationTree", e);
 					}
 				} else if (tag.equals("configuration")) {
 					// we traversed all appliances children, its time to
@@ -493,7 +497,7 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 					try {
 						configurationsVector.add(props);
 					} catch (Exception e) {
-						LOG.error("Excpetion on trasversecConfigurationTree",e);
+						LOG.error("Excpetion on trasversecConfigurationTree", e);
 					}
 				}
 			}
@@ -504,112 +508,6 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 		}
 	}
 
-	//Note by Riccardo: Is this some old/unused implementation ? It seems so: commenting out - stage for future removal
-	
-	/*
-	public void traverseConfigurationTreeOld(Node node) {
-		lastNode = node;
-		int nodeType = node.getNodeType();
-
-		switch (nodeType) {
-		case Node.DOCUMENT_NODE:
-			traverseConfigurationTreeOld(((Document) node).getDocumentElement());
-			break;
-
-		// print element with attributes
-		case Node.ELEMENT_NODE:
-			NamedNodeMap attrs = node.getAttributes();
-			String tag = node.getNodeName();
-
-			if ((tag == "location") && (loadLocations)) {
-				String name = attrs.getNamedItem("name").getNodeValue();
-				String icon = attrs.getNamedItem("icon").getNodeValue();
-				String pid = attrs.getNamedItem("pid").getNodeValue();
-
-				try {
-					this.hacService.addLocation(new Location(pid, name, icon));
-				} catch (Throwable e) {
-					// this is a duplicate location, skip it by putting a log
-					// message
-					log.warn("error while adding location found reading configuration file");
-				}
-			}
-			if ((tag == "category") && (loadCategories)) {
-				String name = attrs.getNamedItem("name").getNodeValue();
-				String icon = attrs.getNamedItem("icon").getNodeValue();
-				String pid = attrs.getNamedItem("pid").getNodeValue();
-				
-				categories.add(new Category(pid, name, icon));
-			} else if (tag == "rule") {
-				try {
-					String rule = attrs.getNamedItem("filter").getNodeValue();
-					rules.add(rule);
-					// this.connAdmin.addBindRule(rule);
-				} catch (Exception e) {
-					log.error(e);
-				}
-			} else if (tag == "connect") {
-				try {
-					String pid1 = attrs.getNamedItem("pid1").getNodeValue();
-					String pid2 = attrs.getNamedItem("pid2").getNodeValue();
-					//this.connAdmin.createConnection(pid1, pid2);
-				} catch (Exception e) {
-					log.error(e);
-				}
-			} else if ((tag == "appliance") && (loadAppliances)) {
-				props = new Hashtable();
-			} else if ((tag == "property") && (lastNode != null) && (props != null)) {
-				// log.debug("last node is " + lastNode.getNodeName());
-				String name = attrs.getNamedItem("name").getNodeValue();
-				Object propValue = traversePropertyNode(lastNode);
-				if (propValue == null) {
-					log.error("null property " + name);
-				} else {
-					props.put(name, propValue);
-				}
-			}
-			NodeList children = node.getChildNodes();
-
-			if (children != null) {
-				int len = children.getLength();
-				for (int i = 0; i < len; i++) {
-					traverseConfigurationTreeOld(children.item(i));
-				}
-				if (tag.equals("appliance")) {
-					// we traversed all appliances children, its time to
-					// instantiate the
-					// driver
-					try {
-						String appliancePid = (String) props.get(Constants.SERVICE_PID);
-						if (appliancePid == null) {
-							// for backward compatibility
-							appliancePid = (String) props.get(IAppliance.APPLIANCE_PID);
-						}
-
-						String type = (String) props.get(IAppliance.APPLIANCE_TYPE_PROPERTY);
-
-						if ((appliancePid != null) && (type != null)) {
-							String locationPid = (String) props.get(IAppliance.APPLIANCE_LOCATION_PID_PROPERTY);
-							String categoryPid = (String) props.get(IAppliance.APPLIANCE_CATEGORY_PID_PROPERTY);
-							createAppliance(appliancePid, props);
-							// }
-						} else {
-							log.error("during reading configuration: unable to retrieve driver pid");
-						}
-					} catch (Exception e) {
-						log.debug(e.getMessage());
-					}
-				}
-			}
-			break;
-
-		case Node.TEXT_NODE:
-			break;
-		}
-	}
-
-	*/
-	
 	boolean isArray = false;
 	String arrayType = null;
 
@@ -857,8 +755,9 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 	public void frameworkEvent(FrameworkEvent fe) {
 		if (fe.getType() == FrameworkEvent.STARTED) {
 		}
-		//FIXME why is this function here ? Just to log Framework event messages ?
-		LOG.debug("FrameworkEvent:"+fe.toString() + " type " + fe.getType());
+		// FIXME why is this function here ? Just to log Framework event
+		// messages ?
+		LOG.debug("FrameworkEvent:" + fe.toString() + " type " + fe.getType());
 	}
 
 	private static String removeExtension(String s) {
@@ -926,7 +825,7 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 					return deleteDirectory(configFilesDirectory);
 				}
 			} catch (Exception e) {
-				LOG.error("during reset exception contains '" + e.getMessage() + "'",e);
+				LOG.error("during reset exception contains '" + e.getMessage() + "'", e);
 				return false;
 			}
 			this.hacService.clean();
@@ -948,7 +847,7 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 					return false;
 				}
 			} catch (IOException e) {
-				LOG.error("exception during shutdown " + e.getMessage(),e);
+				LOG.error("exception during shutdown " + e.getMessage(), e);
 			}
 		} else if (level == 2) {
 			this.hacService.clean();
@@ -977,7 +876,7 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 		try {
 			docBuilder = factory.newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			LOG.error("Exception on createDoc",e);
+			LOG.error("Exception on createDoc", e);
 			return null;
 		}
 
@@ -1025,7 +924,7 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 
 		// clean the current A@H configuration
 		this.connAdmin.deleteAllRules();
-		
+
 		ICategory[] oldCategories = hacService.getCategories();
 		if (oldCategories != null) {
 			for (int i = 0; i < oldCategories.length; i++) {
@@ -1033,20 +932,20 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 				hacService.removeCategory(category.getPid());
 			}
 		}
-		
+
 		for (Iterator iterator = categories.iterator(); iterator.hasNext();) {
 			ICategory category = (ICategory) iterator.next();
 			hacService.addCategory(category);
 		}
 
-				
-		Configuration[] configurations = configurationAdmin.listConfigurations("(" + ConfigurationAdmin.SERVICE_FACTORYPID + "=" + "org.energy_home.jemma.osgi.ah.hac.locations" + ")" );
+		Configuration[] configurations = configurationAdmin.listConfigurations("(" + ConfigurationAdmin.SERVICE_FACTORYPID + "="
+				+ "org.energy_home.jemma.osgi.ah.hac.locations" + ")");
 		if (configurations != null) {
 			for (int i = 0; i < configurations.length; i++) {
 				configurations[i].delete();
 			}
 		}
-		
+
 		for (Iterator iterator = locations.iterator(); iterator.hasNext();) {
 			Location location = (Location) iterator.next();
 			hacService.addLocation(location);
@@ -1090,11 +989,11 @@ public class Configuratore implements FrameworkListener, IConfigurator {
 				c.update(props);
 			}
 		}
-		
+
 		for (Iterator iterator = rules.iterator(); iterator.hasNext();) {
 			String rule = (String) iterator.next();
 			connAdmin.addBindRule(rule);
-		}		
+		}
 	}
 
 	private void test() throws Exception {

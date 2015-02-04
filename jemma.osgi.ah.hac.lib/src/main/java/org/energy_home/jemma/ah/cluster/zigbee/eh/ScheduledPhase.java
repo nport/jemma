@@ -27,12 +27,12 @@ public class ScheduledPhase {
 	public ScheduledPhase() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder("{");
 		sb.append("EnergyPhaseID=").append(EnergyPhaseID);
 		sb.append(", ScheduledTime=").append(ScheduledTime);
 		sb.append("}");
-		return sb.toString();		
+		return sb.toString();
 	}
 }

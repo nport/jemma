@@ -45,8 +45,6 @@ import org.slf4j.LoggerFactory;
 
 import edu.emory.mathcs.backport.java.util.concurrent.SynchronousQueue;
 import edu.emory.mathcs.backport.java.util.concurrent.TimeUnit;
-import edu.emory.mathcs.backport.java.util.concurrent.locks.Lock;
-import edu.emory.mathcs.backport.java.util.concurrent.locks.ReentrantLock;
 
 /**
  * The ZigBeeDeviceImpl class implements the ZigBeeDevice interface. The purpose
@@ -121,7 +119,8 @@ public class ZigBeeDeviceImpl implements ZigBeeDevice, TimerListener {
 		this.service = service;
 	}
 
-	public ZigBeeDeviceImpl(ZigBeeManagerImpl zigbeeManager, Timer timer, NodeServices nodeServices, NodeDescriptor node, ServiceDescriptor service, Hashtable props) {
+	public ZigBeeDeviceImpl(ZigBeeManagerImpl zigbeeManager, Timer timer, NodeServices nodeServices, NodeDescriptor node,
+			ServiceDescriptor service, Hashtable props) {
 		this.zigbeeManager = zigbeeManager;
 		this.timer = timer;
 		this.service = service;
@@ -155,7 +154,8 @@ public class ZigBeeDeviceImpl implements ZigBeeDevice, TimerListener {
 		}
 	}
 
-	String padding[] = { "0000000000000000", "000000000000000", "00000000000000", "0000000000000", "000000000000", "00000000000", "0000000000", "000000000", "00000000", "0000000", "000000", "00000", "0000", "000", "00", "0", "" };
+	String padding[] = { "0000000000000000", "000000000000000", "00000000000000", "0000000000000", "000000000000", "00000000000",
+			"0000000000", "000000000", "00000000", "0000000", "000000", "00000", "0000", "000", "00", "0", "" };
 	private boolean trackNode;
 
 	public String getIeeeAddress() {
@@ -193,6 +193,8 @@ public class ZigBeeDeviceImpl implements ZigBeeDevice, TimerListener {
 		// check if the message contains requires a default answer
 
 		long hash = calculateTxRxHash(clusterId, zclFrame);
+
+		LOG.debug("Sending a ZCLFrame with Key:" + hash + " -- for CLuster:" + clusterId + " --- TO:" + this.getIeeeAddress());
 		long key = new Long(hash);
 		SynchronousQueue sq = new SynchronousQueue();
 
@@ -206,7 +208,8 @@ public class ZigBeeDeviceImpl implements ZigBeeDevice, TimerListener {
 			boolean res = zigbeeManager.post(this, profileId, clusterId, zclFrame);
 			if (!res) {
 				pendingReplies.remove(key);
-				throw new ZigBeeException("error sending message to ZigBee device Ieee:" + this.getIeeeAddress() + " -- ProfileId:" + profileId +  " -- ClusterID:" + clusterId);
+				throw new ZigBeeException("error sending message to ZigBee device Ieee:" + this.getIeeeAddress() + " -- ProfileId:"
+						+ profileId + " -- ClusterID:" + clusterId);
 			}
 		}
 		try {
@@ -229,16 +232,17 @@ public class ZigBeeDeviceImpl implements ZigBeeDevice, TimerListener {
 					}
 				}
 				pendingReplies.remove(new Long(hash));
-				throw new ZigBeeException("No response from ZigBee device Ieee:" + this.getIeeeAddress() + " -- ProfileId:" + profileId +  " -- ClusterID:" + clusterId);
-				
+				throw new ZigBeeException("No response from ZigBee device Ieee:" + this.getIeeeAddress() + " -- ProfileId:"
+						+ profileId + " -- ClusterID:" + clusterId);
+
 			}
 
 			if (LOG.isDebugEnabled() && zigbeeManager.isRxTxLogEnabled())
 				this.logZclMessage(false, hash, profileId, clusterId, zclFrame);
 
 			return zclResponseFrame;
-		} catch (InterruptedException e) {
-			throw new ZigBeeException("interrupted system call during post");
+		} catch (Exception e) {
+			throw new ZigBeeException("Exception during post: " + e.getMessage());
 		}
 
 	}
@@ -247,11 +251,14 @@ public class ZigBeeDeviceImpl implements ZigBeeDevice, TimerListener {
 		if (zclFrame != null) {
 			if (outgoing) {
 				if (hash != -1)
-					LOG.debug(this.getPid() + ": " + Hex.toHexString(hash, 4) + " [hash]: Tx > 0x" + Hex.toHexString(clusterId, 2) + " [clusterId] " + zclFrame.toString());
+					LOG.debug(this.getPid() + ": " + Hex.toHexString(hash, 4) + " [hash]: Tx > 0x" + Hex.toHexString(clusterId, 2)
+							+ " [clusterId] " + zclFrame.toString());
 				else
-					LOG.debug(this.getPid() + ": " + "        " + " [hash]: Tx > 0x" + Hex.toHexString(clusterId, 2) + " [clusterId] " + zclFrame.toString());
+					LOG.debug(this.getPid() + ": " + "        " + " [hash]: Tx > 0x" + Hex.toHexString(clusterId, 2)
+							+ " [clusterId] " + zclFrame.toString());
 			} else
-				LOG.debug(this.getPid() + ": " + Hex.toHexString(hash, 4) + " [hash]: Rx > 0x" + Hex.toHexString(clusterId, 2) + " [clusterId] " + zclFrame.toString());
+				LOG.debug(this.getPid() + ": " + Hex.toHexString(hash, 4) + " [hash]: Rx > 0x" + Hex.toHexString(clusterId, 2)
+						+ " [clusterId] " + zclFrame.toString());
 		} else {
 			LOG.debug(this.getPid() + ": " + Hex.toHexString(hash, 4) + " [hash]: Rx > timeout in poll");
 		}
@@ -270,7 +277,8 @@ public class ZigBeeDeviceImpl implements ZigBeeDevice, TimerListener {
 		long hash = calculateTxRxHash(clusterId, zclFrame);
 
 		if (LOG.isDebugEnabled() && zigbeeManager.isRxTxLogEnabled())
-			this.logZclMessage(false, hash, (short) this.service.getSimpleDescriptor().getApplicationProfileIdentifier().intValue(), clusterId, zclFrame);
+			this.logZclMessage(false, hash,
+					(short) this.service.getSimpleDescriptor().getApplicationProfileIdentifier().intValue(), clusterId, zclFrame);
 
 		if (trackNode) {
 			deviceAlive();
@@ -300,7 +308,6 @@ public class ZigBeeDeviceImpl implements ZigBeeDevice, TimerListener {
 		} else {
 			SynchronousQueue sq = null;
 			sq = (SynchronousQueue) pendingReplies.remove(new Long(hash));
-
 			if (sq == null) {
 				// simply sends the message to the upper layer. If any
 				// exception
@@ -310,13 +317,14 @@ public class ZigBeeDeviceImpl implements ZigBeeDevice, TimerListener {
 				notifyListeners(clusterId, zclFrame);
 			} else {
 				try {
-					LOG.debug("THID: " + Thread.currentThread().getId() + " before sq.put(zclFrame) Hash:" + String.format("%04X", hash));
+					LOG.debug("THID: " + Thread.currentThread().getId() + " before sq.put(zclFrame) Hash:"
+							+ String.format("%04X", hash));
 
 					sq.put(zclFrame);
 
 					LOG.debug("THID: " + Thread.currentThread().getId() + " after sq.put(zclFrame)");
 
-				} catch (InterruptedException e) {
+				} catch (Exception e) {
 					LOG.error("exception", e);
 
 					return false;
@@ -426,7 +434,8 @@ public class ZigBeeDeviceImpl implements ZigBeeDevice, TimerListener {
 	}
 
 	public boolean post(short clusterId, IZclFrame zclFrame) {
-		return this.post((short) this.service.getSimpleDescriptor().getApplicationProfileIdentifier().intValue(), clusterId, zclFrame);
+		return this.post((short) this.service.getSimpleDescriptor().getApplicationProfileIdentifier().intValue(), clusterId,
+				zclFrame);
 	}
 
 	public boolean post(short profileId, short clusterId, IZclFrame zclFrame) {
@@ -493,9 +502,9 @@ public class ZigBeeDeviceImpl implements ZigBeeDevice, TimerListener {
 	}
 
 	private long calculateTxRxHash(short clusterId, IZclFrame zclFrame) {
-		long hash = clusterId;
-		hash = hash << 8;
-		return zclFrame.getSequenceNumber() & 0xFF | hash;
+		String Key = String.format("%04X%02X", clusterId, zclFrame.getSequenceNumber());
+		long hash = Long.parseLong(Key, 16);
+		return hash;
 	}
 
 	protected void announce() {

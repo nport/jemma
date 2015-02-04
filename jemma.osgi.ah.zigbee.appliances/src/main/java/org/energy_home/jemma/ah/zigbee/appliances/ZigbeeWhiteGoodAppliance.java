@@ -17,7 +17,6 @@ package org.energy_home.jemma.ah.zigbee.appliances;
 
 import java.util.Dictionary;
 
-import org.energy_home.jemma.ah.cluster.ah.ConfigServer;
 import org.energy_home.jemma.ah.hac.ApplianceException;
 import org.energy_home.jemma.ah.hac.IEndPointTypes;
 import org.energy_home.jemma.ah.zigbee.zcl.cluster.eh.ZclApplianceControlServer;

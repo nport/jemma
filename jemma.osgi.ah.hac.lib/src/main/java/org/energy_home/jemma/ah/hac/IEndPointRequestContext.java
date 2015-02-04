@@ -17,7 +17,7 @@ package org.energy_home.jemma.ah.hac;
 
 /**
  * This interface is used to access context information associated to a request
- * sent to a specific cluster ({@link IServiceCluster}). A {@code null} value
+ * sent to a specific cluster ({@link IServiceCluster} ). A {@code null} value
  * can be specified when requests are sent through a connection established by
  * the framework (the framework generates a default context using information
  * associated to the end points connection).

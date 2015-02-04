@@ -39,7 +39,7 @@ public class GetPowerProfilePriceResponse {
 		sb.append(", Price=").append(Price);
 		sb.append(", PriceTrailingDigit=").append(PriceTrailingDigit);
 		sb.append("}");
-		return sb.toString();		
+		return sb.toString();
 	}
-	
+
 }

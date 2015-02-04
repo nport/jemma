@@ -20,8 +20,12 @@ import org.energy_home.jemma.ah.zigbee.zcl.ZclValidationException;
 
 public abstract class ZclAbstractDataType {
 	public abstract Object zclParseToObject(IZclFrame zclFrame) throws ZclValidationException;
-	public abstract void zclObjectSerialize(IZclFrame zclFrame, Object value)  throws ZclValidationException;
-	public abstract int zclObjectSize (Object value)  throws ZclValidationException;
+
+	public abstract void zclObjectSerialize(IZclFrame zclFrame, Object value) throws ZclValidationException;
+
+	public abstract int zclObjectSize(Object value) throws ZclValidationException;
+
 	public abstract short zclGetDataType();
+
 	public abstract boolean isAnalog();
 }

@@ -1,33 +1,21 @@
 Manifest-Version: 1.0
-Bundle-Activator: org.energy_home.jemma.osgi.ah.m2m.device.M2MDeviceActi
- vator
 Bundle-Category: Automation@Home
+Bundle-DocURL: http://www.telecomitalia.it/
 Bundle-ManifestVersion: 2
-Bundle-Name: M2M Device
+Bundle-Name: M2M Device API
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Bundle-SymbolicName: jemma.osgi.ah.m2m.device;singleton:=true
+Bundle-SymbolicName: jemma.osgi.ah.m2m.device
 Bundle-Vendor: Telecom Italia
 Bundle-Version: 1.2.15
 Created-By: Apache Maven Bundle Plugin
-Export-Package: org.energy_home.jemma.ah.m2m.device;uses:="org.energy_ho
- me.jemma.m2m.connection,org.energy_home.jemma.m2m,org.apache.http";vers
- ion="1.3.0",org.energy_home.jemma.ah.m2m.device.lib;uses:="org.energy_h
- ome.jemma.ah.m2m.device,org.energy_home.jemma.m2m.connection";version="
- 1.3.0",org.energy_home.jemma.m2m;uses:="javax.xml.bind.annotation,javax
- .xml.bind";version="1.3.0",org.energy_home.jemma.m2m.ah;uses:="javax.xm
- l.bind.annotation";version="1.2.3",org.energy_home.jemma.m2m.connection
- ;uses:="javax.xml.bind.annotation,org.energy_home.jemma.m2m";version="1
- .2.2"
-Import-Package: com.sun.xml.internal.bind.marshaller;resolution:=optiona
- l,javax.xml.bind,javax.xml.bind.annotation,javax.xml.bind.annotation.ad
- apters,javax.xml.bind.helpers,javax.xml.namespace,org.apache.commons.co
- dec;version="[1.3,2)",org.apache.http;resolution:=optional;version="[4.
- 1,5)",org.apache.http.entity;resolution:=optional;version="[4.1,5)",org
- .eclipse.osgi.framework.console;version="1.0.0",org.energy_home.jemma.a
- h.m2m.device;resolution:=optional;version="[1.3,2)",org.energy_home.jem
- ma.utils.encrypt;version="[1.0.0,1.1.0)",org.energy_home.jemma.utils.re
- st;version="[1.0.0,1.1.0)",org.osgi.framework;version="[1.5,2.0)",org.s
- lf4j;version="[1.6,2)"
+Export-Package: org.energy_home.jemma.ah.m2m.device;version="1.3.0";uses
+ :="org.apache.http,org.energy_home.jemma.m2m,org.energy_home.jemma.m2m.
+ connection",org.energy_home.jemma.m2m;version="1.3.0";uses:="javax.xml.
+ bind.annotation,org.energy_home.jemma.ah.m2m.device",org.energy_home.je
+ mma.m2m.ah;version="1.2.3";uses:="javax.xml.bind.annotation",org.energy
+ _home.jemma.m2m.connection;version="1.2.2";uses:="javax.xml.bind.annota
+ tion,org.energy_home.jemma.ah.m2m.device"
+Import-Package: javax.xml.bind.annotation,org.apache.http
 Include-Resource: .m2m_connection_schema_xjc_flag=src/main/resources/.m2
  m_connection_schema_xjc_flag,.m2m_schema_xjc_flag=src/main/resources/.m
  2m_schema_xjc_flag,schemas/ah.xsd=src/main/resources/schemas/ah.xsd,sch
@@ -35,10 +23,14 @@ Include-Resource: .m2m_connection_schema_xjc_flag=src/main/resources/.m2
  .xml,schemas/jaxb_m2m_connection_bindings.xml=src/main/resources/schema
  s/jaxb_m2m_connection_bindings.xml,schemas/m2m.xsd=src/main/resources/s
  chemas/m2m.xsd,schemas/m2m_connection.xsd=src/main/resources/schemas/m2
- m_connection.xsd
-Private-Package: schemas,org.energy_home.jemma.internal.ah.m2m.device,or
- g.energy_home.jemma.osgi.ah.m2m.device,org.energy_home.jemma.internal.a
- h.m2m.utils,.
+ m_connection.xsd,org/energy_home/jemma/ah/m2m/device/packageinfo=src/ma
+ in/java/org/energy_home/jemma/ah/m2m/device/packageinfo,org/energy_home
+ /jemma/m2m/ah/packageinfo=src/main/java/org/energy_home/jemma/m2m/ah/pa
+ ckageinfo,org/energy_home/jemma/m2m/connection/packageinfo=src/main/jav
+ a/org/energy_home/jemma/m2m/connection/packageinfo,org/energy_home/jemm
+ a/m2m/packageinfo=src/main/java/org/energy_home/jemma/m2m/packageinfo
+Private-Package: .m2m_connection_schema_xjc_flag,.m2m_schema_xjc_flag,sc
+ hemas
 Require-Bundle: org.apache.httpcomponents.httpclient;bundle-version="4.1
  .0",org.apache.httpcomponents.httpcore;bundle-version="4.1.0"
-Tool: Bnd-1.50.0
+Tool: Bnd-2.3.0.201405100607

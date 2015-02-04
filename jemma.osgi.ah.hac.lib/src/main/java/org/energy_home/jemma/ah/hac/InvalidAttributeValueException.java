@@ -21,7 +21,7 @@ public class InvalidAttributeValueException extends ServiceClusterException {
 	public InvalidAttributeValueException() {
 		super("InvalidAttributeValueException");
 	}
-	
+
 	public InvalidAttributeValueException(String errorDescription) {
 		super(errorDescription);
 	}

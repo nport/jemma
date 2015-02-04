@@ -28,11 +28,11 @@ public class Hex {
 		}
 		return buf.toString();
 	}
-	
+
 	public static String byteToHex(byte[] data) {
 		return byteToHex(data, 0);
 	}
-	
+
 	public static char toHexChar(long i) {
 		if ((0 <= i) && (i <= 9)) {
 			return (char) ('0' + i);
@@ -40,7 +40,7 @@ public class Hex {
 			return (char) ('A' + (i - 10));
 		}
 	}
-	
+
 	public static String toHexString(long value, int size) {
 		StringBuffer buf = new StringBuffer();
 		long data = (long) (value);
@@ -49,7 +49,7 @@ public class Hex {
 			buf.insert(0, toHexChar((data >>> 4) & 0x0F));
 			data >>>= 8;
 		}
-		
+
 		return buf.toString();
 	}
 }

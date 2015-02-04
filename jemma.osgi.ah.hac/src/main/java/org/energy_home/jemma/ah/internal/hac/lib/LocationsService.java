@@ -30,34 +30,34 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class LocationsService implements ManagedServiceFactory {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(LocationsService.class);
-	
+
 	private ConfigurationAdmin configAdmin;
-	
+
 	static final String FACTORY_PID = "org.energy_home.jemma.osgi.ah.hac.locations";
-	
+
 	public LocationsService() {
-		
+
 	}
 
 	public void setConfigurationAdmin(ConfigurationAdmin configAdmin) {
 		this.configAdmin = configAdmin;
 	}
-	
-	public void unsetConfigurationAdmin(ConfigurationAdmin configAdmin) {		
+
+	public void unsetConfigurationAdmin(ConfigurationAdmin configAdmin) {
 		if (this.configAdmin == configAdmin) {
 			this.configAdmin = null;
 		}
 	}
-	
+
 	private Hashtable name2location = new Hashtable();
 	private Hashtable pid2location = new Hashtable();
 
 	public ILocation[] getLocations() {
 		if (pid2location.size() == 0)
 			return null;
-		
+
 		ILocation[] locationArray = new ILocation[pid2location.size()];
 		return (ILocation[]) pid2location.values().toArray(locationArray);
 	}
@@ -65,24 +65,25 @@ public class LocationsService implements ManagedServiceFactory {
 	public Location add(Location location) throws HacException {
 		Configuration[] configurations;
 		try {
-			configurations = this.configAdmin.listConfigurations("(" + ILocation.PROP_LOCATION_NAME + "=" + location.getName() + ")");
-			if (configurations!= null) {
+			configurations = this.configAdmin.listConfigurations("(" + ILocation.PROP_LOCATION_NAME + "=" + location.getName()
+					+ ")");
+			if (configurations != null) {
 				throw new HacException("Duplicate location name");
 			}
 			Dictionary props = new Hashtable();
 			props.put(ILocation.PROP_LOCATION_NAME, location.getName());
 			props.put(ILocation.PROP_LOCATION_ICON, location.getIconName());
 			props.put(ILocation.PROP_LOCATION_PID, location.getPid());
-			Configuration c = this.configAdmin.createFactoryConfiguration(FACTORY_PID);			
+			Configuration c = this.configAdmin.createFactoryConfiguration(FACTORY_PID);
 			c.update(props);
-			
+
 		} catch (Exception e) {
 			LOG.warn(e.getMessage(), e);
 		}
 		return location;
 	}
 
-	public void clear() {		
+	public void clear() {
 		try {
 			Configuration[] configurations = configAdmin.listConfigurations("(org.energy_home.jemma.ah.location.name=*)");
 			if (configurations != null)
@@ -101,7 +102,7 @@ public class LocationsService implements ManagedServiceFactory {
 	}
 
 	public void deleted(String pid) {
-		
+
 		Location location = null;
 		try {
 			location = (Location) pid2location.remove(pid);
@@ -109,7 +110,7 @@ public class LocationsService implements ManagedServiceFactory {
 			LOG.warn(e.getMessage(), e);
 			return;
 		}
-		
+
 		if (location != null) {
 			name2location.remove(location.getName());
 		}
@@ -126,8 +127,7 @@ public class LocationsService implements ManagedServiceFactory {
 			location.update(props);
 			name2location.put(location.getName(), location);
 			pid2location.put(pid, location);
-		}
-		else {
+		} else {
 			location.update(props);
 		}
 	}

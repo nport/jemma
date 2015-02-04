@@ -16,10 +16,6 @@
 package org.energy_home.jemma.javagal.layers.object;
 
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
 
 /**
  * Object carrying a {@code byte[]} of fixed length. The aims of this class is
@@ -73,13 +69,12 @@ public class ByteArrayObject {
 	public ByteArrayObject(byte[] buffer, int size) {
 		_startedFromZero = true;
 		array = new byte[size];
-		System.arraycopy(buffer, 0, array, 0, size);
+		if (buffer != null) {
+			System.arraycopy(buffer, 0, array, 0, size);
+		}
 		count = size;
 
 	}
-	
-	
-	
 
 	/**
 	 * Adds a byte after the last currently valid one. Consequently the
@@ -183,7 +178,6 @@ public class ByteArrayObject {
 	public byte[] getArray() {
 		return array;
 	}
-	
 
 	/**
 	 * Gets the number of valid byte(s) carried by this byte array.
@@ -204,7 +198,13 @@ public class ByteArrayObject {
 			return count;
 	}
 
-	
+	public static char toHexChar(long i) {
+		if ((0 <= i) && (i <= 9)) {
+			return (char) ('0' + i);
+		} else {
+			return (char) ('A' + (i - 10));
+		}
+	}
 
 	/**
 	 * Gives the entire byte array converted as a String. Every element is
@@ -216,8 +216,10 @@ public class ByteArrayObject {
 	public String ToHexString() {
 		StringBuffer _res = new StringBuffer();
 		byte[] _vect = getArray();
-		for (int i = 0; i < getCount(true); i++)
-			_res.append(String.format("%02X", _vect[i]));
+		for (int i = 0; i < getCount(true); i++) {
+			_res.append(toHexChar((_vect[i] >>> 4) & 0x0F));
+			_res.append(toHexChar(_vect[i] & 0x0F));
+		}
 		return _res.toString();
 	}
 }

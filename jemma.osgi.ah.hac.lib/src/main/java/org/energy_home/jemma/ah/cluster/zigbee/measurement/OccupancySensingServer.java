@@ -21,35 +21,26 @@ import org.energy_home.jemma.ah.hac.ServiceClusterException;
 
 public interface OccupancySensingServer {
 
-    final static String ATTR_Occupancy_NAME = "Occupancy";
-    final static String ATTR_OccupancySensorType_NAME = "OccupancySensorType";
-    final static String ATTR_PIROccupiedToUnoccupiedDelay_NAME = "PIROccupiedToUnoccupiedDelay";
-    final static String ATTR_PIRUnccupiedToOccupiedDelay_NAME = "PIRUnccupiedToOccupiedDelay";
-    final static String ATTR_UltraSonicOccupiedToUnoccupiedDelay_NAME = "UltraSonicOccupiedToUnoccupiedDelay";
-    final static String ATTR_UltraSonicPIRUnccupiedToOccupiedDelay_NAME = "UltraSonicPIRUnccupiedToOccupiedDelay";
+	final static String ATTR_Occupancy_NAME = "Occupancy";
+	final static String ATTR_OccupancySensorType_NAME = "OccupancySensorType";
+	final static String ATTR_PIROccupiedToUnoccupiedDelay_NAME = "PIROccupiedToUnoccupiedDelay";
+	final static String ATTR_PIRUnccupiedToOccupiedDelay_NAME = "PIRUnccupiedToOccupiedDelay";
+	final static String ATTR_UltraSonicOccupiedToUnoccupiedDelay_NAME = "UltraSonicOccupiedToUnoccupiedDelay";
+	final static String ATTR_UltraSonicPIRUnccupiedToOccupiedDelay_NAME = "UltraSonicPIRUnccupiedToOccupiedDelay";
 
-    public short getOccupancy(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public short getOccupancy(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-    public short getOccupancySensorType(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public short getOccupancySensorType(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-    public short getPIROccupiedToUnoccupiedDelay(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public short getPIROccupiedToUnoccupiedDelay(IEndPointRequestContext context) throws ApplianceException,
+			ServiceClusterException;
 
-    public short getPIRUnccupiedToOccupiedDelay(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public short getPIRUnccupiedToOccupiedDelay(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-    public short getUltraSonicOccupiedToUnoccupiedDelay(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public short getUltraSonicOccupiedToUnoccupiedDelay(IEndPointRequestContext context) throws ApplianceException,
+			ServiceClusterException;
 
-    public short getUltraSonicPIRUnccupiedToOccupiedDelay(IEndPointRequestContext context)
-        throws ApplianceException, ServiceClusterException
-    ;
+	public short getUltraSonicPIRUnccupiedToOccupiedDelay(IEndPointRequestContext context) throws ApplianceException,
+			ServiceClusterException;
 
 }

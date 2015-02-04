@@ -20,7 +20,7 @@ public class NotAuthorized extends ServiceClusterException {
 	public NotAuthorized() {
 		super("UnsupportedClusterAttributeException");
 	}
-	
+
 	public NotAuthorized(String errorDescription) {
 		super(errorDescription);
 	}

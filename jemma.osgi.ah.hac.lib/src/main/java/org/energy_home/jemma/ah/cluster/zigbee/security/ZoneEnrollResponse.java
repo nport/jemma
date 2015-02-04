@@ -15,7 +15,6 @@
  */
 package org.energy_home.jemma.ah.cluster.zigbee.security;
 
-
 public class ZoneEnrollResponse {
 
 	public short EnrollResponseCode;

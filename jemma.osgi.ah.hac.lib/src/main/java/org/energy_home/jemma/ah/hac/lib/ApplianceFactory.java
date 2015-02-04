@@ -56,13 +56,12 @@ public abstract class ApplianceFactory implements IApplianceFactory, ManagedServ
 
 	private ServiceRegistration sr;
 	private ServiceRegistration driverRegistration;
-	
+
 	/** Dictionary { String service.pid, Appliance appliance} */
 	Map pid2record = new HashMap();
 	Map spid2record = new HashMap();
 
 	BundleContext bc;
-
 
 	ApplianceRecord getByAppliancePid(String appliancePid) {
 		return (ApplianceRecord) pid2record.get(appliancePid);
@@ -71,25 +70,23 @@ public abstract class ApplianceFactory implements IApplianceFactory, ManagedServ
 	ApplianceRecord getByServicePid(String servicePid) {
 		return (ApplianceRecord) spid2record.get(servicePid);
 	}
-	
+
 	protected final IManagedAppliance createAppliance(String pid, Dictionary config) throws ApplianceException {
 		Appliance appliance;
 		try {
 			appliance = (Appliance) getInstance(pid, config);
-			
-			
-			
+
 		} catch (Exception e) {
 			LOG.debug("Unable to instantiate appliance", e);
 			throw new ApplianceException("Unable to instantiate appliance " + pid);
 		}
-	
+
 		appliance.setApplianceFactory(this);
-	
+
 		LOG.debug("created " + appliance.getDescriptor().getType());
 		return appliance;
 	}
-	
+
 	/**
 	 * Method invoked by the OSGi activator when the bundle starts
 	 * 
@@ -100,7 +97,7 @@ public abstract class ApplianceFactory implements IApplianceFactory, ManagedServ
 
 	public final void start(BundleContext bc) throws Exception {
 		this.bc = bc;
-		
+
 		// check if type has been correctly set.
 		String type = this.getDescriptor().getType();
 
@@ -116,13 +113,13 @@ public abstract class ApplianceFactory implements IApplianceFactory, ManagedServ
 
 		started(bc);
 		LOG.debug("started appliance factory for type '" + getDescriptor().getType() + "'");
-	
+
 	}
 
 	void started(BundleContext bc) {
 		return;
 	}
-	
+
 	/**
 	 * Method invoked by the OSGi activator when the bundle stops
 	 * 
@@ -146,17 +143,20 @@ public abstract class ApplianceFactory implements IApplianceFactory, ManagedServ
 
 			if (appliance != null) {
 				if (appliance.isDriver() && record.deviceList != null) {
-					((DriverApplianceFactory)this).untrackAllDevices(record, false);
+					((DriverApplianceFactory) this).untrackAllDevices(record, false);
 					try {
-						// Multieps: in equinox detach is called by untrackDevice (closing service tracker trigger a service removed event)
+						// Multieps: in equinox detach is called by
+						// untrackDevice (closing service tracker trigger a
+						// service removed
+						// event)
 						for (Iterator iterator2 = record.deviceList.iterator(); iterator2.hasNext();) {
 							IHacDevice device = (IHacDevice) iterator2.next();
-							((DriverAppliance)appliance).detach(device);	
+							((DriverAppliance) appliance).detach(device);
 						}
 					} catch (ApplianceException e) {
 						LOG.warn(e.getMessage(), e);
 					}
-					
+
 				}
 
 				appliance.stop();
@@ -176,8 +176,6 @@ public abstract class ApplianceFactory implements IApplianceFactory, ManagedServ
 		spid2record.clear();
 	}
 
-	
-	
 	/**
 	 * Internal method used by the A@H framework
 	 */
@@ -190,7 +188,8 @@ public abstract class ApplianceFactory implements IApplianceFactory, ManagedServ
 	}
 
 	/**
-	 * Internal method used by the appliances proxy service (servicePid = permanentId)
+	 * Internal method used by the appliances proxy service (servicePid =
+	 * permanentId)
 	 */
 	public final boolean updateAppliance(String servicePid, Map config) {
 		// TODO: not used yet, still needs to be tested
@@ -202,7 +201,7 @@ public abstract class ApplianceFactory implements IApplianceFactory, ManagedServ
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Internal method used by the A@H framework
 	 */
@@ -269,9 +268,10 @@ public abstract class ApplianceFactory implements IApplianceFactory, ManagedServ
 			}
 		}
 	}
-	
+
 	/**
-	 * Internal method used by the appliances proxy service (servicePid = permanentId)
+	 * Internal method used by the appliances proxy service (servicePid =
+	 * permanentId)
 	 */
 	public final boolean deleteAppliance(String servicePid) {
 		// TODO: not used yet, still needs to be tested
@@ -283,7 +283,7 @@ public abstract class ApplianceFactory implements IApplianceFactory, ManagedServ
 		}
 		return true;
 	}
-	
+
 	public final void deleteAppliance(String appliancePid, boolean removeDevices) {
 		ApplianceRecord record = this.getByAppliancePid(appliancePid);
 		if (record == null) {
@@ -293,12 +293,14 @@ public abstract class ApplianceFactory implements IApplianceFactory, ManagedServ
 		Appliance appliance = record.appliance;
 		if (appliance != null) {
 			if (appliance.isDriver() && record.deviceList != null) {
-				((DriverApplianceFactory)this).untrackAllDevices(record, removeDevices);
+				((DriverApplianceFactory) this).untrackAllDevices(record, removeDevices);
 				try {
-					// !!!Multieps: in equinox detach is called by untrackDevice (closing service tracker trigger a service removed event)
+					// !!!Multieps: in equinox detach is called by untrackDevice
+					// (closing service tracker trigger a service removed
+					// event)
 					for (Iterator iterator = record.deviceList.iterator(); iterator.hasNext();) {
 						IHacDevice device = (IHacDevice) iterator.next();
-						((DriverAppliance)appliance).detach(device);	
+						((DriverAppliance) appliance).detach(device);
 					}
 				} catch (ApplianceException e) {
 					LOG.warn(e.getMessage(), e);
@@ -319,9 +321,9 @@ public abstract class ApplianceFactory implements IApplianceFactory, ManagedServ
 		} else {
 			return;
 		}
-		
+
 	}
-	
+
 	/**
 	 * Internal method used by the A@H framework
 	 */
@@ -334,12 +336,14 @@ public abstract class ApplianceFactory implements IApplianceFactory, ManagedServ
 		Appliance appliance = record.appliance;
 		if (appliance != null) {
 			if (appliance.isDriver() && record.deviceList != null) {
-				((DriverApplianceFactory)this).untrackAllDevices(record, true);
+				((DriverApplianceFactory) this).untrackAllDevices(record, true);
 				try {
-					// !!!Multieps: in equinox detach is called by untrackDevice (closing service tracker trigger a service removed event)
+					// !!!Multieps: in equinox detach is called by untrackDevice
+					// (closing service tracker trigger a service removed
+					// event)
 					for (Iterator iterator = record.deviceList.iterator(); iterator.hasNext();) {
 						IHacDevice device = (IHacDevice) iterator.next();
-						((DriverAppliance)appliance).detach(device);	
+						((DriverAppliance) appliance).detach(device);
 					}
 				} catch (ApplianceException e) {
 					LOG.warn(e.getMessage(), e);
@@ -360,7 +364,7 @@ public abstract class ApplianceFactory implements IApplianceFactory, ManagedServ
 			appliance = null;
 		} else {
 			return;
-		}			
+		}
 
 	}
 
@@ -401,15 +405,15 @@ public abstract class ApplianceFactory implements IApplianceFactory, ManagedServ
 					IHacDevice device = (IHacDevice) iterator.next();
 					if (bc.getService(s).equals(device))
 						try {
-							((DriverAppliance)appliance).detach(device);
+							((DriverAppliance) appliance).detach(device);
 							iterator.remove();
 						} catch (ApplianceException e) {
 							LOG.warn(e.getMessage(), e);
-						}					
+						}
 				}
 			}
 		}
-		((DriverApplianceFactory)this).trackedDevices.remove(s);
+		((DriverApplianceFactory) this).trackedDevices.remove(s);
 	}
 
 	/**
@@ -426,10 +430,10 @@ public abstract class ApplianceFactory implements IApplianceFactory, ManagedServ
 	 * 
 	 */
 	public abstract IApplianceDescriptor getDescriptor();
-	
+
 	/**
 	 * This method needs to be implemented by each factory class and returns an
-	 * instance of the managed appliance class 
+	 * instance of the managed appliance class
 	 * 
 	 * @param pid
 	 *            The PID of the appliance instance

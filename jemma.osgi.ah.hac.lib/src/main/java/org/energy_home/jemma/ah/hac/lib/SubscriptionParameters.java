@@ -27,12 +27,12 @@ public class SubscriptionParameters implements ISubscriptionParameters {
 	long minReportingInterval = 0;
 	long maxReportingInterval = 0;
 
-	double reportableChange = 0;
+	double reportableChange = 0.0;
 
 	/**
-	 * This constructor initializes all the subscription parameters with {@code
-	 * 0}, so that all modifications to the associated attribute value will be
-	 * notified
+	 * This constructor initializes all the subscription parameters with
+	 * {@code 0}, so that all modifications to the associated attribute value
+	 * will be notified
 	 */
 	public SubscriptionParameters() {
 		this.minReportingInterval = 0;

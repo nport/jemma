@@ -18,7 +18,7 @@ package org.energy_home.jemma.ah.internal.zigbee;
 import org.energy_home.jemma.ah.internal.utils.PersistentProperties;
 
 public class Props extends PersistentProperties {
-	
+
 	private static final String GATEWAY_NAMESPACE = "usenvm";
 	private boolean useNVMNetworkSetting = false;
 

@@ -22,10 +22,8 @@ public interface IEndPointTypes {
 	public static final String ZIGBEE_WHITE_GOODS = "ah.ep.zigbee.WhiteGoods";
 	public static final String ZIGBEE_ENERGY_SERVICE_PORTAL = "ah.ep.zigbee.EnergyServicePortal";
 	public static final String ZIGBEE_ON_OFF_SWITCH_DEVICE = "ah.ep.zigbee.OnOffSwitchDevice";
-	public static final String ZIGBEE_TEMPERATURE_SENSOR = "ah.ep.zigbee.TemperatureSensor";
 	public static final String ZIGBEE_DIMMABLE_LIGHT = "ah.ep.zigbee.DimmableLight";
-	
-	
+
 	public static final String ZIGBEE_COLOR_LIGHT = "ah.ep.zigbee.ColorLight";
 	public static final String ZIGBEE_IAS_ZONE = "ah.ep.zigbee.IASZone";
 	public static final String ZIGBEE_ON_OFF_LIGHT = "ah.ep.zigbee.OnOffLight";
@@ -36,8 +34,37 @@ public interface IEndPointTypes {
 	public static final String ZIGBEE_DOOR_LOCK = "ah.ep.zigbee.DoorLock";
 	public static final String ZIGBEE_WINDOW_COVERING = "ah.ep.zigbee.WindowCovering";
 	public static final String ZIGBEE_WINDOW_COVERING_CONTROLLER = "ah.ep.zigbee.WindowCoveringController";
-	
-	public static final String ZIGBEE_SMART_PLUG = "ah.ep.zigbee.SmartPlug";	//@Changed by AndreaRanalli: to be verifies if this is correct!
-	public static final String ZIGBEE_DRIMMER_SWITCH = "ah.ep.zigbee.DrimmerSwitch";	//@Changed by MarcoNieddu: to be verifies if this is correct!
+
+	public static final String ZIGBEE_SMART_PLUG = "ah.ep.zigbee.SmartPlug"; // @Changed
+																				// by
+																				// AndreaRanalli:
+																				// to
+																				// be
+																				// verifies
+																				// if
+																				// this
+																				// is
+																				// correct!
+	public static final String ZIGBEE_DRIMMER_SWITCH = "ah.ep.zigbee.DrimmerSwitch"; // @Changed
+																						// by
+																						// MarcoNieddu:
+																						// to
+																						// be
+																						// verifies
+																						// if
+																						// this
+																						// is
+																						// correct!
+
+	public static final String ZIGBEE_TEMPERATURE_SENSOR = "ah.ep.zigbee.TemperatureSensor"; // @Changed
+																								// by
+																								// AndreaRanalli:
+																								// to
+																								// be
+																								// verifies
+																								// if
+																								// this
+																								// is
+																								// correct!
 
 }

@@ -16,7 +16,6 @@
 package org.energy_home.jemma.ah.webui.energyathome;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.Map;
@@ -36,7 +35,6 @@ import org.energy_home.jemma.hac.adapter.http.Base64;
 import org.energy_home.jemma.hac.adapter.http.CustomJsonServlet;
 import org.energy_home.jemma.hac.adapter.http.HttpImplementor;
 import org.energy_home.jemma.hac.adapter.http.JsonRPC;
-import org.energy_home.jemma.hac.adapter.http.ServiceNoParam;
 import org.jabsorb.JSONRPCBridge;
 import org.jabsorb.JSONRPCServlet;
 import org.osgi.framework.BundleContext;
@@ -55,44 +53,44 @@ import org.slf4j.LoggerFactory;
 
 public class EnergyAtHome extends WebApplication implements HttpImplementor, HttpContext {
 
-    private static class ServletConfigDisableGZIPWrapper implements ServletConfig{
+	private static class ServletConfigDisableGZIPWrapper implements ServletConfig {
 
-        private ServletConfig wrapped=null;
-		
-		public ServletConfigDisableGZIPWrapper(ServletConfig wrapped){
-			this.wrapped=wrapped;
+		private ServletConfig wrapped = null;
+
+		public ServletConfigDisableGZIPWrapper(ServletConfig wrapped) {
+			this.wrapped = wrapped;
 		}
 
-		public String getInitParameter(String name){
+		public String getInitParameter(String name) {
 			// Disables gzip compression
-			if(name.equals("gzip_threshold")){
+			if (name.equals("gzip_threshold")) {
 				return "-1";
-			}else{
+			} else {
 				return wrapped.getInitParameter(name);
 			}
-		} 
-		
-		public Enumeration getInitParameterNames(){
+		}
+
+		public Enumeration getInitParameterNames() {
 			return wrapped.getInitParameterNames();
 		}
 
-		public ServletContext getServletContext(){
+		public ServletContext getServletContext() {
 			return wrapped.getServletContext();
 		}
 
-		public String getServletName(){
+		public String getServletName() {
 			return wrapped.getServletName();
-		} 
+		}
 	}
- 
+
 	private UserAdmin userAdmin = null;
 	private String applicationWebAlias = "/demo";
-	//private String applicationWebAlias = "/energyathome";
-	
+	// private String applicationWebAlias = "/energyathome";
+
 	private String realm = "Energy@Home Login";
 	private ComponentContext ctxt;
 
-	private static final Logger LOG = LoggerFactory.getLogger( EnergyAtHome.class );
+	private static final Logger LOG = LoggerFactory.getLogger(EnergyAtHome.class);
 	private static final String PROP_ENABLE_AUTH = "it.telecomitalia.ah.energyathome.auth";
 	private static final String PROP_ENABLE_HTTPS = "it.telecomitalia.ah.energyathome.https";
 	private static final boolean DEFAULT_ENABLE_AUTH = true;
@@ -106,7 +104,7 @@ public class EnergyAtHome extends WebApplication implements HttpImplementor, Htt
 	private boolean enableSecurity = true;
 	private boolean enableHttps = false;
 	private ServiceRegistryProxy registryProxy;
-	
+
 	public Properties props = null;
 
 	protected void activate(ComponentContext ctxt) {
@@ -115,12 +113,12 @@ public class EnergyAtHome extends WebApplication implements HttpImplementor, Htt
 		this.bc = ctxt.getBundleContext();
 
 		jsonRpcBridge = JSONRPCBridge.getGlobalBridge();
-		
+
 		try {
 			registryProxy = new ServiceRegistryProxy(this.bc, jsonRpcBridge);
 			jsonRpcBridge.registerObject("OSGi", registryProxy);
 		} catch (Throwable e) {
-			LOG.error("Exception on activate",e);
+			LOG.error("Exception on activate", e);
 		}
 	}
 
@@ -144,11 +142,11 @@ public class EnergyAtHome extends WebApplication implements HttpImplementor, Htt
 		this.registerResource("/", "webapp/ehdemo");
 		this.registerResource("/post-json", customJsonServlet);
 		this.registerResource("/json-rpc", jsonRPC);
- 		this.registerResource("/JSON-RPC", new JSONRPCServlet(){
-			public void init(ServletConfig config) throws ServletException{
+		this.registerResource("/JSON-RPC", new JSONRPCServlet() {
+			public void init(ServletConfig config) throws ServletException {
 				super.init(new ServletConfigDisableGZIPWrapper(config));
 			}
-		}); 
+		});
 
 		this.setHttpContext(this);
 
@@ -216,16 +214,15 @@ public class EnergyAtHome extends WebApplication implements HttpImplementor, Htt
 			}
 			return false;
 		}
-		
+
 		String queryString = request.getRequestURI();
-		
+
 		if (queryString.equals(applicationWebAlias + "/conf") || (queryString.equals(applicationWebAlias + "/conf/"))) {
 			response.sendRedirect(applicationWebAlias + "/conf/index.html");
 			return true;
-		}
-		else if (queryString.equals(applicationWebAlias) || (queryString.equals(applicationWebAlias + "/"))) {
+		} else if (queryString.equals(applicationWebAlias) || (queryString.equals(applicationWebAlias + "/"))) {
 			response.sendRedirect(applicationWebAlias + "/index.html");
-			return true;			
+			return true;
 		}
 
 		if (enableSecurity) {
@@ -286,7 +283,8 @@ public class EnergyAtHome extends WebApplication implements HttpImplementor, Htt
 						if (queryString.equals(applicationWebAlias + "/conf/login.html")) {
 							return true;
 						} else {
-//							session.putValue("login.target", HttpUtils.getRequestURL(request).toString());
+							// session.putValue("login.target",
+							// HttpUtils.getRequestURL(request).toString());
 							session.putValue("login.target", applicationWebAlias + "/conf/index.html");
 							Object done = session.getValue("logon.isDone");
 							if (done == null) {
@@ -308,11 +306,12 @@ public class EnergyAtHome extends WebApplication implements HttpImplementor, Htt
 			response.setHeader("Cache-Control", "public, max-age=10000");
 		}
 
-		/*if (request.getRequestURI().endsWith(".js")) {
-			response.setHeader("Pragma", "no-cache");
-			response.setHeader("Cache-Control", "no-store");
-			response.setHeader("Cache-Control", "public, max-age=0");
-		}*/
+		/*
+		 * if (request.getRequestURI().endsWith(".js")) {
+		 * response.setHeader("Pragma", "no-cache");
+		 * response.setHeader("Cache-Control", "no-store");
+		 * response.setHeader("Cache-Control", "public, max-age=0"); }
+		 */
 
 		// response.addHeader(HttpServletResponse, arg1)
 

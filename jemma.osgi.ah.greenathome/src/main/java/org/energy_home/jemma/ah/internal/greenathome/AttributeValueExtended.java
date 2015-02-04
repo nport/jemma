@@ -25,10 +25,11 @@ public class AttributeValueExtended {
 		this.name = name;
 		this.value = value;
 	}
-	
+
 	public AttributeValue getValue() {
 		return value;
 	}
+
 	public String getName() {
 		return name;
 	}

@@ -22,27 +22,20 @@ import org.energy_home.jemma.ah.zigbee.zcl.lib.types.ZclDataTypeUI16;
 
 public class ZclReadHandshakeParamResponse {
 
+	public static ReadHandshakeParamResponse zclParse(IZclFrame zclFrame) throws ZclValidationException {
+		ReadHandshakeParamResponse r = new ReadHandshakeParamResponse();
+		r.PartitionedClusterId = ZclDataTypeUI16.zclParse(zclFrame);
+		return r;
+	}
 
-    public static ReadHandshakeParamResponse zclParse(IZclFrame zclFrame)
-        throws ZclValidationException
-    {
-        ReadHandshakeParamResponse r = new ReadHandshakeParamResponse();
-        r.PartitionedClusterId = ZclDataTypeUI16 .zclParse(zclFrame);
-        return r;
-    }
+	public static void zclSerialize(IZclFrame zclFrame, ReadHandshakeParamResponse r) throws ZclValidationException {
+		ZclDataTypeUI16.zclSerialize(zclFrame, r.PartitionedClusterId);
+	}
 
-    public static void zclSerialize(IZclFrame zclFrame, ReadHandshakeParamResponse r)
-        throws ZclValidationException
-    {
-        ZclDataTypeUI16 .zclSerialize(zclFrame, r.PartitionedClusterId);
-    }
-
-    public static int zclSize(ReadHandshakeParamResponse r)
-        throws ZclValidationException
-    {
-        int size = 0;
-        size += ZclDataTypeUI16 .zclSize(r.PartitionedClusterId);
-        return size;
-    }
+	public static int zclSize(ReadHandshakeParamResponse r) throws ZclValidationException {
+		int size = 0;
+		size += ZclDataTypeUI16.zclSize(r.PartitionedClusterId);
+		return size;
+	}
 
 }

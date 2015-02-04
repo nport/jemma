@@ -15,13 +15,12 @@
  */
 package org.energy_home.jemma.ah.hac;
 
-
 public interface IConfigurationInfoService {
 	public abstract ILocation[] getLocations();
-	
+
 	public abstract ILocation getLocation(String pid);
 
 	public abstract ICategory[] getCategories();
-	
+
 	public abstract ICategory getCategory(String pid);
 }

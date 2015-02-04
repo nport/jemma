@@ -15,7 +15,6 @@
  */
 package org.energy_home.jemma.ah.zigbee.appliances.generic;
 
-
 import java.util.Iterator;
 import java.util.Vector;
 

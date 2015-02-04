@@ -135,14 +135,11 @@ public class GalGuiHttpApplication extends DefaultWebApplication implements Http
 			return "application/javascript";
 		} else if (page.endsWith(".html")) {
 			return "text/html";
-		}
-		else if (page.endsWith(".ico")) {
+		} else if (page.endsWith(".ico")) {
 			return "image/x-icon";
-		}
-		else if (page.endsWith(".png")) {
+		} else if (page.endsWith(".png")) {
 			return "image/png";
-		}
-		else 
+		} else
 			return null;
 	}
 
@@ -152,7 +149,7 @@ public class GalGuiHttpApplication extends DefaultWebApplication implements Http
 			// the resource name ends with slash, defaults to index.html
 			name += "home.html";
 		}
-		
+
 		if (name.equals("webapp/"))
 			u = this.bc.getBundle().getResource(name + "home.html");
 		else
@@ -165,7 +162,6 @@ public class GalGuiHttpApplication extends DefaultWebApplication implements Http
 			return true;
 		else
 			LOG.debug("Http Request:" + request.getRequestURI());
-		
 
 		if (enableHttps && !request.getScheme().equals("https")) {
 			try {
@@ -212,14 +208,13 @@ public class GalGuiHttpApplication extends DefaultWebApplication implements Http
 				if (queryString.toLowerCase().startsWith(applicationWebAlias.toLowerCase())) {
 					// this is a restricted area so performs login
 
-					
 					if (request.getMethod() == "POST") {
 						String username64 = request.getParameter("username");
 						String password64 = request.getParameter("password");
-						
+
 						String username = new String(Base64.decode(username64.getBytes()));
 						String password = new String(Base64.decode(password64.getBytes()));
-								
+
 						if (!allowUser(username, password)) {
 							return redirectToLoginPage(request, response);
 						} else {
@@ -257,8 +252,6 @@ public class GalGuiHttpApplication extends DefaultWebApplication implements Http
 			}
 		}
 
-		
-
 		return true;
 	}
 
@@ -268,7 +261,8 @@ public class GalGuiHttpApplication extends DefaultWebApplication implements Http
 	}
 
 	private boolean redirectToLoginPage(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String redirect = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + applicationWebAlias + "/login.html";
+		String redirect = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+				+ applicationWebAlias + "/login.html";
 		response.sendRedirect(redirect);
 		return true;
 	}
@@ -298,8 +292,7 @@ public class GalGuiHttpApplication extends DefaultWebApplication implements Http
 				if (group == null) {
 					return false;
 				} else {
-					for (Role x : group.getMembers())
-					{
+					for (Role x : group.getMembers()) {
 						if (x.getName().equalsIgnoreCase(username))
 							return true;
 					}

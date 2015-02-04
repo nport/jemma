@@ -34,7 +34,6 @@ package org.energy_home.jemma.ah.internal.hac.lib;
  * under the License.
  */
 
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Dictionary;
@@ -45,158 +44,116 @@ import java.util.Set;
 
 import org.osgi.framework.ServiceReference;
 
-
 /**
- * The <code>ReadOnlyDictionary</code> is both a <code>Dictionary</code> and
- * a <code>Map</code> whose modificaiton methods (like {@link #put(Object, Object)},
- * {@link #remove(Object)}, etc.) have no effect.
+ * The <code>ReadOnlyDictionary</code> is both a <code>Dictionary</code> and a
+ * <code>Map</code> whose modificaiton methods (like
+ * {@link #put(Object, Object)}, {@link #remove(Object)}, etc.) have no effect.
  */
-public class ReadOnlyDictionary extends Dictionary implements Map
-{
+public class ReadOnlyDictionary extends Dictionary implements Map {
 
-    private final Hashtable m_delegatee;
+	private final Hashtable m_delegatee;
 
+	/**
+	 * Creates a wrapper for the given delegatee dictionary providing read only
+	 * access to the data.
+	 */
+	public ReadOnlyDictionary(final Dictionary delegatee) {
+		if (delegatee instanceof Hashtable) {
+			this.m_delegatee = (Hashtable) delegatee;
+		} else {
+			this.m_delegatee = new Hashtable();
+			for (Enumeration ke = delegatee.elements(); ke.hasMoreElements();) {
+				Object key = ke.nextElement();
+				this.m_delegatee.put(key, delegatee.get(key));
+			}
+		}
+	}
 
-    /**
-     * Creates a wrapper for the given delegatee dictionary providing read
-     * only access to the data.
-     */
-    public ReadOnlyDictionary( final Dictionary delegatee )
-    {
-        if ( delegatee instanceof Hashtable )
-        {
-            this.m_delegatee = ( Hashtable ) delegatee;
-        }
-        else
-        {
-            this.m_delegatee = new Hashtable();
-            for ( Enumeration ke = delegatee.elements(); ke.hasMoreElements(); )
-            {
-                Object key = ke.nextElement();
-                this.m_delegatee.put( key, delegatee.get( key ) );
-            }
-        }
-    }
+	/**
+	 * Creates a wrapper for the given service reference providing read only
+	 * access to the reference properties.
+	 */
+	public ReadOnlyDictionary(final ServiceReference serviceReference) {
+		Hashtable properties = new Hashtable();
+		final String[] keys = serviceReference.getPropertyKeys();
+		if (keys != null) {
+			for (int j = 0; j < keys.length; j++) {
+				final String key = keys[j];
+				properties.put(key, serviceReference.getProperty(key));
+			}
+		}
+		m_delegatee = properties;
+	}
 
+	// ---------- Dictionary API
 
-    /**
-     * Creates a wrapper for the given service reference providing read only
-     * access to the reference properties.
-     */
-    public ReadOnlyDictionary( final ServiceReference serviceReference )
-    {
-        Hashtable properties = new Hashtable();
-        final String[] keys = serviceReference.getPropertyKeys();
-        if ( keys != null )
-        {
-            for ( int j = 0; j < keys.length; j++ )
-            {
-                final String key = keys[j];
-                properties.put( key, serviceReference.getProperty( key ) );
-            }
-        }
-        m_delegatee = properties;
-    }
+	public Enumeration elements() {
+		return m_delegatee.elements();
+	}
 
+	public Object get(final Object key) {
+		return m_delegatee.get(key);
+	}
 
-    //---------- Dictionary API
+	public boolean isEmpty() {
+		return m_delegatee.isEmpty();
+	}
 
-    public Enumeration elements()
-    {
-        return m_delegatee.elements();
-    }
+	public Enumeration keys() {
+		return m_delegatee.keys();
+	}
 
+	/**
+	 * This method has no effect and always returns <code>null</code> as this
+	 * instance is read-only and cannot modify and properties.
+	 */
+	public Object put(final Object key, final Object value) {
+		return null;
+	}
 
-    public Object get( final Object key )
-    {
-        return m_delegatee.get( key );
-    }
+	/**
+	 * This method has no effect and always returns <code>null</code> as this
+	 * instance is read-only and cannot modify and properties.
+	 */
+	public Object remove(final Object key) {
+		return null;
+	}
 
+	public int size() {
+		return m_delegatee.size();
+	}
 
-    public boolean isEmpty()
-    {
-        return m_delegatee.isEmpty();
-    }
+	public String toString() {
+		return m_delegatee.toString();
+	}
 
+	// ---------- Map API
 
-    public Enumeration keys()
-    {
-        return m_delegatee.keys();
-    }
+	public void clear() {
+		// nop, this map is read only
+	}
 
+	public boolean containsKey(Object key) {
+		return m_delegatee.containsKey(key);
+	}
 
-    /**
-     * This method has no effect and always returns <code>null</code> as this
-     * instance is read-only and cannot modify and properties.
-     */
-    public Object put( final Object key, final Object value )
-    {
-        return null;
-    }
+	public boolean containsValue(Object value) {
+		return m_delegatee.containsValue(value);
+	}
 
+	public Set entrySet() {
+		return Collections.unmodifiableSet(m_delegatee.entrySet());
+	}
 
-    /**
-     * This method has no effect and always returns <code>null</code> as this
-     * instance is read-only and cannot modify and properties.
-     */
-    public Object remove( final Object key )
-    {
-        return null;
-    }
+	public Set keySet() {
+		return Collections.unmodifiableSet(m_delegatee.keySet());
+	}
 
+	public void putAll(Map m) {
+		// nop, this map is read only
+	}
 
-    public int size()
-    {
-        return m_delegatee.size();
-    }
-
-
-    public String toString()
-    {
-        return m_delegatee.toString();
-    }
-
-
-    //---------- Map API
-
-    public void clear()
-    {
-        // nop, this map is read only
-    }
-
-
-    public boolean containsKey( Object key )
-    {
-        return m_delegatee.containsKey( key );
-    }
-
-
-    public boolean containsValue( Object value )
-    {
-        return m_delegatee.containsValue( value );
-    }
-
-
-    public Set entrySet()
-    {
-        return Collections.unmodifiableSet( m_delegatee.entrySet() );
-    }
-
-
-    public Set keySet()
-    {
-        return Collections.unmodifiableSet( m_delegatee.keySet() );
-    }
-
-
-    public void putAll( Map m )
-    {
-        // nop, this map is read only
-    }
-
-
-    public Collection values()
-    {
-        return Collections.unmodifiableCollection( m_delegatee.values() );
-    }
+	public Collection values() {
+		return Collections.unmodifiableCollection(m_delegatee.values());
+	}
 }

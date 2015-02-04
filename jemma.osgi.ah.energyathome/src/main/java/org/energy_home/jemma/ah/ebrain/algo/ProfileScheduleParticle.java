@@ -17,25 +17,24 @@ package org.energy_home.jemma.ah.ebrain.algo;
 
 import org.energy_home.jemma.ah.ebrain.PowerProfileInfo;
 
-
 final class ProfileScheduleParticle {
 	private ProfileScheduleSubparticle[] profileSchedule;
 	private float currentOverload = Float.POSITIVE_INFINITY;
 	private float currentCost = Float.POSITIVE_INFINITY;
 	private double currentPenalty = Double.POSITIVE_INFINITY;
 	private double leastPenalty = Double.POSITIVE_INFINITY;
-	
+
 	ProfileScheduleSubparticle[] getProfileScheduleSubparticles() {
 		return profileSchedule;
 	}
-	
+
 	ProfileScheduleParticle(PowerProfileInfo[] ppiset) {
 		profileSchedule = new ProfileScheduleSubparticle[ppiset.length];
 		for (int i = 0; i < ppiset.length; ++i) {
 			profileSchedule[i] = new ProfileScheduleSubparticle(ppiset[i]);
 		}
 	}
-	
+
 	ProfileScheduleParticle(ProfileScheduleParticle sampleParticle) {
 		ProfileScheduleSubparticle[] sampleSubparticles = sampleParticle.getProfileScheduleSubparticles();
 		profileSchedule = new ProfileScheduleSubparticle[sampleSubparticles.length];
@@ -43,47 +42,45 @@ final class ProfileScheduleParticle {
 			profileSchedule[i] = new ProfileScheduleSubparticle(sampleSubparticles[i]);
 		}
 	}
+
 	/*
-	void randomizePositions() {
-		for (int i = 0; i < profileSchedule.length; ++i) {
-			profileSchedule[i].randomizePositions();
-		}
-	}
-	*/
+	 * void randomizePositions() { for (int i = 0; i < profileSchedule.length;
+	 * ++i) { profileSchedule[i].randomizePositions(); } }
+	 */
 	void allocateBiasedPeakEnergy(float[] energyAllocation) {
 		for (int i = 0; i < profileSchedule.length; ++i) {
 			profileSchedule[i].allocateBiasedPeakEnergy(energyAllocation);
-			//profileSchedule[i].allocateEnergy(energyAllocation, true);
+			// profileSchedule[i].allocateEnergy(energyAllocation, true);
 		}
 	}
-	
+
 	void allocateMeanEnergy(float[] energyAllocation) {
 		for (int i = 0; i < profileSchedule.length; ++i) {
 			profileSchedule[i].allocateMeanEnergy(energyAllocation);
-			//profileSchedule[i].allocateEnergy(energyAllocation, false);
+			// profileSchedule[i].allocateEnergy(energyAllocation, false);
 		}
 	}
 
 	float getCurrentOverload() {
 		return currentOverload;
 	}
-	
+
 	void setCurrentOverload(float overload) {
 		currentOverload = overload;
 	}
-	
+
 	float getCurrentCost() {
 		return currentCost;
 	}
-	
+
 	void setCurrentCost(float energyCost) {
 		currentCost = energyCost;
 	}
-	
+
 	double getCurrentPenalty() {
 		return currentPenalty;
 	}
-	
+
 	double getLeastPenaly() {
 		return leastPenalty;
 	}
@@ -93,11 +90,11 @@ final class ProfileScheduleParticle {
 		if (penalty > leastPenalty) {
 			return false;
 		} else {
-		
+
 			leastPenalty = penalty;
 			// For each i iterating over all Phases of the Profile
 			for (int i = 0; i < profileSchedule.length; ++i) {
-				//Set Phase(i)'s bestPosition to Phase(i)'s currentPosition
+				// Set Phase(i)'s bestPosition to Phase(i)'s currentPosition
 				profileSchedule[i].setCurrentAsBest();
 			}
 			return true;
@@ -111,7 +108,6 @@ final class ProfileScheduleParticle {
 		}
 		return tardiness;
 	}
-	
 
 	void nextRandomStep(ProfileScheduleParticle leader) {
 		ProfileScheduleSubparticle[] profileLeaders = leader.getProfileScheduleSubparticles();
@@ -119,8 +115,7 @@ final class ProfileScheduleParticle {
 			profileSchedule[i].nextRandomFlight(profileLeaders[i]);
 		}
 	}
-	
-	
+
 	void setEnergyPhasesBestSchedule() {
 		for (int i = 0; i < profileSchedule.length; ++i) {
 			profileSchedule[i].setEnergyPhasesBestSchedule();

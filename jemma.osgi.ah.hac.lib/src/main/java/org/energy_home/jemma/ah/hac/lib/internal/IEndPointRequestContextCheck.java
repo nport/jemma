@@ -19,5 +19,5 @@ import org.energy_home.jemma.ah.hac.IEndPointRequestContext;
 import org.energy_home.jemma.ah.hac.ServiceClusterException;
 
 public interface IEndPointRequestContextCheck {
-	public void checkRequestContext(IEndPointRequestContext context) throws ServiceClusterException; 
+	public void checkRequestContext(IEndPointRequestContext context) throws ServiceClusterException;
 }

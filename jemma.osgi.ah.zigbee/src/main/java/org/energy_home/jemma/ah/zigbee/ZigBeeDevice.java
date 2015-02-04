@@ -15,22 +15,21 @@
  */
 package org.energy_home.jemma.ah.zigbee;
 
+import org.energy_home.jemma.ah.hac.IHacDevice;
 import org.energy_home.jemma.zgd.jaxb.NodeDescriptor;
 import org.energy_home.jemma.zgd.jaxb.NodeServices;
 import org.energy_home.jemma.zgd.jaxb.ServiceDescriptor;
 
-import org.energy_home.jemma.ah.hac.IHacDevice;
-
 public interface ZigBeeDevice extends IHacDevice {
 
 	public void remove();
-	
+
 	public String getIeeeAddress();
 
 	public ServiceDescriptor getServiceDescriptor();
-	
+
 	public NodeDescriptor getNodeDescriptor();
-	
+
 	public NodeServices getNodeServices();
 
 	/**
@@ -52,14 +51,13 @@ public interface ZigBeeDevice extends IHacDevice {
 	 * @throws ZigBeeException
 	 */
 	public IZclFrame invoke(short clusterId, IZclFrame zclFrame) throws ZigBeeException;
-	
+
 	/**
 	 * The invoke method sends the passed frame and wait for the answer from the
 	 * destination zigbee node. The caller remains blocked until the answer has
 	 * been received. A ZigBeeException exception is raised in case of error
-	 * (for instance a timeout)
-	 * 	 * @param profileId
-	 *            The profileId of the zcl frame
+	 * (for instance a timeout) * @param profileId The profileId of the zcl
+	 * frame
 	 * 
 	 * @param clusterId
 	 *            The clusterId of the zcl frame
@@ -84,7 +82,7 @@ public interface ZigBeeDevice extends IHacDevice {
 	 * @return True if successful.
 	 */
 	public boolean post(short clusterId, IZclFrame zclFrame);
-	
+
 	/**
 	 * This method sends the frame and don't wait for the answer. The response
 	 * will be notified to the caller by means of the listener.
@@ -94,23 +92,25 @@ public interface ZigBeeDevice extends IHacDevice {
 	 * @param zclFrame
 	 * @return True if successful.
 	 */
-	public boolean post(short profileId, short clusterId, IZclFrame zclFrame);	
+	public boolean post(short profileId, short clusterId, IZclFrame zclFrame);
 
 	public boolean setListener(ZigBeeDeviceListener listener);
 
 	public boolean setListener(short clusterId, int side, ZigBeeDeviceListener listener);
 
 	public boolean removeListener(short clusterId, int side, ZigBeeDeviceListener listener);
-	
+
 	public boolean removeListener(ZigBeeDeviceListener listener);
-	
+
 	/**
 	 * Enables the partition cluster on specific clusterId, commandId
+	 * 
 	 * @param clusterId
 	 * @return
 	 */
-	
+
 	public boolean enablePartitionServer(short clusterId, short commandId);
+
 	public boolean disablePartitionServer(short clusterId, short commandId);
 
 	public void injectZclFrame(short clusterId, IZclFrame assembledZclFrame);

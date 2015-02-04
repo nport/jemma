@@ -16,10 +16,10 @@
 
 package org.energy_home.jemma.ah.ebrain;
 
-
 import java.util.Calendar;
 
 import org.energy_home.jemma.ah.ebrain.algo.DailyTariff;
+
 /*
  * Daily Tariff for the week. It assumes that each profile is a segment that specifies a tariff
  * in KW/hour for a given start/end interval. Cost unit is expressed in hundredth-millesimals of euro,
@@ -29,20 +29,15 @@ import org.energy_home.jemma.ah.ebrain.algo.DailyTariff;
  */
 public class SixTierDailyTariff extends DailyTariff {
 	public SixTierDailyTariff() throws Exception {
-		// to optimize tariff selection, tariffs must be ordered from the most convenient to to worst
-		TariffIntervals[] workdays = new TariffIntervals[] {
-			new TariffIntervals(0.0001f, new int[] {000, 200, 2300, 2400}),
-			new TariffIntervals(0.0014f, new int[] {200, 800}),
-			new TariffIntervals(0.050f, new int[] {800, 1100}),
-			new TariffIntervals(1.80f, new int[] {1100, 1500}),
-			new TariffIntervals(5.24f, new int[] {1800, 2300}),
-			new TariffIntervals(120.28f, new int[] {1500, 1800})
-		};
-			
-		TariffIntervals[] weekends = new TariffIntervals[] {
-			new TariffIntervals(0.14537f, new int[] {000, 2400})
-		};
-		
+		// to optimize tariff selection, tariffs must be ordered from the most
+		// convenient to to worst
+		TariffIntervals[] workdays = new TariffIntervals[] { new TariffIntervals(0.0001f, new int[] { 000, 200, 2300, 2400 }),
+				new TariffIntervals(0.0014f, new int[] { 200, 800 }), new TariffIntervals(0.050f, new int[] { 800, 1100 }),
+				new TariffIntervals(1.80f, new int[] { 1100, 1500 }), new TariffIntervals(5.24f, new int[] { 1800, 2300 }),
+				new TariffIntervals(120.28f, new int[] { 1500, 1800 }) };
+
+		TariffIntervals[] weekends = new TariffIntervals[] { new TariffIntervals(0.14537f, new int[] { 000, 2400 }) };
+
 		for (int day = Calendar.MONDAY; day <= Calendar.FRIDAY; ++day) {
 			setDailyTariff(workdays, day);
 		}
@@ -50,4 +45,3 @@ public class SixTierDailyTariff extends DailyTariff {
 		setDailyTariff(weekends, Calendar.SUNDAY);
 	}
 }
-

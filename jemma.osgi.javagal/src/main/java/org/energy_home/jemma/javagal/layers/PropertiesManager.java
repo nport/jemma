@@ -37,15 +37,17 @@ import org.slf4j.LoggerFactory;
  * parameters at startup.
  * 
  * 
-* @author 
- *         "Ing. Marco Nieddu <a href="mailto:marco.nieddu@consoft.it">marco.nieddu@consoft.it</a> or <a href="marco.niedducv@gmail.com">marco.niedducv@gmail.com</a> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
- 
+ * @author "Ing. Marco Nieddu <a href="mailto:marco.nieddu@consoft.it
+ *         ">marco.nieddu@consoft.it</a> or <a href="marco.niedducv@gmail.com
+ *         ">marco.niedducv@gmail.com</a> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
  */
-//FIXME Note by Riccardo: I'm deprecating this class: we should switch to ManagedService/ConfigAdmin service instead of this: it's more standard
+// FIXME Note by Riccardo: I'm deprecating this class: we should switch to
+// ManagedService/ConfigAdmin service instead of this: it's
+// more standard
 @Deprecated
 public class PropertiesManager {
 
-	private static final Logger LOG = LoggerFactory.getLogger( PropertiesManager.class );
+	private static final Logger LOG = LoggerFactory.getLogger(PropertiesManager.class);
 	/**
 	 * Local StartupAttributeInfo reference.
 	 */
@@ -91,13 +93,10 @@ public class PropertiesManager {
 	 */
 	public boolean getDebugEnabled() {
 		String _value = props.getProperty("debugEnabled");
-		
+
 		return (_value.equalsIgnoreCase("0")) ? false : true;
 
 	}
-	
-	
-	
 
 	/**
 	 * Gets timeoutForWaitThread.
@@ -108,9 +107,7 @@ public class PropertiesManager {
 		String _value = props.getProperty("TimeOutForWaitThread");
 		return Integer.parseInt(_value);
 	}
-	
-	
-	
+
 	/**
 	 * Gets serialDataDebugEnabled property.
 	 * 
@@ -118,15 +115,10 @@ public class PropertiesManager {
 	 */
 	public boolean getserialDataDebugEnabled() {
 		String _value = props.getProperty("serialDataDebugEnabled");
-		
+
 		return (_value.equalsIgnoreCase("0")) ? false : true;
 
 	}
-	
-	
-	
-	
-	
 
 	/**
 	 * Gets NumberOfThreadForAnyPool property.
@@ -149,10 +141,6 @@ public class PropertiesManager {
 		return Integer.parseInt(_value);
 
 	}
-	
-	
-	
-	
 
 	/**
 	 * Sets DebugEnabled property's value.
@@ -164,7 +152,7 @@ public class PropertiesManager {
 		props.setProperty("debugEnabled", _debug.toString());
 
 	}
-	
+
 	/**
 	 * Sets DebugEnabled property's value.
 	 * 
@@ -175,8 +163,6 @@ public class PropertiesManager {
 		props.setProperty("serialDataDebugEnabled", _debug.toString());
 
 	}
-	
-	
 
 	/**
 	 * Gets KeepAliveNumberOfAttempt property used in Discovery operation.
@@ -199,7 +185,7 @@ public class PropertiesManager {
 		return Integer.parseInt(_value);
 
 	}
-	
+
 	/**
 	 * Gets CommandTimeout property.
 	 * 
@@ -210,8 +196,7 @@ public class PropertiesManager {
 		return Long.parseLong(_value);
 
 	}
-	
-	
+
 	/**
 	 * Gets TimeForcePingErrorSeconds property.
 	 * 
@@ -222,8 +207,7 @@ public class PropertiesManager {
 		return Integer.parseInt(_value);
 
 	}
-	
-	
+
 	/**
 	 * Gets TimeFreshnessErrorSeconds property.
 	 * 
@@ -234,8 +218,7 @@ public class PropertiesManager {
 		return Integer.parseInt(_value);
 
 	}
-	
-	
+
 	/**
 	 * Gets TimeDiscoveryErrorSeconds property.
 	 * 
@@ -246,7 +229,7 @@ public class PropertiesManager {
 		return Integer.parseInt(_value);
 
 	}
-	
+
 	/**
 	 * Gets TimeForcePingNewNodeSeconds property.
 	 * 
@@ -257,8 +240,7 @@ public class PropertiesManager {
 		return Integer.parseInt(_value);
 
 	}
-	
-	
+
 	/**
 	 * Gets TimeDiscoveryNewNodeSeconds property.
 	 * 
@@ -269,8 +251,7 @@ public class PropertiesManager {
 		return Integer.parseInt(_value);
 
 	}
-	
-	
+
 	/**
 	 * Gets TimeFreshnessNewNodeSeconds property.
 	 * 
@@ -281,8 +262,6 @@ public class PropertiesManager {
 		return Integer.parseInt(_value);
 
 	}
-	
-	
 
 	/**
 	 * Gets ForcePingTimeout property.
@@ -325,13 +304,18 @@ public class PropertiesManager {
 		sai.setStartupAttributeSetIndex((short) 0x00); // 1 byte
 
 		sai.setTrustCenterAddress(new BigInteger("00000000000000000000000000000000", 16)); // 16bytes
-		sai.setTrustCenterMasterKey(new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00 }); // 16
-																																																																	// bytes
-		sai.setNetworkKey(new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00 }); // 16
-																																																															// bytes
+		sai.setTrustCenterMasterKey(new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
+				(byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
+				(byte) 0x00, (byte) 0x00 }); // 16
+												// bytes
+		sai.setNetworkKey(new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
+				(byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00 }); // 16
+																																		// bytes
 		sai.setUseInsecureJoin(true); // 1 byte
-		sai.setPreconfiguredLinkKey(new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00 }); // 16
-																																																																	// bytes
+		sai.setPreconfiguredLinkKey(new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
+				(byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
+				(byte) 0x00, (byte) 0x00 }); // 16
+												// bytes
 		sai.setNetworkKeySeqNum((short) 0x00); // 1 byte
 		sai.setNetworkKeyType(KeyType.HIGH_SECURITY); // 1 byte
 		sai.setNetworkManagerAddress(0x0000); // 2 bytes
@@ -467,7 +451,7 @@ public class PropertiesManager {
 		props.setProperty("StartupControlMode", sai.getStartupControl().toString());
 
 		/* StartupSet */
-		//props.setProperty("StartupSet", String.valueOf(sai.getStartupSet()));
+		// props.setProperty("StartupSet", String.valueOf(sai.getStartupSet()));
 
 		/* networkKey */
 		props.setProperty("networkKey", DataManipulation.convertBytesToString(sai.getNetworkKey()));

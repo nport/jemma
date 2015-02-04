@@ -15,9 +15,10 @@
  */
 package org.energy_home.jemma.ah.upnp.energyathome;
 
-import org.osgi.service.upnp.UPnPIcon;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
+
+import org.osgi.service.upnp.UPnPIcon;
 
 public final class Icon implements UPnPIcon {
 
@@ -28,7 +29,6 @@ public final class Icon implements UPnPIcon {
 	private int depth;
 
 	private String type;
-
 
 	/**
 	 * Constructs a new <code>Icon</code> object. The image content is not

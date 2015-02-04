@@ -15,16 +15,15 @@
  */
 package org.energy_home.jemma.ah.cluster.zigbee.general;
 
-
 public class ReadHandshakeParamResponse {
 
-    public int PartitionedClusterId;
+	public int PartitionedClusterId;
 
-    public ReadHandshakeParamResponse() {
-    }
+	public ReadHandshakeParamResponse() {
+	}
 
-    public ReadHandshakeParamResponse(int PartitionedClusterId) {
-        this.PartitionedClusterId = PartitionedClusterId;
-    }
+	public ReadHandshakeParamResponse(int PartitionedClusterId) {
+		this.PartitionedClusterId = PartitionedClusterId;
+	}
 
 }

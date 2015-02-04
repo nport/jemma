@@ -37,8 +37,8 @@ public interface PowerProfileClient {
 	public GetPowerProfilePriceResponse execGetPowerProfilePrice(short PowerProfileID, IEndPointRequestContext context)
 			throws ApplianceException, ServiceClusterException;
 
-	public void execPowerProfilesStateNotification(PowerProfile[] PowerProfiles,
-			IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
+	public void execPowerProfilesStateNotification(PowerProfile[] PowerProfiles, IEndPointRequestContext context)
+			throws ApplianceException, ServiceClusterException;
 
 	public GetOverallSchedulePriceResponse execGetOverallSchedulePrice(IEndPointRequestContext context) throws ApplianceException,
 			ServiceClusterException;
@@ -52,7 +52,7 @@ public interface PowerProfileClient {
 	public void execPowerProfileScheduleConstraintsNotification(short PowerProfileID, int StartAfter, int StopBefore,
 			IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
-	public GetPowerProfilePriceExtendedResponse execGetPowerProfilePriceExtended(short Options, short PowerProfileID, int PowerProfileStartTime,
-			IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
+	public GetPowerProfilePriceExtendedResponse execGetPowerProfilePriceExtended(short Options, short PowerProfileID,
+			int PowerProfileStartTime, IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
 
 }

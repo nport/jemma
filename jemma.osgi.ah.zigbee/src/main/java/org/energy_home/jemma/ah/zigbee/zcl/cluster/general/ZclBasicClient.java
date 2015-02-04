@@ -86,7 +86,7 @@ public class ZclBasicClient extends ZclServiceCluster implements BasicClient, Zi
 		}
 		return true;
 	}
-	
+
 	protected short writeAttribute(IZclFrame zclFrame, int attrId, short dataType) throws Exception {
 
 		switch (attrId) {

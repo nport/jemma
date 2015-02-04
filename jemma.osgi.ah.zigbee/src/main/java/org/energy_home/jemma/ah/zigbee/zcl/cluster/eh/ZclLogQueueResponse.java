@@ -29,13 +29,13 @@ public class ZclLogQueueResponse {
 		r.LogIds = new long[size];
 		for (int i = 0; i < size; i++) {
 			r.LogIds[i] = ZclDataTypeUI32.zclParse(zclFrame);
-		}	
+		}
 		return r;
 	}
 
 	public static void zclSerialize(IZclFrame zclFrame, LogQueueResponse r) throws ZclValidationException {
 		ZclDataTypeUI8.zclSerialize(zclFrame, (short) (r.LogIds.length * 4));
-		for (int i = 0; i< r.LogIds.length; i++) {
+		for (int i = 0; i < r.LogIds.length; i++) {
 			ZclDataTypeUI32.zclSerialize(zclFrame, r.LogIds[i]);
 		}
 	}

@@ -15,7 +15,6 @@
  */
 package org.energy_home.jemma.internal.ah.eh.esp;
 
-
 import java.util.List;
 
 import org.energy_home.jemma.m2m.ContentInstance;
@@ -23,18 +22,18 @@ import org.energy_home.jemma.m2m.ContentInstance;
 public class CacheQueryResult {
 	private boolean isComplete;
 	private List<ContentInstance> result;
-	
+
 	public CacheQueryResult(boolean isComplete, List<ContentInstance> result) {
 		this.isComplete = isComplete;
 		this.result = result;
 	}
-	
+
 	public boolean isComplete() {
 		return isComplete;
 	}
-	
+
 	public List<ContentInstance> getResult() {
 		return result;
 	}
-	
+
 }

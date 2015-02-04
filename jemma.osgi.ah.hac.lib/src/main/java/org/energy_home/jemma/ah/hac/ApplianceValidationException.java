@@ -16,18 +16,18 @@
 package org.energy_home.jemma.ah.hac;
 
 /**
- * Situations related to an invalid appliance state 
+ * Situations related to an invalid appliance state
  */
 public class ApplianceValidationException extends ApplianceException {
 	private static final long serialVersionUID = 7255877234372829641L;
-	
+
 	/**
-	 * Creates an {@code ApplianceValidationException} 
+	 * Creates an {@code ApplianceValidationException}
 	 */
 	public ApplianceValidationException() {
 		super("ApplianceValidationException");
 	}
-	
+
 	/**
 	 * Creates an {@code ApplianceValidationException} on the specified error
 	 * description

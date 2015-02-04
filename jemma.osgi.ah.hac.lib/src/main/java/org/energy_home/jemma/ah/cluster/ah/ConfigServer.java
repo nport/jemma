@@ -109,7 +109,7 @@ public interface ConfigServer {
 	 *             invoked on the service cluster
 	 */
 	public String getLocationPid(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
-	
+
 	/**
 	 * Writes the location pid associated to the configuration of an appliance
 	 * in the A@H framework
@@ -142,7 +142,7 @@ public interface ConfigServer {
 	 *             invoked on the service cluster
 	 */
 	public String getCategoryPid(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
-	
+
 	/**
 	 * Writes the current category pid associated to the configuration of an
 	 * appliance in the A@H framework
@@ -174,8 +174,8 @@ public interface ConfigServer {
 	 *             In case of specific problems associated with the method
 	 *             invoked on the service cluster
 	 */
-	public String getIconName(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;	
-	
+	public String getIconName(IEndPointRequestContext context) throws ApplianceException, ServiceClusterException;
+
 	/**
 	 * Writes the icon name associated to the configuration of an appliance in
 	 * the A@H framework

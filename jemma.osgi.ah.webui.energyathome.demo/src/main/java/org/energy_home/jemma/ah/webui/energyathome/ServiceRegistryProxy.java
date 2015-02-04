@@ -26,29 +26,29 @@ import org.slf4j.LoggerFactory;
 public class ServiceRegistryProxy {
 
 	private StaticJSONServiceTracker jSONServiceTracker;
-	private static final Logger LOG = LoggerFactory.getLogger( ServiceRegistryProxy.class );
+	private static final Logger LOG = LoggerFactory.getLogger(ServiceRegistryProxy.class);
 
 	public ServiceRegistryProxy(BundleContext bc, JSONRPCBridge jsonRpcBridge) {
 		try {
 			jSONServiceTracker = (StaticJSONServiceTracker) StaticJSONServiceTracker.createJSONServiceTracker(bc);
 			jSONServiceTracker.open();
 		} catch (Exception e) {
-			LOG.error("Exception on ServiceRegistryProxy",e);
+			LOG.error("Exception on ServiceRegistryProxy", e);
 		}
 	}
 
-	public ArrayList find (String clazz) throws Exception {
+	public ArrayList find(String clazz) throws Exception {
 		return this.jSONServiceTracker.getServiceReferences(clazz);
 	}
 
-	public String bind (Map props) throws Exception {
+	public String bind(Map props) throws Exception {
 		return this.jSONServiceTracker.findService(props);
 	}
-	
-	public void unbind (String serviceId) throws Exception {
+
+	public void unbind(String serviceId) throws Exception {
 		this.jSONServiceTracker.unbind(serviceId);
 	}
-	
+
 	public void close() {
 		this.jSONServiceTracker.close();
 	}

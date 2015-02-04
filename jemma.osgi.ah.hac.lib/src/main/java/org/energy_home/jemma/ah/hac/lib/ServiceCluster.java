@@ -44,7 +44,7 @@ public class ServiceCluster extends BasicServiceCluster {
 			this.name = name;
 			this.side = IServiceCluster.SERVER_SIDE;
 			this.type = name.substring(0, name.indexOf(HacCommon.CLUSTER_NAME_SERVER_POSTFIX));
-		} else 
+		} else
 			throw new ApplianceException(INVALID_CLUSTER_CLASS_MESSAGE);
 
 		this.getterMethods = new HashMap();
@@ -83,14 +83,14 @@ public class ServiceCluster extends BasicServiceCluster {
 				continue;
 			}
 		}
-	}	
-	
+	}
+
 	protected final void setEndPoint(EndPoint endPoint) {
 		this.endPoint = endPoint;
 		if (endPoint == null)
 			this.appliance = null;
 		else
-			this.appliance = (Appliance)endPoint.getAppliance();
+			this.appliance = (Appliance) endPoint.getAppliance();
 	}
 
 	public ServiceCluster() throws ApplianceException {
@@ -105,12 +105,13 @@ public class ServiceCluster extends BasicServiceCluster {
 
 		while (!clazz.equals(Object.class)) {
 			ifs = clazz.getInterfaces();
-			if (ifs != null ) {
+			if (ifs != null) {
 				try {
 					for (int i = 0; i < ifs.length; i++) {
 						name = ifs[i].getName();
 						/*
-						 * if (name.startsWith(CLUSTER_PACKAGE_NAME_PREFIX)) name =
+						 * if (name.startsWith(CLUSTER_PACKAGE_NAME_PREFIX))
+						 * name =
 						 * name.substring(CLUSTER_PACKAGE_NAME_PREFIX.length());
 						 */
 						if (name.endsWith(HacCommon.CLUSTER_NAME_CLIENT_POSTFIX)) {
@@ -129,7 +130,7 @@ public class ServiceCluster extends BasicServiceCluster {
 							clusterInterfaceClass = ifs[i];
 						}
 					}
-		
+
 				} catch (Exception e) {
 					LOG.debug(e.getMessage(), e);
 					throw new ApplianceException(INVALID_CLUSTER_CLASS_MESSAGE);
@@ -137,14 +138,14 @@ public class ServiceCluster extends BasicServiceCluster {
 			}
 			if (!initializationOK)
 				clazz = clazz.getSuperclass();
-			else 
+			else
 				break;
 		}
 		if (!initializationOK)
 			throw new ApplianceException(INVALID_CLUSTER_CLASS_MESSAGE);
 		init(this, clusterInterfaceClass);
-	}	
-	
+	}
+
 	public ServiceCluster(Object clusterInterfaceImpl, Class clusterInterfaceClass) throws ApplianceException {
 		init(clusterInterfaceImpl, clusterInterfaceClass);
 	}
@@ -152,11 +153,11 @@ public class ServiceCluster extends BasicServiceCluster {
 	public final Object getClusterInterfaceImpl() {
 		return clusterInterfaceImpl;
 	}
-	
+
 	public final Class getClusterInterfaceClass() {
 		return clusterInterfaceClass;
 	}
-	
+
 	public final Method getMethod(String commandName) {
 		return (Method) execMethods.get(commandName);
 	}

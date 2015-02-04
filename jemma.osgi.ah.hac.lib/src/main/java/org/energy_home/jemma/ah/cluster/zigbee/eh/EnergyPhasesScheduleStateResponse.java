@@ -18,19 +18,20 @@ package org.energy_home.jemma.ah.cluster.zigbee.eh;
 public class EnergyPhasesScheduleStateResponse {
 
 	public short PowerProfileID;
-	//public short NumOfScheduledEnergyPhases;
-	
+	// public short NumOfScheduledEnergyPhases;
+
 	public ScheduledPhase[] ScheduledPhases;
 
 	// Nicola
 	public EnergyPhasesScheduleStateResponse() {
 	}
 
-//	public EnergyPhasesScheduleStateResponse(short PowerProfileID, short NumOfScheduledEnergyPhases) {
-//		this.PowerProfileID = PowerProfileID;
-//		this.NumOfScheduledEnergyPhases = NumOfScheduledEnergyPhases;
-//	}
-	
+	// public EnergyPhasesScheduleStateResponse(short PowerProfileID, short
+	// NumOfScheduledEnergyPhases) {
+	// this.PowerProfileID = PowerProfileID;
+	// this.NumOfScheduledEnergyPhases = NumOfScheduledEnergyPhases;
+	// }
+
 	// Nicola
 	public EnergyPhasesScheduleStateResponse(short PowerProfileID, ScheduledPhase[] ScheduledPhases) {
 		this.PowerProfileID = PowerProfileID;

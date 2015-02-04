@@ -27,64 +27,64 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ExecutorManager {
-	private static final Log log = LogFactory.getLog(ExecutorManager.class);
-	
+	private static final Logger log = LoggerFactory.getLogger(ExecutorManager.class);
+
 	private static final long NEAR_REAL_TIME_DELAY = 100;
-//  TODO: check for execution interruption (currenlty not used): it seems working only if a thread sleep is added to the task
-//	private static final Long MAX_EXECUTION_DURATION = new Long(5000);		
+	// TODO: check for execution interruption (currenlty not used): it seems working only if a thread sleep is added to the task
+	// private static final Long MAX_EXECUTION_DURATION = new Long(5000);
 	private static final long SHUTDOWN_TIMEOUT = 10000;
-	
+
 	private static final ExecutorManager instance = new ExecutorManager();
-	
+
 	public static ExecutorManager getInstance() {
 		return instance;
 	}
-	
+
 	private class UserTasks implements Runnable {
 		private List<Runnable> runnableList;
 		private Future<?> lastExecutionFuture;
 		private Long maxExecutionTime;
 		private List<ScheduledUserTask> scheduledList;
-		
+
 		UserTasks(Long maxExecutionTime) {
 			this.runnableList = new LinkedList<Runnable>();
 			this.scheduledList = new LinkedList<ScheduledUserTask>();
 			this.maxExecutionTime = maxExecutionTime;
 		}
-		
+
 		void addTask(Runnable task) {
 			synchronized (runnableList) {
 				runnableList.add(task);
 			}
 		}
-		
+
 		void waitForTasksCompletion() {
 			try {
 				synchronized (runnableList) {
 					try {
-						if (lastExecutionFuture != null)						
-							lastExecutionFuture.get();				
+						if (lastExecutionFuture != null)
+							lastExecutionFuture.get();
 					} catch (Exception e) {
-						log.error("cancelAllTasks error while waiting for current task execution" , e);
+						log.error("cancelAllTasks error while waiting for current task execution", e);
 					}
 					while (runnableList.size() > 0)
 						run();
-				}				
+				}
 			} catch (Exception e) {
 				log.error("cancelAllTasks error", e);
 			}
 		}
-		
+
 		void addScheduledTask(ScheduledUserTask task) {
 			synchronized (scheduledList) {
 				scheduledList.add(task);
 			}
 		}
-		
+
 		void cancelAllScheduledTasks() {
 			try {
 				synchronized (scheduledList) {
@@ -94,7 +94,7 @@ public class ExecutorManager {
 						scheduledTask.scheduledFuture.cancel(true);
 						iterator.remove();
 					}
-				}				
+				}
 			} catch (Exception e) {
 				log.error("cancelAllScheduledTasks error", e);
 			}
@@ -109,18 +109,18 @@ public class ExecutorManager {
 						for (Iterator<ScheduledUserTask> iterator = scheduledList.iterator(); iterator.hasNext();) {
 							task = (ScheduledUserTask) iterator.next();
 							if (task.scheduledFuture.isDone())
-								iterator.remove();					
-						}		
-					}					
+								iterator.remove();
+						}
+					}
 				} catch (Exception e) {
 					log.error("UserTasks run: error while removing scheduled completed tasks", e);
 				}
-			}			
+			}
 			synchronized (runnableList) {
 				if (runnableList.size() > 0) {
 					try {
 						if (lastExecutionFuture != null)
-							lastExecutionFuture.get();	
+							lastExecutionFuture.get();
 					} catch (Exception e) {
 						log.error("UserTasks run: error while waiting previous task execution", e);
 					}
@@ -136,13 +136,13 @@ public class ExecutorManager {
 									if (!future.isDone()) {
 										try {
 											log.error("UserTasks: timeout exceeded, cancelling execution: " + runnable);
-											future.cancel(true);											
+											future.cancel(true);
 										} catch (Exception e) {
 											log.error("UserTasks: error while cancelling for timeout: " + runnable);
 										}
 									}
 								}
-							}, maxExecutionTime, TimeUnit.MILLISECONDS);	
+							}, maxExecutionTime, TimeUnit.MILLISECONDS);
 							lastExecutionFuture = future;
 						}
 					} catch (Exception e) {
@@ -152,7 +152,7 @@ public class ExecutorManager {
 			}
 		}
 	}
-	
+
 	private class ScheduledUserTask implements Runnable {
 		private Runnable runnable;
 		private ScheduledFuture<?> scheduledFuture;
@@ -163,16 +163,16 @@ public class ExecutorManager {
 			this.maxExecutionTime = maxExecutionTime;
 			if (period == null)
 				this.scheduledFuture = scheduler.schedule(this, delay, TimeUnit.MILLISECONDS);
-			else 
+			else
 				this.scheduledFuture = scheduler.scheduleWithFixedDelay(this, delay, period.longValue(), TimeUnit.MILLISECONDS);
 		}
 
 		ScheduledFuture<?> getScheduledFuture() {
 			return scheduledFuture;
-		}	
+		}
 
 		public void run() {
-			try {	
+			try {
 				if (maxExecutionTime == null) {
 					runnable.run();
 				} else {
@@ -182,7 +182,7 @@ public class ExecutorManager {
 							if (!future.isDone()) {
 								try {
 									log.error("ScheduledUserTask: timeout exceeded, cancelling execution: " + runnable);
-									future.cancel(true);	
+									future.cancel(true);
 								} catch (Exception e) {
 									log.error("ScheduledUserTask: error while cancelling for timeout: " + runnable);
 								}
@@ -192,33 +192,34 @@ public class ExecutorManager {
 				}
 			} catch (Exception e) {
 				log.error("ScheduledUserTask run error " + runnable, e);
-			} 
-		}		
-	}	
-		
+			}
+		}
+	}
+
 	private ScheduledExecutorService scheduler;
 	private ScheduledExecutorService canceller;
 	private Map<String, UserTasks> nearRealTimeOrderedTasksMap;
 	private int numberOfOrderedTasks = 0;
 	private Runnable nearRealTimeOrderedTask;
 	private ScheduledFuture<?> nearRealTimeMainTaskFuture;
-	
+
 	private class SchedulerThreadFactory implements ThreadFactory {
 		public Thread newThread(Runnable r) {
 			return new Thread(r, "Executor Scheduler Thread");
 		}
 	}
+
 	private class CancellerThreadFactory implements ThreadFactory {
 		public Thread newThread(Runnable r) {
 			return new Thread(r, "Executor Canceller Thread");
 		}
-	}	
-	
+	}
+
 	public ExecutorManager() {
 		log.info("Calling constructor...");
 		nearRealTimeOrderedTasksMap = new HashMap<String, UserTasks>();
 	}
-	
+
 	private void start() {
 		log.info("ExecutorManager starting...");
 		numberOfOrderedTasks = 0;
@@ -237,7 +238,7 @@ public class ExecutorManager {
 					if (tasksArray != null) {
 						for (int i = 0; i < tasksArray.length; i++) {
 							tasksArray[i].run();
-						}	
+						}
 					}
 					synchronized (nearRealTimeOrderedTasksMap) {
 						if (numberOfOrderedTasks == 0)
@@ -249,7 +250,7 @@ public class ExecutorManager {
 			}
 		};
 	}
-	
+
 	private void stop() {
 		log.info("ExecutorManager stopping...");
 		scheduler.shutdown();
@@ -265,14 +266,14 @@ public class ExecutorManager {
 			log.error("canceller await termination error", e);
 		}
 		nearRealTimeOrderedTasksMap.clear();
-	}	
-	
+	}
+
 	private UserTasks getUserTasks(String user) {
 		synchronized (nearRealTimeOrderedTasksMap) {
 			return nearRealTimeOrderedTasksMap.get(user);
 		}
 	}
-	
+
 	public void addUser(String user) {
 		log.info("Adding user " + user);
 		synchronized (nearRealTimeOrderedTasksMap) {
@@ -281,7 +282,7 @@ public class ExecutorManager {
 			nearRealTimeOrderedTasksMap.put(user, new UserTasks(null));
 		}
 	}
-	
+
 	public void removeUser(String user) {
 		log.info("Removing user " + user);
 		UserTasks tasks;
@@ -299,7 +300,7 @@ public class ExecutorManager {
 			}
 		}
 	}
-	
+
 	public void addNearRealTimeOrderedTask(String user, Runnable runnable) {
 		synchronized (nearRealTimeOrderedTasksMap) {
 			UserTasks tasks = nearRealTimeOrderedTasksMap.get(user);
@@ -307,11 +308,12 @@ public class ExecutorManager {
 				return;
 			tasks.addTask(runnable);
 			if (numberOfOrderedTasks == 0)
-				nearRealTimeMainTaskFuture = scheduler.scheduleWithFixedDelay(nearRealTimeOrderedTask, NEAR_REAL_TIME_DELAY, NEAR_REAL_TIME_DELAY, TimeUnit.MILLISECONDS);
+				nearRealTimeMainTaskFuture = scheduler.scheduleWithFixedDelay(nearRealTimeOrderedTask, NEAR_REAL_TIME_DELAY,
+						NEAR_REAL_TIME_DELAY, TimeUnit.MILLISECONDS);
 			numberOfOrderedTasks++;
 		}
 	}
-	
+
 	public ScheduledFuture<?> scheduleTask(String user, Runnable runnable, long delay) {
 		synchronized (nearRealTimeOrderedTasksMap) {
 			UserTasks tasks = getUserTasks(user);
@@ -322,7 +324,7 @@ public class ExecutorManager {
 			return scheduledTask.getScheduledFuture();
 		}
 	}
-	
+
 	public ScheduledFuture<?> scheduleTask(String user, Runnable runnable, long delay, long period) {
 		synchronized (nearRealTimeOrderedTasksMap) {
 			UserTasks tasks = getUserTasks(user);
@@ -331,6 +333,6 @@ public class ExecutorManager {
 			ScheduledUserTask scheduledTask = new ScheduledUserTask(runnable, delay, new Long(period), null);
 			tasks.addScheduledTask(scheduledTask);
 			return scheduledTask.getScheduledFuture();
-		}	
+		}
 	}
 }

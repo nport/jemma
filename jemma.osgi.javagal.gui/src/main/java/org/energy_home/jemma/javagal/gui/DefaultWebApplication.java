@@ -40,7 +40,7 @@ public class DefaultWebApplication {
 	}
 
 	public void registerResource(String alias, String path) {
-		this.resources.add(new Resource(alias, path));	
+		this.resources.add(new Resource(alias, path));
 	}
 
 	public void registerResource(String alias, Servlet servlet) {
@@ -62,7 +62,7 @@ public class DefaultWebApplication {
 
 	private void bindResources() {
 		if (httpService != null) {
-			
+
 			for (int i = 0; i < resources.size(); i++) {
 				Resource r = (Resource) resources.get(i);
 				try {
@@ -76,7 +76,8 @@ public class DefaultWebApplication {
 			for (int i = 0; i < servlets.size(); i++) {
 				ServletResource sr = (ServletResource) servlets.get(i);
 				try {
-					httpService.registerServlet(this.toAlias(this.rootUrl + sr.getAlias()), sr.getServlet(), null, this.getHttpContext());
+					httpService.registerServlet(this.toAlias(this.rootUrl + sr.getAlias()), sr.getServlet(), null,
+							this.getHttpContext());
 				} catch (Exception e) {
 					e.printStackTrace();
 					continue;

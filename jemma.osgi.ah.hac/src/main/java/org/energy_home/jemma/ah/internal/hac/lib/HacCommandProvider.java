@@ -45,7 +45,7 @@ public class HacCommandProvider implements CommandProvider {
 	private HacDriverLocator hacLocator = null;
 
 	private IAppliancesProxy appliancesProxy;
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(HacCommandProvider.class);
 
 	private static String invokeClusterMethod(IAppliancesProxy proxy, String appliancePid, Integer endPointId, String clusterName,

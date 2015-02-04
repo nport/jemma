@@ -112,22 +112,21 @@ public class ZclGroupsClient extends ZclServiceCluster implements GroupsClient, 
 		return zclResponseFrame;
 	}
 
-	protected IZclFrame parseGetGroupMembership(GroupsServer o, IZclFrame zclFrame)
-        throws ApplianceException, ServiceClusterException
-    {
+	protected IZclFrame parseGetGroupMembership(GroupsServer o, IZclFrame zclFrame) throws ApplianceException,
+			ServiceClusterException {
 		short GroupCount = ZclDataTypeUI8.zclParse(zclFrame);
 		int GroupList[] = new int[GroupCount];
-		for (int i = 0; i < GroupCount; i++)  {
-		 GroupList[i] = ZclDataTypeUI16.zclParse(zclFrame);
+		for (int i = 0; i < GroupCount; i++) {
+			GroupList[i] = ZclDataTypeUI16.zclParse(zclFrame);
 		}
-		
-        GetGroupMembershipResponse r = o.execGetGroupMembership(GroupList, endPoint.getDefaultRequestContext());
-        int size = ZclGetGroupMembershipResponse.zclSize(r);
-        IZclFrame zclResponseFrame = zclFrame.createResponseFrame(size);
-        zclResponseFrame.setCommandId(2);
-        ZclGetGroupMembershipResponse.zclSerialize(zclResponseFrame, r);
-        return zclResponseFrame;
-    }
+
+		GetGroupMembershipResponse r = o.execGetGroupMembership(GroupList, endPoint.getDefaultRequestContext());
+		int size = ZclGetGroupMembershipResponse.zclSize(r);
+		IZclFrame zclResponseFrame = zclFrame.createResponseFrame(size);
+		zclResponseFrame.setCommandId(2);
+		ZclGetGroupMembershipResponse.zclSerialize(zclResponseFrame, r);
+		return zclResponseFrame;
+	}
 
 	protected IZclFrame parseRemoveGroup(GroupsServer o, IZclFrame zclFrame) throws ApplianceException, ServiceClusterException {
 		int GroupID = ZclDataTypeUI16.zclParse(zclFrame);

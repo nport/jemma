@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 public class Zcl4NoksSmartPlugAppliance extends ZclAppliance {
 	private ZclEndPoint endPoint = null;
 
-	private static final Logger LOG = LoggerFactory.getLogger( Zcl4NoksSmartPlugAppliance.class );
+	private static final Logger LOG = LoggerFactory.getLogger(Zcl4NoksSmartPlugAppliance.class);
 
 	public static final String ENDPOINT_TYPE = "EnergyMetering";
 

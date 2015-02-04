@@ -33,9 +33,9 @@ import java.util.Dictionary;
  * {@link IServiceCluster}).
  * <p>
  * In case of a driver appliance that represents a standard ZigBee device, each
- * ZigBee node's end point is associated to an appliance end point ({@code
- * IEndPoint}) and each ZigBee cluster is associated to an appliance service
- * cluster ({@code IServiceCluster})
+ * ZigBee node's end point is associated to an appliance end point (
+ * {@code IEndPoint}) and each ZigBee cluster is associated to an appliance
+ * service cluster ( {@code IServiceCluster})
  * 
  * @see {@link IManagedAppliance}
  */
@@ -75,7 +75,7 @@ public interface IAppliance {
 	public static final String APPLIANCE_LOCATION_PID_PROPERTY = "ah.location.pid";
 	public static final String END_POINT_LOCATION_PIDS_PROPERTY = "ah.eps.location.pids";
 	/**
-	 * Integer key used to browse appliances by location PID. The value is * *
+	 * Integer key used to browse appliances by location PID. The value is * * *
 	 * {@value}
 	 * 
 	 * @see ILocation
@@ -95,7 +95,7 @@ public interface IAppliance {
 	 */
 	public static final String APPLIANCE_PID = "appliance.pid";
 	/**
-	 * Integer key used to browse appliances by category PID. The value is * *
+	 * Integer key used to browse appliances by category PID. The value is * * *
 	 * {@value}
 	 * 
 	 * @see ICategory
@@ -122,28 +122,30 @@ public interface IAppliance {
 	 * @see IAppliance#getConfiguration()
 	 */
 	public static final String APPLIANCE_EPS_TYPES_PROPERTY = "ah.app.eps.types";
-	
+
 	/**
-	 * Property name used for end points' identifiers array. The value is {@value}
+	 * Property name used for end points' identifiers array. The value is
+	 * {@value}
 	 * 
 	 * @see IAppliance#getConfiguration()
 	 */
 	public static final String APPLIANCE_EPS_IDS_PROPERTY = "ah.app.eps.ids";
-	
+
 	/**
-	 * Property name prefix used for custom appliance properties. The value is {@value}
+	 * Property name prefix used for custom appliance properties. The value is
+	 * {@value}
 	 * 
 	 * @see IAppliance#getConfiguration()
 	 */
 	public static final String APPLIANCE_CUSTOM_PROPERTIES_PREXIF = "ah.app.custom.";
-	
+
 	/**
 	 * Check if the associated appliance is a singleton
 	 * 
 	 * @return True if the associated appliance is a singleton, false otherwise
 	 */
 	public boolean isSingleton();
-	
+
 	/**
 	 * Returns the Persistent IDentifier (PID) associated to an instance of an
 	 * appliance
@@ -165,26 +167,26 @@ public interface IAppliance {
 
 	/**
 	 * Returns a dictionary with a set of configuration parameters associated to
-	 * the appliance and managed by the A@H Framework. The framework is responsible 
-	 * to store and load the configuration parameters into the appliance when the 
-	 * {@code IManagedAppliance} is registered.
+	 * the appliance and managed by the A@H Framework. The framework is
+	 * responsible to store and load the configuration parameters into the
+	 * appliance when the {@code IManagedAppliance} is registered.
 	 * 
 	 * @return A {@code Dictionary} with all the configuration parameters
 	 */
 	public Dictionary getConfiguration();
-	
+
 	/**
-	 * Returns a dictionary with a set of custom configuration parameters associated to
-	 * the appliance and managed by the A@H Framework. The framework is responsible 
-	 * to store and load the configuration parameters into the appliance when the 
-	 * {@code IManagedAppliance} is registered. All keys used in the dictionary 
-	 * that don't start with {@link IAppliance#APPLIANCE_CUSTOM_PROPERTIES_PREXIF} 
-	 * are discarded
+	 * Returns a dictionary with a set of custom configuration parameters
+	 * associated to the appliance and managed by the A@H Framework. The
+	 * framework is responsible to store and load the configuration parameters
+	 * into the appliance when the {@code IManagedAppliance} is registered. All
+	 * keys used in the dictionary that don't start with
+	 * {@link IAppliance#APPLIANCE_CUSTOM_PROPERTIES_PREXIF} are discarded
 	 * 
 	 * @return A {@code Dictionary} with all the custom configuration parameters
 	 */
 	public Dictionary getCustomConfiguration();
-	
+
 	/**
 	 * Checks if this appliance is associated to a physical device through a
 	 * driver
@@ -195,18 +197,20 @@ public interface IAppliance {
 	public boolean isDriver();
 
 	/**
-	 * Checks if this appliance instance is valid (if a reference to an {@code
-	 * IAppliance} interface is saved, this method enables to check if the
-	 * reference is still valid )
+	 * Checks if this appliance instance is valid (if a reference to an
+	 * {@code IAppliance} interface is saved, this method enables to check if
+	 * the reference is still valid )
 	 * 
 	 * @return {@code true} if this is a valid appliance instance, {@code false}
 	 *         otherwise
 	 */
 	public boolean isValid();
-	
+
 	/**
 	 * Return the appliance availability
-	 * @return {@code true} if all this appliance end point are available, {@code false} otherwise
+	 * 
+	 * @return {@code true} if all this appliance end point are available,
+	 *         {@code false} otherwise
 	 */
 	public boolean isAvailable();
 
@@ -217,20 +221,19 @@ public interface IAppliance {
 	 *         this appliance
 	 */
 	public IEndPoint[] getEndPoints();
-	
+
 	/**
 	 * Returns the list of all implemented appliance's end points identifiers
 	 * 
-	 * @return An array with all end point identifiers associated to
-	 *         this appliance
+	 * @return An array with all end point identifiers associated to this
+	 *         appliance
 	 */
 	public int[] getEndPointIds();
-	
+
 	/**
 	 * Returns the list of all implemented appliance's end points types
 	 * 
-	 * @return An array with all end point types associated to
-	 *         this appliance
+	 * @return An array with all end point types associated to this appliance
 	 */
 	public String[] getEndPointTypes();
 

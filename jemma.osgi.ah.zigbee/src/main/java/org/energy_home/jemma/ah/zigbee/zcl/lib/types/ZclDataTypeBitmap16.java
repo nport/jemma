@@ -22,12 +22,12 @@ public class ZclDataTypeBitmap16 extends ZclAbstractDataType {
 	public static final int ZCL_DATA_TYPE = ZclTypes.ZclBitmap16Type;
 	private static final int BYTE_ARRAY_LENGTH = 2;
 	static final boolean IS_ANALOG = false;
-		
+
 	public static int zclParse(IZclFrame zclFrame) throws ZclValidationException {
 		return zclFrame.parseUInt16();
 	}
-	
-	public static void zclSerialize(IZclFrame zclFrame, int uint16)  throws ZclValidationException {
+
+	public static void zclSerialize(IZclFrame zclFrame, int uint16) throws ZclValidationException {
 		zclFrame.appendUInt16(uint16);
 	}
 

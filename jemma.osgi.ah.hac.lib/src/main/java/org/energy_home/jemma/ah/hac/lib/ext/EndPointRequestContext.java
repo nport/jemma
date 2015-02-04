@@ -49,7 +49,8 @@ public class EndPointRequestContext implements IEndPointRequestContext {
 	 * @param isConfirmationRequired
 	 *            The confirmation required option
 	 * @param maxAgeForAttributeValues
-	 *            The max age in milliseconds accepted for values read for an attributes
+	 *            The max age in milliseconds accepted for values read for an
+	 *            attributes
 	 */
 	public EndPointRequestContext(boolean isConfirmationRequired, long maxAgeForAttributeValues) {
 		this.isConfirmationRequired = isConfirmationRequired;
@@ -57,8 +58,8 @@ public class EndPointRequestContext implements IEndPointRequestContext {
 	}
 
 	/**
-	 * Creates a new end point with confirmation required option set to {@code
-	 * true} and the specified associated peer end point
+	 * Creates a new end point with confirmation required option set to
+	 * {@code true} and the specified associated peer end point
 	 * 
 	 * @param peerEndPoint
 	 *            The associated peer end point

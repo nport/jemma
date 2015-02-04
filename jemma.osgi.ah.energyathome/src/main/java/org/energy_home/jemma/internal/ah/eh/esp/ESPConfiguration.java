@@ -22,23 +22,22 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.energy_home.jemma.ah.ebrain.ApplianceInfo;
 import org.energy_home.jemma.ah.eh.esp.ESPConfigParameters;
 import org.energy_home.jemma.ah.eh.esp.ESPException;
 import org.energy_home.jemma.utils.datetime.DateUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 //FIXME is this related to Configuration aspects ? if so we should harmonize with ConfigAdmin
 public class ESPConfiguration {
-	private static final Logger LOG = LoggerFactory.getLogger( ESPConfiguration.class );
-	
+	private static final Logger LOG = LoggerFactory.getLogger(ESPConfiguration.class);
+
 	private static final String OSGI_INSTANCE_AREA = "osgi.instance.area";
 	private static final String OSGI_CONFIGURATION_AREA = "osgi.configuration.area";
 	private static final String ESP_CONFIG_FILENAME = "org.energy_home.jemma.ah.eh.esp.properties";
 
-	private static final String SP_SYSTEM_PROPERTY_PREFIX = "org.energy_home.jemma.ah.eh.esp.";	
-	
+	private static final String SP_SYSTEM_PROPERTY_PREFIX = "org.energy_home.jemma.ah.eh.esp.";
+
 	private static final String CHECK_SUBSCRIPTIONS_ENABLED = "checkSubscriptionsEnabled";
 	private static final String POWER_PROFILE_CLUSTER_ENABLED = "powerProfileClusterEnabled";
 	private static final String REMOTE_HOST_ADDR = "remoteHostAddr";
@@ -73,7 +72,7 @@ public class ESPConfiguration {
 		} catch (Exception e) {
 			LOG.error("Exception on loadProperties", e);
 			throw new ESPException("Problems while loading ESP configuration parameters");
-		}		
+		}
 	}
 
 	private static synchronized void saveProperties() throws ESPException {
@@ -117,7 +116,7 @@ public class ESPConfiguration {
 		}
 		return result;
 	}
-	
+
 	public static boolean getUseLocalCache() {
 		boolean result = true;
 		try {
@@ -129,11 +128,11 @@ public class ESPConfiguration {
 		}
 		return result;
 	}
-	
+
 	public static String getSmartInfoPid() {
 		return configProperties.getProperty(SMART_INFO_PID_PROPERTY_NAME);
-	}	
-	
+	}
+
 	public static boolean isCheckSubscriptionsEnabled() {
 		boolean boolResult = true;
 		String result = configProperties.getProperty(CHECK_SUBSCRIPTIONS_ENABLED);
@@ -147,7 +146,6 @@ public class ESPConfiguration {
 		return boolResult;
 	}
 
-	
 	public static boolean isPowerProfileClusterEnabled() {
 		boolean boolResult = true;
 		String result = configProperties.getProperty(POWER_PROFILE_CLUSTER_ENABLED);
@@ -160,16 +158,16 @@ public class ESPConfiguration {
 			}
 		return boolResult;
 	}
-	
+
 	public static String getRemoteHostAddr() {
 		String result = configProperties.getProperty(REMOTE_HOST_ADDR);
 		if (Utils.isNullOrEmpty(result))
 			result = System.getProperty(SP_SYSTEM_PROPERTY_PREFIX + REMOTE_HOST_ADDR);
 		if (Utils.isNullOrEmpty(result))
-			result = "10.38.0.1";	
+			result = "10.38.0.1";
 		return result;
 	}
-	
+
 	public static int getRemoteHostPort() {
 		int intResult = 80;
 		String result = configProperties.getProperty(REMOTE_HOST_PORT);
@@ -190,8 +188,9 @@ public class ESPConfiguration {
 				String contractualPowerThreasholdProperty = configProperties.getProperty(CONTRACTUAL_POWER_THRESHOLD_PROPERTY_NAME);
 				float contractualPowerThreashold = Float.parseFloat(contractualPowerThreasholdProperty);
 				String peakProducedPowerProperty = configProperties.getProperty(PEAK_PRODUCED_POWER_PROPERTY_NAME);
-				float peakProducedPower = (peakProducedPowerProperty == null || peakProducedPowerProperty.length() == 0) ? 
-						0 : Float.parseFloat(peakProducedPowerProperty);;
+				float peakProducedPower = (peakProducedPowerProperty == null || peakProducedPowerProperty.length() == 0) ? 0
+						: Float.parseFloat(peakProducedPowerProperty);
+				;
 				configParameters = new ESPConfigParameters(contractualPowerThreashold, peakProducedPower);
 			} catch (Exception e) {
 				LOG.error("Exception on ESPConfigParameters", e);
@@ -208,8 +207,8 @@ public class ESPConfiguration {
 		} else {
 			configProperties.setProperty(CONTRACTUAL_POWER_THRESHOLD_PROPERTY_NAME,
 					Float.toString(configParameters.getContractualPowerThreshold()));
-			configProperties.setProperty(PEAK_PRODUCED_POWER_PROPERTY_NAME,
-					Float.toString(configParameters.getPeakProducedPower()));
+			configProperties
+					.setProperty(PEAK_PRODUCED_POWER_PROPERTY_NAME, Float.toString(configParameters.getPeakProducedPower()));
 			saveProperties();
 		}
 	}

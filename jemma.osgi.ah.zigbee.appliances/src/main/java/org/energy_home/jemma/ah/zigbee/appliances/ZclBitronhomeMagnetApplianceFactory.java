@@ -24,7 +24,7 @@ import org.energy_home.jemma.ah.hac.lib.ApplianceDescriptor;
 import org.energy_home.jemma.ah.hac.lib.DriverApplianceFactory;
 import org.osgi.service.device.Driver;
 
-public class ZclBitronhomeMagnetApplianceFactory extends DriverApplianceFactory implements Driver{
+public class ZclBitronhomeMagnetApplianceFactory extends DriverApplianceFactory implements Driver {
 
 	public static final String APPLIANCE_TYPE = "org.energy_home.jemma.ah.zigbee.bitronhome.magnet";
 	public static final String APPLIANCE_FRIENDLY_NAME = "bitronhome magnet sensor";
@@ -42,9 +42,10 @@ public class ZclBitronhomeMagnetApplianceFactory extends DriverApplianceFactory 
 	}
 
 	public String deviceMatchFilterString() {
-		//String result = "(&(DEVICE_CATEGORY=ZigBee)(zigbee.device.eps.number=1)(zigbee.device.profile.id=260)(zigbee.device.device.id=6)(zigbee.device.manufacturer.id=0))";
-		String result="";
-		return result; 
-		
+		// String result =
+		// "(&(DEVICE_CATEGORY=ZigBee)(zigbee.device.eps.number=1)(zigbee.device.profile.id=260)(zigbee.device.device.id=6)(zigbee.device.manufacturer.id=0))";
+		String result = "";
+		return result;
+
 	}
 }

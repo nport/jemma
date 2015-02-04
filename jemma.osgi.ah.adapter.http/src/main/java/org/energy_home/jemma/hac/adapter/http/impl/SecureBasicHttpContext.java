@@ -126,30 +126,4 @@ public class SecureBasicHttpContext implements HttpContext {
 
 		throw new LoginException();
 	}
-
-	/*
-	 * private Subject login(HttpServletRequest request, final String userid,
-	 * final String password) throws LoginException { HttpSession session =
-	 * request.getSession(false); if (session == null) return null;
-	 * 
-	 * ILoginContext context = (ILoginContext)
-	 * session.getAttribute("securitycontext");
-	 * 
-	 * if (context != null) return context.getSubject();
-	 * 
-	 * context = LoginContextFactory.createContext("SimpleConfig", configFile,
-	 * new CallbackHandler() { public void handle(Callback[] callbacks) throws
-	 * IOException, UnsupportedCallbackException { for (int i = 0; i <
-	 * callbacks.length; i++) { if (callbacks[i] instanceof NameCallback)
-	 * ((NameCallback) callbacks[i]).setName(userid); else if (callbacks[i]
-	 * instanceof PasswordCallback) ((PasswordCallback)
-	 * callbacks[i]).setPassword(password.toCharArray()); else throw new
-	 * UnsupportedCallbackException(callbacks[i]); } } });
-	 * 
-	 * // cause the context to try the login. don't stash the context until //
-	 * we are successful.
-	 * 
-	 * Subject result = context.getSubject();
-	 * session.setAttribute("securitycontext", context); return result; }
-	 */
 }

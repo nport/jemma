@@ -57,20 +57,20 @@ public class TestCommandProvider {
 		private CommandInterpreter ci;
 		private String[] currentCommandParams;
 		private int currentCommandParamsIndex;
-		
+
 		CommandInterpreterProxy(String[] commands, CommandInterpreter ci) {
 			this.commands = commands;
 			this.ci = ci;
 		}
-		
+
 		public void execAllCommands() {
 			String delims = "[ ]+";
 			String[] commandLine = null;
-			Class commandProviderClass= commandProvider.getClass();
+			Class commandProviderClass = commandProvider.getClass();
 			if (commands == null)
 				throw new IllegalStateException("Null command list");
-			for (int i = 0; i < commands.length; i++)  {
-				commandLine = commands[i].split(delims);	
+			for (int i = 0; i < commands.length; i++) {
+				commandLine = commands[i].split(delims);
 				if (commandLine == null || commandLine.length < 2)
 					ci.println("Invalid command " + i);
 				else {
@@ -78,19 +78,19 @@ public class TestCommandProvider {
 				}
 				try {
 					currentCommandParams = new String[commandLine.length - 2];
-			        System.arraycopy(commandLine, 2, currentCommandParams, 0, commandLine.length - 2);
-			        // Old code
+					System.arraycopy(commandLine, 2, currentCommandParams, 0, commandLine.length - 2);
+					// Old code
 					// currentCommandParams = Arrays.copyOfRange(commandLine, 2, commandLine.length);
-			        
+
 					currentCommandParamsIndex = 0;
-					commandProviderClass.getMethod("_"+commandLine[1], CommandInterpreter.class).invoke(commandProvider, this);
+					commandProviderClass.getMethod("_" + commandLine[1], CommandInterpreter.class).invoke(commandProvider, this);
 				} catch (Exception e) {
 					e.printStackTrace();
 					ci.println("Error while invoking command " + i);
 				}
 			}
-		} 
-		
+		}
+
 		public Object execute(String arg0) {
 			return ci.execute(arg0);
 		}
@@ -128,16 +128,16 @@ public class TestCommandProvider {
 		}
 
 	}
-	
+
 	protected String[] testCommands;
 	private CommandProvider commandProvider;
-	
+
 	public TestCommandProvider(CommandProvider commandProvider, String[] testCommands) {
 		this.commandProvider = commandProvider;
 		this.testCommands = testCommands;
 	}
-	
-	public void test (CommandInterpreter ci) {
+
+	public void test(CommandInterpreter ci) {
 		CommandInterpreterProxy proxy = new CommandInterpreterProxy(testCommands, ci);
 		proxy.execAllCommands();
 	}

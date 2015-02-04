@@ -16,12 +16,12 @@
 package org.energy_home.jemma.ah.hac;
 
 public interface IApplicationService {
-	
+
 	public IServiceCluster[] getServiceClusters();
-	
+
 	public void notifyApplianceAdded(IApplicationEndPoint endPoint, IAppliance appliance);
-	
+
 	public void notifyApplianceRemoved(IAppliance appliance);
-	
+
 	public void notifyApplianceAvailabilityUpdated(IAppliance appliance);
 }

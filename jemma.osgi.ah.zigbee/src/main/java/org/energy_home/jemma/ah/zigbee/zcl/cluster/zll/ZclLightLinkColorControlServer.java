@@ -129,10 +129,10 @@ public class ZclLightLinkColorControlServer extends ZclServiceCluster implements
 				ZclLightLinkColorControlServer.ATTR_ColorLoopDirection_NAME, new ZclDataTypeUI8(), null, true, 1));
 		attributesMapByName.put(ZclLightLinkColorControlServer.ATTR_ColorLoopTime_NAME, new ZclAttributeDescriptor(16388,
 				ZclLightLinkColorControlServer.ATTR_ColorLoopTime_NAME, new ZclDataTypeUI16(), null, true, 1));
-		attributesMapByName.put(ZclLightLinkColorControlServer.ATTR_ColorLoopStartEnhancedHue_NAME, new ZclAttributeDescriptor(16389,
-				ZclLightLinkColorControlServer.ATTR_ColorLoopStartEnhancedHue_NAME, new ZclDataTypeUI16(), null, true, 1));
-		attributesMapByName.put(ZclLightLinkColorControlServer.ATTR_ColorLoopStoredEnhancedHue_NAME, new ZclAttributeDescriptor(16390,
-				ZclLightLinkColorControlServer.ATTR_ColorLoopStoredEnhancedHue_NAME, new ZclDataTypeUI16(), null, true, 1));
+		attributesMapByName.put(ZclLightLinkColorControlServer.ATTR_ColorLoopStartEnhancedHue_NAME, new ZclAttributeDescriptor(
+				16389, ZclLightLinkColorControlServer.ATTR_ColorLoopStartEnhancedHue_NAME, new ZclDataTypeUI16(), null, true, 1));
+		attributesMapByName.put(ZclLightLinkColorControlServer.ATTR_ColorLoopStoredEnhancedHue_NAME, new ZclAttributeDescriptor(
+				16390, ZclLightLinkColorControlServer.ATTR_ColorLoopStoredEnhancedHue_NAME, new ZclDataTypeUI16(), null, true, 1));
 		attributesMapByName.put(ZclLightLinkColorControlServer.ATTR_ColorCapabilities_NAME, new ZclAttributeDescriptor(16394,
 				ZclLightLinkColorControlServer.ATTR_ColorCapabilities_NAME, new ZclDataTypeUI16(), null, true, 1));
 		attributesMapByName.put(ZclLightLinkColorControlServer.ATTR_ColorTempPhysicalMin_NAME, new ZclAttributeDescriptor(16395,
@@ -148,7 +148,7 @@ public class ZclLightLinkColorControlServer extends ZclServiceCluster implements
 	protected int getProfileId() {
 		return 260;
 	}
-	
+
 	protected int getClusterId() {
 		return CLUSTER_ID;
 	}

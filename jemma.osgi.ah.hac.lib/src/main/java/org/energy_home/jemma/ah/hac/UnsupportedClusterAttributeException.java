@@ -21,7 +21,7 @@ public class UnsupportedClusterAttributeException extends ServiceClusterExceptio
 	public UnsupportedClusterAttributeException() {
 		super("UnsupportedClusterAttributeException");
 	}
-	
+
 	public UnsupportedClusterAttributeException(String errorDescription) {
 		super(errorDescription);
 	}

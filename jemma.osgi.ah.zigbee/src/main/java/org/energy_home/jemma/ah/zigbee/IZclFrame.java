@@ -95,7 +95,7 @@ public interface IZclFrame {
 	public void appendOctets(byte[] value);
 
 	public void appendString(String value);
-	
+
 	public void appendArray(byte[] array);
 
 	public long parseUTCTime();

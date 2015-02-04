@@ -38,7 +38,6 @@ import org.slf4j.LoggerFactory;
 public class SimpleHacDriverLocator implements DriverLocator {
 	private static final Logger LOG = LoggerFactory.getLogger(SimpleHacDriverLocator.class);
 
-
 	/**
 	 * Returns the DRIVER_IDs that matches the passed properties. This
 	 * implementation of the DriverLocator interface behaves in this way: If the

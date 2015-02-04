@@ -15,7 +15,6 @@
  */
 package org.energy_home.jemma.ah.hac.lib.ext;
 
-
 import java.util.List;
 import java.util.Map;
 
@@ -26,22 +25,23 @@ import org.energy_home.jemma.ah.hac.IConfigurationInfoService;
 import org.energy_home.jemma.ah.hac.ISubscriptionParameters;
 
 public interface IAppliancesProxy extends IAppliancesBasicProxy, IConfigurationInfoService {
-	
+
 	public abstract List getInstallingAppliances();
-	
+
 	public abstract List getInstallingAppliancePids();
-	
+
 	public abstract IAppliance getInstallingAppliance(String appliancePid);
-	
+
 	public IApplianceConfiguration getApplianceConfiguration(String appliancePid);
-	
+
 	public boolean updateApplianceConfiguration(IApplianceConfiguration config);
-	
-	public boolean installAppliance(String appliancePid); 
-	
+
+	public boolean installAppliance(String appliancePid);
+
 	public boolean deleteAppliance(String appliancePid);
 
-	public abstract Object invokeClusterMethod(String appliancePid, Integer endPointId, String clusterName, String methodName, Object[] params) throws Exception;
+	public abstract Object invokeClusterMethod(String appliancePid, Integer endPointId, String clusterName, String methodName,
+			Object[] params) throws Exception;
 
 	public abstract ISubscriptionParameters getAttributeSubscription(String appliancePid, Integer endPointId, String clusterName,
 			String attributeName);
@@ -53,7 +53,8 @@ public interface IAppliancesProxy extends IAppliancesBasicProxy, IConfigurationI
 			String attributeName);
 
 	public abstract Map getLastNotifiedAttributeValues(String appliancePid, Integer endPointId, String clusterName);
-	
-	public abstract IAttributeValue getLastReadAttributeValue(String appliancePid, Integer endPointId, String clusterName, String attributeName);
+
+	public abstract IAttributeValue getLastReadAttributeValue(String appliancePid, Integer endPointId, String clusterName,
+			String attributeName);
 
 }

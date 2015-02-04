@@ -2,7 +2,7 @@ package org.energy_home.jemma.ah.zigbee.zcl.cluster.lube;
 
 import org.energy_home.jemma.ah.cluster.zigbee.lube.AirQualityClient;
 import org.energy_home.jemma.ah.cluster.zigbee.lube.AirQualityServer;
-import org.energy_home.jemma.ah.hac.ApplianceException; 
+import org.energy_home.jemma.ah.hac.ApplianceException;
 import org.energy_home.jemma.ah.hac.IEndPointRequestContext;
 import org.energy_home.jemma.ah.hac.ServiceClusterException;
 import org.energy_home.jemma.ah.hac.UnsupportedClusterAttributeException;
@@ -31,7 +31,8 @@ public class ZclAirQualityClient extends ZclServiceCluster implements AirQuality
 		return ZclAirQualityServer.attributeDescriptors;
 	}
 
-	public void execExternalAirQualityIndexNotification(short Data, IEndPointRequestContext context) throws ApplianceException, ServiceClusterException {
+	public void execExternalAirQualityIndexNotification(short Data, IEndPointRequestContext context) throws ApplianceException,
+			ServiceClusterException {
 		int size = 0;
 		size += ZclDataTypeUI8.zclSize(Data);
 		ZclFrame zclFrame = new ZclFrame(1, size);
@@ -49,7 +50,8 @@ public class ZclAirQualityClient extends ZclServiceCluster implements AirQuality
 		}
 	}
 
-	protected boolean fillAttributeRecord(IZclFrame zclResponseFrame, int attrId) throws ApplianceException, ServiceClusterException {
+	protected boolean fillAttributeRecord(IZclFrame zclResponseFrame, int attrId) throws ApplianceException,
+			ServiceClusterException {
 		AirQualityServer c = ((AirQualityServer) getSinglePeerCluster((AirQualityServer.class.getName())));
 		switch (attrId) {
 		case 0: {

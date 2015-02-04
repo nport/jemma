@@ -5,7 +5,7 @@ This bundle contains application logic, determines what and how to save data int
 
 The logic can detect and handle:
 
-* Energy overload detection
+* Power overload detection
 * Current summation delivered: energy from the network to the house
 * Current summation received: energy from the house to the network
 

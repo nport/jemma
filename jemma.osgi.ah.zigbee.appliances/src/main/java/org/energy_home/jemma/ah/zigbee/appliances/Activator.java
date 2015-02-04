@@ -15,11 +15,10 @@
  */
 package org.energy_home.jemma.ah.zigbee.appliances;
 
-import org.energy_home.jemma.ah.hac.lib.ApplianceFactory;
-
 import java.util.Iterator;
 import java.util.Vector;
 
+import org.energy_home.jemma.ah.hac.lib.ApplianceFactory;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
@@ -28,43 +27,41 @@ public class Activator implements BundleActivator {
 	private Vector applicationFactories = new Vector();
 
 	public void start(BundleContext bc) throws Exception {
-		
-		/**
-		 * @brief adding Appliance Factory here
-		 * bitronhome SMART-PLUG and Remote COntrol  by ISMB-Pert   
-		 */		
 		applicationFactories.add(new ZclBitronhomeSmartPlugApplianceFactory());
 		applicationFactories.add(new ZclBitronhomeRemoteControlApplianceFactory());
-		applicationFactories.add(new ZclURMETTemeratureHumidityApplianceFactory());
-		/*Marco da inserire LDAP corretto*/
-		//applicationFactories.add(new ZclURMETSmokeDetectorSirenApplianceFactory());
+		applicationFactories.add(new ZclURMETTemperatureHumidityApplianceFactory());
+		/* Marco da inserire LDAP corretto */
+		// applicationFactories.add(new
+		// ZclURMETSmokeDetectorSirenApplianceFactory());
 		/**
-		 * Ends bitronhome 
+		 * Ends bitronhome
 		 */
 		// applicationFactories.add(new ZigbeeWhiteGoodApplianceFactory());
 		applicationFactories.add(new ZigbeeMeteringApplianceFactory());
-		
-		/*Marco, il driver sottostante è errato*/
-		//applicationFactories.add(new ZclZinApplianceFactory());
+
+		/* Marco, il driver sottostante è errato */
+		// applicationFactories.add(new ZclZinApplianceFactory());
 		// applicationFactories.add(new Zcl4NoksSmartPlugApplianceFactory());
 		applicationFactories.add(new ZclSmartPlugApplianceFactory());
 		applicationFactories.add(new ZclThermostatApplianceFactory());
 		applicationFactories.add(new Zcl4NoksThermostatApplianceFactory());
 		applicationFactories.add(new ZclRangeExtenderApplianceFactory());
-		//applicationFactories.add(new ZclDimmableLightApplianceFactory());
+		// applicationFactories.add(new ZclDimmableLightApplianceFactory());
 		applicationFactories.add(new ZclColorLightApplianceFactory());
 		applicationFactories.add(new ZclIASZoneApplianceFactory());
-		
-		/*Marco*/
+
+		/* Marco */
 		applicationFactories.add(new ZclUbisysDimmableLightApplianceFactory());
 		applicationFactories.add(new ZclUbisysDrimmerSwitchApplianceFactory());
 		applicationFactories.add(new ZclWindowCoveringApplianceFactory());
-		//applicationFactories.add(new ZclWindowCoveringControllerApplianceFactory());
+		// applicationFactories.add(new
+		// ZclWindowCoveringControllerApplianceFactory());
 		applicationFactories.add(new ZclDoorLockApplianceFactory());
 		applicationFactories.add(new ZigbeeWhiteGoodApplianceFactory());
-		/*End Marco*/
+		applicationFactories.add(new ZclWulianTemperatureHumidityApplianceFactory());
 
-		
+		/* End Marco */
+
 		Iterator it = applicationFactories.iterator();
 
 		while (it.hasNext()) {

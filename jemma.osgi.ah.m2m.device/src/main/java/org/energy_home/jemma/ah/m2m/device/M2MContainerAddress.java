@@ -19,7 +19,6 @@ package org.energy_home.jemma.ah.m2m.device;
 import java.security.InvalidParameterException;
 import java.util.StringTokenizer;
 
-import org.energy_home.jemma.m2m.M2MConstants;
 
 public class M2MContainerAddress {	
 	public static final String ALL_ID_FILTER = "ALL";

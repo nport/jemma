@@ -20,21 +20,16 @@ import org.energy_home.jemma.ah.hac.ApplianceException;
 import org.energy_home.jemma.ah.zigbee.ZigBeeDeviceListener;
 import org.energy_home.jemma.ah.zigbee.zcl.lib.ZclServiceCluster;
 
-public class ZclMeterIdentificationClient
-    extends ZclServiceCluster
-    implements MeterIdentificationClient, ZigBeeDeviceListener
-{
+public class ZclMeterIdentificationClient extends ZclServiceCluster implements MeterIdentificationClient, ZigBeeDeviceListener {
 
-    public final static short CLUSTER_ID = 2817;
+	public final static short CLUSTER_ID = 2817;
 
-    public ZclMeterIdentificationClient()
-        throws ApplianceException
-    {
-        super();
-    }
+	public ZclMeterIdentificationClient() throws ApplianceException {
+		super();
+	}
 
-    protected int getClusterId() {
-        return CLUSTER_ID;
-    }
+	protected int getClusterId() {
+		return CLUSTER_ID;
+	}
 
 }

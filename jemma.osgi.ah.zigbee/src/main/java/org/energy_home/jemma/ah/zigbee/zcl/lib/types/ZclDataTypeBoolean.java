@@ -22,16 +22,16 @@ public class ZclDataTypeBoolean extends ZclAbstractDataType {
 	private static final int BYTE_ARRAY_LENGTH = 1;
 	public static final int ZCL_DATA_TYPE = ZclTypes.ZclBooleanType;
 	static final boolean IS_ANALOG = false;
-		
+
 	public static boolean zclParse(IZclFrame zclFrame) throws ZclValidationException {
 		return zclFrame.parseBoolean();
 	}
-	
-	public static void zclSerialize(IZclFrame zclFrame, boolean value)  throws ZclValidationException {
+
+	public static void zclSerialize(IZclFrame zclFrame, boolean value) throws ZclValidationException {
 		zclFrame.appendBoolean(value);
 	}
-	
-	public static int zclSize (boolean bool)  throws ZclValidationException {
+
+	public static int zclSize(boolean bool) throws ZclValidationException {
 		return BYTE_ARRAY_LENGTH;
 	}
 

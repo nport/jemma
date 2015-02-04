@@ -35,8 +35,8 @@ public class ApplianceDescriptor implements IApplianceDescriptor {
 	 *            The type associated to the appliance class
 	 * @param deviceType
 	 *            The device type associated to the appliance class in case of a
-	 *            {@code driver appliance}, {@code null} in case of a {@code
-	 *            logical appliance}
+	 *            {@code driver appliance}, {@code null} in case of a
+	 *            {@code logical appliance}
 	 * @param friendlyName
 	 *            A friendly name associated to the appliance class
 	 */
@@ -50,7 +50,7 @@ public class ApplianceDescriptor implements IApplianceDescriptor {
 		this.type = type;
 		this.friendlyName = friendlyName;
 	}
-	
+
 	public String getType() {
 		return this.type;
 	}

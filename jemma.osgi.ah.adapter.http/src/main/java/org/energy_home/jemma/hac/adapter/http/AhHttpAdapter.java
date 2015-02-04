@@ -15,7 +15,6 @@
  */
 package org.energy_home.jemma.hac.adapter.http;
 
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
@@ -76,7 +75,7 @@ public class AhHttpAdapter implements EventHandler, HttpServletBinder, HttpImple
 
 	private UserAdmin userAdmin;
 
-	private static final Logger LOG = LoggerFactory.getLogger( AhHttpAdapter.class );
+	private static final Logger LOG = LoggerFactory.getLogger(AhHttpAdapter.class);
 
 	private CustomJsonServlet customJSONServlet;
 
@@ -85,7 +84,7 @@ public class AhHttpAdapter implements EventHandler, HttpServletBinder, HttpImple
 	public AhHttpAdapter(HttpImplementor implementor) {
 		this.implementor = implementor;
 	}
-	
+
 	public AhHttpAdapter(HttpImplementor implementor, String alias) {
 		this.implementor = implementor;
 		String separator = "";
@@ -95,7 +94,7 @@ public class AhHttpAdapter implements EventHandler, HttpServletBinder, HttpImple
 		this.jsonServletUrl = alias + separator + "post-json";
 		this.jsonRpcUrl = alias + separator + "jsonrpc";
 	}
-	
+
 	public void bind(HttpImplementor implementor) {
 		this.implementor = implementor;
 	}
@@ -418,7 +417,9 @@ public class AhHttpAdapter implements EventHandler, HttpServletBinder, HttpImple
 	}
 
 	public void handleEvent(Event event) {
-		//TODO Hardcoded event topic: we should cross-check across the project where these are stored. Is it worth centralizing event topics somewhere ? e.g. in the API ?
+		// TODO Hardcoded event topic: we should cross-check across the project
+		// where these are stored. Is it worth centralizing
+		// event topics somewhere ? e.g. in the API ?
 		if (event.getTopic() == "org/telecomitalia/HacEvent/NEW_APPLIANCE") {
 			try {
 				queue.put(event);

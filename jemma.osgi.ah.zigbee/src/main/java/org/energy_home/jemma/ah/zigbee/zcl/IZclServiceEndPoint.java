@@ -20,6 +20,6 @@ import org.energy_home.jemma.ah.zigbee.ZigBeeDevice;
 
 public interface IZclServiceEndPoint extends IEndPoint {
 	public ZigBeeDevice zclGetZigBeeDevice();
-	
-	public void zclSetZigBeeDevice(ZigBeeDevice device); 
+
+	public void zclSetZigBeeDevice(ZigBeeDevice device);
 }

@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
  */
 public class RestApsMessageListener implements APSMessageListener {
 	private ExecutorService executor = null;
-	private static final Logger LOG = LoggerFactory.getLogger( RestApsMessageListener.class );
+	private static final Logger LOG = LoggerFactory.getLogger(RestApsMessageListener.class);
 	private Long CalbackIdentifier = -1L;
 	private Callback callback;
 	private String urilistener;
@@ -72,7 +72,8 @@ public class RestApsMessageListener implements APSMessageListener {
 	 * @param _clientResource
 	 *            the client resource.
 	 */
-	public RestApsMessageListener(Callback callback, String urilistener, ClientResources _clientResource, PropertiesManager __PropertiesManager) {
+	public RestApsMessageListener(Callback callback, String urilistener, ClientResources _clientResource,
+			PropertiesManager __PropertiesManager) {
 		super();
 		this.callback = callback;
 		this.urilistener = urilistener;
@@ -81,18 +82,13 @@ public class RestApsMessageListener implements APSMessageListener {
 		this._PropertiesManager = __PropertiesManager;
 		context.getParameters().add("socketTimeout", ((Integer) (_PropertiesManager.getHttpOptTimeout() * 1000)).toString());
 		executor = Executors.newFixedThreadPool(_PropertiesManager.getNumberOfThreadForAnyPool(), new ThreadFactory() {
-
-			@Override
 			public Thread newThread(Runnable r) {
-
 				return new Thread(r, "THPool-ApsMessageListener");
 			}
 		});
 
 		if (executor instanceof ThreadPoolExecutor) {
-			((ThreadPoolExecutor) executor).setKeepAliveTime(__PropertiesManager.getKeepAliveThread(), TimeUnit.MINUTES);
-			((ThreadPoolExecutor) executor).allowCoreThreadTimeOut(true);
-
+			((ThreadPoolExecutor) executor).setKeepAliveTime(__PropertiesManager.getKeepAliveThread() * 60, TimeUnit.SECONDS);
 		}
 	}
 
@@ -114,7 +110,7 @@ public class RestApsMessageListener implements APSMessageListener {
 						info.setEventCallbackIdentifier(CalbackIdentifier);
 						String xml = Util.marshal(info);
 						if (_PropertiesManager.getDebugEnabled())
-							LOG.debug("Marshaled:" +xml);
+							LOG.debug("Marshaled:" + xml);
 						resource.post(xml, MediaType.APPLICATION_XML);
 						resource.release();
 						resource = null;
@@ -158,7 +154,5 @@ public class RestApsMessageListener implements APSMessageListener {
 		CalbackIdentifier = id;
 
 	}
-
-
 
 }
