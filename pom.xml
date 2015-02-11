@@ -110,7 +110,7 @@
 	       	<module>jemma.osgi.ah.m2m.device</module>
 		<module>jemma.osgi.ah.hap.client</module>
 		<module>jemma.osgi.impl.ah.hap.client</module>
-		<!--<module>jemma.osgi.impl.ah.m2m.device.sax</module>-->
+		<module>jemma.osgi.impl.ah.m2m.device.sax</module>
 		<module>jemma.osgi.ah.upnp.energyathome</module> 
 		<module>jemma.osgi.ah.io</module> 
 		<module>jemma.osgi.javagal</module> 
