@@ -90,7 +90,7 @@
 		<org.energy-home.jemma.osgi.ah.m2m.device.version>1.2.15</org.energy-home.jemma.osgi.ah.m2m.device.version>
 		<org.energy-home.jemma.osgi.ah.hap.client.version>1.2.15</org.energy-home.jemma.osgi.ah.hap.client.version>
 		<org.energy-home.jemma.osgi.utils.version>1.0.6</org.energy-home.jemma.osgi.utils.version>
-		<org.energy-home.jemma.osgi.ah.energyathome.version>2.2.25</org.energy-home.jemma.osgi.ah.energyathome.version>
+		<org.energy-home.jemma.osgi.ah.energyathome.version>2.2.26</org.energy-home.jemma.osgi.ah.energyathome.version>
 		<org.energy-home.jemma.osgi.ah.adapter.http.version>2.0.2</org.energy-home.jemma.osgi.ah.adapter.http.version>
 		<org.energy-home.jemma.osgi.ah.configurator.version>1.0.7</org.energy-home.jemma.osgi.ah.configurator.version>
 		<org.energy-home.jemma.osgi.device.zgd.version>1.1.15</org.energy-home.jemma.osgi.device.zgd.version>
@@ -107,6 +107,7 @@
 		<module>jemma.osgi.ah.configurator</module>
 		<module>jemma.osgi.utils</module>
 		<module>jemma.osgi.ah.hac</module> 
+		<module>jemma.osgi.ah.greenathome</module> 
 	       	<module>jemma.osgi.ah.m2m.device</module>
 		<module>jemma.osgi.ah.hap.client</module>
 		<module>jemma.osgi.impl.ah.hap.client</module>
