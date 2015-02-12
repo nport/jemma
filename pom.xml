@@ -96,7 +96,8 @@
 		<org.energy-home.jemma.osgi.device.zgd.version>1.1.15</org.energy-home.jemma.osgi.device.zgd.version>
 		<org.energy-home.jemma.osgi.ah.zigbee.version>2.1.27</org.energy-home.jemma.osgi.ah.zigbee.version>
 		<org.energy-home.jemma.osgi.ah.webui.base.version>2.0.12</org.energy-home.jemma.osgi.ah.webui.base.version>
-		<org.energy-home.jemma.osgi.javagal.version>2.0.1</org.energy-home.jemma.osgi.javagal.version>
+		<org.energy-home.jemma.osgi.javagal.version>2.0.2</org.energy-home.jemma.osgi.javagal.version>
+		<org.energy-home.jemma.osgi.service.zgd.version>2.0.1</org.energy-home.jemma.osgi.service.zgd.version>
 		<org.slf4j.version>1.6.2</org.slf4j.version>
 		<org.energy-home.jemma.osgi.service.zgd.version>2.0.1</org.energy-home.jemma.osgi.service.zgd.version>
 	</properties>
@@ -115,6 +116,8 @@
 		<module>jemma.osgi.ah.upnp.energyathome</module> 
 		<module>jemma.osgi.ah.io</module> 
 		<module>jemma.osgi.javagal</module> 
+		<module>jemma.osgi.javagal.rest</module> 
+		<module>jemma.osgi.javagal.json</module> 
 		<module>jemma.osgi.javagal.gui</module> 
 		<module>jemma.osgi.ah.felix.console.web</module> 
 		<module>jemma.osgi.ah.energyathome</module>  
@@ -247,5 +250,11 @@
 			<artifactId>org.eclipse.osgi</artifactId>
 			<version>${org.eclipse.osgi.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
+	    </dependency>
 	</dependencies>
 </project>

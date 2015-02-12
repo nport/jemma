@@ -9,7 +9,7 @@
 	<artifactId>jemma.osgi.service.zgd</artifactId>
 	<packaging>bundle</packaging>
 	<version>2.0.1</version>
-	<name>ZgiGee Gateway Device Java API</name>
+	<name>ZigBee Gateway Device Java API</name>
 	<parent>
 		<groupId>org.energy-home</groupId>
 		<artifactId>jemma</artifactId>
