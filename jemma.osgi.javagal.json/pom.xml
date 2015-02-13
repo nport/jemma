@@ -76,7 +76,7 @@
 						<Bundle-Vendor>Telecom Italia</Bundle-Vendor>
 						<Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>
 						<Bundle-Activator>org.energy_home.jemma.javagal.json.Activator</Bundle-Activator>
-						<Import-Package>javax.servlet,
+					<!--	<Import-Package>javax.servlet,
 							javax.servlet.http,
 							org.slf4j;version="[1.6,2)",
 							org.energy_home.jemma.zgd;version="1.4.1",
@@ -89,6 +89,8 @@
 							org.osgi.service.http;version="[1.2,2.0)",
 							org.osgi.util.tracker;version="[1.4,2.0]",
 							com.google.gson
+						</Import-Package>-->
+						<Import-Package>*
 						</Import-Package>
 						<Require-Bundle>
 							jemma.osgi.javagal;bundle-version="1.0.0"
@@ -100,6 +102,21 @@
 	</build>
 	<dependencies>
 		<dependency>
+			<groupId>org.energy-home</groupId>
+			<artifactId>jemma.osgi.javagal</artifactId>
+			<version>${org.energy-home.jemma.osgi.javagal.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.energy-home</groupId>
+			<artifactId>jemma.osgi.service.zgd</artifactId>
+			<version>${org.energy-home.jemma.osgi.service.zgd.version}</version>
+		</dependency>
+		
+		
+		
+		<!--  Gson: Java to Json conversion -->
+<!--
+		<dependency>
 			<groupId>org.eclipse.osgi</groupId>
 			<artifactId>org.eclipse.osgi</artifactId>
 			<version>${org.eclipse.osgi.version}</version>
@@ -110,6 +127,12 @@
 		    <version>${org.slf4j.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet</artifactId>
+			<version>${javax.servlet.version}</version>
+		</dependency>
+
+	    <dependency>
 			<groupId>org.json</groupId>
 			<artifactId>org.json</artifactId>
 			<version>${org.json.version}</version>
@@ -120,23 +143,11 @@
 			<version>${commons.jabsorb.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet</artifactId>
-			<version>${javax.servlet.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.energy-home</groupId>
-			<artifactId>jemma.osgi.javagal</artifactId>
-			<version>2.0.1</version>
-		</dependency>
-		
-		<!--  Gson: Java to Json conversion -->
-	    <dependency>
-		<groupId>com.google.code.gson</groupId>
-		<artifactId>gson</artifactId>
-		<version>2.2.4</version>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
 	    </dependency>
-
+-->
 	</dependencies>
 </project>
 

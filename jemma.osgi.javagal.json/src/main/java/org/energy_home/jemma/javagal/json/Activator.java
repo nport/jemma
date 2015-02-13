@@ -16,8 +16,9 @@ package org.energy_home.jemma.javagal.json;
  *
  */
 
-import org.energy_home.jemma.zgd.GalExtenderProxy;
+//import org.energy_home.jemma.zgd.GalExtenderProxy;
 import org.energy_home.jemma.zgd.GalExtenderProxyFactory;
+import org.energy_home.jemma.zgd.IGalExtender;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -83,7 +84,7 @@ public class Activator implements BundleActivator {
 				public void removedService(ServiceReference reference, Object service) {
 					container.unregister();
 					try {
-						((GalExtenderProxy)container.gatewayInterface).deleteProxy();
+						((IGalExtender)container.gatewayInterface).deleteProxy();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
