@@ -44,7 +44,7 @@
 						<Export-Package>
 							org.energy_home.jemma.ah.hap.client,
 							org.energy_home.jemma.ah.hap.client.lib,
-							org.energy_home.jemma.osgi.ah.hap.client.lib,
+							org.energy_home.jemma.osgi.ah.hap.client,
 							org.energy_home.jemma.shal,
 							org.energy_home.jemma.shal.min
 						</Export-Package>

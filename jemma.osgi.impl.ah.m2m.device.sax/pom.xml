@@ -46,17 +46,14 @@
 						<Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
 						<Bundle-Version>${project.version}</Bundle-Version>
 						<Import-Package>*</Import-Package>
-						<Export-Package>
-							org.energy_home.jemma.ah.m2m.device,
-							org.energy_home.jemma.m2m,
-							org.energy_home.jemma.m2m.ah,
-							org.energy_home.jemma.m2m.connection
+						<Export-Package>!*
 						</Export-Package>
 						<Require-Bundle>
 							org.apache.httpcomponents.httpclient;bundle-version="4.1.0",
 							org.apache.httpcomponents.httpcore;bundle-version="4.1.0"
 						</Require-Bundle>
 						<Bundle-Category>Automation@Home</Bundle-Category>
+						<Bundle-Activator>org.energy_home.jemma.internal.osgi.ah.m2m.device.M2MDeviceActivator</Bundle-Activator>
 						<Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>
 						<Bundle-ClassPath>.,{maven-dependencies}</Bundle-ClassPath>
 					</instructions>
