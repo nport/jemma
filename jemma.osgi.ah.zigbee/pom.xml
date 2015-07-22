@@ -75,11 +75,6 @@
 			<type>bundle</type>
 		</dependency>
 		<dependency>
-			<groupId>edu.emory.mathcs.backport</groupId>
-			<artifactId>edu.emory.mathcs.backport</artifactId>
-			<version>${edu.emory.mathcs.backport.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.eclipse.equinox</groupId>
 			<artifactId>org.eclipse.equinox.util</artifactId>
 			<version>${org.eclipse.equinox.util.version}</version>

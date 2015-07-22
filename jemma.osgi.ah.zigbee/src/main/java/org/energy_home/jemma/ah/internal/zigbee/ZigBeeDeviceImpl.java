@@ -18,6 +18,8 @@ package org.energy_home.jemma.ah.internal.zigbee;
 import java.util.Hashtable;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.TimeUnit;
 
 import org.eclipse.equinox.internal.util.timer.Timer;
 import org.eclipse.equinox.internal.util.timer.TimerListener;
@@ -42,9 +44,6 @@ import org.energy_home.jemma.zgd.jaxb.ServiceDescriptor;
 import org.osgi.framework.ServiceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import edu.emory.mathcs.backport.java.util.concurrent.SynchronousQueue;
-import edu.emory.mathcs.backport.java.util.concurrent.TimeUnit;
 
 /**
  * The ZigBeeDeviceImpl class implements the ZigBeeDevice interface. The purpose

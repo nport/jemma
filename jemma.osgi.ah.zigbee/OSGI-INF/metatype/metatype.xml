@@ -19,7 +19,7 @@
   
   	<OCD description="ZigBee Refining Driver" 
        	name="ZigBee Refining Driver"
-       	id="org.energy_home.jemma.osgi.ah.adapter.zigbee">
+       	id="jemma.osgi.ah.zigbee">
     	<AD name="Reconnect to jGal Delay"  id="org.energy_home.jemma.ah.adapter.zigbee.reconnect" required="true" type="Integer" default="5"/>
     	<AD name="LQI" id="org.energy_home.jemma.ah.adapter.zigbee.lqi" required="true" type="Boolean" default="false"/>
     	<AD name="Initial LQI Delay"  id="org.energy_home.jemma.ah.adapter.zigbee.discovery.initialdelay" required="true" type="Integer" default="15"/>
@@ -27,8 +27,8 @@
     	<AD name="Timeouts"  id="org.energy_home.jemma.ah.adapter.zigbee.timeouts" required="true" type="Integer" default="7000"/>   
 	</OCD>
   
-   	<Designate pid="org.energy_home.jemma.osgi.ah.adapter.zigbee">
-        <Object ocdref="org.energy_home.jemma.osgi.ah.adapter.zigbee">
+   	<Designate pid="jemma.osgi.ah.zigbee">
+        <Object ocdref="jemma.osgi.ah.zigbee">
       		<Attribute adref="org.energy_home.jemma.ah.adapter.zigbee.reconnect" content="5"/>
       		<Attribute adref="org.energy_home.jemma.ah.adapter.zigbee.lqi" content="false"/>
     	</Object>

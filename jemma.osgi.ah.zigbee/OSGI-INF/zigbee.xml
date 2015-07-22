@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" configuration-policy="optional" modified="modified" name="ZigBee Refining Driver">
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" configuration-policy="optional" modified="modified" name="jemma.osgi.ah.zigbee">
 	<implementation class="org.energy_home.jemma.ah.internal.zigbee.ZigBeeManagerImpl" />
 	<property name="network.type" value="ZigBee"/>
 	<service>
