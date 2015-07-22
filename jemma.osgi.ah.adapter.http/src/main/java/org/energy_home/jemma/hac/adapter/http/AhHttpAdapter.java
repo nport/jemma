@@ -25,6 +25,8 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.servlet.ServletException;
 
@@ -50,12 +52,7 @@ import org.osgi.service.useradmin.UserAdmin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import edu.emory.mathcs.backport.java.util.concurrent.BlockingQueue;
-import edu.emory.mathcs.backport.java.util.concurrent.LinkedBlockingQueue;
-
 public class AhHttpAdapter implements EventHandler, HttpServletBinder, HttpImplementor {
-
-	private static final long serialVersionUID = 1L;
 
 	int counter = 0;
 
@@ -104,8 +101,7 @@ public class AhHttpAdapter implements EventHandler, HttpServletBinder, HttpImple
 
 		Dictionary d = new Hashtable();
 		d.put(EventConstants.EVENT_TOPIC, topics);
-		// d.put(EventConstants.EVENT_FILTER, "(bundle.symbolicName=com.acme.*)"
-		// );
+
 		ctxt.getBundleContext().registerService(EventHandler.class.getName(), this, d);
 		Bundle bundle = null;
 

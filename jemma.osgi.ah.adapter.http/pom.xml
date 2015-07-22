@@ -65,11 +65,6 @@
 			<type>bundle</type>
 		</dependency>
 		<dependency>
-			<groupId>edu.emory.mathcs.backport</groupId>
-			<artifactId>edu.emory.mathcs.backport</artifactId>
-			<version>${edu.emory.mathcs.backport.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>org.json</artifactId>
 			<version>${org.json.version}</version>
