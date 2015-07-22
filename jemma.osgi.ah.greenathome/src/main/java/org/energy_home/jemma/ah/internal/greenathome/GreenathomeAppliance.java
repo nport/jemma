@@ -1270,6 +1270,7 @@ public class GreenathomeAppliance extends Appliance implements ManagedService, H
 
 	private String encodeGenericApplianceType(String appType, String endPointType) {
 		String result = appType;
+
 		if (appType.equals("org.energy_home.jemma.ah.zigbee.generic")) {
 			if (endPointType.equals(IEndPointTypes.ZIGBEE_METERING_DEVICE)) {
 				result = "org.energy_home.jemma.ah.zigbee.metering";
