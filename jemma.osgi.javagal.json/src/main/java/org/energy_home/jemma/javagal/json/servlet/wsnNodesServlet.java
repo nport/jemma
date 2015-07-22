@@ -26,8 +26,6 @@ import javax.servlet.http.HttpSession;
 
 import org.energy_home.jemma.javagal.json.constants.Resources;
 import org.energy_home.jemma.javagal.json.util.Util;
-//import org.energy_home.jemma.zgd.GalExtenderProxy;
-import org.energy_home.jemma.zgd.GalExtenderProxyFactory;
 import org.energy_home.jemma.zgd.GatewayConstants;
 import org.energy_home.jemma.zgd.GatewayException;
 import org.energy_home.jemma.zgd.GatewayInterface;
