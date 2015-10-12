@@ -15,7 +15,6 @@
  */
 package org.energy_home.jemma.ah.m2m.device;
 
-
 public abstract class M2MConstants {
 	private static String CONFIGURED_CLIENT_VERSION = null;
 	static {
@@ -26,12 +25,13 @@ public abstract class M2MConstants {
 		else
 			CONFIGURED_CLIENT_VERSION = null;
 	}
-	
+
 	public static final String CLIENT_VERSION = CONFIGURED_CLIENT_VERSION;
-	
-	// No connection with M2M Network platform is performed if this id is configured for the M2M Device
+
+	// No connection with M2M Network platform is performed if this id is
+	// configured for the M2M Device
 	public static final String LOCAL_ONLY_DEVICE_ID = "local";
-	
+
 	public static final String URL_HTTP_PREFIX = "http://";
 	public static final String URL_PORT_PREFIX = ":";
 	public static final String URL_SLASH = "/";
@@ -47,7 +47,6 @@ public abstract class M2MConstants {
 	public static final String URL_CIS_BATCH_REQUEST = "/CS/ALL/CIS";
 	public static final String URL_CIS_ID_LATEST_ALIAS = "/LATEST";
 	public static final String URL_CIS_ID_OLDEST_ALIAS = "/OLDEST";
-	
-	public static final String URL_HAG_SCL_BASE = "/HAP/SC/HAG";
 
+	public static final String URL_HAG_SCL_BASE = "/HAP/SC/HAG";
 }

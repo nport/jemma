@@ -21,27 +21,19 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "EnergyCostPowerInfo", propOrder = {
-    "duration",
-    "deltaEnergy",
-    "cost",
-    "minCost",  
-    "maxCost",
-    "powerInfo"
-})
+@XmlType(name = "EnergyCostPowerInfo", propOrder = { "duration", "deltaEnergy", "cost", "minCost", "maxCost", "powerInfo" })
 public class EnergyCostPowerInfo {
-	private static final long serialVersionUID = -1589348206634934789L;
-    @XmlElement(name = "Duration")
+	@XmlElement(name = "Duration")
 	private long duration;
-    @XmlElement(name = "DeltaEnergy")
+	@XmlElement(name = "DeltaEnergy")
 	private Float deltaEnergy;
-    @XmlElement(name = "Cost")
-    private Float cost;
-    @XmlElement(name = "MinCost")
-    private Float minCost;
-    @XmlElement(name = "MaxCost")
-    private Float maxCost;	
-    @XmlElement(name = "PowerInfo")
+	@XmlElement(name = "Cost")
+	private Float cost;
+	@XmlElement(name = "MinCost")
+	private Float minCost;
+	@XmlElement(name = "MaxCost")
+	private Float maxCost;
+	@XmlElement(name = "PowerInfo")
 	private MinMaxPowerInfo powerInfo;
 
 	public void setDuration(long duration) {
@@ -51,15 +43,15 @@ public class EnergyCostPowerInfo {
 	public long getDuration() {
 		return duration;
 	}
-	
+
 	public void setDeltaEnergy(Float deltaEnergy) {
 		this.deltaEnergy = deltaEnergy;
 	}
 
 	public Float getDeltaEnergy() {
 		return deltaEnergy;
-	}	
-	
+	}
+
 	public void setCost(Float cost) {
 		this.cost = cost;
 	}
@@ -74,8 +66,8 @@ public class EnergyCostPowerInfo {
 
 	public Float getMinCost() {
 		return minCost;
-	}	
-	
+	}
+
 	public void setMaxCost(Float maxCost) {
 		this.maxCost = maxCost;
 	}
@@ -91,5 +83,5 @@ public class EnergyCostPowerInfo {
 	public MinMaxPowerInfo getPowerInfo() {
 		return powerInfo;
 	}
-	
+
 }
