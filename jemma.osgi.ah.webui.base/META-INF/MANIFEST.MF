@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-Category: Automation@Home
+Bundle-Classpath: .
+Bundle-DocURL: http://www.telecomitalia.it/
+Bundle-ManifestVersion: 2
+Bundle-Name: Web UI Base
+Bundle-RequiredExecutionEnvironment: OSGi/Minimum-1.2, J2SE-1.3,CDC-1.1/
+ Foundation-1.1
+Bundle-SymbolicName: jemma.osgi.ah.webui.base
+Bundle-Vendor: Telecom Italia
+Bundle-Version: 2.0.12
+Created-By: Apache Maven Bundle Plugin
+Import-Package: org.osgi.service.http;version="[1.2,2)"
+Include-Resource: OSGI-INF/webuibaselibs.xml=OSGI-INF/webuibaselibs.xml,
+ src/main/resources
+Private-Package: org.energy_home.jemma.ah.webui.base,web.js.flot.pie,web
+ .js.flot,web.js.flot.examples,web.js.gauge,web.js.gauge.images,web.js.j
+ qtouch.extensions,web.js.jqtouch.extensions.jqt.checkGroup,web.js.jqtou
+ ch.extensions.jqt.checkGroup.themes.apple.img,web.js.jqtouch.extensions
+ .jqt.checkGroup.themes.apple,web.js.jqtouch.extensions.jqt.checkGroup.t
+ hemes.jqt.img,web.js.jqtouch.extensions.jqt.checkGroup.themes.jqt,web.j
+ s.jqtouch,web.js.jqtouch.themes.apple,web.js.jqtouch.themes.apple.img,w
+ eb.js.jqtouch.themes.jqt.img,web.js.jqtouch.themes.jqt,web.js,web.js.jq
+ uery.mobile,web.js.jquery.mobile.images,web.js.jquery,web.js.json,web.j
+ s.jsonrpc,web.js.osgi,web.js.sw
+Service-Component: OSGI-INF/*.xml
+Tool: Bnd-2.3.0.201405100607

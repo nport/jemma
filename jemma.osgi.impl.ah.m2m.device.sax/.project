@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+  <name>jemma.osgi.impl.ah.m2m.device.sax</name>
+  <comment>NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
+  <projects>
+    <project>jemma.osgi.utils</project>
+    <project>jemma.osgi.ah.m2m.device</project>
+  </projects>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+    </buildCommand>
+    <buildCommand>
+      <name>org.eclipse.pde.ManifestBuilder</name>
+    </buildCommand>
+    <buildCommand>
+      <name>org.eclipse.pde.SchemaBuilder</name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+    <nature>org.eclipse.pde.PluginNature</nature>
+  </natures>
+  <linkedResources>
+    <link>
+      <name>jaxp-api-1.4.2.jar</name>
+      <type>1</type>
+      <location>C:/Users/00918161/.m2/repository/javax/xml/jaxp-api/1.4.2/jaxp-api-1.4.2.jar</location>
+    </link>
+    <link>
+      <name>servlet-api-2.5.jar</name>
+      <type>1</type>
+      <location>C:/Users/00918161/.m2/repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar</location>
+    </link>
+  </linkedResources>
+</projectDescription>

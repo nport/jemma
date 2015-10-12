@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-DocURL: http://www.telecomitalia.it/
+Bundle-ManifestVersion: 2
+Bundle-Name: ZigBee Gateway Device Java API
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-SymbolicName: jemma.osgi.service.zgd
+Bundle-Vendor: Telecom Italia
+Bundle-Version: 2.0.1
+Created-By: Apache Maven Bundle Plugin
+Export-Package: org.energy_home.jemma.zgd;version="1.4.1";uses:="org.ene
+ rgy_home.jemma.zgd.jaxb",org.energy_home.jemma.zgd.jaxb;version="1.0.4"
+ ;uses:="javax.xml.bind,javax.xml.bind.annotation,javax.xml.bind.annotat
+ ion.adapters"
+Import-Package: javax.xml.bind,javax.xml.bind.annotation,javax.xml.bind.
+ annotation.adapters,javax.xml.namespace;version="[1.3,2)"
+Include-Resource: org/energy_home/jemma/zgd/jaxb/packageinfo=src/main/ja
+ va/org/energy_home/jemma/zgd/jaxb/packageinfo,org/energy_home/jemma/zgd
+ /packageinfo=src/main/java/org/energy_home/jemma/zgd/packageinfo
+Private-Package: org.energy_home.jemma.zgd,org.energy_home.jemma.zgd.jax
+ b
+Tool: Bnd-2.3.0.201405100607
