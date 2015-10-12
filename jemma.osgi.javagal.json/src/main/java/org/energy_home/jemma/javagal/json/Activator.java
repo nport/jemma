@@ -16,9 +16,8 @@ package org.energy_home.jemma.javagal.json;
  *
  */
 
-//import org.energy_home.jemma.zgd.GalExtenderProxy;
+import org.energy_home.jemma.internal.zgd.GalExtenderProxy;
 import org.energy_home.jemma.zgd.GalExtenderProxyFactory;
-import org.energy_home.jemma.zgd.IGalExtender;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -28,7 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Activator implements BundleActivator {
-	private static final Logger LOG = LoggerFactory.getLogger( Activator.class );
+	private static final Logger LOG = LoggerFactory.getLogger(Activator.class);
 	private static BundleContext context;
 	GalExtenderProxyFactory gatewayFactory;
 	ServletContainer container;
@@ -84,14 +83,13 @@ public class Activator implements BundleActivator {
 				public void removedService(ServiceReference reference, Object service) {
 					container.unregister();
 					try {
-						((IGalExtender)container.gatewayInterface).deleteProxy();
+						((GalExtenderProxy) container.gatewayInterface).deleteProxy();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 
 					container = null;
 					httpService = null;
-					
 
 				}
 
@@ -99,9 +97,9 @@ public class Activator implements BundleActivator {
 
 					try {
 						httpService = (HttpService) this.context.getService(reference);
-						
+
 						container = new ServletContainer(httpService, gatewayFactory.createGatewayInterfaceObject());
-						
+
 					} catch (Exception exception) {
 						exception.printStackTrace();
 					}

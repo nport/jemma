@@ -57,6 +57,7 @@ public class GalExtenderProxyFactoryImpl implements GalExtenderProxyFactory {
 	public GalExtenderProxyFactoryImpl(PropertiesManager _prop) throws Exception {
 		proxyIdentifierSequence = 0;
 		gal = new GalController(_prop);
+
 	}
 
 	/**

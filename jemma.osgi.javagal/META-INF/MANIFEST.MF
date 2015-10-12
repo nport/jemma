@@ -7,12 +7,14 @@ Bundle-Name: ZigBee Gateway Device Implementation
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-SymbolicName: jemma.osgi.javagal;singleton:=true
 Bundle-Vendor: Telecom Italia
-Bundle-Version: 2.0.2
+Bundle-Version: 2.0.7
 Created-By: Apache Maven Bundle Plugin
-Import-Package: gnu.io;version="0.0.0";resolution:=optional,jssc;resolut
- ion:=optional;version="[2.8,3)",org.energy_home.jemma.zgd;version="[1.4
- ,2)",org.energy_home.jemma.zgd.jaxb;version="[1.0,2)",org.osgi.framewor
- k;version="[1.5,2)",org.slf4j;version="[1.6,2)"
+Import-Package: gnu.io;version="0.0.0";resolution:=optional,
+ jssc;version="[2.8,3)";resolution:=optional,
+ org.energy_home.jemma.zgd;version="1.4.1",
+ org.energy_home.jemma.zgd.jaxb;version="1.0.4",
+ org.osgi.framework;version="[1.5,2)",
+ org.slf4j;version="[1.6,2)"
 Include-Resource: config.properties=src/main/resources/config.properties
  ,mapPanId.properties=src/main/resources/mapPanId.properties
 Private-Package: config.properties,mapPanId.properties,org.energy_home.j
@@ -23,5 +25,6 @@ Private-Package: config.properties,mapPanId.properties,org.energy_home.j
  ,org.energy_home.jemma.javagal.layers.data.implementations,org.energy_h
  ome.jemma.javagal.layers.data.implementations.Utils,org.energy_home.jem
  ma.javagal.layers.data.interfaces,org.energy_home.jemma.javagal.layers.
- object,org.energy_home.jemma.javagal.layers.presentation
+ data,org.energy_home.jemma.javagal.layers.object,org.energy_home.jemma.
+ javagal.layers.presentation
 Tool: Bnd-2.3.0.201405100607

@@ -23,6 +23,7 @@ import java.util.logging.LogRecord;
 import org.energy_home.jemma.internal.zgd.GalExtenderProxyFactoryImpl;
 import org.energy_home.jemma.javagal.layers.PropertiesManager;
 import org.energy_home.jemma.javagal.layers.business.GalController;
+import org.energy_home.jemma.zgd.GalExtenderProxyFactory;
 import org.energy_home.jemma.zgd.GatewayException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,13 +40,11 @@ public class main {
 	// public final static Log logger = LogFactory.getLog(main.class);
 	private static final Logger LOG = LoggerFactory.getLogger(main.class);
 
-	static String _help = "Usage:  Gal  [options...] -d <device url>\n" + "Options:\n"
-			+ "  -h               Show this information\n"
+	static String _help = "Usage:  Gal  [options...] -d <device url>\n" + "Options:\n" + "  -h               Show this information\n"
 			+ "  -c <filename>    Main configuration filename (default: \"config.properties\"\n"
 			+ "  -a               If present, create the network on startup (ignore config.ini setting)\n"
-			+ "  -m               If present, use the NVM setting (ignore config.ini setting)\n"
-			+ "  -d               Specify the device url\n" + "  -v               Be verbose.\n"
-			+ "  -V               Show the program version and quit.\n" + "\n";
+			+ "  -m               If present, use the NVM setting (ignore config.ini setting)\n" + "  -d               Specify the device url\n"
+			+ "  -v               Be verbose.\n" + "  -V               Show the program version and quit.\n" + "\n";
 
 	/**
 	 * Static main class.
@@ -79,7 +78,7 @@ public class main {
 
 				case 'd':
 					i = i + 1;
-					String _comport = args[i].substring(0, args[i].indexOf("?"));
+					String _comport = args[i].substring(0, (args[i].indexOf("?")));
 					String _dongleType = args[i].substring(args[i].indexOf("?"), args[i].indexOf("&"));
 					_dongleType = _dongleType.substring(_dongleType.indexOf("=") + 1);
 					String _donglespeed = args[i].substring(args[i].indexOf("&"));

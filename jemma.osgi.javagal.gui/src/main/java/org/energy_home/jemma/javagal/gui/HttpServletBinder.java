@@ -20,9 +20,9 @@ import java.util.ArrayList;
 
 public interface HttpServletBinder extends HttpImplementor {
 	public Object invokeMethod(Object targetObject, String methodName, ArrayList paramValues) throws IllegalArgumentException,
-			IllegalAccessException, InvocationTargetException;
+	IllegalAccessException, InvocationTargetException;
 
 	public Object getImplementor();
-
+	
 	public void bind(HttpImplementor httpImplementor);
 }

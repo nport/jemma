@@ -18,22 +18,22 @@ Export-Package: org.energy_home.jemma.ah.ebrain;uses:="org.energy_home.j
  gy_home.jemma.ah.cluster.zigbee.eh,org.energy_home.jemma.ah.ebrain,org.
  energy_home.jemma.ah.ebrain.algo,org.energy_home.jemma.m2m.ah";version=
  "2.2.26",org.energy_home.jemma.ah.eh.esp;version="2.2.4"
-Import-Package: javax.servlet,javax.servlet.http,org.apache.http,org.apa
- che.http.util;version="[4.1,5)",org.eclipse.osgi.framework.console;vers
- ion="[1.1,2)",org.energy_home.jemma.ah.cluster.ah;version="[3.0,4)",org
- .energy_home.jemma.ah.cluster.zigbee.eh;version="[3.1,4)",org.energy_ho
- me.jemma.ah.cluster.zigbee.general;version="[3.1,4)",org.energy_home.je
- mma.ah.cluster.zigbee.metering;version="[3.1,4)",org.energy_home.jemma.
- ah.ebrain,org.energy_home.jemma.ah.eh.esp;version="[2.2,3)",org.energy_
- home.jemma.ah.hac;version="[3.0,4)",org.energy_home.jemma.ah.hac.lib;ve
- rsion="[3.0,4)",org.energy_home.jemma.ah.hap.client;version="[1.4,2)",o
- rg.energy_home.jemma.m2m;version="[1.3,2)",org.energy_home.jemma.m2m.ah
- ;version="[1.2,2)",org.energy_home.jemma.shal;version="[1.4,2)",org.ene
- rgy_home.jemma.shal.min;version="[1.4,2)",org.energy_home.jemma.utils.d
- atetime;version="[1.0,2)",org.energy_home.jemma.utils.rest;version="[1.
- 0,2)",org.energy_home.jemma.utils.thread;version="[1.0,2)",org.osgi.ser
- vice.event;version="[1.2,2)",org.osgi.service.http;version="[1.2,2)",or
- g.slf4j;version="[1.6,2)"
+Import-Package: javax.servlet;version="[2.5,3)",javax.servlet.http;versi
+ on="[2.5,3)",org.apache.http,org.apache.http.util;version="[4.1,5)",org
+ .eclipse.osgi.framework.console;version="[1.1,2)",org.energy_home.jemma
+ .ah.cluster.ah;version="[3.0,4)",org.energy_home.jemma.ah.cluster.zigbe
+ e.eh;version="[3.1,4)",org.energy_home.jemma.ah.cluster.zigbee.general;
+ version="[3.1,4)",org.energy_home.jemma.ah.cluster.zigbee.metering;vers
+ ion="[3.1,4)",org.energy_home.jemma.ah.ebrain,org.energy_home.jemma.ah.
+ eh.esp;version="[2.2,3)",org.energy_home.jemma.ah.hac;version="[3.0,4)"
+ ,org.energy_home.jemma.ah.hac.lib;version="[3.0,4)",org.energy_home.jem
+ ma.ah.hap.client;version="[1.4,2)",org.energy_home.jemma.m2m;version="[
+ 1.3,2)",org.energy_home.jemma.m2m.ah;version="[1.2,2)",org.energy_home.
+ jemma.shal;version="[1.4,2)",org.energy_home.jemma.shal.min;version="[1
+ .4,2)",org.energy_home.jemma.utils.datetime;version="[1.0,2)",org.energ
+ y_home.jemma.utils.rest;version="[1.0,2)",org.energy_home.jemma.utils.t
+ hread;version="[1.0,2)",org.osgi.service.event;version="[1.2,2)",org.os
+ gi.service.http;version="[1.2,2)",org.slf4j;version="[1.6,2)"
 Include-Resource: OSGI-INF/esp.xml=OSGI-INF/esp.xml,OSGI-INF/espconsole.
  xml=OSGI-INF/espconsole.xml,OSGI-INF/espeventsdispatcher.xml=OSGI-INF/e
  speventsdispatcher.xml,OSGI-INF/espweb.xml=OSGI-INF/espweb.xml,xml/scen

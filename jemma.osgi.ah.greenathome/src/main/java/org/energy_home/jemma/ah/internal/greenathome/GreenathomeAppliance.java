@@ -2688,4 +2688,50 @@ public class GreenathomeAppliance extends Appliance implements ManagedService, H
 	public void unbindConfigurationAdmin(ConfigurationAdmin configurationAdmin) {
 		this.configurationAdmin = null;
 	}
+
+	public Object getAttribute(String appliancePid, String clusterName, int endPointId, String attributeName) throws Exception {
+		IServiceCluster peerServiceCluster = greenathomeEndPoint.getPeerServiceCluster(appliancePid, clusterName, endPointId);
+
+		if (peerServiceCluster != null) {
+			IAttributeValue value = peerServiceCluster.getAttributeValue(attributeName, this.context);
+			return value;
+		}
+
+		return null;
+	}
+
+	public Object getAttributes(String appliancePid, String clusterName, int endPointId, String[] attributeNames) throws Exception {
+		IServiceCluster peerServiceCluster = greenathomeEndPoint.getPeerServiceCluster(appliancePid, clusterName, endPointId);
+
+		IAttributeValue[] attributeValues = null;
+
+		if (peerServiceCluster != null) {
+			attributeValues = new AttributeValue[attributeNames.length];
+			for (int i = 0; i < attributeNames.length; i++) {
+				IAttributeValue value = peerServiceCluster.getAttributeValue(attributeNames[i], this.context);
+				attributeValues[i] = value;
+			}
+		}
+
+		return attributeValues;
+	}
+
+	public Object setAttribute(String appliancePid, String clusterName, int endPointId, String attributeName,
+			IAttributeValue attributeValue) throws Exception {
+		IServiceCluster peerServiceCluster = greenathomeEndPoint.getPeerServiceCluster(appliancePid, clusterName, endPointId);
+
+		if (peerServiceCluster != null) {
+			peerServiceCluster.setAttributeValue(attributeName, attributeValue, context);
+		}
+		return peerServiceCluster;
+	}
+
+	public void setAttribute(String appliancePid, String attributeId, Object value) throws Exception {
+		throw new Exception("not yet impleemnted!");
+	}
+
+	public Object[] getAttribute(String appliancePid, String clusterName, int endPointId, String[] attributesId) throws Exception {
+		throw new Exception("not yet impleemnted!");
+	}
+
 }

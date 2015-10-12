@@ -203,8 +203,7 @@ public interface IDataLayer extends IFrameCallback {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public NodeDescriptor getNodeDescriptorSync(long timeout, Address addrOfInterest) throws IOException, Exception,
-			GatewayException;
+	public NodeDescriptor getNodeDescriptorSync(long timeout, Address addrOfInterest) throws IOException, Exception, GatewayException;
 
 	/**
 	 * Gets the channel synchronously.
@@ -332,8 +331,7 @@ public interface IDataLayer extends IFrameCallback {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public Status permitJoinSync(long timeout, Address addrOfInterest, short duration, byte TCSignificance) throws IOException,
-			Exception, GatewayException;
+	public Status permitJoinSync(long timeout, Address addrOfInterest, short duration, byte TCSignificance) throws IOException, Exception, GatewayException;
 
 	/**
 	 * Starts a PermitJoinAll procedure synchronously.
@@ -353,8 +351,7 @@ public interface IDataLayer extends IFrameCallback {
 	 * @throws Exception
 	 *             if a general error occurs.
 	 */
-	public Status permitJoinAllSync(long timeout, Address addrOfInterest, short duration, byte TCSignificance) throws IOException,
-			Exception;
+	public Status permitJoinAllSync(long timeout, Address addrOfInterest, short duration, byte TCSignificance) throws IOException, Exception;
 
 	/**
 	 * Starts a Leave procedure synchronously. The Leave procedure is invoked by
@@ -405,8 +402,7 @@ public interface IDataLayer extends IFrameCallback {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public ServiceDescriptor getServiceDescriptor(long timeout, Address addrOfInterest, short endpoint) throws IOException,
-			Exception, GatewayException;
+	public ServiceDescriptor getServiceDescriptor(long timeout, Address addrOfInterest, short endpoint) throws IOException, Exception, GatewayException;
 
 	/**
 	 * Starts the GetBindingList. The GetBindingList procedure is invoked by an
@@ -429,8 +425,7 @@ public interface IDataLayer extends IFrameCallback {
 	 * @throws GatewayException
 	 *             if a ZGD error occurs.
 	 */
-	public BindingList getNodeBindings(long timeout, Address addrOfInterest, short index) throws IOException, Exception,
-			GatewayException;
+	public BindingList getNodeBindings(long timeout, Address addrOfInterest, short index) throws IOException, Exception, GatewayException;
 
 	/**
 	 * Adds a {@link Binding}.
@@ -466,8 +461,7 @@ public interface IDataLayer extends IFrameCallback {
 	 */
 	public Status removeBinding(long timeout, Binding binding, Address aoi) throws IOException, Exception, GatewayException;
 
-	public Status frequencyAgilitySync(long timeout, short scanChannel, short scanDuration) throws IOException, Exception,
-			GatewayException;
+	public Status frequencyAgilitySync(long timeout, short scanChannel, short scanDuration) throws IOException, Exception, GatewayException;
 
 	/**
 	 * Tries to reset dongle's hardware.
@@ -509,8 +503,7 @@ public interface IDataLayer extends IFrameCallback {
 	 * @param startindex
 	 *            the value of the table index.
 	 */
-	public Mgmt_LQI_rsp Mgmt_Lqi_Request(long timeout, Address addrOfInterest, short startIndex) throws IOException, Exception,
-			GatewayException;
+	public Mgmt_LQI_rsp Mgmt_Lqi_Request(long timeout, Address addrOfInterest, short startIndex) throws IOException, Exception, GatewayException;
 
 	void clearBuffer();
 

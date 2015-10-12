@@ -335,8 +335,20 @@
 													}
 												}
 											}
-											var strNetworkAddress = padLeft(4, nObj.address.networkAddress.toString(16));
-											var strIeeeAddress = padLeft(16, nObj.address.ieeeAddress.toString(16));
+											var strNetworkAddress = "undefined";
+											var strIeeeAddress = "undefined"
+											if (nObj.address.networkAddress === 'undefined' {
+													
+											}
+											else {
+												strNetworkAddress = padLeft(4, nObj.address.networkAddress.toString(16))
+											}
+											
+											if (nObj.address.ieeeAddress === 'undefined') {
+												strIeeeAddress = padLeft(16, nObj.address.ieeeAddress.toString(16))
+											}
+											//var strNetworkAddress = padLeft(4, nObj.address.networkAddress.toString(16));
+											//var strIeeeAddress = padLeft(16, nObj.address.ieeeAddress.toString(16));
 											
 											if (nObj.capabilityInformation=='undefined')
 												vLogical = "No capability information";

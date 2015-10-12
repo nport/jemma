@@ -156,6 +156,7 @@
 				<version>${felix.bundle.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
+					<pde>false</pde>
 					<supportedProjectTypes>
 						<supportedProjectType>jar</supportedProjectType>
 						<supportedProjectType>bundle</supportedProjectType>

@@ -3,7 +3,7 @@ Bundle-Activator: org.energy_home.jemma.javagal.rest.Activator
 Bundle-DocURL: http://www.telecomitalia.it/
 Bundle-ManifestVersion: 2
 Bundle-Name: Java Gal Rest
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: jemma.osgi.javagal.rest
 Bundle-Vendor: Telecom Italia
 Bundle-Version: 1.0
@@ -34,3 +34,4 @@ Import-Package: javax.xml.bind,
 Include-Resource: config.properties=src/main/resources/config.properties
 Private-Package: config.properties
 Tool: Bnd-2.3.0.201405100607
+Bundle-ClassPath: .

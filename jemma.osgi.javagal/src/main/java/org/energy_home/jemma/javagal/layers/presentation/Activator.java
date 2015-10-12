@@ -57,51 +57,38 @@ public class Activator implements BundleActivator {
 
 			PropertiesManager PropertiesManager = new PropertiesManager(bc.getBundle().getResource(_path));
 
-			if (context.getProperty(GatewayProperties.ZGD_DONGLE_URI_PROP_NAME) != null) {
-				PropertiesManager.props.setProperty(GatewayProperties.ZGD_DONGLE_URI_PROP_NAME,
-						context.getProperty(GatewayProperties.ZGD_DONGLE_URI_PROP_NAME));
-			}
-			if (context.getProperty(GatewayProperties.ZGD_DONGLE_SPEED_PROP_NAME) != null) {
-				PropertiesManager.props.setProperty(GatewayProperties.ZGD_DONGLE_SPEED_PROP_NAME,
-						context.getProperty(GatewayProperties.ZGD_DONGLE_SPEED_PROP_NAME));
-			}
-			if (context.getProperty(GatewayProperties.ZGD_DONGLE_TYPE_PROP_NAME) != null) {
-				PropertiesManager.props.setProperty(GatewayProperties.ZGD_DONGLE_TYPE_PROP_NAME,
-						context.getProperty(GatewayProperties.ZGD_DONGLE_TYPE_PROP_NAME));
-			}
-			if (context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_LOG) != null) {
+			if (context.getProperty(GatewayProperties.ZGD_DONGLE_URI_PROP_NAME) != null)
+				PropertiesManager.props.setProperty(GatewayProperties.ZGD_DONGLE_URI_PROP_NAME, context.getProperty(GatewayProperties.ZGD_DONGLE_URI_PROP_NAME));
+			if (context.getProperty(GatewayProperties.ZGD_DONGLE_SPEED_PROP_NAME) != null)
+				PropertiesManager.props.setProperty(GatewayProperties.ZGD_DONGLE_SPEED_PROP_NAME, context.getProperty(GatewayProperties.ZGD_DONGLE_SPEED_PROP_NAME));
+			if (context.getProperty(GatewayProperties.ZGD_DONGLE_TYPE_PROP_NAME) != null)
+				PropertiesManager.props.setProperty(GatewayProperties.ZGD_DONGLE_TYPE_PROP_NAME, context.getProperty(GatewayProperties.ZGD_DONGLE_TYPE_PROP_NAME));
+			if (context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_LOG) != null)
 				PropertiesManager.props.setProperty("debugEnabled", context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_LOG));
-			}
-			if (context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_SERIAL_LOG) != null) {
-				PropertiesManager.props.setProperty("serialDataDebugEnabled",
-						context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_SERIAL_LOG));
-			}
+			if (context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_SERIAL_LOG) != null)
+				PropertiesManager.props.setProperty("serialDataDebugEnabled", context.getProperty(GatewayProperties.ZGD_GAL_ENABLE_SERIAL_LOG));
 
-			if (_fac == null) {
+			if (_fac == null)
 				_fac = new GalExtenderProxyFactoryImpl(PropertiesManager);
-			}
 
 			gatewayInterfaceServiceFactory = new GatewayInterfaceServiceFactory();
-			gatewayInterfaceRegistration = bc.registerService(GatewayInterface.class.getName(), gatewayInterfaceServiceFactory,
-					null);
+			gatewayInterfaceRegistration = bc.registerService(GatewayInterface.class.getName(), gatewayInterfaceServiceFactory, null);
 
 			gatewayFactoryServiceFactory = new GatewayFactoryServiceFactory();
-			gatewayFactoryRegistration = bc.registerService(GalExtenderProxyFactory.class.getName(), gatewayFactoryServiceFactory,
-					null);
+			gatewayFactoryRegistration = bc.registerService(GalExtenderProxyFactory.class.getName(), gatewayFactoryServiceFactory, null);
 
 			LOG.info("Gal:Osgi Started!");
 		} catch (Exception e) {
-			if (_fac != null) {
+			if (_fac != null)
 				_fac.destroyGal();
-			}
-			LOG.error("Error Creating Gal Osgi");
+			LOG.error("Error Creating Gal Osgi", e);
 
-			e.printStackTrace();
 		}
 	}
 
 	public void stop(BundleContext bundleContext) throws Exception {
 		if (_fac != null) {
+
 			_fac.destroyGal();
 		}
 		if (gatewayInterfaceServiceFactory != null) {
@@ -144,8 +131,7 @@ public class Activator implements BundleActivator {
 				((GalExtenderProxy) gatewayInterface).deleteProxy();
 
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOG.error("Error deleting proxy from GAL", e);
 			}
 
 			LOG.info("Called UngetService!");
@@ -158,6 +144,7 @@ public class Activator implements BundleActivator {
 	 * object.
 	 */
 	public class GatewayFactoryServiceFactory implements ServiceFactory {
+
 		public Object getService(Bundle bundle, ServiceRegistration reg) {
 			try {
 				return _fac;
@@ -168,6 +155,7 @@ public class Activator implements BundleActivator {
 		}
 
 		public void ungetService(Bundle bundle, ServiceRegistration reg, Object service) {
+
 		}
 	}
 

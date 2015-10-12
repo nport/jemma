@@ -42,8 +42,7 @@ import org.slf4j.LoggerFactory;
  *         ">marco.niedducv@gmail.com</a> from Consoft Sistemi S.P.A.<http://www.consoft.it>, financed by EIT ICT Labs activity SecSES - Secure Energy Systems (activity id 13030)"
  */
 // FIXME Note by Riccardo: I'm deprecating this class: we should switch to
-// ManagedService/ConfigAdmin service instead of this: it's
-// more standard
+// ManagedService/ConfigAdmin service instead of this: it's more standard
 @Deprecated
 public class PropertiesManager {
 
@@ -70,18 +69,15 @@ public class PropertiesManager {
 		try {
 			in = _url.openStream();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			LOG.error("Error opening stream", e1);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			LOG.error("Error opening stream", e1);
 		}
 		try {
 			props = new Properties();
 			props.load(in);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.error("Error loading properties from inputstream", e);
 		}
 		LOG.debug("PropertiesManager - Costructor - Configuration file loaded!");
 	}
@@ -91,12 +87,14 @@ public class PropertiesManager {
 	 * 
 	 * @return the DebugEnabled value.
 	 */
-	public boolean getDebugEnabled() {
-		String _value = props.getProperty("debugEnabled");
-
-		return (_value.equalsIgnoreCase("0")) ? false : true;
-
-	}
+	/*
+	 * public boolean getDebugEnabled() { String _value =
+	 * props.getProperty("debugEnabled");
+	 * 
+	 * return (_value.equalsIgnoreCase("0")) ? false : true;
+	 * 
+	 * }
+	 */
 
 	/**
 	 * Gets timeoutForWaitThread.
@@ -140,6 +138,15 @@ public class PropertiesManager {
 		String _value = props.getProperty("KeepAliveThread");
 		return Integer.parseInt(_value);
 
+	}
+
+	public Boolean getzgdDump() {
+		String value = props.getProperty("dump");
+		return ((value == null) ? false : (!value.equalsIgnoreCase("0")));
+	}
+
+	public String getDirDump() {
+		return props.getProperty("dumpDir");
 	}
 
 	/**
@@ -304,18 +311,16 @@ public class PropertiesManager {
 		sai.setStartupAttributeSetIndex((short) 0x00); // 1 byte
 
 		sai.setTrustCenterAddress(new BigInteger("00000000000000000000000000000000", 16)); // 16bytes
-		sai.setTrustCenterMasterKey(new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
-				(byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
-				(byte) 0x00, (byte) 0x00 }); // 16
-												// bytes
-		sai.setNetworkKey(new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
-				(byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00 }); // 16
-																																		// bytes
+		sai.setTrustCenterMasterKey(new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
+				(byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00 }); // 16
+																									// bytes
+		sai.setNetworkKey(new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
+				(byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00 }); // 16
+																									// bytes
 		sai.setUseInsecureJoin(true); // 1 byte
-		sai.setPreconfiguredLinkKey(new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
-				(byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
-				(byte) 0x00, (byte) 0x00 }); // 16
-												// bytes
+		sai.setPreconfiguredLinkKey(new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00,
+				(byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x00 }); // 16
+																									// bytes
 		sai.setNetworkKeySeqNum((short) 0x00); // 1 byte
 		sai.setNetworkKeyType(KeyType.HIGH_SECURITY); // 1 byte
 		sai.setNetworkManagerAddress(0x0000); // 2 bytes

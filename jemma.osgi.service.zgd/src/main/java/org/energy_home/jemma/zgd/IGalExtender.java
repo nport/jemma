@@ -40,4 +40,5 @@ public interface IGalExtender extends GatewayInterface {
 	 */
 	public void deleteProxy() throws Exception;
 
+	public void recoveryGal() throws Exception;
 }

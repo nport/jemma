@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 public class ManageMapPanId {
 	String filename;
 	GalController gal;
-	private static final Logger logger = LoggerFactory.getLogger(ManageMapPanId.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ManageMapPanId.class);
 
 	public ManageMapPanId(GalController _gal) {
 		try {
@@ -47,8 +47,7 @@ public class ManageMapPanId {
 				f.createNewFile();
 			printFile();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.error("Error creating or opening file {}", filename, e);
 		}
 	}
 
@@ -65,7 +64,7 @@ public class ManageMapPanId {
 			else
 				return null;
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error("Error getting PAN ID from file {}", filename, e);
 			return null;
 
 		} finally {
@@ -73,7 +72,7 @@ public class ManageMapPanId {
 				try {
 					stream.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					LOG.error("Error closing InputStream", e);
 				}
 
 		}
@@ -101,21 +100,21 @@ public class ManageMapPanId {
 
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error("Error writing properties to file {}", filename, e);
 
 		} finally {
 			if (stream != null)
 				try {
 					stream.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					LOG.error("Error closing InputStream", e);
 				}
 
 			if (out != null)
 				try {
 					out.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					LOG.error("Error closing OutputStream", e);
 				}
 
 		}
@@ -130,21 +129,18 @@ public class ManageMapPanId {
 			Enumeration<?> e = properties.propertyNames();
 			while (e.hasMoreElements()) {
 				String key = (String) e.nextElement();
-				if (gal.getPropertiesManager().getDebugEnabled())
-					logger.info(key + " -- " + properties.getProperty(key));
+				LOG.debug("{} -- {}", key, properties.getProperty(key));
 			}
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			LOG.error("File {} not found", filename, e1);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			LOG.error("Error reading from file {}", filename, e1);
 		} finally {
 			if (stream != null)
 				try {
 					stream.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					LOG.error("Error closing OutputStream", e);
 				}
 
 		}

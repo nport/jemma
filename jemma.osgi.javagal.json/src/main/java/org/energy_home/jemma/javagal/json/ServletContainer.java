@@ -29,6 +29,7 @@ import org.energy_home.jemma.javagal.json.servlet.getInfoBaseAttributesServlet;
 import org.energy_home.jemma.javagal.json.servlet.localServicesServlet;
 import org.energy_home.jemma.javagal.json.servlet.nodeDescriptorAndServicesServlet;
 import org.energy_home.jemma.javagal.json.servlet.nodeServicesServlet;
+import org.energy_home.jemma.javagal.json.servlet.recoveryGalServlet;
 import org.energy_home.jemma.javagal.json.servlet.resetServlet;
 import org.energy_home.jemma.javagal.json.servlet.startUpServlet;
 import org.energy_home.jemma.javagal.json.servlet.versionServlet;
@@ -62,7 +63,6 @@ public class ServletContainer implements HttpSessionListener {
 			/* json/version */
 			service.registerServlet(prefix + Resources.GW_ROOT_URI + ResourcePathURIs.VERSION,
 					new versionServlet(gatewayInterface), null, null);
-			
 			/* json/net/default/channel */
 			service.registerServlet(prefix + Resources.NWT_ROOT_URI + ResourcePathURIs.CHANNEL,
 					new channelServlet(gatewayInterface), null, null);
@@ -73,7 +73,6 @@ public class ServletContainer implements HttpSessionListener {
 			 */
 			service.registerServlet(prefix + Resources.NWT_ROOT_URI + ResourcePathURIs.WSNNODES, new wsnNodesServlet(
 					gatewayInterface), null, null);
-			
 			/* json/net/default/allwsnnodes/lqi */
 			service.registerServlet(prefix + Resources.NWT_ROOT_URI + ResourcePathURIs.ALLWSNNODES
 					+ ResourcePathURIs.LQIINFORMATION, new allLqiInformationsServlet(gatewayInterface), null, null);
@@ -127,6 +126,9 @@ public class ServletContainer implements HttpSessionListener {
 			 * Defines InfoBase route "/net/default/ib"
 			 */
 			service.registerServlet(prefix + Resources.NWT_ROOT_URI + ResourcePathURIs.INFOBASE, new getInfoBaseAttributesServlet(
+					gatewayInterface), null, null);
+
+			service.registerServlet(prefix + Resources.GW_ROOT_URI + ResourcePathURIs.RECOVERY, new recoveryGalServlet(
 					gatewayInterface), null, null);
 
 		} catch (ServletException e) {

@@ -83,10 +83,8 @@ public class GatewayEventManager implements IGatewayEventManager {
 	public GatewayEventManager(GalController _gal) {
 		gal = _gal;
 
-		PropertiesManager pm = gal.getPropertiesManager();
-
-		if (pm.getDebugEnabled())
-			LOG.info("Creating Executor for GatewayEventManager with:" + pm.getNumberOfThreadForAnyPool() + " threads");
+		PropertiesManager pm = getGal().getPropertiesManager();
+		LOG.debug("Creating Executor for GatewayEventManager with:" + pm.getNumberOfThreadForAnyPool() + " threads");
 
 		executor = CreateExecutors.createThreadPoolExecutor("THPool-EventManager", pm.getNumberOfThreadForAnyPool(),
 				pm.getKeepAliveThread() * 60);
@@ -244,17 +242,11 @@ public class GatewayEventManager implements IGatewayEventManager {
 	 */
 	public void notifyResetResult(final Status status) {
 		executor.execute(new Runnable() {
-			private boolean clone = false;
-
 			public void run() {
 				for (GatewayDeviceEventEntry<?> gel : getGal().getListGatewayEventListener()) {
 					Status cstatus = null;
 					synchronized (status) {
-						if (clone) {
-							cstatus = Utils.clone(status);
-						} else {
-							cstatus = status;
-						}
+						cstatus = Utils.clone(status);
 					}
 					gel.getGatewayEventListener().dongleResetResult(cstatus);
 				}
@@ -438,7 +430,7 @@ public class GatewayEventManager implements IGatewayEventManager {
 	 * {@inheritDoc}
 	 */
 	public void nodeRemoved(final Status status, final WSNNode node) throws Exception {
-		System.out.println("\n\rNodeDiscovered :" + String.format("%04X", node.getAddress().getNetworkAddress()) + "\n\r");
+		LOG.debug("\n\rNodeRemoved :" + String.format("%04X", node.getAddress().getNetworkAddress()) + "\n\r");
 
 		executor.execute(new Runnable() {
 			public void run() {

@@ -39,6 +39,22 @@ public interface GreenAtHomeApplianceService {
 	 */
 	public AttributeValue getAttribute(String name) throws Exception;
 
+	/**
+	 * 
+	 * @param appliancePid
+	 * @param attributeId
+	 *            The path of the attribute
+	 *            <endpointId>.<clusterName>.<attributeName>
+	 * @return
+	 * @throws Exception
+	 */
+
+	public Object getAttribute(String appliancePid, String clusterName, int endPointId, String attributeName) throws Exception;
+
+	public Object getAttributes(String appliancePid, String clusterName, int endPointId, String[] attributeNames) throws Exception;
+
+	public void setAttribute(String appliancePid, String attributeId, Object value) throws Exception;
+
 	public void setAttribute(String name, Object value) throws Exception;
 
 	public IAppliance[] getDevices();

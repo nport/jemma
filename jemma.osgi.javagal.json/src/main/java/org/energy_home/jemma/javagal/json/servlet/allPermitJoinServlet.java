@@ -49,7 +49,7 @@ public class allPermitJoinServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		Object done = session.getValue("javaGallogon.isDone");
 		if (done != null) {
-			
+
 			JoiningInfo joiningInfo;
 			StringBuilder sb = new StringBuilder();
 			String s;
@@ -91,7 +91,7 @@ public class allPermitJoinServlet extends HttpServlet {
 			} else {
 				timeoutString = timeoutParam.toString();
 				if (!timeoutString.toLowerCase().startsWith("0x"))
-					timeoutString = "0x"+ timeoutString;
+					timeoutString = "0x" + timeoutString;
 				try {
 					timeout = Long.decode(timeoutString);
 					if (!Util.isUnsigned32(timeout)) {
@@ -99,7 +99,8 @@ public class allPermitJoinServlet extends HttpServlet {
 						Info info = new Info();
 						Status _st = new Status();
 						_st.setCode((short) GatewayConstants.GENERAL_ERROR);
-						_st.setMessage("Error: mandatory '" + Resources.URI_PARAM_TIMEOUT + "' parameter's value invalid. You provided: " + timeoutString);
+						_st.setMessage("Error: mandatory '" + Resources.URI_PARAM_TIMEOUT
+								+ "' parameter's value invalid. You provided: " + timeoutString);
 						info.setStatus(_st);
 						Info.Detail detail = new Info.Detail();
 						info.setDetail(detail);

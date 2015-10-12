@@ -62,9 +62,10 @@ public class ApsMessageManager {
 	 * @param _gal
 	 *            a Gal controller reference.
 	 */
+	
 	public ApsMessageManager(GalController _gal) {
 		gal = _gal;
-		PropertiesManager pm = gal.getPropertiesManager();
+		PropertiesManager pm = getGal().getPropertiesManager();
 		executor = CreateExecutors.createThreadPoolExecutor("THPool-processMessages", pm.getNumberOfThreadForAnyPool(),
 				pm.getKeepAliveThread() * 60);
 	}
@@ -85,10 +86,6 @@ public class ApsMessageManager {
 		executor.execute(new Runnable() {
 			public void run() {
 				LOG.debug("GAL-Aps Message Indication in process...");
-
-				if (getGal().getPropertiesManager().getDebugEnabled()) {
-					LOG.debug("Aps Message Indication in process...");
-				}
 
 				for (CallbackEntry ce : getGal().getCallbacks()) {
 
@@ -268,22 +265,19 @@ public class ApsMessageManager {
 							synchronized (message) {
 								cmessage = Utils.clone(message);
 							}
-							if (getGal().getPropertiesManager().getDebugEnabled()) {
-								LOG.info("READY to CallBack NotifyApsMessage:"
-										+ ((cmessage.getDestinationAddress().getNetworkAddress() != null) ? String.format("%04X",
-												cmessage.getDestinationAddress().getNetworkAddress()) : ""));
-							}
+
+							LOG.debug("READY to CallBack NotifyApsMessage: {}",
+									((cmessage.getDestinationAddress().getNetworkAddress() != null) ? String.format("%04X", cmessage.getDestinationAddress().getNetworkAddress())
+											: ""));
+
 							napml.notifyAPSMessage(cmessage);
 						}
 						// Add it to the list of already notified
 						// destinations.
-
 					}
 				}
 
-				if (getGal().getPropertiesManager().getDebugEnabled()) {
-					LOG.info("Aps Message Indication done!");
-				}
+				LOG.debug("Aps Message Indication done!");
 			}
 		});
 
