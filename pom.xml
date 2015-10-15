@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-
-    This file is part of JEMMA - http://jemma.energy-home.org
-    (C) Copyright 2013 Telecom Italia (http://www.telecomitalia.it)
-
-    JEMMA is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License (LGPL) version 3
-    or later as published by the Free Software Foundation, which accompanies
-    this distribution and is available at http://www.gnu.org/licenses/lgpl.html
-
-    JEMMA is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License (LGPL) for more details.
-
--->
+<!-- This file is part of JEMMA - http://jemma.energy-home.org (C) Copyright 
+	2013 Telecom Italia (http://www.telecomitalia.it) JEMMA is free software: 
+	you can redistribute it and/or modify it under the terms of the GNU Lesser 
+	General Public License (LGPL) version 3 or later as published by the Free 
+	Software Foundation, which accompanies this distribution and is available 
+	at http://www.gnu.org/licenses/lgpl.html JEMMA is distributed in the hope 
+	that it will be useful, but WITHOUT ANY WARRANTY; without even the implied 
+	warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
+	GNU Lesser General Public License (LGPL) for more details. -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -73,14 +66,12 @@
 		<org.json.version>1.0.0</org.json.version>
 		<org.restlet.version>2.1.6</org.restlet.version>
 		<org.restlet.ext.xml.version>2.1.6</org.restlet.ext.xml.version>
-		<!--<com.noelios.restlet.version>1.1</com.noelios.restlet.version> <com.noelios.restlet.ext.net.version>1.1</com.noelios.restlet.ext.net.version> -->
 		<edu.emory.mathcs.backport.version>1.2.0</edu.emory.mathcs.backport.version>
 		<org.apache.felix.scr.version>1.6.0</org.apache.felix.scr.version>
 		<org.slf4j.version>1.6.2</org.slf4j.version>
 		<commons.jabsorb.version>1.3.1</commons.jabsorb.version>
 		<maven.license.plugin.version>2.5</maven.license.plugin.version>
 		<maven.clean.plugin.version>2.5</maven.clean.plugin.version>
-		<!-- <felix.bundle.plugin.version>2.3.7</felix.bundle.plugin.version> -->
 		<felix.bundle.plugin.version>2.5.3</felix.bundle.plugin.version>
 
 		<!-- Internal dependencies version properties -->
@@ -107,29 +98,29 @@
 		<module>jemma.osgi.ah.hac.lib</module>
 		<module>jemma.osgi.ah.configurator</module>
 		<module>jemma.osgi.utils</module>
-		<module>jemma.osgi.ah.hac</module> 
-		<module>jemma.osgi.ah.greenathome</module> 
-	       	<module>jemma.osgi.ah.m2m.device</module>
+		<module>jemma.osgi.ah.hac</module>
+		<module>jemma.osgi.ah.greenathome</module>
+		<module>jemma.osgi.ah.m2m.device</module>
 		<module>jemma.osgi.ah.hap.client</module>
 		<module>jemma.osgi.impl.ah.hap.client</module>
 		<module>jemma.osgi.impl.ah.m2m.device.sax</module>
-		<module>jemma.osgi.ah.upnp.energyathome</module> 
-		<module>jemma.osgi.ah.io</module> 
-		<module>jemma.osgi.javagal</module> 
-		<module>jemma.osgi.javagal.rest</module> 
-		<module>jemma.osgi.javagal.json</module> 
-		<module>jemma.osgi.javagal.gui</module> 
-		<module>jemma.osgi.ah.felix.console.web</module> 
-		<module>jemma.osgi.ah.energyathome</module>  
-		<module>jemma.osgi.ah.webui.base</module> 
+		<module>jemma.osgi.ah.upnp.energyathome</module>
+		<module>jemma.osgi.ah.io</module>
+		<module>jemma.osgi.javagal</module>
+		<module>jemma.osgi.javagal.rest</module>
+		<module>jemma.osgi.javagal.json</module>
+		<module>jemma.osgi.javagal.gui</module>
+		<module>jemma.osgi.ah.felix.console.web</module>
+		<module>jemma.osgi.ah.energyathome</module>
+		<module>jemma.osgi.ah.webui.base</module>
 		<module>jemma.osgi.ah.webui.energyathome</module>
 		<module>jemma.osgi.ah.webui.energyathome.demo</module>
-		<module>jemma.osgi.ah.adapter.http</module> 
+		<module>jemma.osgi.ah.adapter.http</module>
 		<module>jemma.osgi.ah.app</module>
-		<module>jemma.osgi.ah.zigbee</module>  
+		<module>jemma.osgi.ah.zigbee</module>
 		<module>jemma.osgi.ah.zigbee.appliances.generic</module>
 		<module>jemma.osgi.ah.zigbee.appliances</module>
-		<module>jemma.osgi.service.zgd</module> 
+		<module>jemma.osgi.service.zgd</module>
 		<module>Distribution</module>
 	</modules>
 
@@ -251,11 +242,20 @@
 			<artifactId>org.eclipse.osgi</artifactId>
 			<version>${org.eclipse.osgi.version}</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.service.dal</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>org.osgi.service.dal.functions</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.2.4</version>
-	    </dependency>
+		</dependency>
 	</dependencies>
 </project>

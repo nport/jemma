@@ -52,7 +52,8 @@
 							org.energy_home.jemma.utils.datetime,
 							org.energy_home.jemma.utils.encrypt,
 							org.energy_home.jemma.utils.rest,
-							org.energy_home.jemma.utils.thread
+							org.energy_home.jemma.utils.thread,
+							org.energy_home.jemma.utils.xml.jaxb
 						</Export-Package>
 						<Require-Bundle>org.apache.httpcomponents.httpclient;bundle-version="4.1.0",
 							org.apache.httpcomponents.httpcore;bundle-version="4.1.0"
