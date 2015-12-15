@@ -5,7 +5,6 @@
 	<projects>
 		<project>jemma.osgi.ah.hac.lib</project>
 		<project>jemma.osgi.ah.hac</project>
-		<project>jemma.osgi.service.zgd</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
