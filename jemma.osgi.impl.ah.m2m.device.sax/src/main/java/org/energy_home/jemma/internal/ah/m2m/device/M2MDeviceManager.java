@@ -17,6 +17,7 @@ package org.energy_home.jemma.internal.ah.m2m.device;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.TimeZone;
 import java.util.Timer;
@@ -142,8 +143,20 @@ public class M2MDeviceManager implements M2MDeviceConfigurator {
 				deviceConnectionParams.setRestarted(false);
 				// SclId is tied to device id
 				// deviceConfig.setNetworkSclBaseId(connectionParams.getId());
-				if (connectionParams.getToken() != null)
+				if (connectionParams.getToken() != null) {
 					deviceConfig.setNetworkSclBaseToken(connectionParams.getToken());
+				}
+				
+				// FIXME: this is a temporary patch because the platform now returns  http://127.0.0.1/HAP/SC/SB as NwkSclBaseId, instead of the right one!
+				
+				String baseId = connectionParams.getNwkSclBaseId();
+				
+				URI baseIdURI = new URI(baseId);
+				if (baseIdURI.getHost().equals("127.0.0.1")) {
+					baseIdURI = new URI(baseIdURI.getScheme(), null, networkConnectionUri.getHost(),  baseIdURI.getPort(), baseIdURI.getPath(), null, baseIdURI.getFragment());
+					connectionParams.setNwkSclBaseId(baseIdURI.toString());
+				}
+			
 				deviceConfig.setNetworkSclBaseUri(connectionParams.getNwkSclBaseId());
 				networkSclManager.startup();
 				refreshNetworkConnectionUri = new URI(networkConnectionUri.toString() + M2MConstants.URL_SLASH

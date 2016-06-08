@@ -14,14 +14,15 @@ Created-By: Apache Maven Bundle Plugin
 Import-Package: javax.xml.parsers;version="[1.3,2)",javax.xml.transform;
  version="[1.3,2)",javax.xml.transform.dom;version="[1.3,2)",javax.xml.t
  ransform.sax;version="[1.3,2)",javax.xml.transform.stream;version="[1.3
- ,2)",org.apache.http,org.apache.http.entity,org.eclipse.osgi.framework.
- console;version="[1.1,2)",org.energy_home.jemma.ah.m2m.device;version="
- [1.3,2)",org.energy_home.jemma.m2m;version="[1.3,2)",org.energy_home.je
- mma.m2m.ah;version="[1.2,2)",org.energy_home.jemma.m2m.connection;versi
- on="[1.2,2)",org.energy_home.jemma.utils.encrypt;version="[1.0,2)",org.
- energy_home.jemma.utils.rest;version="[1.0,2)",org.osgi.framework;versi
- on="[1.5,2)",org.slf4j;version="[1.6,2)",org.w3c.dom;version="[3.0,4)",
- org.xml.sax;version="[2.0,3)",org.xml.sax.helpers;version="[2.0,3)"
+ ,2)",org.apache.http;version="[4.1,5)",org.apache.http.entity;version="
+ [4.1,5)",org.eclipse.osgi.framework.console;version="[1.1,2)",org.energ
+ y_home.jemma.ah.m2m.device;version="[1.3,2)",org.energy_home.jemma.m2m;
+ version="[1.3,2)",org.energy_home.jemma.m2m.ah;version="[1.2,2)",org.en
+ ergy_home.jemma.m2m.connection;version="[1.2,2)",org.energy_home.jemma.
+ utils.encrypt;version="[1.0,2)",org.energy_home.jemma.utils.rest;versio
+ n="[1.0,2)",org.osgi.framework;version="[1.5,2)",org.slf4j;version="[1.
+ 6,2)",org.w3c.dom;version="[3.0,4)",org.xml.sax;version="[2.0,3)",org.x
+ ml.sax.helpers;version="[2.0,3)"
 Include-Resource: .m2m_connection_schema_xjc_flag=src/main/resources/.m2
  m_connection_schema_xjc_flag,.m2m_schema_xjc_flag=src/main/resources/.m
  2m_schema_xjc_flag,schemas/ah.xsd=src/main/resources/schemas/ah.xsd,sch
@@ -30,11 +31,11 @@ Include-Resource: .m2m_connection_schema_xjc_flag=src/main/resources/.m2
  s/jaxb_m2m_connection_bindings.xml,schemas/m2m.xsd=src/main/resources/s
  chemas/m2m.xsd,schemas/m2m_connection.xsd=src/main/resources/schemas/m2
  m_connection.xsd
-Private-Package: .m2m_connection_schema_xjc_flag,.m2m_schema_xjc_flag,or
- g.energy_home.jemma.ah.m2m.lib,org.energy_home.jemma.internal.ah.m2m.de
- vice,org.energy_home.jemma.internal.ah.m2m.device.lib,org.energy_home.j
- emma.internal.ah.m2m.device.sax,org.energy_home.jemma.internal.ah.m2m.d
- evice.xml,org.energy_home.jemma.internal.osgi.ah.m2m.device,schemas
+Private-Package: org.energy_home.jemma.ah.m2m.lib,org.energy_home.jemma.
+ internal.ah.m2m.device,org.energy_home.jemma.internal.ah.m2m.device.lib
+ ,org.energy_home.jemma.internal.ah.m2m.device.sax,org.energy_home.jemma
+ .internal.ah.m2m.device.xml,org.energy_home.jemma.internal.osgi.ah.m2m.
+ device,schemas
 Require-Bundle: org.apache.httpcomponents.httpclient;bundle-version="4.1
  .0",org.apache.httpcomponents.httpcore;bundle-version="4.1.0"
-Tool: Bnd-2.3.0.201405100607
+Tool: Bnd-3.0.0.201506111143
