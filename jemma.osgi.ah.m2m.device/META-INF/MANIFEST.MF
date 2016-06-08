@@ -3,7 +3,7 @@ Bundle-Category: Automation@Home
 Bundle-DocURL: http://www.telecomitalia.it/
 Bundle-ManifestVersion: 2
 Bundle-Name: M2M Device API
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-SymbolicName: jemma.osgi.ah.m2m.device
 Bundle-Vendor: Telecom Italia
 Bundle-Version: 1.2.15
@@ -15,7 +15,8 @@ Export-Package: org.energy_home.jemma.ah.m2m.device;version="1.3.0";uses
  mma.m2m.ah;version="1.2.3";uses:="javax.xml.bind.annotation",org.energy
  _home.jemma.m2m.connection;version="1.2.2";uses:="javax.xml.bind.annota
  tion,org.energy_home.jemma.ah.m2m.device"
-Import-Package: javax.xml.bind.annotation,org.apache.http
+Import-Package: javax.xml.bind.annotation,org.apache.http;version="[4.1,
+ 5)"
 Include-Resource: .m2m_connection_schema_xjc_flag=src/main/resources/.m2
  m_connection_schema_xjc_flag,.m2m_schema_xjc_flag=src/main/resources/.m
  2m_schema_xjc_flag,schemas/ah.xsd=src/main/resources/schemas/ah.xsd,sch
@@ -29,6 +30,7 @@ Include-Resource: .m2m_connection_schema_xjc_flag=src/main/resources/.m2
  ckageinfo,org/energy_home/jemma/m2m/connection/packageinfo=src/main/jav
  a/org/energy_home/jemma/m2m/connection/packageinfo,org/energy_home/jemm
  a/m2m/packageinfo=src/main/java/org/energy_home/jemma/m2m/packageinfo
-Private-Package: .m2m_connection_schema_xjc_flag,.m2m_schema_xjc_flag,sc
- hemas
-Tool: Bnd-2.3.0.201405100607
+Private-Package: schemas
+Require-Bundle: org.apache.httpcomponents.httpclient;bundle-version="4.1
+ .0",org.apache.httpcomponents.httpcore;bundle-version="4.1.0"
+Tool: Bnd-3.0.0.201506111143
