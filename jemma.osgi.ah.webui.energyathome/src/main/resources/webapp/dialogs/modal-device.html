@@ -1,0 +1,65 @@
+
+<div id="modalDevice" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a class="close" data-dismiss="modal">×</a>
+				<h3 class="modal-caption">{{translation.menu.deviceInfo}}</h3>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" id="formDevice">
+					<div class="form-group">
+						<label class="control-label col-xs-4">{{translation.menu.pid}}</label>
+						<div class="col-xs-7">
+							<label class="form-control"col-xs-3">{{devices.deviceInfo.id}}</label>
+						</div>
+					</div>
+					<!-- <div class="form-group">
+							<label class="control-label col-xs-4">{{translation.menu.applianceType}}</label>
+							<div class="col-xs-7">
+								<label class="form-control"col-xs-3">{{deviceInfo.type}}</label>
+							</div>
+						</div>	 -->
+					<div class="form-group">
+						<label class="control-label col-xs-4">{{translation.menu.deviceName}}</label>
+						<div class="col-xs-7">
+							<input type="text" ng-model="devices.deviceInfo.name" class="form-control"
+								placeholder="{{translation.menu.insertDeviceName}}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-xs-4">{{translation.menu.location}}</label>
+						<div class="col-xs-7 selectContainer">
+							<select class="form-control" name="location" ng-model="devices.deviceInfo.location">
+								<option ng-repeat="(pid, location) in devices.locations" value="{{pid}}">{{location}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-xs-4">{{translation.menu.category}}</label>
+						<div class="col-xs-7 selectContainer">
+							<select class="form-control" name="category" ng-model="devices.deviceInfo.category">
+								<option ng-repeat="category in devices.categories" value="{{category.pid}}">{{category.name}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-xs-4">{{translation.menu.icon}}</label>
+						<div class="col-xs-7">
+							<label class="form-control"col-xs-3">{{devices.deviceInfo.icon}}</label>
+						</div>
+					</div>
+					<!-- <pre>locations = {{locations | json}}</pre> -->
+					<!-- 						<pre>device = {{deviceInfo | json}}</pre> -->
+					<!-- <pre>master = {{master | json}}</pre> -->
+				</form>
+			</div>
+			<div class="modal-footer">
+				<input class="btn btn-info" data-dismiss="modal" ng-click="devices.identify()" value="{{translation.menu.identify}}"><input
+					class="btn btn-danger" data-dismiss="modal" ng-click="devices.removeDevice()" value="{{translation.menu.remove}}"> <input
+					class="btn btn-success" data-dismiss="modal" type="submit" ng-click="devices.updateDeviceInfo(deviceInfo)"
+					value="{{translation.menu.ok}}"> <a href="#" class="btn btn-default" data-dismiss="modal">{{translation.menu.cancel}}</a>
+			</div>
+		</div>
+	</div>
+</div>

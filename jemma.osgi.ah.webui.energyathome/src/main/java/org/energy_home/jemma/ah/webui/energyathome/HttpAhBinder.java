@@ -24,8 +24,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.energy_home.jemma.ah.hac.IAppliance;
 import org.energy_home.jemma.ah.hac.IAttributeValue;
 import org.energy_home.jemma.ah.hac.ICategory;
@@ -37,24 +35,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HttpAhBinder implements EventHandler, HttpServletBinder {
 
 	private static final long serialVersionUID = 1L;
-	
-	protected final static Log log = LogFactory.getLog(HttpAhBinder.class);
-	
+
+	private static final Logger LOG = LoggerFactory.getLogger(HttpAhBinder.class);
+
 	private HttpImplementor implementor = null;
-	
+
 	public HttpAhBinder() {
 	}
-	
+
 	public void bind(HttpImplementor implementor) {
 		this.implementor = implementor;
 	}
-	
-	public Object invokeMethod(Object targetObject, String methodName, ArrayList paramValues) throws IllegalArgumentException,
-			IllegalAccessException, InvocationTargetException {
+
+	public Object invokeMethod(Object targetObject, String methodName, ArrayList paramValues)
+			throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 		int params = paramValues.size();
 
 		Method[] methods = targetObject.getClass().getMethods();
@@ -130,7 +130,7 @@ public class HttpAhBinder implements EventHandler, HttpServletBinder {
 								break;
 							}
 						} else {
-							log.warn("unsupported type '" + typename + "'in target signature");
+							LOG.warn("unsupported type '" + typename + "'in target signature");
 							signatureMach = false;
 							break;
 
@@ -142,7 +142,7 @@ public class HttpAhBinder implements EventHandler, HttpServletBinder {
 						result = method.invoke(targetObject, arglist);
 						return this.resultToJSON(result);
 					} else {
-						log.error("signature not found for method " + methodName);
+						LOG.error("signature not found for method " + methodName);
 					}
 				}
 			}
@@ -154,7 +154,7 @@ public class HttpAhBinder implements EventHandler, HttpServletBinder {
 	public Object getObjectByPid(String pid) {
 		if (this.implementor != null)
 			return implementor.getObjectByPid(pid);
-		
+
 		return null;
 	}
 

@@ -1,0 +1,37 @@
+<div id="storico" class="panelFrame">
+	<h3 class="contentTitle">{{translation.menu.storico}}</h3>
+	<div class="row box-rounded panelBox">
+		<div id="storicoButtons">
+			<!--  ATTENTION: do not invert storicoPeriodo with storicoContainer -->
+			<div id="storicoPeriodo" class="form-group">
+				<label for="selectPeriod">{{translation.home.periodoStorico}}</label>
+				<div class="radio">
+					<label><input type="radio" name="optradio">{{translation.home.giornoStorico}}</label>
+				</div>
+				<div class="radio">
+					<label><input type="radio" name="optradio">{{translation.home.settStorico}}asdasdasd</label>
+				</div>
+				<div class="radio">
+					<label><input type="radio" name="optradio">{{translation.home.meseStorico}}</label>
+				</div>
+				<div class="radio">
+					<label><input type="radio" name="optradio">{{translation.home.annoStorico}}</label>
+				</div>
+			</div>
+			<div id="storicoDevice" class="form-group">
+				<label for="selectDevice"> {{translation.home.dispStorico}}</label>
+			</div>
+		</div>
+		<div id="storicoContainer" class="right-border">
+			<div id="storicoGraph"></div>
+			<div id="storicoArrows">
+				<button type="button" class="btn btn-default left">
+					<span class="glyphicon glyphicon-chevron-left"></span>Prev
+				</button>
+				<button type="button" class="btn btn-default right">
+					<span class="glyphicon glyphicon-chevron-right"></span>Next
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

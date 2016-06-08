@@ -1,0 +1,36 @@
+#ifLockDoor {
+	width: 100%;
+	height: 100%;
+}
+
+#ifLockDoor .btnLockUnlock {
+	width: 50px;
+	height: 22px;
+	max-height: 22px;
+	cursor: pointer;
+}
+
+#ifLockDoor .btnLockUnlock.LOCKED {
+	background-image: url("images/toggle_open.png");
+	background-size: 100% 100%;
+}
+
+#ifLockDoor .btnLockUnlock.UNLOCKED {
+	background-image: url("images/toggle_close.png");
+	background-size: 100% 100%;
+}
+
+#ifLockDoor .btnLockUnlock.NP {
+	background-image: none;
+	color: #808080;
+	cursor: default;
+}
+
+#ifLockDoor  #lockUnlockControl {
+	width: 90%;
+	height: 20%;
+	display: block;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+}

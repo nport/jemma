@@ -1,0 +1,50 @@
+<div id="devices" class="panelFrame" ng-controller="devices">
+	<h1 class="contentTitle">{{translation.menu.devices}}</h1>
+	<div class="panelBox">
+		<div class="row-5 row">
+			<div class="row-12 col-md-12">
+				<div class="row-12 box">
+					<div id="RigaElettrodomestici" class="innerbox">
+					
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row row-7">
+			<div class="row-12 col-md-3">
+				<div class="row-12 box">
+					<div id="RiepilogoConsumi" class="innerbox-rounded">
+						<div class="header">
+							<div id="TitoloRiepilogo" class="titolo">{{translation.home.consumptionsSummary}}:</div>
+						</div>
+						<div class="content">
+							<div class="row small">
+								<div id="ConsumoDispositivi" class="cell">{{translation.home.devicesConsumption}}</div>
+								<div class="cell right dispositivi_consumi_value">{{consumoTotale}}</div>
+							</div>
+							<div class="row small">
+								<div id="AltriConsumi" class="cell">{{translation.home.otherConsumption}}</div>
+								<div class="cell right altri_consumi_value">{{altroConsumo}}</div>
+							</div>
+							<div class="row big">
+								<div id="ConsumiTotali" class="cell">{{translation.home.totalConsumption}}</div>
+								<div class="cell right totale_consumi_value">{{potenzaAttuale}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row-12 col-md-9">
+				<div class="row-12 box">
+					<div id="Interfaccia" class="innerbox-rounded">
+						<div class="header">
+							<div class="titolo">{{translation.home.clickOnDevice}}</div>
+						</div>
+						<div class="content"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

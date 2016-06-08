@@ -1,0 +1,320 @@
+body, html {
+	background-color: #202020;
+	width: 100%;
+	height: 100%;
+	color: white;
+}
+
+h1, .h1, h2, .h2, h3, .h3 {
+	margin-top: 10px;
+}
+
+h1, .h1 {
+	font-size: 24px;
+}
+
+h2, .h2 {
+	font-size: 20px;
+}
+
+h3, .h3 {
+	font-size: 16px;
+}
+
+img {
+	-ms-interpolation-mode: bicubic;
+}
+
+.visibleDiv {
+	display: inline;
+}
+
+.hidden {
+	display: none;
+}
+
+.control-label {
+	color: white;
+	text-align: left !important;
+}
+
+.form-horizontal .button {
+	padding-top: 7px;
+}
+
+.wrapper {
+	position: absolute;
+	left: 20px;
+	right: 20px;
+	top: 0px;
+	bottom: 20px;
+	background-color: #333333;
+}
+
+.header {
+	position: relative;
+	height: 10%;
+	width: 100%;
+	float: left;
+}
+
+#Header img {
+	float: left;
+}
+
+#HeaderSep {
+	position: relative;
+	width: 100%;
+	height: 1%;
+	float: left;
+}
+
+#LogoImg {
+	height: 100%;
+}
+
+#userIDInfo {
+	position: absolute;
+	bottom: 0px;
+	left: 25%;
+}
+
+#PartnerImg {
+	position: absolute;
+	height: 85%;
+	right: 10%;
+	bottom: 1px;
+}
+
+#HeaderSepImg {
+	position: absolute;
+	height: 100%;
+	left: 0px;
+	width: 100%;
+}
+
+.contentMain {
+	position: absolute;
+	left: 90px;
+	top: 55px;
+	right: 0px;
+	bottom: 50px;
+	overflow: hidden;
+	margin: 0px;
+	padding: 0px;
+}
+
+#MainMenu {
+	position: absolute;
+	left: 0px;
+	top: 11%;
+	width: 15%;
+	bottom: 0px;
+	margin-left: -35px;
+}
+
+#ContentMenu {
+	position: absolute;
+	left: 15%;
+	bottom: 0px;
+	right: 0px;
+	height: 12%;
+}
+
+#ContentMenuConf {
+	position: absolute;
+	left: 16%;
+	top: 88%;
+	width: 33%;
+	height: 8%;
+}
+
+#Registra {
+	position: absolute;
+	left: 15%;
+	top: 11%;
+	width: 83%;
+	height: 75%;
+	overflow: hidden;
+	color: #202020;
+	background-color: #333;
+}
+
+#NonDisponibile {
+	color: #abd037;
+	font-size: 2.0vw;
+	text-align: center;
+	overflow: hidden;
+	padding-top: 20%;
+	left: 30%;
+}
+
+#Timestamp {
+	margin-right: 10px;
+	font-size: 1.3em;
+	display: inline;
+}
+
+.panelFrame {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+}
+
+.panelTitle {
+	font-weight: bold;
+}
+
+.panelBox {
+	position: absolute;
+	top: 35px;
+	bottom: 0px;
+	left: 0px;
+	right: 10px;
+}
+
+.box {
+	position: relative;
+	width: 100%;
+}
+
+.innerbox, .innerbox-rounded {
+	position: absolute;
+	top: 10px;
+	bottom: 10px;
+	left: 0px;
+	right: 0px;
+}
+
+.innerbox-rounded {
+	border-radius: 10px;
+}
+
+.right {
+	float: right;
+}
+
+.row-12 {
+	height: 100%;
+}
+
+.row-11 {
+	height: 91.66666667%;
+}
+
+.row-10 {
+	height: 83.33333333%;
+}
+
+.row-9 {
+	height: 75%;
+}
+
+.row-8 {
+	height: 66.66666667%;
+}
+
+.row-7 {
+	height: 58.33333333%;
+}
+
+.row-6 {
+	height: 50%;
+}
+
+.row-5 {
+	height: 41.66666667%;
+}
+
+.row-4 {
+	height: 33.33333333%;
+}
+
+.row-3 {
+	height: 25%;
+}
+
+.row-2 {
+	height: 16.66666667%;
+}
+
+.row-1 {
+	height: 8.33333333%;
+}
+
+.bg_green {
+	background: green;
+}
+
+.bg_black {
+	background: black;
+}
+
+.bg_gray {
+	background: gray;
+}
+
+.bg_white {
+	background: white;
+}
+
+.bg_dark {
+	background: #333;
+}
+
+.bg_red1 {
+	background: #400;
+}
+
+.bg_red2 {
+	background: #500;
+}
+
+.bg_red3 {
+	background: #700;
+}
+
+.bg_red4 {
+	background: #900;
+}
+
+#ErrorMsgDIV {
+	position: relative;
+	top: 11%;
+	margin-left: auto;
+	margin-right: auto;
+	height: 8%;
+	width: 20%;
+	overflow: hidden;
+	background-color: transparent;
+	text-align: center;
+	font-size: 0.5em;
+	font-weight: bold;
+	color: rgb(124, 124, 124);
+	z-index: 1000;
+}
+
+label.error {
+	width: 100% !important;
+	color: red !important;
+}
+
+.box-rounded {
+	border-radius: 16px;
+	background-color: #1a1a1a;
+}
+
+.form-group .control-label, .modal-dialog {
+	color: gray;
+}
+
+/* FIXME: really necessary? */
+.boxTitles {
+	z-index: 100;
+	color: green;
+	font-size: 1.3em;
+	font-weight: bold;
+	margin-top: 10px;
+}

@@ -1,0 +1,306 @@
+<div id="costs_pv" class="panelFrame">
+	<h2 class="contentTitle">{{translation.menu.photovoltaic}}</h2>
+	
+	<div id="CostoConsumoSintesi" class="box">
+		<div id="CostoConsumoAttuale" class="pvSingleBox CostoConsumoAttualeCONS">
+			<div id="CostoConsumoAttualeTitolo" class="boxTitles ">Consumption</div>
+			<span id="ValConsumoAttuale" class="values" style="color: black;">N.D.</span>
+			<div id="ConsumoAttualeMeter" class="meter">
+				<div style="position: relative; width: 100%; height: 100%; background: transparent;">
+					<img src="http://localhost:8080/demo/js/jqspeedometer/images/consumi_0.png"
+						style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;">
+					<div style="position: absolute; width: 100%; height: 18%; left: 0px; bottom: 1%;">
+						<span style="position: absolute; text-align: center; left: 0px; right: 0px; top: 25%; font-weight: bold;"></span>
+					</div>
+				</div>
+			</div>
+			<img id="CostoAttualeImg" style="display: none;"> <span id="DettaglioCosto" style="display: block;"></span>
+		</div>
+
+		<div id="ProduzioneAttuale" class="pvSingleBox" style="display: none;">
+			<div id="ProduzioneAttualeTitolo" class="boxTitles " style="display: none;">PV Production</div>
+			<span id="ValProduzioneAttuale" class="values">1230 W</span>
+			<div id="ProduzioneAttualeMeter" class="meter">
+				<div style="position: relative; width: 100%; height: 100%; background: transparent;">
+					<img src="http://localhost:8080/demo/js/jqspeedometer/images/produzione_4.png"
+						style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;">
+					<div style="position: absolute; width: 100%; height: 18%; left: 0px; bottom: 1%;">
+						<span style="position: absolute; text-align: center; left: 0px; right: 0px; top: 25%; font-weight: bold;"></span>
+					</div>
+				</div>
+			</div>
+			<!-- id='ProduzioneAttualeImg' -->
+			<span id="DettaglioProduzione"></span>
+		</div>
+
+		<div id="ReteAttuale" class="pvSingleBox" style="display: none;">
+			<div id="ReteAttualeTitoloOut" class="boxTitles ">Power to the grid</div>
+			<div id="ReteAttualeTitoloIn" class="boxTitles " style="display: none;">Power Purchased</div>
+			<span id="ValReteAttuale" class="values" style="color: black;">N.D.</span>
+			<div id="ReteAttualeMeter" class="meter">
+				<div style="position: relative; width: 100%; height: 100%; background: transparent;">
+					<img src="http://localhost:8080/demo/js/jqspeedometer/images/rete_green_0.png"
+						style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;">
+					<div style="position: absolute; width: 100%; height: 18%; left: 0px; bottom: 1%;">
+						<span style="position: absolute; text-align: center; left: 0px; right: 0px; top: 25%; font-weight: bold;"></span>
+					</div>
+				</div>
+			</div>
+			<span id="DettaglioRete"></span>
+		</div>
+		<div id="DatiCostoConsumo" class="consSingleBox" style="display: block;">
+			<div id="DatiCostoConsumoHead">
+				<img id="HouseImg" src="images/house_green.png"> <span id="DatiCostoConsumoTitolo">Energy Information</span>
+			</div>
+			<div id="CostoConsumoOdierno" style="display: block;">
+				<div id="DettaglioCostoConsumoOdierno" class="Dettagli ">
+					Energy used today<b>11.3 kWh</b>
+				</div>
+			</div>
+			<div id="CostoConsumoPrevisto" style="display: block;">
+				<div id="DettaglioCostoConsumoPrevisto" class="Dettagli ">
+					Month forecast<b>700 kWh</b>
+				</div>
+			</div>
+			<div id="CostoConsumoMediaWeek">
+				<div id="DettaglioCostoConsumoMediaWeek" class="Dettagli ">
+					Week daily avg.<b>162.96 kWh</b>
+				</div>
+			</div>
+		</div>
+		<div id="Indicatore" class="consSingleBox IndicatoreCONS" style="display: block;">
+			<div id="IndicatoreTitolo" class="boxTitles ">Your trend today</div>
+			<div id="ConsumoIndicatoreImg" class="IndicatoreImg">
+				<span>Consumi</span>
+				<div style="position: relative; bottom: 7%; width: 100%; height: 100%; background: transparent;">
+					<img src="http://localhost:8080/demo/js/jqgauge/images/termometro_base_iac.png"
+						style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"><img
+						src="http://localhost:8080/demo/js/jqgauge/images/gradient_blu_iac.png"
+						style="position: absolute; width: 54.9689%; height: 80%; left: 3.6%; bottom: 3%;"><img
+						src="http://localhost:8080/demo/js/jqgauge/images/termometro_PV.png"
+						style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;">
+				</div>
+			</div>
+			<div id="CostoIndicatoreImg" class="IndicatoreImg">
+				<span>Costi</span>
+				<div style="position: relative; bottom: 7%; width: 100%; height: 100%; background: transparent;">
+					<img src="http://localhost:8080/demo/js/jqgauge/images/termometro_base_iac.png"
+						style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"><img
+						src="http://localhost:8080/demo/js/jqgauge/images/gradient_giallo_iac.png"
+						style="position: absolute; width: 52.5081%; height: 80%; left: 3.6%; bottom: 3%;"><img
+						src="http://localhost:8080/demo/js/jqgauge/images/termometro_PV.png"
+						style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;">
+				</div>
+			</div>
+		</div>
+		<div id="DatiCosti" class="consSingleBox" style="display: block;">
+			<div id="DatiCostiHead">
+				<img id="HouseImg" src="images/euro.png"> <span id="DatiCostiTitolo" class="">Cost Information</span>
+			</div>
+			<div id="CostiOdierno">
+				<div id="DettaglioCostiOdierno" class="Dettagli ">
+					Today cost<b>2.05 €</b>
+				</div>
+			</div>
+			<div id="CostiPrevisto">
+				<div id="DettaglioCostiPrevisto" class="Dettagli ">
+					Month forecast<b>137.80 €</b>
+				</div>
+			</div>
+			<div id="CostiMediaWeek">
+				<div id="DettaglioCostiMediaWeek" class="Dettagli ">
+					Week daily avg.<b>32.53 €</b>
+				</div>
+			</div>
+		</div>
+		<div id="IndicatorePV" style="display: none;">
+			<div id="IndicatoreTitoloPV" class="TitoloDettaglio IndicatoreTitoloPV ">WEEKLY SELF CONSUMPTION INDEX</div>
+			<div id="PVConsumoIACIndicatoreImg" class="IndicatoreImg">
+				<div style="position: relative; width: 100%; height: 100%; background: transparent;">
+					<img src="http://localhost:8080/demo/js/jqgauge/images/termometro_base_iac.png"
+						style="position: absolute; width: 100%; height: 80%; left: 10px; top: 10px;"><img
+						src="http://localhost:8080/demo/js/jqgauge/images/gradient_grey_iac.png"
+						style="position: absolute; width: 89.3%; height: 80%; left: 7.2%; bottom: 12%;"><img
+						src="http://localhost:8080/demo/js/jqgauge/images/gradient_verde_iac.png"
+						style="position: absolute; width: 71.44%; height: 80%; left: 7.2%; bottom: 12%;"><img
+						src="http://localhost:8080/demo/js/jqgauge/images/termometro_iac.png"
+						style="position: absolute; width: 100%; height: 80%; left: 0px; top: 10px;">
+				</div>
+			</div>
+			<div id="percIAC" style="display: none;">80 %</div>
+		</div>
+		<div class="divFrecce" id="FrecceFV" style="display: none;">
+			<div id="divFrecceProd" style="display: none;">
+				<img id="imgFrecceProd" src="images/line_hor_grey_dx.gif">
+			</div>
+			<div id="divFrecceConsumi" style="display: none;">
+				<img id="imgFrecceConsumi" src="images/line_ver_grey.gif">
+			</div>
+			<div id="divFrecceRete" style="display: none;">
+				<img id="imgFrecceRete" src="images/line_hor_grey_dx.gif">
+			</div>
+			<div id="divCentro" style="display: none;">
+				<img id="imgCentro" src="images/center.png">
+			</div>
+		</div>
+		<div id="consigliTurnOn" style="font-size: 1vw; display: none;">
+			<b>IMPORTANTE </b><br>Il tuo impianto fotovoltaico ti suggerisce di ricaricare cellulare o tablet ora
+		</div>
+	</div>
+	<div id="CostoConsumoInfo" class="box">
+		<span id="InfoTitolo" class="TitoloDettaglio "></span>
+		<div id="Grafico" class="chartSingleBox" style="display: block;">
+			<div id="GraficoConsumoOdierno" style="display: none;">
+				<div id="DettaglioGraficoConsumoOdierno"></div>
+			</div>
+			<div id="GraficoSuddivisioneCosti" style="display: block;">
+				<div id="TitoloSuddivisioneCosti" class="">Cost Allocation</div>
+				<div id="DettaglioSuddivisioneCosti" style="display: block;">
+					<div class="highcharts-container" id="highcharts-14"
+						style="position: relative; overflow: hidden; width: 642px; height: 233px; text-align: left; line-height: normal; font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif; font-size: 12px;">
+						<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="642" height="233">
+							<defs>
+							<clipPath id="highcharts-15">
+							<rect rx="0" ry="0" fill="none" x="0" y="0" width="9999" height="233" stroke-width="0.000001"></rect></clipPath></defs>
+							<rect rx="5" ry="5" fill="#FFFFFF" x="0" y="0" width="642" height="233" stroke-width="0.000001"></rect>
+							<g class="highcharts-series-group" zIndex="3"></g>
+							<path fill="none"
+								d="M 268.24505792204195 25.619107247429028 C 273.24505792204195 25.619107247429028 267.60351485292176 13.907019824631064 272.37712821910037 23.817247643921647 L 277.150741585279 33.72747546321223"
+								stroke-width="1" stroke="#000" visibility="visible" zIndex="3" transform="translate(10,10)"></path>
+							<path fill="none"
+								d="M 353.74767964482646 182.3843905470442 C 348.74767964482646 182.3843905470442 354.38813752278907 194.09700062878645 349.6154423952823 184.18633055961993 L 344.8427472677755 174.27566049045342"
+								stroke-width="1" stroke="#000" visibility="visible" zIndex="3" transform="translate(10,10)"></path>
+							<g class="highcharts-shadow" zIndex="4" transform="translate(10,10)">
+							<path fill="none"
+								d="M 310.9841134901118 26.000001617828204 A 78 78 0 1 1 250.02725732473607 55.35511691188839 L 311 104 A 0 0 0 1 0 311 104 Z"
+								stroke="rgb(0, 0, 0)" stroke-width="5" stroke-linejoin="round" isShadow="true" stroke-opacity="0.05"
+								transform="translate(1,1)"></path>
+							<path fill="none"
+								d="M 310.9841134901118 26.000001617828204 A 78 78 0 1 1 250.02725732473607 55.35511691188839 L 311 104 A 0 0 0 1 0 311 104 Z"
+								stroke="rgb(0, 0, 0)" stroke-width="3" stroke-linejoin="round" isShadow="true" stroke-opacity="0.1"
+								transform="translate(1,1)"></path>
+							<path fill="none"
+								d="M 310.9841134901118 26.000001617828204 A 78 78 0 1 1 250.02725732473607 55.35511691188839 L 311 104 A 0 0 0 1 0 311 104 Z"
+								stroke="rgb(0, 0, 0)" stroke-width="1" stroke-linejoin="round" isShadow="true" stroke-opacity="0.15000000000000002"
+								transform="translate(1,1)"></path></g>
+							<g class="highcharts-shadow" zIndex="4" transform="translate(10,10)">
+							<path fill="none"
+								d="M 250.02730596964963 55.35505593917002 A 78 78 0 0 1 310.9695815307652 26.00000593130325 L 311 104 A 0 0 0 0 0 311 104 Z"
+								stroke="rgb(0, 0, 0)" stroke-width="5" stroke-linejoin="round" isShadow="true" stroke-opacity="0.05"
+								transform="translate(1,1)"></path>
+							<path fill="none"
+								d="M 250.02730596964963 55.35505593917002 A 78 78 0 0 1 310.9695815307652 26.00000593130325 L 311 104 A 0 0 0 0 0 311 104 Z"
+								stroke="rgb(0, 0, 0)" stroke-width="3" stroke-linejoin="round" isShadow="true" stroke-opacity="0.1"
+								transform="translate(1,1)"></path>
+							<path fill="none"
+								d="M 250.02730596964963 55.35505593917002 A 78 78 0 0 1 310.9695815307652 26.00000593130325 L 311 104 A 0 0 0 0 0 311 104 Z"
+								stroke="rgb(0, 0, 0)" stroke-width="1" stroke-linejoin="round" isShadow="true" stroke-opacity="0.15000000000000002"
+								transform="translate(1,1)"></path></g>
+							<g class="highcharts-point" zIndex="5" transform="translate(10,10)">
+							<path fill="#9ba4f9"
+								d="M 310.9841134901118 26.000001617828204 A 78 78 0 1 1 250.02725732473607 55.35511691188839 L 311 104 A 0 0 0 1 0 311 104 Z"
+								stroke="#FFFFFF" stroke-width="1" stroke-linejoin="round"></path>
+							<path fill="rgb(192,192,192)"
+								d="M 310.9841134901118 26.000001617828204 A 78 78 0 1 1 250.02725732473607 55.35511691188839 L 311 104 A 0 0 0 1 0 311 104 Z"
+								isTracker="1452010876347" fill-opacity="0.000001" visibility="visible" style="cursor:pointer;"></path></g>
+							<g class="highcharts-point" zIndex="5" transform="translate(10,10)">
+							<path fill="#003f8f"
+								d="M 250.02730596964963 55.35505593917002 A 78 78 0 0 1 310.9695815307652 26.00000593130325 L 311 104 A 0 0 0 0 0 311 104 Z"
+								stroke="#FFFFFF" stroke-width="1" stroke-linejoin="round"></path>
+							<path fill="rgb(192,192,192)"
+								d="M 250.02730596964963 55.35505593917002 A 78 78 0 0 1 310.9695815307652 26.00000593130325 L 311 104 A 0 0 0 0 0 311 104 Z"
+								isTracker="1452010876347" fill-opacity="0.000001" visibility="visible" style="cursor:pointer;"></path></g>
+							<g class="highcharts-data-labels" visibility="visible" zIndex="6" transform="translate(10,10)">
+							<g zIndex="1" style="padding:5px;" transform="translate(359,187.3843905470442)" visibility="visible">
+							<rect rx="0" ry="0" fill="none" x="-2" y="-13" width="124" height="38" stroke-width="0.000001"></rect>
+							<text x="1.5" y="0"
+								style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Verdana, Arial, Helvetica, sans-serif;font-size:9pt;color:#000;line-height:14px;fill:#000;"
+								zIndex="1">
+							<tspan style="font-weight:bold" x="1.5">Nest Thermostat 1</tspan>
+							<tspan dx="3">:</tspan>
+							<tspan dy="14" x="1.5">85 %</tspan></text></g>
+							<g zIndex="1" style="padding:5px;" transform="translate(224,30.619107247429028)" visibility="visible">
+							<rect rx="0" ry="0" fill="none" x="-2" y="-13" width="42" height="38" stroke-width="0.000001"></rect>
+							<text x="1.5" y="0"
+								style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Verdana, Arial, Helvetica, sans-serif;font-size:9pt;color:#000;line-height:14px;fill:#000;"
+								zIndex="1">
+							<tspan style="font-weight:bold" x="1.5">Altro</tspan>
+							<tspan dx="3">:</tspan>
+							<tspan dy="14" x="1.5">14 %</tspan></text></g></g>
+							<g class="highcharts-legend" zIndex="7">
+							<rect rx="5" ry="5" fill="none" x="0.5" y="0.5" width="7" height="7" stroke-width="1" stroke="#909090" visibility="hidden"></rect>
+							<g zIndex="1" clip-path="url(http://localhost:8080/demo/index.html?mode=noserver#highcharts-15)">
+							<g></g></g></g>
+							<g class="highcharts-tooltip" zIndex="8" style="padding:0;white-space:nowrap;" visibility="hidden">
+							<rect rx="5" ry="5" fill="none" x="0" y="0" width="10" height="10" stroke-width="5" fill-opacity="0.85" isShadow="true"
+								stroke="rgb(0, 0, 0)" stroke-opacity="0.05" transform="translate(1,1)"></rect>
+							<rect rx="5" ry="5" fill="none" x="0" y="0" width="10" height="10" stroke-width="3" fill-opacity="0.85" isShadow="true"
+								stroke="rgb(0, 0, 0)" stroke-opacity="0.1" transform="translate(1,1)"></rect>
+							<rect rx="5" ry="5" fill="none" x="0" y="0" width="10" height="10" stroke-width="1" fill-opacity="0.85" isShadow="true"
+								stroke="rgb(0, 0, 0)" stroke-opacity="0.15000000000000002" transform="translate(1,1)"></rect>
+							<rect rx="5" ry="5" fill="rgb(255,255,255)" x="0" y="0" width="10" height="10" stroke-width="2" fill-opacity="0.85"></rect>
+							<text x="5" y="18"
+								style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Verdana, Arial, Helvetica, sans-serif;font-size:12px;color:#333333;fill:#333333;"
+								zIndex="1"></text></g>
+							<g class="highcharts-tracker" zIndex="9"></g></svg>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="CostoTConsumoMax" class="chartSingleBox" style="display: block;">
+			<span id="CostoTConsumoMaxTitolo" class="">What is consuming more</span>
+			<div id="DettaglioConsumoMaggiore">
+				<span id="TestoConsumoMaggiore">Nest Thermostat 1 (328 Wh)</span><img id="ConsumoMaggioreImg" src="images/test/nestTh.png"
+					style="width: 81px; height: 81px;">
+			</div>
+			<div id="TariffaImgDiv" style="display: none;">
+				<img id="TariffaImg" style="display: none;">
+			</div>
+			<div id="TariffaPos" style="display: none;"></div>
+		</div>
+		<div id="InfoFeed" style="display: block;">
+			<div id="InfoFeedTitolo" style="display: block;">
+				<button id="nextNews">next</button>
+				<button id="backNews">go back</button>
+				NEWS
+			</div>
+			<div id="InfoFeedDettaglio" style="margin-top: 5px; font-size: 1vw">
+				<div id="PrimaNews" style="height: 60px;">
+					<a target="_blank" href="https://energyhomenews.wordpress.com/2013/08/08/efficienza-energetica-domestica/">
+						<div class="titoloNews" threedots="Efficienza Energetica Domestica">
+							<span class="ellipsis_text">Efficienza Energetica Domestica</span>
+						</div>
+					</a>
+					<div class="dettaglioNews"
+						threedots="Un breve video che fornisce pratici suggerimenti per l’uso e la scelta dei dispositivi elettronici al fine del risparmio energetico domestico.">
+						<span class="ellipsis_text">Un breve video che fornisce pratici suggerimenti per l’uso e la scelta dei dispositivi
+							elettronici al fine del risparmio energetico domestico.</span>
+					</div>
+				</div>
+				<div id="SecondaNews" style="height: 60px;">
+					<a target="_blank"
+						href="https://energyhomenews.wordpress.com/2013/06/20/usa-consapevolmente-le-finestre-per-ventilare-gli-ambienti/">
+						<div class="titoloNews" threedots="Usa consapevolmente le finestre per ventilare gli ambienti …">
+							<span class="ellipsis_text">Usa consapevolmente le finestre per ventilare gli ambienti …</span>
+						</div>
+					</a>
+					<div class="dettaglioNews"
+						threedots=".. aprire la finestra in un ambiente riscaldato ha lo stesso effetto di un buco in un secchio pieno d’acqua! Apri le finestre per brevi periodi! (Fonte: Progetto BECA – Balanced European Conservation Approach, Politecnico di Torino)">
+						<span class="ellipsis_text">.. aprire la finestra in un ambiente riscaldato ha lo stesso effetto di un buco in un
+							secchio pieno d’acqua! Apri le finestre per brevi periodi!</span> <span style="white-space: nowrap; display: inline;"
+							class="threedots_ellipsis">...</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="Grafico2" class="chartSingleBox" style="display: none;">
+			<div id="GraficoConsumoOdierno2">
+				<div id="DettaglioGraficoConsumoOdierno2"></div>
+			</div>
+			<div id="GraficoSuddivisioneCosti2">
+				<div id="TitoloSuddivisioneCosti2" class="">Cost Allocation</div>
+				<div id="DettaglioSuddivisioneCosti2"></div>
+			</div>
+		</div>
+	</div>
+</div>

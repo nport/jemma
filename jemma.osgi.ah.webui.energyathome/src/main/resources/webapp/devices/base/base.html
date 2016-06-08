@@ -1,0 +1,39 @@
+<div id="ifBase" class="view">
+	<div class="header">
+		<span class="titolo">{{device.name}}</span><span id="options" class="fa fa-gear fa-2x right"></span>
+	</div>
+
+	<div class="content">
+		<div class="col-md-4 row-12">
+			<div class="deviceIcon">
+				<img ng-src="{{device.view.icon}}" class="icona-dispositivo {{device.view.stateClass}}">
+			</div>
+			<div class="deviceState">
+				<div class="row">
+					<div class="left">{{translation.home.state}}:</div>
+					<div class="right state  {{device.view.stateClass}}">{{device.view.state}}</div>
+				</div>
+				<div id="plug" class="row">
+					<div class="left lblFirstValue">{{translation.home.consumption}}</div>
+					<div class="right consumo lblMeasure">{{device.view.measureValue}}</div>
+				</div>
+				<div class="row posizione">
+					<div class="left">
+						<img src="images/location.png"><span></span>
+					</div>
+					<div class="right location">{{device.view.location}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-8 row-12 form-horizontal">
+			<div class="form-group">
+				<label for="nome" class="col-md-6 control-label">{{translation.home.deviceState}}:</label>
+				<div class="button col-md-6">
+					<eh-switch name="onOff33" class="form-control  right" ng-click="clicked()" ng-model="device.measure.OnOff.value" on="ON"
+						off="OFF"></eh-switch>
+					<!-- 					<div id="btnOnOff" class="form-control btnToggle right {{device.view.stateClass}}"></div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -15,7 +15,6 @@
  */
 package org.energy_home.jemma.ah.webui.energyathome;
 
-
 public class Resource {
 	private String alias;
 	private String path;

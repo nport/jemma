@@ -1,0 +1,125 @@
+
+
+<!DOCTYPE html>
+<html lang="en" ng-app="mainApp">
+<head>
+<title>Energy@Home</title>
+<!-- head profile="http://www.w3.org/2005/10/profile"  -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Expires" content="0" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="icon" href="images/eh_bianca.ico" />
+
+<!-- Of course it is advisable to have touch icons ready for each device -->
+<link rel="apple-touch-icon" href="images/energy@home-icon-iphone.png">
+<link rel="apple-touch-icon" sizes="72x72" href="images/energy@home-icon-ipad.png">
+<link rel="apple-touch-icon" sizes="114x114" href="images/energy@home-icon-iphone4.png">
+<link rel="shortcut icon" href="images/energy@home-icon-addressbar.png" />
+<link rel="stylesheet" type="text/css" href="plugins/bootstrap/css/bootstrap.css">
+
+<script type="text/javascript" src="plugins/jsonrpc/jsonrpc.js"></script>
+<script type="text/javascript" src="plugins/jquery/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="plugins/jquery-ui/jquery-ui-1.8.19.custom.min.js"></script>
+<script type="text/javascript" src="plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="plugins/angularjs/angular.min.js"></script>
+<script type="text/javascript" src="plugins/angularjs/angular-route.min.js"></script>
+<script type="text/javascript" src="js/controller.js"></script>
+<style>
+body {
+	margin-top: 45px;
+}
+</style>
+</head>
+
+<!-- From http://www.bootply.com/125302 -->
+<body>
+	<!-- Static top navbar -->
+	<div class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".top-collapse">
+					<!-- NOTE!  data-toggle was changed to top-collapse -->
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Project name</a>
+			</div>
+			<div class="navbar-collapse collapse top-collapse">
+				<!-- NOTE!  the class top-collapse was added here -->
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li class="divider"></li>
+							<li class="dropdown-header">Nav header</li>
+							<li><a href="#">Separated link</a></li>
+							<li><a href="#">One more separated link</a></li>
+						</ul></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="../navbar/">Default</a></li>
+					<li class="active"><a href="./">Static top</a></li>
+					<li><a href="../navbar-fixed-top/">Fixed top</a></li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</div>
+
+
+	<div class="container">
+		<div ng-controller="mainController" class="row">
+			<div class="ng-view col-12 text-center">
+				<h1>Awesome top and bottom navbars!</h1>
+			</div>
+		</div>
+
+	</div>
+	<!-- /container -->
+
+	<!-- Static bottom navbar -->
+	<div class="navbar navbar-default navbar-fixed-bottom">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".bottom-collapse">
+					<!-- NOTE! data-target was changed to .bottom-collapse -->
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Bottom Bar</a>
+			</div>
+			<div class="navbar-collapse collapse bottom-collapse">
+				<!-- NOTE! The extra bottom-collapse class put on here -->
+				<!-- 				<ul class="nav navbar-nav"> -->
+				<!-- 					<li><a href="#home"><img src="images/menu/comsumption.png">Consumi</a></li> -->
+				<!-- 					<li><a href="#costs"><img src="images/menu/costs.png">Costi</a></li> -->
+				<!-- 					<li><a href="#devices"><img src="images/menu/devices.png">Dispositivi</a></li> -->
+				<!-- 					<li><a href="#history"><img src="images/menu/history.png">Storico</a></li> -->
+				<!-- 					<li><a href="#report"><img src="images/menu/questionari.png"><span>Report</span></a></li> -->
+				<!-- 				</ul> -->
+				<ul class="nav navbar-nav">
+					<li><a class="active" href="#home"><i class="glyphicon glyphicon-circle-arrow-left"></i><br>Link</a></li>
+					<li><a href="#home">Consumi</a></li>
+					<li><a href="#costs">Costi</a></li>
+					<li><a href="#devices">Dispositivi</a></li>
+					<li><a href="#history">Storico</a></li>
+					<li><a class="btn" href="#report"><img src="images/menu/questionari.png">Report</a></li>
+				</ul>
+				<!-- 				<ul class="nav navbar-nav navbar-right">
+					<li><a href="../navbar/">Default</a></li>
+					<li><a href="../navbar-fixed-top/">Fixed Bottom</a></li>
+				</ul> -->
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</div>
+</body>
+</html>
+

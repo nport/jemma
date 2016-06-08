@@ -1,0 +1,133 @@
+<div id="devices" class="panelFrame">
+	<h1 class="contentTitle">{{translation.menu.devices}}</h1>
+	<div class="panelBox">
+		<div class="row-5 row">
+			<div class="row-12 col-md-12">
+				<div class="row-12 box">
+
+					<div id="RigaElettrodomestici" class="innerbox">
+						<div id="{{device.id}}" ng-repeat="device in devices.devices" ng-click="devices.selectDevice(device)"
+							class="device col-lg-2 col-md-3 col-sm-4 col-xm-6">
+							<div class="eh-generic-device"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row row-7">
+			<div class="row-12 col-md-3">
+				<div class="row-12 box">
+					<div id="RiepilogoConsumi" class="innerbox-rounded">
+						<div class="header">
+							<div id="TitoloRiepilogo" class="titolo">{{translation.home.consumptionsSummary}}:</div>
+						</div>
+						<div class="content">
+							<div class="row small">
+								<div id="ConsumoDispositivi" class="cell">{{translation.home.devicesConsumption}}</div>
+								<div class="cell right dispositivi_consumi_value">{{devices.consumoTotale}}</div>
+							</div>
+							<div class="row small">
+								<div id="AltriConsumi" class="cell">{{translation.home.otherConsumption}}</div>
+								<div class="cell right altri_consumi_value">{{devices.altroConsumo}}</div>
+							</div>
+							<div class="row big">
+								<div id="ConsumiTotali" class="cell">{{translation.home.totalConsumption}}</div>
+								<div class="cell right totale_consumi_value">{{devices.potenzaAttuale}}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row-12 col-md-9">
+				<div class="row-12 box">
+					<div ng-if="!devices.current.view.type" id="Interfaccia" class="innerbox-rounded">
+						<div class="view">
+							<div class="header">
+								<div class="titolo">{{translation.home.clickOnDevice}}</div>
+							</div>
+						</div>
+					</div>
+					<div ng-if="devices.current.view.type" ng-switch="devices.current.view.type" id="Interfaccia" class="innerbox-rounded">
+						<div ng-switch-when="base" type="base" translation="translation" ng-model="devices.current" class="eh-base-details" />
+						<div ng-switch-when="forecast" type="forecast" translation="translation" ng-model="devices.current"
+							class="eh-forecast-details" />
+						<div ng-switch-when="nestThermostat" type="nestThermostat" translation="translation" ng-model="devices.current"
+							class="eh-nest-thermostat-details" />
+						<div ng-switch-when="hue" type="hue" translation="translation" ng-model="devices.current" class="eh-hue-details" />
+						<div ng-switch-when="unknown" translation="translation" ng-model="devices.current" class="eh-unknown-details" />
+						<div ng-switch-when="doorlock" translation="translation" ng-model="devices.current" class="eh-doorlock-details" />
+						<div ng-switch-when="indesit-wm" translation="translation" ng-model="devices.current" class="eh-indesit-wm-details" />
+						<div ng-switch-default translation="translation" ng-model="devices.current" class="eh-unknown-details" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="modalDevice" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<a class="close" data-dismiss="modal">×</a>
+					<h3 class="modal-caption">{{translation.menu.deviceInfo}}</h3>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" id="formDevice">
+						<div class="form-group">
+							<label class="control-label col-xs-4">{{translation.menu.pid}}</label>
+							<div class="col-xs-7">
+								<label class="form-control"col-xs-3">{{devices.deviceInfo.id}}</label>
+							</div>
+						</div>
+						<!-- <div class="form-group">
+							<label class="control-label col-xs-4">{{translation.menu.applianceType}}</label>
+							<div class="col-xs-7">
+								<label class="form-control"col-xs-3">{{deviceInfo.type}}</label>
+							</div>
+						</div>	 -->
+						<div class="form-group">
+							<label class="control-label col-xs-4">{{translation.menu.deviceName}}</label>
+							<div class="col-xs-7">
+								<input type="text" ng-model="devices.deviceInfo.name" class="form-control"
+									placeholder="{{translation.menu.insertDeviceName}}">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-xs-4">{{translation.menu.location}}</label>
+							<div class="col-xs-7 selectContainer">
+								<select class="form-control" name="location" ng-model="devices.deviceInfo.location">
+									<option ng-repeat="(pid, location) in devices.locations" value="{{pid}}">{{location}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-xs-4">{{translation.menu.category}}</label>
+							<div class="col-xs-7 selectContainer">
+								<select class="form-control" name="category" ng-model="devices.deviceInfo.category">
+									<option ng-repeat="category in devices.categories" value="{{category.pid}}">{{category.name}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-xs-4">{{translation.menu.icon}}</label>
+							<div class="col-xs-7">
+								<label class="form-control"col-xs-3">{{devices.deviceInfo.icon}}</label>
+							</div>
+						</div>
+						<!-- <pre>locations = {{locations | json}}</pre> -->
+						<!-- 						<pre>device = {{deviceInfo | json}}</pre> -->
+						<!-- <pre>master = {{master | json}}</pre> -->
+					</form>
+				</div>
+				<div class="modal-footer">
+					<input class="btn btn-info" data-dismiss="modal" ng-click="devices.identify()" value="{{translation.menu.identify}}"><input
+						class="btn btn-danger" data-dismiss="modal" ng-click="devices.removeDevice()" value="{{translation.menu.remove}}"> <input
+						class="btn btn-success" data-dismiss="modal" type="submit" ng-click="devices.updateDeviceInfo(deviceInfo)"
+						value="{{translation.menu.ok}}"> <a href="#" class="btn btn-default" data-dismiss="modal">{{translation.menu.cancel}}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+</div>

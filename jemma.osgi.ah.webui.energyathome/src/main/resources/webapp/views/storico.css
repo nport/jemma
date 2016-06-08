@@ -1,0 +1,41 @@
+
+#historicaldata label {
+	color: black;
+}
+
+#historicalViewContainer {
+	float: none;
+	width: auto;
+	overflow: hidden;
+	height: 100%;
+	padding: 10px;
+}
+
+#historicalViewRadioButtons {
+	float: right;
+	border-left: 3px solid black;
+	padding-left: 25px;
+	padding-right: 35px;
+	padding-top: 30px;
+	height: 100%;
+}
+
+#historicalViewRadioButtons .group-title {
+	text-transform: uppercase;
+}
+
+#historicalViewArrows {
+	margin-top: -36px;
+}
+
+#historicalViewGraph {
+	height: 100%;
+}
+
+#historicalViewArrows button.left {
+	float: left;
+}
+
+#historicalViewArrows button.right {
+	float: right;
+}

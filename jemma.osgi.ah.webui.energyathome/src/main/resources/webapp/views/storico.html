@@ -1,0 +1,54 @@
+<div id="historicaldata" class="panelFrame">
+	<h1 class="contentTitle">{{translation.menu.storico}}</h1>
+	<div class="row panelBox">
+		<div class="row-12 col-md-12">
+			<div class="row-12 box">
+				<div class="innerbox-rounded bg_white">
+					<div id="historicalViewRadioButtons">
+						<!--  ATTENTION: do not invert storicoPeriodo with storicoContainer -->
+						<div class="form-group">
+							<label class="group-title" for="selectPeriod">{{translation.home.period}}</label>
+							<div>
+								<div class="radio">
+									<label><input type="radio" value="0" name="period" ng-model="history.currentPeriod">{{translation.home.day}}</label>
+								</div>
+								<div class="radio">
+									<label><input type="radio" value="1" name="period" ng-model="history.currentPeriod">{{translation.home.week}}</label>
+								</div>
+								<div class="radio">
+									<label><input type="radio" value="2" name="period" ng-model="history.currentPeriod">{{translation.home.month}}</label>
+								</div>
+								<div class="radio">
+									<label><input type="radio" value="3" name="period" ng-model="history.currentPeriod">{{translation.home.year}}</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="group-title" for="selectDevice"> {{translation.home.device}}</label>
+							<div>
+								<div class="radio">
+									<label><input type="radio" value="total" name="deviceRadio" ng-model="history.currentDevicePid">{{translation.home.total}}</label>
+								</div>
+								<div ng-repeat="(pid, device) in history.devices" class="radio">
+									<label><input type="radio" value="{{device['appliance.pid']}}" name="deviceRadio"
+										ng-model="history.currentAppliancePid">{{device['ah.app.name']}}</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="historicalViewContainer" class="right-border">
+						<div id="historicalViewGraph"></div>
+						<div id="historicalViewArrows">
+							<button id="previousPeriod" type="button" class="btn btn-default left">
+								<span class="glyphicon glyphicon-chevron-left"></span>Prev
+							</button>
+							<button id="nextPeriod" type="button" class="btn btn-default right">
+								<span class="glyphicon glyphicon-chevron-right"></span>Next
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

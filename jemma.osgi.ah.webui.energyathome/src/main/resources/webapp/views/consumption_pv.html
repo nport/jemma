@@ -1,0 +1,97 @@
+<div id="consumption_pv" class="panelFrame" ng-controller="monitor">
+	<h3 class="panelFrameTitle">{{translation.home.consumption}}</h3>
+	<div class="row panelBox">
+		<div class="row-12 col-md-7">
+			<div class="row-12 box">
+				<div class="row-6 col-md-12">
+					<div class="row-12 col-md-6">
+						<div id="consumptionMeterBox" class="innerbox-rounded bg_red4">
+							<div id="CostoConsumoAttualeTitolo" class="boxTitles ">{{translation.home.consumption}}</div>
+							<div id="consumptionMeter" class="meter"></div>
+							<span id="ValConsumoAttuale" class="values">{{translation.home.notAvailable}}</span>
+						</div>
+					</div>
+					<div class="row-12 col-md-6">
+						<div class="innerbox-rounded bg_red1">Trends</div>
+					</div>
+				</div>
+				<div class="row-6 col-md-12">
+					<div class="row-12 col-md-6">
+						<div id="consumptionSummary" class="innerbox-rounded bg_red2">
+							<div id="DatiCostoConsumoHead">
+								<img id="HouseImg" src="images/house_green.png"> <span id="DatiCostoConsumoTitolo">{{translation.home.consumptionSummary}}</span>
+							</div>
+							<div id="CostoConsumoOdierno">
+								<div id="DettaglioCostoConsumoOdierno" class="Dettagli">
+									{{translation.home.todayConsumption}}<b>{{todayConsumption}}</b>
+								</div>
+							</div>
+							<div id="CostoConsumoPrevisto">
+								<div id="DettaglioCostoConsumoPrevisto" class="Dettagli">
+									{{translation.home.monthConsumptionForecast}}<b>{{monthConsumptionForecast}}</b>
+								</div>
+							</div>
+							<div id="CostoConsumoMediaWeek">
+								<div id="DettaglioCostoConsumoMediaWeek" class="Dettagli">
+									{{translation.home.weekAverageConsumption}}<b>{{weekAverageConsumption}}</b>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row-12 col-md-6">
+						<div id="costSummary" class="innerbox-rounded bg_red3">
+							<div id="DatiCostiHead">
+								<img id="HouseImg" src="images/euro.png"> <span id="DatiCostiTitolo" class="">{{translation.home.costSummary}}</span>
+							</div>
+							<div id="CostiOdierno">
+								<div id="DettaglioCostiOdierno" class="Dettagli ">
+									{{translation.home.todayCost}}<b>{{todayCost}}</b>
+								</div>
+							</div>
+							<div id="CostiPrevisto">
+								<div id="DettaglioCostiPrevisto" class="Dettagli ">
+									{{translation.home.monthCostForecast}}<b>{{monthCostForecast}}</b>
+								</div>
+							</div>
+							<div id="CostiMediaWeek">
+								<div id="DettaglioCostiMediaWeek" class="Dettagli ">
+									{{translation.home.weekAverageCost}}<b>{{weekAverageCost}}</b>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-12 col-md-5">
+			<div class="row-6 box">
+				<div class="innerbox bg_black">
+					<div id="costDistributionPie">
+						<div id="titleCostDistributionPie">{{translation.home.costDistribution}}</div>
+						<div ui-chart="costDistributionPie" chart-options="costsPieOptions"></div>
+					</div>
+
+				</div>
+			</div>
+			<div class="row-2 box">
+				<div id="moreDemanding" class="innerbox bg_black">
+					<span id="CostoTConsumoMaxTitolo" class="">What is consuming more</span>
+					<div id="DettaglioConsumoMaggiore">
+						<span id="TestoConsumoMaggiore">Nest Thermostat 1 (328 Wh)</span><img id="ConsumoMaggioreImg" src="images/test/nestTh.png"
+							style="width: 81px; height: 81px;">
+					</div>
+				</div>
+			</div>
+			<div class="row-4 box">
+				<div id="InfoFeed" class="innerbox bg_black">
+					<div id="InfoFeedTitolo">
+						<button id="nextNews">next</button>
+						<button id="backNews">go back</button>
+						NEWS
+					</div>
+					<div id="InfoFeedDettaglio"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

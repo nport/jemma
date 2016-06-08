@@ -55,7 +55,7 @@ public class JSONServiceTracker extends ServiceTracker {
 		try {
 			JSONRPCBridge.getGlobalBridge().unregisterObject(serviceId.toString());
 		} catch (Exception e) {
-			
+
 		}
 	}
 
@@ -66,15 +66,15 @@ public class JSONServiceTracker extends ServiceTracker {
 		} catch (InvalidSyntaxException e) {
 			throw new Exception(e);
 		}
-		
+
 		ArrayList array = new ArrayList();
-		
+
 		for (int i = 0; i < services.length; i++) {
 			Long serviceId = (Long) services[i].getProperty("service.id");
 			Map props = new HashMap();
 			props.put("service.id", serviceId);
 			props.put("interface.name", clazz);
-			
+
 			array.add(props);
 		}
 		return array;
@@ -82,30 +82,30 @@ public class JSONServiceTracker extends ServiceTracker {
 
 	public String findService(Map props) throws Exception {
 		ServiceReference[] services = null;
-		
+
 		Integer serviceId = (Integer) props.get("service.id");
 		String clazz = (String) props.get("interface.name");
-		if (serviceId == null || clazz == null) 
+		if (serviceId == null || clazz == null)
 			throw new Exception("bad reference");
-		
+
 		services = this.context.getServiceReferences(clazz, "(service.id=" + serviceId + ")");
-			if (services == null) 
-				throw new RuntimeException();
-			
-			if (services.length > 1) {
-				throw new Exception("too many services");
-			}
-			
-			Object service = this.context.getService(services[0]);
-			JSONRPCBridge.getGlobalBridge().registerObject(serviceId.toString(), service);	
-			return serviceId.toString();
+		if (services == null)
+			throw new RuntimeException();
+
+		if (services.length > 1) {
+			throw new Exception("too many services");
+		}
+
+		Object service = this.context.getService(services[0]);
+		JSONRPCBridge.getGlobalBridge().registerObject(serviceId.toString(), service);
+		return serviceId.toString();
 	}
 
 	public void unbind(String serviceId) {
 		try {
 			JSONRPCBridge.getGlobalBridge().unregisterObject(serviceId);
 		} catch (Exception e) {
-			
-		}	
+
+		}
 	}
 }

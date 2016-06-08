@@ -1,0 +1,37 @@
+<div id="ifBase" class="view">
+	<div class="header">
+		<span class="titolo">{{devices.current.name}}</span><span id="options" class="fa fa-gear fa-2x right"></span>
+	</div>
+
+	<div class="content">
+		<div class="col-md-4 row-12">
+			<div class="deviceIcon">
+				<img ng-src="{{devices.current.view.icon}}" class="icona-dispositivo {{devices.current.view.stateClass}}">
+			</div>
+			<div class="deviceState">
+				<div class="row">
+					<div class="left">{{translation.home.state}}:</div>
+					<div class="right state  {{devices.current.view.stateClass}}">{{devices.current.view.state}}</div>
+				</div>
+				<div id="plug" class="row">
+					<div class="left lblFirstValue">{{translation.home.consumption}}</div>
+					<div class="right consumo lblMeasure">{{devices.current.view.measureValue}}</div>
+				</div>
+				<div class="row posizione">
+					<div class="left">
+						<img src="images/location.png"><span></span>
+					</div>
+					<div class="right location">{{devices.current.view.location}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-8 row-12 form-horizontal">
+			<div class="form-group">
+				<label for="nome" class="col-md-6 control-label">{{translation.home.deviceState}}:</label>
+				<div class="button col-md-6">
+					<div id="btnOnOff" class="form-control btnToggle right {{devices.current.view.stateClass}}"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

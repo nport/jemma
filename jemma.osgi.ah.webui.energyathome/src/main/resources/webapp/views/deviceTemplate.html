@@ -1,0 +1,24 @@
+<div class="deviceData">
+	<div class="deviceName {{device.view.stateClass}}">
+		<span>{{device.name}}</span>
+	</div>
+	<div class="deviceIcon">
+		<img ng-src="{{device.view.icon}}" class="icona-dispositivo {{device.view.stateClass}}">
+	</div>
+	<div class="deviceState">
+		<div class="row">
+			<div class="left">{{translation.home.state}}</div>
+			<div class="right state {{device.view.stateClass}}">{{device.view.state}}</div>
+		</div>
+		<div id="plug" class="row">
+			<div class="left lblFirstValue">{{device.view.measureName}}</div>
+			<div class="right consumo lblMeasure">{{device.view.measureValue}}</div>
+		</div>
+		<div class="row posizione">
+			<div class="left">
+				<img src="images/location.png"><span class="t"></span>
+			</div>
+			<div class="right location">{{device.view.location}}</div>
+		</div>
+	</div>
+</div>

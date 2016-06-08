@@ -1,0 +1,31 @@
+<div id="ifLockDoor">
+	<div class="col-md-4 row-12">
+		<div class="deviceIcon">
+			<img src="" class="icona-dispositivo">
+		</div>
+		<div class="deviceState">
+			<div class="row">
+				<div class="left">{{translation.home.state}}:</div>
+				<div class="right state">--</div>
+			</div>
+			<div id="plug" class="row">
+				<div class="left lblFirstValue">{{translation.home.consumption}}</div>
+				<div class="right consumo lblMeasure"></div>
+			</div>
+			<div class="row posizione">
+				<div class="left">
+					<img src="images/location.png"><span></span>
+				</div>
+				<div class="right location"></div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-8 row-12 form-horizontal">
+		<div class="form-group">
+			<label for="nome" class="col-md-6 control-label">{{translation.home.deviceState}}:</label>
+			<div class="button col-md-6">
+				<div id="btnOnOff" class="form-control btnToggle right"></div>
+			</div>
+		</div>
+	</div>
+</div>

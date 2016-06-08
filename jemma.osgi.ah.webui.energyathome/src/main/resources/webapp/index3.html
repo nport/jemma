@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mainApp">
+<head>
+<title>Energy@Home</title>
+<!-- head profile="http://www.w3.org/2005/10/profile"  -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Expires" content="0" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="icon" href="images/eh_bianca.ico" />
+
+<!-- Of course it is advisable to have touch icons ready for each device -->
+<link rel="apple-touch-icon" href="images/energy@home-icon-iphone.png">
+<link rel="apple-touch-icon" sizes="72x72" href="images/energy@home-icon-ipad.png">
+<link rel="apple-touch-icon" sizes="114x114" href="images/energy@home-icon-iphone4.png">
+<link rel="shortcut icon" href="images/energy@home-icon-addressbar.png" />
+
+<link rel="stylesheet" type="text/css" href="plugins/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/theme.css">
+
+<script type="text/javascript" src="plugins/jsonrpc/jsonrpc.js"></script>
+<script type="text/javascript" src="plugins/jquery/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="plugins/jquery-ui/jquery-ui-1.8.19.custom.min.js"></script>
+<script type="text/javascript" src="plugins/angularjs/angular.min.js"></script>
+<script type="text/javascript" src="plugins/angularjs/angular-route.min.js"></script>
+<script type="text/javascript" src="js/controller.js"></script>
+</head>
+<body>
+	<div data-ng-controller="mainController">
+		<div id="header" class="header">
+			<img id="logoImg" src="images/E@HLogo.png">
+			<div id="userId">{{userId}}</div>
+		</div>
+		<div id="separator" class="separator">
+			<img src="images/header_sep.png">
+		</div>
+		<div class="content">
+			<div id="view" class="centralView container">
+				<div class="ng-view"></div>
+			</div>
+		</div>
+		<div class="leftMenu"></div>
+		<div class="bottomMenu">
+			<ul>
+				<li><a href="#home"><img src="images/menu/comsumption.png">Consumi</a></li>
+				<li><a href="#costs"><img src="images/menu/costs.png"><span>Costi</span></a></li>
+				<li><a href="#devices"><img src="images/menu/devices.png"><span>Dispositivi</span></a></li>
+				<li><a href="#history"><img src="images/menu/history.png"><span>Storico</span></a></li>
+				<li><a href="#report"><img src="images/menu/questionari.png"><span>Report</span></a></li>
+			</ul>
+		</div>
+		<div id="timestamp">
+			<span id="time">{{time}}</span><img src="images/orologio.png"><span id="date">{{date}}</span>
+		</div>
+	</div>
+	<div id="info">{{error}}</div>
+	</div>
+</body>
+</html>

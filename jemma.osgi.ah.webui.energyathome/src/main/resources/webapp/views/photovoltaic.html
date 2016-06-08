@@ -1,0 +1,101 @@
+<div id="id=" photovoltaic"" class="panelFrame" ng-controller="monitor">
+	<h3 class="contentTitle">{{translation.menu.photovoltaic}}</h3>
+	<div class="row panelBox">
+		<div class="row-12 col-md-7">
+			<div class="row-12 box">
+				<div class="innerbox bg_white">
+					<div id="ProduzioneAttuale" class="pvSingleBox">
+						<div id="ProduzioneAttualeTitolo" class="boxTitles ng-binding">{{translation.home.currentProduction}}</div>
+						<span id="ValProduzioneAttuale" class="values">1230 W</span>
+						<div id="ProduzioneAttualeMeter" class="meter">
+							<div style="position: relative; width: 100%; height: 100%; background: transparent;">
+								<img src="http://localhost:8080/demo/js/jqspeedometer/images/produzione_4.png"
+									style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;">
+								<div style="position: absolute; width: 100%; height: 18%; left: 0px; bottom: 1%;">
+									<span style="position: absolute; text-align: center; left: 0px; right: 0px; top: 25%; font-weight: bold;"></span>
+								</div>
+							</div>
+						</div>
+						<!-- id='ProduzioneAttualeImg' -->
+						<span id="DettaglioProduzione"></span>
+					</div>
+					<div id="ReteAttuale" class="pvSingleBox">
+						<div id="ReteAttualeTitoloOut" class="boxTitles ng-binding">Power to the grid</div>
+						<div id="ReteAttualeTitoloIn" class="boxTitles ng-binding" style="display: none;">{{translation.home.injectedToGrid}}</div>
+						<span id="ValReteAttuale" class="values" style="color: black;">N.D.</span>
+						<div id="ReteAttualeMeter" class="meter">
+							<div style="position: relative; width: 100%; height: 100%; background: transparent;">
+								<img src="http://localhost:8080/demo/js/jqspeedometer/images/rete_green_0.png"
+									style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;">
+								<div style="position: absolute; width: 100%; height: 18%; left: 0px; bottom: 1%;">
+									<span style="position: absolute; text-align: center; left: 0px; right: 0px; top: 25%; font-weight: bold;"></span>
+								</div>
+							</div>
+						</div>
+						<span id="DettaglioRete"></span>
+					</div>
+					<div id="CostoConsumoAttuale" class="pvSingleBox CostoConsumoAttualePV">
+						<div id="CostoConsumoAttualeTitolo" class="boxTitles ng-binding">Consumption</div>
+						<span id="ValConsumoAttuale" class="values">N.D.</span>
+						<div id="ConsumoAttualeMeter" class="meter">
+							<div style="position: relative; width: 100%; height: 100%; background: transparent;">
+								<img src="http://localhost:8080/demo/js/jqspeedometer/images/consumi_0.png"
+									style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;">
+								<div style="position: absolute; width: 100%; height: 18%; left: 0px; bottom: 1%;">
+									<span style="position: absolute; text-align: center; left: 0px; right: 0px; top: 25%; font-weight: bold;"></span>
+								</div>
+							</div>
+						</div>
+						<img id="CostoAttualeImg" style="display: none;"> <span id="DettaglioCosto" style="display: none;"></span>
+					</div>
+					<div id="IndicatorePV">
+						<div id="IndicatoreTitoloPV" class="TitoloDettaglio IndicatoreTitoloPV ng-binding">WEEKLY SELF CONSUMPTION INDEX</div>
+						<div id="PVConsumoIACIndicatoreImg" class="IndicatoreImg">
+							<div style="position: relative; width: 100%; height: 100%; background: transparent;">
+								<img src="http://localhost:8080/demo/js/jqgauge/images/termometro_base_iac.png"
+									style="position: absolute; width: 100%; height: 80%; left: 10px; top: 10px;"><img
+									src="http://localhost:8080/demo/js/jqgauge/images/gradient_grey_iac.png"
+									style="position: absolute; width: 89.3%; height: 80%; left: 7.2%; bottom: 12%;"><img
+									src="http://localhost:8080/demo/js/jqgauge/images/gradient_verde_iac.png"
+									style="position: absolute; width: 71.44%; height: 80%; left: 7.2%; bottom: 12%;"><img
+									src="http://localhost:8080/demo/js/jqgauge/images/termometro_iac.png"
+									style="position: absolute; width: 100%; height: 80%; left: 0px; top: 10px;">
+							</div>
+						</div>
+						<div id="percIAC">80 %</div>
+					</div>
+					<div class="divFrecce" id="FrecceFV">
+						<div id="divFrecceProd">
+							<img id="imgFrecceProd" src="images/line_hor_grey_dx.gif">
+						</div>
+						<div id="divFrecceConsumi">
+							<img id="imgFrecceConsumi" src="images/line_ver_grey.gif">
+						</div>
+						<div id="divFrecceRete">
+							<img id="imgFrecceRete" src="images/line_hor_grey_dx.gif">
+						</div>
+						<div id="divCentro">
+							<img id="imgCentro" src="images/center.png">
+						</div>
+					</div>
+
+					<div id="consigliTurnOn" style="font-size: 1vw">
+						<b>IMPORTANTE </b><br>Il tuo impianto fotovoltaico ti suggerisce di ricaricare cellulare o tablet ora
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-12 col-md-5">
+			<div class="row-6 box">
+				<div class="innerbox bg_green">
+					<div id="Graph1"></div>
+				</div>
+			</div>
+			<div class="row-6 box">
+				<div class="innerbox bg_green">
+					<div id="Graph2"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

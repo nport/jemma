@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mainApp">
+<head>
+<title>Energy@Home</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Expires" content="0" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="icon" href="images/eh_bianca.ico" />
+
+<!-- Of course it is advisable to have touch icons ready for each device -->
+<link rel="apple-touch-icon" href="images/energy@home-icon-iphone.png">
+<link rel="apple-touch-icon" sizes="72x72" href="images/energy@home-icon-ipad.png">
+<link rel="apple-touch-icon" sizes="114x114" href="images/energy@home-icon-iphone4.png">
+<link rel="shortcut icon" href="images/energy@home-icon-addressbar.png" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel='stylesheet' type='text/css' href="plugins/bootstrap/css/bootstrap.css" />
+<link href="plugins/hovercss/hover-min.css" rel="stylesheet">
+
+<link rel='stylesheet' type='text/css' href="css/jquery.jqplot.css" />
+<link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.min.css">
+
+<!-- These are used by the HUE device -->
+<link rel='stylesheet' type='text/css' href="plugins/farbtastic/farbtastic.css" />
+<link rel='stylesheet' type='text/css' href="plugins/ui-switch/angular-ui-switch.css" />
+<link rel='stylesheet' type='text/css' href="plugins/ui-switch/onoff.css" />
+<link rel="stylesheet" type='text/css' href="plugins/bootstrap-slider/css/bootstrap-slider.css">
+
+<!-- E@H GUI Views Stylesheets -->
+<link rel='stylesheet' type='text/css' href="css/main.css" />
+<link rel='stylesheet' type='text/css' href="css/menu_new.css" />
+<link rel='stylesheet' type='text/css' href="views/storico.css" />
+<link rel='stylesheet' type='text/css' href="views/community.css" />
+<link rel='stylesheet' type='text/css' href="views/trial.css" />
+<link rel='stylesheet' type='text/css' href="views/monitor.css" />
+<link rel='stylesheet' type='text/css' href="views/devices.css" />
+<link rel='stylesheet' type='text/css' href="views/report.css" />
+
+
+<!-- Devices CSS -->
+<link rel='stylesheet' type='text/css' href="devices/unknown/unknown.css" />
+<link rel='stylesheet' type='text/css' href="devices/nestThermostat/nestThermostat.css" />
+<link rel='stylesheet' type='text/css' href="devices/forecast/forecast.css" />
+<link rel='stylesheet' type='text/css' href="devices/base/base.css" />
+<link rel='stylesheet' type='text/css' href="devices/hue/hue.css" />
+<link rel='stylesheet' type='text/css' href="devices/indesit-wm/indesitWM.css" />
+<link rel='stylesheet' type='text/css' href="devices/doorlock/doorlock.css" />
+<link rel='stylesheet' type='text/css' href="devices/windowCovering/windowCovering.css" />
+
+<script type="text/javascript" src="plugins/jsonrpc/jsonrpc_nosync.js"></script>
+<script type="text/javascript" src="plugins/jquery/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- <script type="text/javascript" src="plugins/angularjs/angular.min.js"></script> -->
+<!-- <script type="text/javascript" src="plugins/angularjs/angular-route.min.js"></script> -->
+<script type="text/javascript" src="https://code.angularjs.org/1.5.4/angular.js"></script>
+<script type="text/javascript" src="http://code.angularjs.org/1.5.4/angular-resource.js"></script>
+<script type="text/javascript" src="http://code.angularjs.org/1.5.4/angular-route.js"></script>
+
+
+
+<!-- Libraries -->
+<!--[if lt IE 9]><script  type="text/javascript" src="js/jqplot/excanvas.min.js"></script><![endif]-->
+<script type="text/javascript" src="plugins/spinner/spinner.js"></script>
+<script type="text/javascript" src="plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="plugins/jqplot/jquery.jqplot.min.js"></script>
+<script type="text/javascript" src="plugins/jqplot/plugins/jqplot.barRenderer.min.js"></script>
+<script type="text/javascript" src="plugins/jqplot/plugins/jqplot.pieRenderer.min.js"></script>
+<script type="text/javascript" src="plugins/jqgauge/gauge.js"></script>
+<script type="text/javascript" src="plugins/jqgauge/gaugePV.js"></script>
+<script type="text/javascript" src="plugins/ui-chart/ui-chart.js"></script>
+<script type="text/javascript" src="plugins/ui-switch/angular-ui-switch.js"></script>
+<script type="text/javascript" src="plugins/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="plugins/highcharts/highstock.js"></script>
+<script type="text/javascript" src="plugins/highcharts-ng/highcharts-ng.min.js"></script>
+<script type="text/javascript" src="plugins/uibootstrap/ui-bootstrap-tpls-1.3.2.min.js"></script>
+
+
+<!-- Bootstrap Slider -->
+<script type="text/javascript" src="plugins/bootstrap-slider/bootstrap-slider.js"></script>
+<script type="text/javascript" src="plugins/bootstrap-slider/slider.js"></script>
+
+<!-- These are used by the HUE device -->
+<script type="text/javascript" src="plugins/tinycolor/tinycolor-min.js"></script>
+<script type="text/javascript" src="plugins/farbtastic/farbtastic.js"></script>
+
+<script type="text/javascript" src="plugins/jqspeedometer/speedometer.js"></script>
+
+<!-- TODO: Probably we need to remove these -->
+
+<script type="text/javascript" src="i10n/MsgIt.js"></script>
+<script type="text/javascript" src="js/tools.js"></script>
+<script type="text/javascript" src="js/log.js"></script>
+<script type="text/javascript" src="js/proxy.js"></script>
+<script type="text/javascript" src="js/define.js"></script>
+<script type="text/javascript" src="js/GestDate.js"></script>
+<script type="text/javascript" src="js/tracing.js"></script>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript" src="js/menus.js"></script>
+<script type="text/javascript" src="js/directives.js"></script>
+<!-- <script type="text/javascript" src="js/menu.js"></script>
+<script type="text/javascript" src="js/feeds.js"></script> -->
+
+<!--  FIXME: remove this and get it from fakevalues  -->
+<script type="text/javascript" src="js/fakeData.js"></script>
+
+<script type="text/javascript" src="controllers/app.js"></script>
+
+<!--  AngularJS Controllers -->
+
+<script type="text/javascript" src="controllers/main.js"></script>
+<script type="text/javascript" src="controllers/monitor.js"></script>
+<script type="text/javascript" src="controllers/devices.js"></script>
+<script type="text/javascript" src="controllers/storico.js"></script>
+<script type="text/javascript" src="controllers/registration.js"></script>
+<script type="text/javascript" src="controllers/report.js"></script>
+
+<!-- Devices JS -->
+<script type="text/javascript" src="devices/unknown/unknown.js"></script>
+<script type="text/javascript" src="devices/nestThermostat/nestThermostat.js"></script>
+<script type="text/javascript" src="devices/forecast/forecast.js"></script>
+<script type="text/javascript" src="devices/base/base.js"></script>
+<script type="text/javascript" src="devices/hue/hue.js"></script>
+<script type="text/javascript" src="devices/indesit-wm/indesitWM.js"></script>
+<script type="text/javascript" src="devices/doorlock/doorlock.js"></script>
+<script type="text/javascript" src="devices/windowCovering/windowCovering.js"></script>
+
+</head>
+<body>
+	<div class="wrapper" ng-controller="main">
+		<div class="header">
+			<img id="LogoImg" src="images/E@HLogo.png">
+			<div id="userIDInfo">
+				<span>{{translation.home.labelCodiceUtente}}</span><span>: </span><span id="userID">{{userId}}</span>
+			</div>
+		</div>
+		<div id="HeaderSep">
+			<img id="HeaderSepImg" src="images/header_sep.png">
+		</div>
+		<div class="contentMain ng-view"></div>
+		<!-- 		<div id="MainMenu">
+			<img class="MainElSfondo" src="images/menu/sfondo_main_el.png" style="top: 0px;">
+			<div class="MainMenuEl" id="MainEl0" tabindex="0" onclick="Menu.OnClickMainMenu(0)" style="top: 20px;">
+				<img id="MainImg0" class="MainMenuImg" src="images/menu/home_bianco.png">
+				<p id="NomeMain0" class="MainMenuTitle">{{translation.menu.home}}</p>
+			</div>
+			<img class="MainElSfondo" src="images/menu/sfondo_main_el.png" style="top: 196px;">
+			<div class="MainMenuEl MainMenuElSelected" id="MainEl1" tabindex="0" onclick="Menu.OnClickMainMenu(1)" style="top: 216px;">
+				<img id="MainImg1" class="MainMenuImg" src="images/menu/configurazioni_verde.png">
+				<p id="NomeMain1" class="MainMenuTitle">{{translation.menu.configurations}}</p>
+			</div>
+			<img class="MainElSfondo" src="images/menu/sfondo_main_el.png" style="top: 392px;">
+			<div class="MainMenuEl" id="MainEl2" tabindex="0" onclick="Menu.OnClickMainMenu(2)" style="top: 412px;">
+				<img id="MainImg2" class="MainMenuImg" src="images/menu/community_bianco.png">
+				<p id="NomeMain2" class="MainMenuTitle">{{translation.menu.community}}</p>
+			</div>
+			<img class="MainElSfondo" src="images/menu/sfondo_main_el.png" style="top: 588px;">
+			<div class="MainMenuEl" id="MainEl3" tabindex="0" onclick="Menu.OnClickMainMenu(3)" style="top: 608px;">
+				<img id="MainImg3" class="MainMenuImg" src="images/menu/info_bianco.png">
+				<p id="NomeMain3" class="MainMenuTitle">{{translation.menu.infotrial}}</p>
+			</div>
+		</div> -->
+		<!-- 		<div id="ContentMenu">
+			<div class="ContentMenuRow visibleDiv" id="ContentMenu0">
+				<div tabindex="0" style="left: 0px; top: 1%" onclick="Menu.OnClickContentMenu(0, 0)" class="ContentMenuEl" id="el0Content0">
+					<img id="img0Content0" class="ContentMenuImg" src="images/menu/pv_bianco.png">
+					<div id="NomeContent0_0" class="ContentMenuTitle">{{translation.menu.photovoltaic}}</div>
+				</div>
+				<div tabindex="0" style="left: 292px; top: 1%" onclick="Menu.OnClickContentMenu(0, 1)" class="ContentMenuEl" id="el0Content1">
+					<img id="img0Content1" class="ContentMenuImg" src="images/menu/consumi_bianco.png">
+					<div id="NomeContent0_1" class="ContentMenuTitle">{{translation.menu.consumption}}</div>
+				</div>
+				<div tabindex="0" style="left: 584px; top: 1%" onclick="Menu.OnClickContentMenu(0, 2)" class="ContentMenuEl" id="el0Content2">
+					<img id="img0Content2" class="ContentMenuImg" src="images/menu/dispositivi_bianco.png">
+					<div id="NomeContent0_2" class="ContentMenuTitle">{{translation.menu.devices}}</div>
+				</div>
+				<div tabindex="0" style="left: 876px; top: 1%" onclick="Menu.OnClickContentMenu(0, 3)" class="ContentMenuEl" id="el0Content3">
+					<img id="img0Content3" class="ContentMenuImg" src="images/menu/storico_bianco.png">
+					<div id="NomeContent0_3" class="ContentMenuTitle">{{translation.menu.storico}}</div>
+				</div>
+			</div>
+			<div class="ContentMenuRow hidden" id="ContentMenu1">
+				<div tabindex="0" style="left: 0px; top: 1%" onclick="Menu.OnClickContentMenu(1, 0)" class="ContentMenuEl ContentMenuElSelected"
+					id="el1Content0">
+					<img id="img1Content0" class="ContentMenuImg" src="images/menu/questionari_verde.png">
+					<div id="NomeContent1_0" class="ContentMenuTitle">{{translation.menu.configurations}}</div>
+				</div>
+				<div tabindex="0" style="left: 292px; top: 1%" onclick="Menu.OnClickContentMenu(1, 1)" class="ContentMenuEl" id="el1Content1">
+					<img id="img1Content1" class="ContentMenuImg" src="images/menu/questionari_bianco.png">
+					<div id="NomeContent1_1" class="ContentMenuTitle">{{translation.menu.registration}}</div>
+				</div>
+				<div tabindex="0" style="left: 584px; top: 1%" onclick="Menu.OnClickContentMenu(1, 2)" class="ContentMenuEl" id="el1Content2">
+					<img id="img1Content2" class="ContentMenuImg" src="images/menu/questionari_bianco.png">
+					<div id="NomeContent1_2" class="ContentMenuTitle">{{translation.menu.overload}}</div>
+				</div>
+			</div>
+			<div class="ContentMenuRow hidden" id="ContentMenu2">
+				<div tabindex="0" style="left: 0px; top: 1%" onclick="Menu.OnClickContentMenu(2, 0)" class="ContentMenuEl" id="el2Content0">
+					<img id="img2Content0" class="ContentMenuImg" src="images/menu/community_bianco.png">
+					<div id="NomeContent2_0" class="ContentMenuTitle">{{translation.menu.forum}}</div>
+				</div>
+			</div>
+			<div class="ContentMenuRow hidden" id="ContentMenu3">
+				<div tabindex="0" style="left: 0px; top: 1%" onclick="Menu.OnClickContentMenu(3, 0)" class="ContentMenuEl" id="el3Content0">
+					<img id="img3Content0" class="ContentMenuImg" src="images/menu/informazioni_bianco.png">
+					<div id="NomeContent3_0" class="ContentMenuTitle">{{translation.menu.information}}</div>
+				</div>
+				<div tabindex="0" style="left: 292px; top: 1%" onclick="Menu.OnClickContentMenu(3, 1)" class="ContentMenuEl" id="el3Content1">
+					<img id="img3Content1" class="ContentMenuImg" src="images/menu/tariffa_bianco.png">
+					<div id="NomeContent3_1" class="ContentMenuTitle">{{translation.menu.tariff}}</div>
+				</div>
+			</div>
+		</div> -->
+
+		<div class="bottomMenu">
+			<ul>
+				<li><a href="#consumption"><img src="images/menu/comsumption.png">{{translation.menu.consumption}}</a></li>
+				<li><a href="#costs"><img src="images/menu/costs.png"><span>{{translation.menu.costs}}</span></a></li>
+				<li><a href="#devices"><img src="images/menu/devices.png"><span>{{translation.menu.devices}}</span></a></li>
+				<li><a href="#historical"><img src="images/menu/history.png"><span>{{translation.menu.storico}}</span></a></li>
+				<li><a href="#report"><img src="images/menu/questionari.png"><span>Report</span></a></li>
+			</ul>
+		</div>
+
+		<div id="Timestamp" class="pull-right">
+			<span id="Ora">{{time}}</span> <img id="ClockImg" src="images/orologio.png"> <span id="Data">{{date}}</span>
+		</div>
+		<div id="ErrorMsgDIV"></div>
+	</div>
+</body>
+</html>
