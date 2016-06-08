@@ -16,7 +16,7 @@
 	<groupId>org.energy-home</groupId>
 	<artifactId>jemma.osgi.ah.hap.client</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.2.15</version>
+	<version>1.2.16</version>
 	<name>Hap Client API</name>
 
 	<properties>
@@ -36,15 +36,11 @@
 				<artifactId>maven-bundle-plugin</artifactId>
 				<configuration>
 					<instructions>
-						<Bundle-ManifestVersion>2</Bundle-ManifestVersion>
-						<Bundle-Name>${project.name}</Bundle-Name>
-						<Bundle-Version>${project.version}</Bundle-Version>
 						<Require-Bundle>jemma.osgi.ah.hac.lib</Require-Bundle>
-						<Import-Package>*</Import-Package>
 						<Export-Package>
 							org.energy_home.jemma.ah.hap.client,
 							org.energy_home.jemma.ah.hap.client.lib,
-							org.energy_home.jemma.osgi.ah.hap.client.lib,
+							org.energy_home.jemma.osgi.ah.hap.client,
 							org.energy_home.jemma.shal,
 							org.energy_home.jemma.shal.min
 						</Export-Package>
